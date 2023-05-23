@@ -72,5 +72,10 @@
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false
     }
+  },
+  "dependencies": {
+    "@metamask/providers": "^11.0.0",
+    "@metamask/utils": "^5.0.2",
+    "@types/uuid": "^9.0.1"
   }
 }
