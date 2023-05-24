@@ -103,30 +103,97 @@ export type KeyringRequest = {
   request: JsonRpcRequest;
 };
 
+/**
+ * Keyring defines the interface of a keyring.
+ */
 export type Keyring = {
+  /**
+   * List accounts.
+   */
   listAccounts(): Promise<KeyringAccount[]>;
 
+  /**
+   * Get an account.
+   *
+   * @param id - Account ID.
+   * @returns The account object if any, undefined otherwise.
+   */
   getAccount(id: string): Promise<KeyringAccount | undefined>;
 
+  /**
+   * Create an account.
+   *
+   * @param name - Account name.
+   * @param chains - Chains supported by the account.
+   * @param options - Keyring-defined options.
+   * @returns The new account object (without any private information).
+   */
   createAccount(
     name: string,
     chains: string[],
     options?: Record<string, Json>,
   ): Promise<KeyringAccount>;
 
+  /**
+   * Update an account.
+   *
+   * The account ID is used to find the matching account. Does nothing if the
+   * account does not exist.
+   *
+   * @param account - New account object.
+   */
   updateAccount(account: KeyringAccount): Promise<void>;
 
+  /**
+   * Delete an account from the keyring.
+   *
+   * @param id - ID of the account to be deleted.
+   */
   deleteAccount(id: string): Promise<void>;
 
+  /**
+   * Export the private information of an account.
+   *
+   * @param id - ID of the account to be exported.
+   * @returns Keyring-defined account's private information.
+   */
   exportAccount(id: string): Promise<Record<string, Json>>;
 
+  /**
+   * List all submitted requests.
+   *
+   * @returns List of submitted requests.
+   */
   listRequests(): Promise<KeyringRequest[]>;
 
-  getRequest(id: string): Promise<KeyringRequest>;
+  /**
+   * Get a request.
+   *
+   * @param id - Request ID.
+   * @returns The request object if any, undefined otherwise.
+   */
+  getRequest(id: string): Promise<KeyringRequest | undefined>;
 
+  /**
+   * Submit a request.
+   *
+   * Generally, it's used to submit a signing request.
+   *
+   * @param request - Keyring request.
+   */
   submitRequest(request: KeyringRequest): Promise<void>;
 
+  /**
+   * Approve a request.
+   *
+   * @param id - ID of the request to approve.
+   */
   approveRequest(id: string): Promise<void>;
 
+  /**
+   * Reject a request.
+   *
+   * @param id - ID of the request to reject.
+   */
   rejectRequest(id: string): Promise<void>;
 };
