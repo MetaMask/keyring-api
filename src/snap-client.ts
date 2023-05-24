@@ -30,7 +30,6 @@ export class KeyringSnapClient implements Keyring {
         },
       },
     });
-
     return response as Response;
   }
 
