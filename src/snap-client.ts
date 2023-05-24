@@ -15,7 +15,7 @@ export class KeyringSnapClient implements Keyring {
     params,
   }: {
     method: string;
-    params?: Record<string, Json | undefined>;
+    params?: Json[] | Record<string, Json>;
   }): Promise<Response> {
     // eslint-disable-next-line no-restricted-globals
     const response = await window.ethereum.request({
@@ -30,6 +30,7 @@ export class KeyringSnapClient implements Keyring {
         },
       },
     });
+
     return response as Response;
   }
 
