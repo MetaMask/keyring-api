@@ -9,7 +9,7 @@ export type KeyringAccount = {
   name: string; // User-chosen account name (must be unique)
   address: string; // Account address or next receive address (UTXO)
   chains: string[]; // Supported chains (CAIP-2 IDs)
-  options?: Json; // Other account information, keyring-dependent
+  options: Record<string, Json> | null; // Other account information, keyring-dependent
   capabilities: AccountCapability[]; // Account capabilities
   type: AccountType; // Account type
 };

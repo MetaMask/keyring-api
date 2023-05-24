@@ -49,7 +49,7 @@ export class KeyringSnapClient implements Keyring {
   async createAccount(
     name: string,
     chains: string[],
-    options?: Record<string, Json>,
+    options: Record<string, Json> | null = null,
   ): Promise<KeyringAccount> {
     return await this.#sendRequest<KeyringAccount>({
       method: 'keyring_createAccount',
