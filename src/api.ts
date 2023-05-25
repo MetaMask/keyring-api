@@ -133,7 +133,7 @@ export type Keyring = {
   createAccount(
     name: string,
     chains: string[],
-    options?: Record<string, Json>,
+    options?: Record<string, Json> | null,
   ): Promise<KeyringAccount>;
 
   /**
