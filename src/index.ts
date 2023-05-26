@@ -1,2 +1,4 @@
 export * from './api';
-export * from './snap-client';
+export * from './keyring-client';
+export * from './keyring-snap-controller-client';
+export * from './keyring-snap-rpc-client';

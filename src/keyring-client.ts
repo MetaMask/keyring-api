@@ -1,6 +1,4 @@
-import { HandlerType } from '@metamask/snap-utils/*';
 import { Json } from '@metamask/utils';
-import { v4 as uuid } from 'uuid';
 
 import { Keyring, KeyringAccount, KeyringRequest } from './api';
 
@@ -13,79 +11,6 @@ export type Sender = {
     params?: Json[] | Record<string, Json>;
   }): Promise<Response>;
 };
-
-export class SnapRpcSender implements Sender {
-  #origin: string;
-
-  constructor(origin: string) {
-    this.#origin = origin;
-  }
-
-  async send<Response extends Json>({
-    method,
-    params,
-  }: {
-    method: string;
-    params?: Json[] | Record<string, Json>;
-  }): Promise<Response> {
-    // eslint-disable-next-line no-restricted-globals
-    const response = await window.ethereum.request({
-      method: 'wallet_invokeSnap',
-      params: {
-        snapId: this.#origin,
-        request: {
-          jsonrpc: '2.0',
-          id: uuid(),
-          method,
-          params,
-        },
-      },
-    });
-    return response as Response;
-  }
-}
-
-export class SnapControllerSender implements Sender {
-  #snapId: string;
-
-  #origin: string;
-
-  #controller: any;
-
-  #handler: HandlerType;
-
-  constructor(
-    controller: any,
-    snapId: string,
-    origin = 'metamask',
-    handler: HandlerType = HandlerType.OnRpcRequest,
-  ) {
-    this.#controller = controller;
-    this.#snapId = snapId;
-    this.#origin = origin;
-    this.#handler = handler;
-  }
-
-  async send<Response extends Json>({
-    method,
-    params,
-  }: {
-    method: string;
-    params?: Json[] | Record<string, Json>;
-  }): Promise<Response> {
-    return await this.#controller.handleRequest({
-      snapId: this.#snapId,
-      origin: this.#origin,
-      handler: this.#handler,
-      request: {
-        jsonrpc: '2.0',
-        id: uuid(),
-        method,
-        params,
-      },
-    });
-  }
-}
 
 export class KeyringClient implements Keyring {
   #sender: Sender;
