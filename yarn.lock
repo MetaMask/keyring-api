@@ -1324,7 +1324,6 @@ __metadata:
     "@metamask/utils": ^5.0.2
     "@types/jest": ^28.1.6
     "@types/node": ^16
-    "@types/readable-stream": ^2.3.15
     "@types/uuid": ^9.0.1
     "@typescript-eslint/eslint-plugin": ^5.43.0
     "@typescript-eslint/parser": ^5.43.0
@@ -2044,16 +2043,6 @@ __metadata:
   version: 2.4.4
   resolution: "@types/prettier@npm:2.4.4"
   checksum: 2c2cc57efd49c7d8907415a72f96c84a6dd8696dd3bf8aa4ca3a667427bebf71cbfbc912673624bdfc935d272d1c008c639cf155f6449315990a4dc110f0d216
-  languageName: node
-  linkType: hard
-
-"@types/readable-stream@npm:^2.3.15":
-  version: 2.3.15
-  resolution: "@types/readable-stream@npm:2.3.15"
-  dependencies:
-    "@types/node": "*"
-    safe-buffer: ~5.1.1
-  checksum: ec36f525cad09b6c65a1dafcb5ad99b9e2ed824ec49b7aa23180ac427e5d35b8a0706193ecd79ab4253a283ad485ba03d5917a98daaaa144f0ea34f4823e9d82
   languageName: node
   linkType: hard
 
