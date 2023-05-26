@@ -78,7 +78,10 @@
   },
   "lavamoat": {
     "allowScripts": {
-      "@lavamoat/preinstall-always-fail": false
+      "@lavamoat/preinstall-always-fail": false,
+      "@metamask/snap-controllers>@metamask/controllers>babel-runtime>core-js": false,
+      "@metamask/snap-controllers>@metamask/controllers>ethereumjs-util>ethereum-cryptography>keccak": false,
+      "@metamask/snap-controllers>@metamask/controllers>ethereumjs-util>ethereum-cryptography>secp256k1": false
     }
   }
 }
