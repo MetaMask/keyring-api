@@ -1,6 +1,6 @@
 import { Json } from '@metamask/utils';
 
-import { KeyringAccount, KeyringRequest } from './api';
+import { KeyringAccount, KeyringRequest } from './keyring-api';
 
 export type ListAccountsRequest = {
   method: 'keyring_listAccounts';

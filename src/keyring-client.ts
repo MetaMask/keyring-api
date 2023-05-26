@@ -1,15 +1,12 @@
 import { Json } from '@metamask/utils';
 
-import { Keyring, KeyringAccount, KeyringRequest } from './api';
+import { Keyring, KeyringAccount, KeyringRequest } from './keyring-api';
+import { KeyringInternalRequest } from './keyring-internal-api';
 
 export type Sender = {
-  send<Response extends Json>({
-    method,
-    params,
-  }: {
-    method: string;
-    params?: Json[] | Record<string, Json>;
-  }): Promise<Response>;
+  send<Response extends Json>(
+    request: KeyringInternalRequest,
+  ): Promise<Response>;
 };
 
 export class KeyringClient implements Keyring {
