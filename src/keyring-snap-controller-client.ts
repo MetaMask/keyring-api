@@ -1,3 +1,4 @@
+import { SnapController } from '@metamask/snap-controllers';
 import { HandlerType } from '@metamask/snap-utils/*';
 import { Json } from '@metamask/utils';
 import { v4 as uuid } from 'uuid';
@@ -9,7 +10,7 @@ class SnapControllerSender implements Sender {
 
   #origin: string;
 
-  #controller: any;
+  #controller: SnapController;
 
   #handler: HandlerType;
 
@@ -32,7 +33,7 @@ class SnapControllerSender implements Sender {
     method: string;
     params?: Json[] | Record<string, Json>;
   }): Promise<Response> {
-    return await this.#controller.handleRequest({
+    return (await this.#controller.handleRequest({
       snapId: this.#snapId,
       origin: this.#origin,
       handler: this.#handler,
@@ -42,7 +43,7 @@ class SnapControllerSender implements Sender {
         method,
         params,
       },
-    });
+    })) as Response;
   }
 }
 
