@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@metamask/providers": "^11.0.0",
-    "@metamask/snap-controllers": "^0.23.0",
-    "@metamask/snap-utils": "^0.23.0",
+    "@metamask/snaps-controllers": "^0.32.2",
+    "@metamask/snaps-utils": "^0.32.2",
     "@metamask/utils": "^5.0.2",
     "@types/uuid": "^9.0.1",
     "uuid": "^9.0.0"
@@ -48,6 +48,7 @@
     "@metamask/eslint-config-typescript": "^11.0.0",
     "@types/jest": "^28.1.6",
     "@types/node": "^16",
+    "@types/readable-stream": "^2.3.15",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "depcheck": "^1.4.3",
@@ -79,9 +80,10 @@
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,
-      "@metamask/snap-controllers>@metamask/controllers>babel-runtime>core-js": false,
-      "@metamask/snap-controllers>@metamask/controllers>ethereumjs-util>ethereum-cryptography>keccak": false,
-      "@metamask/snap-controllers>@metamask/controllers>ethereumjs-util>ethereum-cryptography>secp256k1": false
+      "@metamask/snaps-controllers>@metamask/base-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
+      "@metamask/snaps-controllers>@metamask/base-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false,
+      "@metamask/snaps-utils>@metamask/base-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
+      "@metamask/snaps-utils>@metamask/base-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false
     }
   }
 }

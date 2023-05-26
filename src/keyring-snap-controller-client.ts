@@ -1,5 +1,5 @@
-import { SnapController } from '@metamask/snap-controllers';
-import { HandlerType } from '@metamask/snap-utils/*';
+import type { SnapController } from '@metamask/snaps-controllers';
+import { HandlerType } from '@metamask/snaps-utils';
 import { Json } from '@metamask/utils';
 import { v4 as uuid } from 'uuid';
 
