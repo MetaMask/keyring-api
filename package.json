@@ -30,6 +30,14 @@
     "test": "jest && jest-it-up",
     "test:watch": "jest --watch"
   },
+  "dependencies": {
+    "@metamask/providers": "^11.0.0",
+    "@metamask/snap-controllers": "^0.23.0",
+    "@metamask/snap-utils": "^0.23.0",
+    "@metamask/utils": "^5.0.2",
+    "@types/uuid": "^9.0.1",
+    "uuid": "^9.0.0"
+  },
   "devDependencies": {
     "@lavamoat/allow-scripts": "^2.3.1",
     "@lavamoat/preinstall-always-fail": "^1.0.0",
@@ -72,13 +80,5 @@
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false
     }
-  },
-  "dependencies": {
-    "@metamask/providers": "^11.0.0",
-    "@metamask/snap-controllers": "^0.23.0",
-    "@metamask/snap-utils": "^0.23.0",
-    "@metamask/utils": "^5.0.2",
-    "@types/uuid": "^9.0.1",
-    "uuid": "^9.0.0"
   }
 }
