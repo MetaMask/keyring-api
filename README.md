@@ -21,11 +21,11 @@ Follow these instructions when using this template.
 
 ## Installation
 
-`yarn add @metamask/this-module`
+`yarn add @metamask/keyring-api`
 
 or
 
-`npm install @metamask/this-module`
+`npm install @metamask/keyring-api`
 
 ## Usage
 
