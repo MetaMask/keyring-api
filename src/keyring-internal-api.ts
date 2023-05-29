@@ -13,7 +13,11 @@ export type GetAccountRequest = {
 
 export type CreateAccountRequest = {
   method: 'keyring_createAccount';
-  params?: Record<string, Json>;
+  params: {
+    name: string;
+    chains: string[];
+    options: Record<string, Json> | null;
+  };
 };
 
 export type UpdateAccountRequest = {
