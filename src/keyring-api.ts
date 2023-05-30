@@ -3,7 +3,7 @@ import { Json } from '@metamask/utils';
 /**
  * Account capabilities.
  *
- * The following account capabilities are supported:
+ * The following account capability is supported:
  * - sign: The account can sign (has a private key).
  */
 export type AccountCapability = 'sign';
@@ -19,6 +19,8 @@ export type AccountType = 'eip155:eoa' | 'eip155:sca:erc4337';
 
 /**
  * Account object.
+ *
+ * Represents an account with its properties and capabilities.
  */
 export type KeyringAccount = {
   /**
@@ -60,7 +62,7 @@ export type KeyringAccount = {
 /**
  * JSON-RPC request type.
  *
- * It represents a JSON-RPC request sent by a client application.
+ * Represents a JSON-RPC request sent by a client application.
  * The request ID must be a string and the params field cannot be undefined.
  */
 export type JsonRpcRequest =
@@ -78,6 +80,8 @@ export type JsonRpcRequest =
 
 /**
  * Keyring request.
+ *
+ * Represents a request made to the keyring for account-related operations.
  */
 export type KeyringRequest = {
   /**
@@ -99,6 +103,18 @@ export type KeyringRequest = {
 };
 
 /**
+ * Response returned when submitting a request to the Keyring.
+ */
+export type SubmitRequestResponse =
+  | {
+      pending: true;
+    }
+  | {
+      pending: false;
+      result: Json;
+    };
+
+/**
  * Keyring interface.
  *
  * Represents the functionality and operations related to managing accounts and
@@ -108,21 +124,29 @@ export type Keyring = {
   /**
    * List accounts.
    *
-   * @returns A promise that resolves to an array of KeyringAccount objects
-   * representing the available accounts.
+   * Retrieves an array of KeyringAccount objects representing the available
+   * accounts.
+   *
+   * @returns A promise that resolves to an array of KeyringAccount objects.
    */
   listAccounts(): Promise<KeyringAccount[]>;
 
   /**
    * Get an account.
    *
+   * Retrieves the KeyringAccount object for the given account ID.
+   *
    * @param id - The ID of the account to retrieve.
-   * @returns A promise that resolves to the KeyringAccount object if found, or undefined otherwise.
+   * @returns A promise that resolves to the KeyringAccount object if found, or
+   * undefined otherwise.
    */
   getAccount(id: string): Promise<KeyringAccount | undefined>;
 
   /**
    * Create an account.
+   *
+   * Creates a new account with the given name, supported chains, and optional
+   * account options.
    *
    * @param name - The name of the account.
    * @param chains - Chains supported by the account (CAIP-2 chain IDs).
@@ -139,7 +163,7 @@ export type Keyring = {
   /**
    * Update an account.
    *
-   * The account ID is used to find the matching account. Does nothing if the
+   * Updates the account with the given account object. Does nothing if the
    * account does not exist.
    *
    * @param account - The updated account object.
@@ -150,6 +174,8 @@ export type Keyring = {
   /**
    * Delete an account from the keyring.
    *
+   * Deletes the account with the given ID from the keyring.
+   *
    * @param id - The ID of the account to delete.
    * @returns A promise that resolves when the account is successfully deleted.
    */
@@ -157,6 +183,9 @@ export type Keyring = {
 
   /**
    * Export the private information of an account.
+   *
+   * Exports the keyring-defined private information of the account with the
+   * given ID.
    *
    * @param id - The ID of the account to export.
    * @returns A promise that resolves to the keyring-defined private
@@ -167,13 +196,17 @@ export type Keyring = {
   /**
    * List all submitted requests.
    *
-   * @returns A promise that resolves to an array of KeyringRequest objects
-   * representing the submitted requests.
+   * Retrieves an array of KeyringRequest objects representing the submitted
+   * requests.
+   *
+   * @returns A promise that resolves to an array of KeyringRequest objects.
    */
   listRequests(): Promise<KeyringRequest[]>;
 
   /**
    * Get a request.
+   *
+   * Retrieves the KeyringRequest object for the given request ID.
    *
    * @param id - The ID of the request to retrieve.
    * @returns A promise that resolves to the KeyringRequest object if found, or
@@ -184,25 +217,29 @@ export type Keyring = {
   /**
    * Submit a request.
    *
-   * Generally used to submit a signing request.
+   * Submits the given KeyringRequest object.
    *
    * @param request - The KeyringRequest object to submit.
-   * @returns A promise that resolves when the request is successfully
-   * submitted.
+   * @returns A promise that resolves to the request response.
    */
-  submitRequest(request: KeyringRequest): Promise<void>;
+  submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse>;
 
   /**
    * Approve a request.
    *
+   * Approves the request with the given ID and sets the response if provided.
+   *
    * @param id - The ID of the request to approve.
+   * @param result - The response to the request (optional).
    * @returns A promise that resolves when the request is successfully
    * approved.
    */
-  approveRequest(id: string): Promise<void>;
+  approveRequest(id: string, result?: Json): Promise<void>;
 
   /**
    * Reject a request.
+   *
+   * Rejects the request with the given ID.
    *
    * @param id - The ID of the request to reject.
    * @returns A promise that resolves when the request is successfully

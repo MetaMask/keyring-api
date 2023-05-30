@@ -1,6 +1,11 @@
 import { Json } from '@metamask/utils';
 
-import { Keyring, KeyringAccount, KeyringRequest } from './keyring-api';
+import {
+  Keyring,
+  KeyringAccount,
+  KeyringRequest,
+  SubmitRequestResponse,
+} from './keyring-api';
 import { KeyringInternalRequest } from './keyring-internal-api';
 
 export type Sender = {
@@ -74,8 +79,8 @@ export class KeyringClient implements Keyring {
     });
   }
 
-  async submitRequest(request: KeyringRequest): Promise<void> {
-    await this.#sender.send<null>({
+  async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
+    return await this.#sender.send<SubmitRequestResponse>({
       method: 'keyring_submitRequest',
       params: request,
     });

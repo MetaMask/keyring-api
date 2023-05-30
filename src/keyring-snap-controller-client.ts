@@ -48,7 +48,7 @@ class SnapControllerSender implements Sender {
 }
 
 export class KeyringSnapControllerClient extends KeyringClient {
-  constructor(controller: any, snapID: string) {
+  constructor(controller: SnapController, snapID: string) {
     super(new SnapControllerSender(controller, snapID));
   }
 }
