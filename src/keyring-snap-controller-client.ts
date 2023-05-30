@@ -78,17 +78,17 @@ export class KeyringSnapControllerClient extends KeyringClient {
    * Create a new instance of `KeyringSnapControllerClient`.
    *
    * @param controller - The `SnapController` instance to use.
-   * @param snapID - The ID of the snap to use (default: `'undefined'`).
+   * @param snapId - The ID of the snap to use (default: `'undefined'`).
    * @param origin - The sender's origin (default: `'metamask'`).
    * @param handler - The handler type (default: `HandlerType.OnRpcRequest`).
    */
   constructor(
     controller: SnapController,
-    snapID = 'undefined',
+    snapId = 'undefined',
     origin = 'metamask',
     handler: HandlerType = HandlerType.OnRpcRequest,
   ) {
-    super(new SnapControllerSender(controller, snapID, origin, handler));
+    super(new SnapControllerSender(controller, snapId, origin, handler));
     this.#controller = controller;
   }
 
