@@ -5,6 +5,10 @@ import { v4 as uuid } from 'uuid';
 
 import { KeyringClient, Sender } from './keyring-client';
 
+/**
+ * Implementation of the `Sender` interface that can be used to send requests
+ * to a snap through a `SnapController`.
+ */
 class SnapControllerSender implements Sender {
   #snapId: string;
 
@@ -14,6 +18,14 @@ class SnapControllerSender implements Sender {
 
   #handler: HandlerType;
 
+  /**
+   * Create a new instance of `SnapControllerSender`.
+   *
+   * @param controller - The `SnapController` instance to send requests to.
+   * @param snapId - The ID of the snap to use.
+   * @param origin - The sender's origin (default: `'metamask'`).
+   * @param handler - The handler type (default: `HandlerType.OnRpcRequest`).
+   */
   constructor(
     controller: any,
     snapId: string,
@@ -26,6 +38,14 @@ class SnapControllerSender implements Sender {
     this.#handler = handler;
   }
 
+  /**
+   * Send a request to the snap and return the response.
+   *
+   * @param args - The arguments of the request.
+   * @param args.method - The method name of the request.
+   * @param args.params - The parameters of the request (optional).
+   * @returns A promise that resolves to the response of the request.
+   */
   async send<Response extends Json>({
     method,
     params,
@@ -47,8 +67,33 @@ class SnapControllerSender implements Sender {
   }
 }
 
+/**
+ * A `KeyringClient` that allows the communication with a snap through the
+ * `SnapController`.
+ */
 export class KeyringSnapControllerClient extends KeyringClient {
+  #controller: SnapController;
+
+  /**
+   * Create a new instance of `KeyringSnapControllerClient`.
+   *
+   * @param controller - The `SnapController` instance to use.
+   * @param snapID - The ID of the snap that will handle the requests.
+   */
   constructor(controller: SnapController, snapID: string) {
     super(new SnapControllerSender(controller, snapID));
+    this.#controller = controller;
+  }
+
+  /**
+   * Create a new instance of `KeyringSnapControllerClient` with the specified
+   * `snapId`.
+   *
+   * @param snapId - The ID of the snap to use in the new instance.
+   * @returns A new instance of `KeyringSnapControllerClient` with the
+   * specified snap ID.
+   */
+  withSnapId(snapId: string): KeyringSnapControllerClient {
+    return new KeyringSnapControllerClient(this.#controller, snapId);
   }
 }

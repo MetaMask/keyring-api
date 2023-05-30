@@ -4,7 +4,7 @@ import { Json } from '@metamask/utils';
  * Account capabilities.
  *
  * The following account capability is supported:
- * - sign: The account can sign (has a private key).
+ * - `sign`: The account can sign (has a private key).
  */
 export type AccountCapability = 'sign';
 
@@ -12,8 +12,8 @@ export type AccountCapability = 'sign';
  * Account types.
  *
  * For EVM accounts (EIP-155), the following account types are supported:
- * - eip155:eoa: Externally owned account.
- * - eip155:sca:erc4337: Smart contract account (ERC-4337).
+ * - `eip155:eoa`: Externally owned account.
+ * - `eip155:sca:erc4337`: Smart contract account (ERC-4337).
  */
 export type AccountType = 'eip155:eoa' | 'eip155:sca:erc4337';
 
