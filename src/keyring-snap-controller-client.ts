@@ -23,14 +23,14 @@ class SnapControllerSender implements Sender {
    *
    * @param controller - The `SnapController` instance to send requests to.
    * @param snapId - The ID of the snap to use.
-   * @param origin - The sender's origin (default: `'metamask'`).
-   * @param handler - The handler type (default: `HandlerType.OnRpcRequest`).
+   * @param origin - The sender's origin.
+   * @param handler - The handler type.
    */
   constructor(
     controller: any,
     snapId: string,
-    origin = 'metamask',
-    handler: HandlerType = HandlerType.OnRpcRequest,
+    origin: string,
+    handler: HandlerType,
   ) {
     this.#controller = controller;
     this.#snapId = snapId;
@@ -78,10 +78,17 @@ export class KeyringSnapControllerClient extends KeyringClient {
    * Create a new instance of `KeyringSnapControllerClient`.
    *
    * @param controller - The `SnapController` instance to use.
-   * @param snapID - The ID of the snap that will handle the requests.
+   * @param snapID - The ID of the snap to use (default: `'undefined'`).
+   * @param origin - The sender's origin (default: `'metamask'`).
+   * @param handler - The handler type (default: `HandlerType.OnRpcRequest`).
    */
-  constructor(controller: SnapController, snapID: string) {
-    super(new SnapControllerSender(controller, snapID));
+  constructor(
+    controller: SnapController,
+    snapID = 'undefined',
+    origin = 'metamask',
+    handler: HandlerType = HandlerType.OnRpcRequest,
+  ) {
+    super(new SnapControllerSender(controller, snapID, origin, handler));
     this.#controller = controller;
   }
 
