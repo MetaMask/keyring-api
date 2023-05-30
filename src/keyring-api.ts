@@ -105,13 +105,13 @@ export type KeyringRequest = {
 /**
  * Response returned when submitting a request to the Keyring.
  */
-export type SubmitRequestResponse =
+export type SubmitRequestResponse<Result extends Json> =
   | {
       pending: true;
     }
   | {
       pending: false;
-      result: Json;
+      result: Result;
     };
 
 /**
@@ -222,7 +222,9 @@ export type Keyring = {
    * @param request - The KeyringRequest object to submit.
    * @returns A promise that resolves to the request response.
    */
-  submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse>;
+  submitRequest<Result extends Json = null>(
+    request: KeyringRequest,
+  ): Promise<SubmitRequestResponse<Result>>;
 
   /**
    * Approve a request.

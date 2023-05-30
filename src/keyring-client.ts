@@ -79,8 +79,10 @@ export class KeyringClient implements Keyring {
     });
   }
 
-  async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
-    return await this.#sender.send<SubmitRequestResponse>({
+  async submitRequest<Result extends Json = null>(
+    request: KeyringRequest,
+  ): Promise<SubmitRequestResponse<Result>> {
+    return await this.#sender.send<SubmitRequestResponse<Result>>({
       method: 'keyring_submitRequest',
       params: request,
     });
