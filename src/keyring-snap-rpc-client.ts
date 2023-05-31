@@ -43,7 +43,7 @@ export class SnapRpcSender implements Sender {
           jsonrpc: '2.0',
           id: uuid(),
           method,
-          params,
+          ...(params !== undefined && { params }),
         },
       },
     });

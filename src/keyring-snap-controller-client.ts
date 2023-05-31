@@ -61,7 +61,7 @@ class SnapControllerSender implements Sender {
         jsonrpc: '2.0',
         id: uuid(),
         method,
-        ...(params && { params }),
+        ...(params !== undefined && { params }),
       },
     })) as Response;
   }
