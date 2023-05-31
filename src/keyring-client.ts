@@ -22,7 +22,6 @@ export class KeyringClient implements Keyring {
   }
 
   async listAccounts(): Promise<KeyringAccount[]> {
-    console.log('[client] listAccounts');
     return await this.#sender.send<KeyringAccount[]>({
       method: 'keyring_listAccounts',
     });
