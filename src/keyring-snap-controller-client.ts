@@ -53,6 +53,7 @@ class SnapControllerSender implements Sender {
     method: string;
     params?: Json[] | Record<string, Json>;
   }): Promise<Response> {
+    console.log('[client] send: ', method, params);
     return (await this.#controller.handleRequest({
       snapId: this.#snapId,
       origin: this.#origin,
@@ -101,6 +102,7 @@ export class KeyringSnapControllerClient extends KeyringClient {
    * specified snap ID.
    */
   withSnapId(snapId: string): KeyringSnapControllerClient {
+    console.log('[client] creating new client for:', snapId);
     return new KeyringSnapControllerClient(this.#controller, snapId);
   }
 }
