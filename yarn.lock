@@ -1523,13 +1523,13 @@ __metadata:
   linkType: hard
 
 "@metamask/snaps-registry@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@metamask/snaps-registry@npm:1.2.0"
+  version: 1.2.1
+  resolution: "@metamask/snaps-registry@npm:1.2.1"
   dependencies:
-    "@metamask/utils": ^5.0.0
+    "@metamask/utils": ^6.0.0
     "@noble/secp256k1": ^1.7.1
     superstruct: ^1.0.3
-  checksum: d0534680e713ca94e41cbb86f5f700aaf8c1f36b88fc1ed24b4669f11f8583b6d949f6724b8d9fd518a6210131af4ea7822e73ce34e64649dbe29a28850c6682
+  checksum: d2d5b743a8b55b6f685708b2b694534585329585c6d94819328e270fd77c68c0bede88b866821db9c22a667eca1f4961ed860d83b438cf009bd1c4df6e75b78a
   languageName: node
   linkType: hard
 
@@ -1611,6 +1611,19 @@ __metadata:
     semver: ^7.3.8
     superstruct: ^1.0.3
   checksum: eca82e42911b2840deb4f32f0f215c5ffd14d22d68afbbe92d3180e920e509e310777b15eab29def3448f3535b66596ceb4c23666ec846adacc8e1bb093ff882
+  languageName: node
+  linkType: hard
+
+"@metamask/utils@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@metamask/utils@npm:6.0.0"
+  dependencies:
+    "@ethereumjs/tx": ^4.1.2
+    "@types/debug": ^4.1.7
+    debug: ^4.3.4
+    semver: ^7.3.8
+    superstruct: ^1.0.3
+  checksum: 502a75c82af729f813a08382e8ca5e3bfab7903a377b375e781ffcd5541e3a57b468a0daf02bb8e5c5bcb9051408f51c1ffb7a92b90bfd89946e7691c1117ca9
   languageName: node
   linkType: hard
 
