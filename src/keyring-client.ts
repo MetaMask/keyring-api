@@ -36,12 +36,18 @@ export class KeyringClient implements Keyring {
 
   async createAccount(
     name: string,
-    chains: string[],
     options: Record<string, Json> | null = null,
   ): Promise<KeyringAccount> {
     return await this.#sender.send<KeyringAccount>({
       method: 'keyring_createAccount',
-      params: { name, chains, options },
+      params: { name, options },
+    });
+  }
+
+  async filterSupportedChains(id: string, chains: string[]): Promise<string[]> {
+    return await this.#sender.send<string[]>({
+      method: 'keyring_filterSupportedChains',
+      params: { id, chains },
     });
   }
 

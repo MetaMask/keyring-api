@@ -1,12 +1,18 @@
 import { Json } from '@metamask/utils';
 
 /**
- * Account capabilities.
- *
- * The following account capability is supported:
- * - `sign`: The account can sign (has a private key).
+ * List of sign methods.
  */
-export type AccountCapability = 'sign';
+export type MethodName =
+  | 'personal_sign'
+  | 'eth_sign'
+  | 'eth_sendTransaction'
+  | 'eth_signTransaction'
+  | 'eth_signTypedData'
+  | 'eth_signTypedData_v1'
+  | 'eth_signTypedData_v2'
+  | 'eth_signTypedData_v3'
+  | 'eth_signTypedData_v4';
 
 /**
  * Account types.
@@ -39,19 +45,14 @@ export type KeyringAccount = {
   address: string;
 
   /**
-   * Chains supported by the account (CAIP-2 IDs).
-   */
-  chains: string[];
-
-  /**
    * Keyring-dependent account options.
    */
   options: Record<string, Json> | null;
 
   /**
-   * Account capabilities.
+   * Account supported methods.
    */
-  capabilities: AccountCapability[];
+  supportedMethods: MethodName[];
 
   /**
    * Account type.
@@ -149,16 +150,23 @@ export type Keyring = {
    * account options.
    *
    * @param name - The name of the account.
-   * @param chains - Chains supported by the account (CAIP-2 chain IDs).
    * @param options - Keyring-defined options for the account (optional).
    * @returns A promise that resolves to the newly created KeyringAccount
    * object without any private information.
    */
   createAccount(
     name: string,
-    chains: string[],
     options?: Record<string, Json> | null,
   ): Promise<KeyringAccount>;
+
+  /**
+   * Filter supported chains for a given account.
+   *
+   * @param id - ID of the account to be checked.
+   * @param chains - List of chain (CAIP-2) to be checked.
+   * @returns A filtered list with the IDs of the supported chains.
+   */
+  filterSupportedChains(id: string, chains: string[]): Promise<string[]>;
 
   /**
    * Update an account.

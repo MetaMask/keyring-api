@@ -15,9 +15,13 @@ export type CreateAccountRequest = {
   method: 'keyring_createAccount';
   params: {
     name: string;
-    chains: string[];
     options: Record<string, Json> | null;
   };
+};
+
+export type FilterSupportedChains = {
+  method: 'keyring_filterSupportedChains';
+  params: { id: string; chains: string[] };
 };
 
 export type UpdateAccountRequest = {
@@ -63,6 +67,7 @@ export type KeyringInternalRequest =
   | ListAccountsRequest
   | GetAccountRequest
   | CreateAccountRequest
+  | FilterSupportedChains
   | UpdateAccountRequest
   | DeleteAccountRequest
   | ExportAccountRequest
