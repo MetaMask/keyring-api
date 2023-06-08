@@ -163,7 +163,7 @@ export type Keyring = {
    * Filter supported chains for a given account.
    *
    * @param id - ID of the account to be checked.
-   * @param chains - List of chain (CAIP-2) to be checked.
+   * @param chains - List of chains (CAIP-2) to be checked.
    * @returns A Promise that resolves to a filtered list of CAIP-2 IDs
    * representing the supported chains.
    */
