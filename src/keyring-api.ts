@@ -164,7 +164,8 @@ export type Keyring = {
    *
    * @param id - ID of the account to be checked.
    * @param chains - List of chain (CAIP-2) to be checked.
-   * @returns A filtered list with the IDs of the supported chains.
+   * @returns A Promise that resolves to a filtered list of CAIP-2 IDs
+   * representing the supported chains.
    */
   filterSupportedChains(id: string, chains: string[]): Promise<string[]>;
 
