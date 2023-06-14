@@ -33,13 +33,7 @@ export class MethodNotSupportedError extends Error {
 export function buildHandlersChain(
   handlers: OnRpcRequestHandler[],
 ): OnRpcRequestHandler {
-  return async ({
-    origin,
-    request,
-  }: {
-    origin: string;
-    request: JsonRpcRequest<Json[] | Record<string, Json>>;
-  }): Promise<unknown> => {
+  return async ({ origin, request }) => {
     for (const handler of handlers) {
       try {
         return await handler({ origin, request });
