@@ -61,7 +61,7 @@ export const KeyringAccountStruct = object({
   /**
    * Keyring-dependent account options.
    */
-  options: record(string(), JsonStruct),
+  options: nullable(record(string(), JsonStruct)),
   /**
    * Account supported methods.
    */
