@@ -1,3 +1,4 @@
+import { OnRpcRequestHandler } from '@metamask/snaps-utils';
 import { Json, JsonRpcRequest } from '@metamask/utils';
 
 import { Keyring } from './keyring-api';
@@ -13,6 +14,46 @@ import {
   SubmitRequestRequest,
   UpdateAccountRequest,
 } from './keyring-internal-api';
+
+/**
+ * Error thrown when a keyring JSON-RPC method is not supported.
+ */
+export class MethodNotSupportedError extends Error {
+  constructor(method: string) {
+    super(`Method not supported: ${method}`);
+  }
+}
+
+/**
+ * Build a chain of handlers for a JSON-RPC request.
+ *
+ * @param handlers - Array of handlers.
+ * @returns A handler that chains all the handlers in the array.
+ */
+export function buildHandlersChain(
+  handlers: OnRpcRequestHandler[],
+): OnRpcRequestHandler {
+  return async ({
+    origin,
+    request,
+  }: {
+    origin: string;
+    request: JsonRpcRequest<Json[] | Record<string, Json>>;
+  }): Promise<unknown> => {
+    for (const handler of handlers) {
+      try {
+        return await handler({ origin, request });
+      } catch (error) {
+        if (!(error instanceof MethodNotSupportedError)) {
+          throw error;
+        }
+      }
+    }
+
+    // All handlers failed to handle the request.
+    throw new MethodNotSupportedError(request.method);
+  };
+}
 
 /**
  * Keyring JSON-RPC dispatcher.
@@ -32,10 +73,14 @@ export class KeyringRpcDispatcher {
   /**
    * Handles a keyring JSON-RPC request.
    *
+   * @param _origin - Origin of the request.
    * @param request - Keyring JSON-RPC request.
    * @returns A promise that resolves to the keyring response.
    */
-  async handle(request: JsonRpcRequest): Promise<Json | void> {
+  async handle(
+    _origin: string,
+    request: JsonRpcRequest<Record<string, Json>>,
+  ): Promise<Json | void> {
     switch (request.method) {
       case KeyringMethod.ListAccounts:
         return await this.#keyring.listAccounts();
@@ -91,7 +136,7 @@ export class KeyringRpcDispatcher {
         );
 
       default:
-        throw new Error(`Method not supported: ${request.method}`);
+        throw new MethodNotSupportedError(request.method);
     }
   }
 }
