@@ -74,15 +74,12 @@ export class KeyringRpcHandler {
    * Handles a keyring JSON-RPC request.
    *
    * @param args - Keyring JSON-RPC request arguments.
-   * @param args._origin - Origin of the request.
    * @param args.request - Keyring JSON-RPC request.
    * @returns A promise that resolves to the keyring response.
    */
   async handle({
-    _origin,
     request,
   }: {
-    _origin: string;
     request: JsonRpcRequest<Json[] | Record<string, Json>>;
   }): Promise<Json | void> {
     switch (request.method) {
