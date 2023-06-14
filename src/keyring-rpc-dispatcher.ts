@@ -56,88 +56,71 @@ export function buildHandlersChain(
 }
 
 /**
- * Keyring JSON-RPC dispatcher.
+ * Handles a keyring JSON-RPC request.
+ *
+ * @param keyring - Keyring instance.
+ * @param request - Keyring JSON-RPC request.
+ * @returns A promise that resolves to the keyring response.
  */
-export class KeyringRpcHandler {
-  #keyring: Keyring;
+export async function keyringRpcDispatcher(
+  keyring: Keyring,
+  request: JsonRpcRequest<Json[] | Record<string, Json>>,
+): Promise<Json | void> {
+  switch (request.method) {
+    case KeyringMethod.ListAccounts:
+      return await keyring.listAccounts();
 
-  /**
-   * Creates a keyring dispatcher instance.
-   *
-   * @param keyring - Keyring instance.
-   */
-  constructor(keyring: Keyring) {
-    this.#keyring = keyring;
-  }
+    case KeyringMethod.GetAccount:
+      return await keyring.getAccount(
+        (request.params as GetAccountRequest).params.id,
+      );
 
-  /**
-   * Handles a keyring JSON-RPC request.
-   *
-   * @param args - Keyring JSON-RPC request arguments.
-   * @param args.request - Keyring JSON-RPC request.
-   * @returns A promise that resolves to the keyring response.
-   */
-  async handle({
-    request,
-  }: {
-    request: JsonRpcRequest<Json[] | Record<string, Json>>;
-  }): Promise<Json | void> {
-    switch (request.method) {
-      case KeyringMethod.ListAccounts:
-        return await this.#keyring.listAccounts();
+    case KeyringMethod.CreateAccount:
+      return await keyring.createAccount(
+        (request.params as CreateAccountRequest).params.name,
+        (request.params as CreateAccountRequest).params.options,
+      );
 
-      case KeyringMethod.GetAccount:
-        return await this.#keyring.getAccount(
-          (request.params as GetAccountRequest).params.id,
-        );
+    case KeyringMethod.FilterSupportedChains:
+      return await keyring.filterSupportedChains(
+        (request.params as FilterSupportedChainsRequest).params.id,
+        (request.params as FilterSupportedChainsRequest).params.chains,
+      );
 
-      case KeyringMethod.CreateAccount:
-        return await this.#keyring.createAccount(
-          (request.params as CreateAccountRequest).params.name,
-          (request.params as CreateAccountRequest).params.options,
-        );
+    case KeyringMethod.UpdateAccount:
+      return await keyring.updateAccount(
+        (request.params as UpdateAccountRequest).params.account,
+      );
 
-      case KeyringMethod.FilterSupportedChains:
-        return await this.#keyring.filterSupportedChains(
-          (request.params as FilterSupportedChainsRequest).params.id,
-          (request.params as FilterSupportedChainsRequest).params.chains,
-        );
+    case KeyringMethod.DeleteAccount:
+      return await keyring.deleteAccount(
+        (request.params as DeleteAccountRequest).params.id,
+      );
 
-      case KeyringMethod.UpdateAccount:
-        return await this.#keyring.updateAccount(
-          (request.params as UpdateAccountRequest).params.account,
-        );
+    case KeyringMethod.ListRequests:
+      return await keyring.listRequests();
 
-      case KeyringMethod.DeleteAccount:
-        return await this.#keyring.deleteAccount(
-          (request.params as DeleteAccountRequest).params.id,
-        );
+    case KeyringMethod.GetRequest:
+      return await keyring.getRequest(
+        (request.params as GetRequestRequest).params.id,
+      );
 
-      case KeyringMethod.ListRequests:
-        return await this.#keyring.listRequests();
+    case KeyringMethod.SubmitRequest:
+      return await keyring.submitRequest(
+        (request.params as SubmitRequestRequest).params,
+      );
 
-      case KeyringMethod.GetRequest:
-        return await this.#keyring.getRequest(
-          (request.params as GetRequestRequest).params.id,
-        );
+    case KeyringMethod.ApproveRequest:
+      return await keyring.approveRequest(
+        (request.params as ApproveRequestRequest).params.id,
+      );
 
-      case KeyringMethod.SubmitRequest:
-        return await this.#keyring.submitRequest(
-          (request.params as SubmitRequestRequest).params,
-        );
+    case KeyringMethod.RejectRequest:
+      return await keyring.rejectRequest(
+        (request.params as RejectRequestRequest).params.id,
+      );
 
-      case KeyringMethod.ApproveRequest:
-        return await this.#keyring.approveRequest(
-          (request.params as ApproveRequestRequest).params.id,
-        );
-
-      case KeyringMethod.RejectRequest:
-        return await this.#keyring.rejectRequest(
-          (request.params as RejectRequestRequest).params.id,
-        );
-
-      default:
-        throw new MethodNotSupportedError(request.method);
-    }
+    default:
+      throw new MethodNotSupportedError(request.method);
   }
 }
