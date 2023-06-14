@@ -34,8 +34,6 @@ export type DeleteAccountRequest = {
   params: { id: string };
 };
 
-export type ExportAccountRequest = {
-  method: 'keyring_exportAccount';
   params: { id: string };
 };
 
@@ -70,7 +68,6 @@ export type KeyringInternalRequest =
   | FilterSupportedChains
   | UpdateAccountRequest
   | DeleteAccountRequest
-  | ExportAccountRequest
   | ListRequestsRequest
   | GetRequestRequest
   | SubmitRequestRequest

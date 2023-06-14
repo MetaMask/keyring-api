@@ -191,18 +191,6 @@ export type Keyring = {
   deleteAccount(id: string): Promise<void>;
 
   /**
-   * Export the private information of an account.
-   *
-   * Exports the keyring-defined private information of the account with the
-   * given ID.
-   *
-   * @param id - The ID of the account to export.
-   * @returns A promise that resolves to the keyring-defined private
-   * information of the account.
-   */
-  exportAccount(id: string): Promise<Record<string, Json>>;
-
-  /**
    * List all submitted requests.
    *
    * Retrieves an array of KeyringRequest objects representing the submitted
