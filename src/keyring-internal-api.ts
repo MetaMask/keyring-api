@@ -19,7 +19,7 @@ export type CreateAccountRequest = {
   };
 };
 
-export type FilterSupportedChains = {
+export type FilterSupportedChainsRequest = {
   method: 'keyring_filterSupportedChains';
   params: { id: string; chains: string[] };
 };
@@ -65,7 +65,7 @@ export type KeyringInternalRequest =
   | ListAccountsRequest
   | GetAccountRequest
   | CreateAccountRequest
-  | FilterSupportedChains
+  | FilterSupportedChainsRequest
   | UpdateAccountRequest
   | DeleteAccountRequest
   | ListRequestsRequest
