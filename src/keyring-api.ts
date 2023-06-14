@@ -10,6 +10,7 @@ import {
   enums,
   Infer,
   record,
+  array,
 } from 'superstruct';
 
 /**
