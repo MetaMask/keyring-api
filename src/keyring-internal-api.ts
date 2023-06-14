@@ -2,17 +2,31 @@ import { Json } from '@metamask/utils';
 
 import { KeyringAccount, KeyringRequest } from './keyring-api';
 
+export enum KeyringMethod {
+  ListAccounts = 'keyring_listAccounts',
+  GetAccount = 'keyring_getAccount',
+  CreateAccount = 'keyring_createAccount',
+  FilterSupportedChains = 'keyring_filterSupportedChains',
+  UpdateAccount = 'keyring_updateAccount',
+  DeleteAccount = 'keyring_deleteAccount',
+  ListRequests = 'keyring_listRequests',
+  GetRequest = 'keyring_getRequest',
+  SubmitRequest = 'keyring_submitRequest',
+  ApproveRequest = 'keyring_approveRequest',
+  RejectRequest = 'keyring_rejectRequest',
+}
+
 export type ListAccountsRequest = {
-  method: 'keyring_listAccounts';
+  method: KeyringMethod.ListAccounts;
 };
 
 export type GetAccountRequest = {
-  method: 'keyring_getAccount';
+  method: KeyringMethod.GetAccount;
   params: { id: string };
 };
 
 export type CreateAccountRequest = {
-  method: 'keyring_createAccount';
+  method: KeyringMethod.CreateAccount;
   params: {
     name: string;
     options: Record<string, Json> | null;
@@ -20,44 +34,41 @@ export type CreateAccountRequest = {
 };
 
 export type FilterSupportedChainsRequest = {
-  method: 'keyring_filterSupportedChains';
+  method: KeyringMethod.FilterSupportedChains;
   params: { id: string; chains: string[] };
 };
 
 export type UpdateAccountRequest = {
-  method: 'keyring_updateAccount';
+  method: KeyringMethod.UpdateAccount;
   params: { account: KeyringAccount };
 };
 
 export type DeleteAccountRequest = {
-  method: 'keyring_deleteAccount';
-  params: { id: string };
-};
-
+  method: KeyringMethod.DeleteAccount;
   params: { id: string };
 };
 
 export type ListRequestsRequest = {
-  method: 'keyring_listRequests';
+  method: KeyringMethod.ListRequests;
 };
 
 export type GetRequestRequest = {
-  method: 'keyring_getRequest';
+  method: KeyringMethod.GetRequest;
   params: { id: string };
 };
 
 export type SubmitRequestRequest = {
-  method: 'keyring_submitRequest';
+  method: KeyringMethod.SubmitRequest;
   params: KeyringRequest;
 };
 
 export type ApproveRequestRequest = {
-  method: 'keyring_approveRequest';
+  method: KeyringMethod.ApproveRequest;
   params: { id: string };
 };
 
 export type RejectRequestRequest = {
-  method: 'keyring_rejectRequest';
+  method: KeyringMethod.RejectRequest;
   params: { id: string };
 };
 

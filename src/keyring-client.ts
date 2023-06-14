@@ -6,7 +6,7 @@ import {
   KeyringRequest,
   SubmitRequestResponse,
 } from './keyring-api';
-import { KeyringInternalRequest } from './keyring-internal-api';
+import { KeyringInternalRequest, KeyringMethod } from './keyring-internal-api';
 
 export type Sender = {
   send<Response extends Json>(
@@ -23,13 +23,13 @@ export class KeyringClient implements Keyring {
 
   async listAccounts(): Promise<KeyringAccount[]> {
     return await this.#sender.send<KeyringAccount[]>({
-      method: 'keyring_listAccounts',
+      method: KeyringMethod.ListAccounts,
     });
   }
 
   async getAccount(id: string): Promise<KeyringAccount> {
     return await this.#sender.send<KeyringAccount>({
-      method: 'keyring_getAccount',
+      method: KeyringMethod.GetAccount,
       params: { id },
     });
   }
@@ -39,48 +39,41 @@ export class KeyringClient implements Keyring {
     options: Record<string, Json> | null = null,
   ): Promise<KeyringAccount> {
     return await this.#sender.send<KeyringAccount>({
-      method: 'keyring_createAccount',
+      method: KeyringMethod.CreateAccount,
       params: { name, options },
     });
   }
 
   async filterSupportedChains(id: string, chains: string[]): Promise<string[]> {
     return await this.#sender.send<string[]>({
-      method: 'keyring_filterSupportedChains',
+      method: KeyringMethod.FilterSupportedChains,
       params: { id, chains },
     });
   }
 
   async updateAccount(account: KeyringAccount): Promise<void> {
     await this.#sender.send<null>({
-      method: 'keyring_updateAccount',
+      method: KeyringMethod.UpdateAccount,
       params: { account },
     });
   }
 
   async deleteAccount(id: string): Promise<void> {
     await this.#sender.send<null>({
-      method: 'keyring_deleteAccount',
-      params: { id },
-    });
-  }
-
-  async exportAccount(id: string): Promise<Record<string, Json>> {
-    return await this.#sender.send<Record<string, Json>>({
-      method: 'keyring_exportAccount',
+      method: KeyringMethod.DeleteAccount,
       params: { id },
     });
   }
 
   async listRequests(): Promise<KeyringRequest[]> {
     return await this.#sender.send<KeyringRequest[]>({
-      method: 'keyring_listRequests',
+      method: KeyringMethod.ListRequests,
     });
   }
 
   async getRequest(id: string): Promise<KeyringRequest> {
     return await this.#sender.send<KeyringRequest>({
-      method: 'keyring_getRequest',
+      method: KeyringMethod.GetRequest,
       params: { id },
     });
   }
@@ -89,21 +82,21 @@ export class KeyringClient implements Keyring {
     request: KeyringRequest,
   ): Promise<SubmitRequestResponse<Result>> {
     return await this.#sender.send<SubmitRequestResponse<Result>>({
-      method: 'keyring_submitRequest',
+      method: KeyringMethod.SubmitRequest,
       params: request,
     });
   }
 
   async approveRequest(id: string): Promise<void> {
     await this.#sender.send<null>({
-      method: 'keyring_approveRequest',
+      method: KeyringMethod.ApproveRequest,
       params: { id },
     });
   }
 
   async rejectRequest(id: string): Promise<void> {
     await this.#sender.send<null>({
-      method: 'keyring_rejectRequest',
+      method: KeyringMethod.RejectRequest,
       params: { id },
     });
   }

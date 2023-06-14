@@ -1,18 +1,24 @@
 import { Json } from '@metamask/utils';
 
 /**
- * List of sign methods.
+ * Supported EVM methods.
  */
-export type MethodName =
-  | 'eth_sendTransaction'
-  | 'eth_sign'
-  | 'eth_signTransaction'
-  | 'eth_signTypedData_v1'
-  | 'eth_signTypedData_v2'
-  | 'eth_signTypedData_v3'
-  | 'eth_signTypedData_v4'
-  | 'eth_signTypedData'
-  | 'personal_sign';
+export enum EvmMethod {
+  PersonalSign = 'personal_sign',
+  SendTransaction = 'eth_sendTransaction',
+  Sign = 'eth_sign',
+  SignTransaction = 'eth_signTransaction',
+  SignTypedData = 'eth_signTypedData',
+  SignTypedDataV1 = 'eth_signTypedData_v1',
+  SignTypedDataV2 = 'eth_signTypedData_v2',
+  SignTypedDataV3 = 'eth_signTypedData_v3',
+  SignTypedDataV4 = 'eth_signTypedData_v4',
+}
+
+/**
+ * Supported methods.
+ */
+export type Method = EvmMethod;
 
 /**
  * Account types.
@@ -52,7 +58,7 @@ export type KeyringAccount = {
   /**
    * Account supported methods.
    */
-  supportedMethods: MethodName[];
+  supportedMethods: Method[];
 
   /**
    * Account type.
