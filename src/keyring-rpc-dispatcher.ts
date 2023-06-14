@@ -58,7 +58,7 @@ export function buildHandlersChain(
 /**
  * Keyring JSON-RPC dispatcher.
  */
-export class KeyringRpcDispatcher {
+export class KeyringRpcHandler {
   #keyring: Keyring;
 
   /**
