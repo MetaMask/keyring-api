@@ -1,9 +1,12 @@
 import { Json } from '@metamask/utils';
+import { assert } from 'superstruct';
 
 import {
   Keyring,
   KeyringAccount,
+  KeyringAccountStruct,
   KeyringRequest,
+  KeyringRequestStruct,
   SubmitRequestResponse,
 } from './keyring-api';
 import { InternalRequest, KeyringMethod } from './keyring-internal-api';
@@ -50,6 +53,7 @@ export class KeyringClient implements Keyring {
   }
 
   async updateAccount(account: KeyringAccount): Promise<void> {
+    assert(account, KeyringAccountStruct);
     await this.#sender.send<null>({
       method: KeyringMethod.UpdateAccount,
       params: { account },
@@ -76,10 +80,9 @@ export class KeyringClient implements Keyring {
     });
   }
 
-  async submitRequest<Result extends Json = null>(
-    request: KeyringRequest,
-  ): Promise<SubmitRequestResponse<Result>> {
-    return await this.#sender.send<SubmitRequestResponse<Result>>({
+  async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
+    assert(request, KeyringRequestStruct);
+    return await this.#sender.send<SubmitRequestResponse>({
       method: KeyringMethod.SubmitRequest,
       params: request,
     });

@@ -1,4 +1,16 @@
-import { Json } from '@metamask/utils';
+import { Json, JsonStruct } from '@metamask/utils';
+import isUuid from 'is-uuid';
+import {
+  literal,
+  union,
+  nullable,
+  define,
+  object,
+  string,
+  enums,
+  Infer,
+  record,
+} from 'superstruct';
 
 /**
  * Supported EVM methods.
@@ -18,7 +30,11 @@ export enum EvmMethod {
 /**
  * Supported methods.
  */
-export type Method = EvmMethod;
+export type Method = Infer<typeof EvmMethodStruct>;
+
+export const EvmMethodStruct = enums([...Object.values(EvmMethod)]);
+
+export const AccountTypeStruct = enums(['eip155:eoa', 'eip155:sca:erc4337']);
 
 /**
  * Account types.
@@ -27,44 +43,48 @@ export type Method = EvmMethod;
  * - `eip155:eoa`: Externally owned account.
  * - `eip155:sca:erc4337`: Smart contract account (ERC-4337).
  */
-export type AccountType = 'eip155:eoa' | 'eip155:sca:erc4337';
+export type AccountType = Infer<typeof AccountTypeStruct>;
+
+export const KeyringAccountStruct = object({
+  /**
+   * Account ID (UUIDv4).
+   */
+  id: define('id', (value) => isUuid.v4(value as string)),
+  /**
+   * User-chosen account name.
+   */
+  name: string(),
+  /**
+   * Account address or next receive address (UTXO).
+   */
+  address: string(),
+  /**
+   * Keyring-dependent account options.
+   */
+  options: record(string(), JsonStruct),
+  /**
+   * Account supported methods.
+   */
+  supportedMethods: EvmMethodStruct,
+  /**
+   * Account type.
+   */
+  type: AccountTypeStruct,
+});
 
 /**
  * Account object.
  *
  * Represents an account with its properties and capabilities.
  */
-export type KeyringAccount = {
-  /**
-   * Account ID (UUIDv4).
-   */
-  id: string;
+export type KeyringAccount = Infer<typeof KeyringAccountStruct>;
 
-  /**
-   * User-chosen account name.
-   */
-  name: string;
-
-  /**
-   * Account address or next receive address (UTXO).
-   */
-  address: string;
-
-  /**
-   * Keyring-dependent account options.
-   */
-  options: Record<string, Json> | null;
-
-  /**
-   * Account supported methods.
-   */
-  supportedMethods: Method[];
-
-  /**
-   * Account type.
-   */
-  type: AccountType;
-};
+export const JsonRpcRequestStruct = object({
+  jsonrpc: literal('2.0'),
+  id: string(),
+  method: EvmMethodStruct,
+  params: nullable(JsonStruct),
+});
 
 /**
  * JSON-RPC request type.
@@ -72,54 +92,46 @@ export type KeyringAccount = {
  * Represents a JSON-RPC request sent by a dApp. The request ID must be a
  * string and the params field cannot be undefined.
  */
-export type KeyringJsonRpcRequest =
-  | {
-      jsonrpc: '2.0';
-      id: string;
-      method: string;
-      params: Json[] | Record<string, Json>;
-    }
-  | {
-      jsonrpc: '2.0';
-      id: string;
-      method: string;
-    };
+export type JsonRpcRequest = Infer<typeof JsonRpcRequestStruct>;
+
+export const KeyringRequestStruct = object({
+  /**
+   * Account ID (UUIDv4).
+   */
+  account: string(),
+  /**
+   * Request's scope (CAIP-2 chain ID).
+   */
+  scope: string(),
+  /**
+   * JSON-RPC request sent by the client application.
+   *
+   * Note: The request ID must be a string.
+   */
+  request: JsonRpcRequestStruct,
+});
 
 /**
  * Keyring request.
  *
  * Represents a request made to the keyring for account-related operations.
  */
-export type KeyringRequest = {
-  /**
-   * Account ID (UUIDv4).
-   */
-  account: string;
+export type KeyringRequest = Infer<typeof KeyringRequestStruct>;
 
-  /**
-   * Request's scope (CAIP-2 chain ID).
-   */
-  scope: string;
-
-  /**
-   * JSON-RPC request sent by the client application.
-   *
-   * Note: The request ID must be a string.
-   */
-  request: KeyringJsonRpcRequest;
-};
+export const SubmitRequestResponseStruct = union([
+  object({
+    pending: literal(true),
+  }),
+  object({
+    pending: literal(false),
+    result: nullable(JsonStruct),
+  }),
+]);
 
 /**
  * Response returned when submitting a request to the Keyring.
  */
-export type SubmitRequestResponse<Result extends Json> =
-  | {
-      pending: true;
-    }
-  | {
-      pending: false;
-      result: Result;
-    };
+export type SubmitRequestResponse = Infer<typeof SubmitRequestResponseStruct>;
 
 /**
  * Keyring interface.
@@ -225,9 +237,7 @@ export type Keyring = {
    * @param request - The KeyringRequest object to submit.
    * @returns A promise that resolves to the request response.
    */
-  submitRequest<Result extends Json = null>(
-    request: KeyringRequest,
-  ): Promise<SubmitRequestResponse<Result>>;
+  submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse>;
 
   /**
    * Approve a request.

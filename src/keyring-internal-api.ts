@@ -1,6 +1,15 @@
-import { Json } from '@metamask/utils';
+import { JsonStruct } from '@metamask/utils';
+import {
+  object,
+  nullable,
+  string,
+  Infer,
+  literal,
+  array,
+  union,
+} from 'superstruct';
 
-import { KeyringAccount, KeyringRequest } from './keyring-api';
+import { KeyringAccountStruct, KeyringRequestStruct } from './keyring-api';
 
 export enum KeyringMethod {
   ListAccounts = 'keyring_listAccounts',
@@ -16,71 +25,113 @@ export enum KeyringMethod {
   RejectRequest = 'keyring_rejectRequest',
 }
 
-export type ListAccountsRequest = {
-  method: KeyringMethod.ListAccounts;
-};
+export const ListAccountsRequestStruct = object({
+  method: literal('keyring_listAccounts'),
+});
 
-export type GetAccountRequest = {
-  method: KeyringMethod.GetAccount;
-  params: { id: string };
-};
+export type ListAccountsRequest = Infer<typeof ListAccountsRequestStruct>;
 
-export type CreateAccountRequest = {
-  method: KeyringMethod.CreateAccount;
-  params: {
-    name: string;
-    options: Record<string, Json> | null;
-  };
-};
+export const GetAccountRequestStruct = object({
+  method: literal('keyring_getAccount'),
+  params: object({
+    id: string(),
+  }),
+});
 
-export type FilterSupportedChainsRequest = {
-  method: KeyringMethod.FilterAccountChains;
-  params: { id: string; chains: string[] };
-};
+export type GetAccountRequest = Infer<typeof GetAccountRequestStruct>;
 
-export type UpdateAccountRequest = {
-  method: KeyringMethod.UpdateAccount;
-  params: { account: KeyringAccount };
-};
+export const CreateAccountRequestStruct = object({
+  method: literal('keyring_createAccount'),
+  params: object({
+    name: string(),
+    options: nullable(JsonStruct),
+  }),
+});
 
-export type DeleteAccountRequest = {
-  method: KeyringMethod.DeleteAccount;
-  params: { id: string };
-};
+export type CreateAccountRequest = Infer<typeof CreateAccountRequestStruct>;
 
-export type ListRequestsRequest = {
-  method: KeyringMethod.ListRequests;
-};
+export const FilterAccountChainsStruct = object({
+  method: literal('keyring_filterAccountChains'),
+  params: object({
+    id: string(),
+    chains: array(string()),
+  }),
+});
 
-export type GetRequestRequest = {
-  method: KeyringMethod.GetRequest;
-  params: { id: string };
-};
+export type FilterAccountChainsRequest = Infer<
+  typeof FilterAccountChainsStruct
+>;
 
-export type SubmitRequestRequest = {
-  method: KeyringMethod.SubmitRequest;
-  params: KeyringRequest;
-};
+export const UpdateAccountRequestStruct = object({
+  method: literal('keyring_updateAccount'),
+  params: object({
+    account: KeyringAccountStruct,
+  }),
+});
 
-export type ApproveRequestRequest = {
-  method: KeyringMethod.ApproveRequest;
-  params: { id: string };
-};
+export type UpdateAccountRequest = Infer<typeof UpdateAccountRequestStruct>;
 
-export type RejectRequestRequest = {
-  method: KeyringMethod.RejectRequest;
-  params: { id: string };
-};
+export const DeleteAccountRequestStruct = object({
+  method: literal('keyring_deleteAccount'),
+  params: object({
+    id: string(),
+  }),
+});
 
-export type InternalRequest =
-  | ListAccountsRequest
-  | GetAccountRequest
-  | CreateAccountRequest
-  | FilterSupportedChainsRequest
-  | UpdateAccountRequest
-  | DeleteAccountRequest
-  | ListRequestsRequest
-  | GetRequestRequest
-  | SubmitRequestRequest
-  | ApproveRequestRequest
-  | RejectRequestRequest;
+export type DeleteAccountRequest = Infer<typeof DeleteAccountRequestStruct>;
+
+export const ListRequestsRequestStruct = object({
+  method: literal('keyring_listRequests'),
+});
+
+export type ListRequestsRequest = Infer<typeof ListRequestsRequestStruct>;
+
+export const GetRequestRequestStruct = object({
+  method: literal('keyring_getRequest'),
+  params: object({
+    id: string(),
+  }),
+});
+
+export type GetRequestRequest = Infer<typeof GetRequestRequestStruct>;
+
+export const SubmitRequestRequestStruct = object({
+  method: literal('keyring_submitRequest'),
+  params: KeyringRequestStruct,
+});
+
+export type SubmitRequestRequest = Infer<typeof SubmitRequestRequestStruct>;
+
+export const ApproveRequestRequestStruct = object({
+  method: literal('keyring_approveRequest'),
+  params: object({
+    id: string(),
+  }),
+});
+
+export type ApproveRequestRequest = Infer<typeof ApproveRequestRequestStruct>;
+
+export const RejectRequestRequestStruct = object({
+  method: literal('keyring_rejectRequest'),
+  params: object({
+    id: string(),
+  }),
+});
+
+export type RejectRequestRequest = Infer<typeof RejectRequestRequestStruct>;
+
+export const InternalRequestStruct = union([
+  ListAccountsRequestStruct,
+  GetAccountRequestStruct,
+  CreateAccountRequestStruct,
+  FilterAccountChainsStruct,
+  UpdateAccountRequestStruct,
+  DeleteAccountRequestStruct,
+  ListRequestsRequestStruct,
+  GetRequestRequestStruct,
+  SubmitRequestRequestStruct,
+  ApproveRequestRequestStruct,
+  RejectRequestRequestStruct,
+]);
+
+export type InternalRequest = Infer<typeof InternalRequestStruct>;
