@@ -72,7 +72,7 @@ export type RejectRequestRequest = {
   params: { id: string };
 };
 
-export type KeyringInternalRequest =
+export type InternalRequest =
   | ListAccountsRequest
   | GetAccountRequest
   | CreateAccountRequest

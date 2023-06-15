@@ -234,17 +234,18 @@ describe('keyringRpcDispatcher', () => {
   });
 
   it('should call keyring_submitRequest', async () => {
+    const dappRequest = { method: 'eth_method', params: [1, 2, 3] };
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: 'keyring_submitRequest',
-      params: { params: {} },
+      params: dappRequest,
     };
 
     keyring.submitRequest.mockResolvedValue('SubmitRequest result');
     const result = await keyringRpcDispatcher(keyring, request);
 
-    expect(keyring.submitRequest).toHaveBeenCalledWith({});
+    expect(keyring.submitRequest).toHaveBeenCalledWith(dappRequest);
     expect(result).toBe('SubmitRequest result');
   });
 

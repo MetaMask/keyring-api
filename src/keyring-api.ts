@@ -69,12 +69,8 @@ export type KeyringAccount = {
 /**
  * JSON-RPC request type.
  *
- * Represents a JSON-RPC request sent by a client application. The request ID
- * must be a string and the params field cannot be undefined. Because of this,
- * we cannot reuse the `JsonRpcRequest` type from `@metamask/utils`.
- *
- * Also, the `JsonRpcRequest` type from `@metamask/keyring-controller` is not
- * valid JSON, since the `params` field can be undefined.
+ * Represents a JSON-RPC request sent by a dApp. The request ID must be a
+ * string and the params field cannot be undefined.
  */
 export type KeyringJsonRpcRequest =
   | {

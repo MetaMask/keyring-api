@@ -9,11 +9,17 @@ import {
   FilterSupportedChainsRequest,
   GetAccountRequest,
   GetRequestRequest,
+  InternalRequest,
   KeyringMethod,
   RejectRequestRequest,
   SubmitRequestRequest,
   UpdateAccountRequest,
 } from './keyring-internal-api';
+
+type InternalJsonRpcRequest<R extends InternalRequest> = {
+  jsonrpc: '2.0';
+  id: string | number | null;
+} & R;
 
 /**
  * Error thrown when a keyring JSON-RPC method is not supported.
@@ -64,55 +70,57 @@ export async function keyringRpcDispatcher(
     case KeyringMethod.ListAccounts:
       return await keyring.listAccounts();
 
-    case KeyringMethod.GetAccount:
-      return await keyring.getAccount(
-        (request.params as GetAccountRequest).params.id,
-      );
+    case KeyringMethod.GetAccount: {
+      const req = request as InternalJsonRpcRequest<GetAccountRequest>;
+      return await keyring.getAccount(req.params.id);
+    }
 
-    case KeyringMethod.CreateAccount:
-      return await keyring.createAccount(
-        (request.params as CreateAccountRequest).params.name,
-        (request.params as CreateAccountRequest).params.options,
-      );
+    case KeyringMethod.CreateAccount: {
+      const req = request as InternalJsonRpcRequest<CreateAccountRequest>;
+      return await keyring.createAccount(req.params.name, req.params.options);
+    }
 
-    case KeyringMethod.FilterSupportedChains:
+    case KeyringMethod.FilterSupportedChains: {
+      const req =
+        request as InternalJsonRpcRequest<FilterSupportedChainsRequest>;
       return await keyring.filterSupportedChains(
-        (request.params as FilterSupportedChainsRequest).params.id,
-        (request.params as FilterSupportedChainsRequest).params.chains,
+        req.params.id,
+        req.params.chains,
       );
+    }
 
-    case KeyringMethod.UpdateAccount:
-      return await keyring.updateAccount(
-        (request.params as UpdateAccountRequest).params.account,
-      );
+    case KeyringMethod.UpdateAccount: {
+      const req = request as InternalJsonRpcRequest<UpdateAccountRequest>;
+      return await keyring.updateAccount(req.params.account);
+    }
 
-    case KeyringMethod.DeleteAccount:
-      return await keyring.deleteAccount(
-        (request.params as DeleteAccountRequest).params.id,
-      );
+    case KeyringMethod.DeleteAccount: {
+      const req = request as InternalJsonRpcRequest<DeleteAccountRequest>;
+      return await keyring.deleteAccount(req.params.id);
+    }
 
     case KeyringMethod.ListRequests:
       return await keyring.listRequests();
 
-    case KeyringMethod.GetRequest:
-      return await keyring.getRequest(
-        (request.params as GetRequestRequest).params.id,
-      );
+    case KeyringMethod.GetRequest: {
+      const req = request as InternalJsonRpcRequest<GetRequestRequest>;
+      return await keyring.getRequest(req.params.id);
+    }
 
-    case KeyringMethod.SubmitRequest:
-      return await keyring.submitRequest(
-        (request.params as SubmitRequestRequest).params,
-      );
+    case KeyringMethod.SubmitRequest: {
+      const req = request as InternalJsonRpcRequest<SubmitRequestRequest>;
+      return await keyring.submitRequest(req.params);
+    }
 
-    case KeyringMethod.ApproveRequest:
-      return await keyring.approveRequest(
-        (request.params as ApproveRequestRequest).params.id,
-      );
+    case KeyringMethod.ApproveRequest: {
+      const req = request as InternalJsonRpcRequest<ApproveRequestRequest>;
+      return await keyring.approveRequest(req.params.id);
+    }
 
-    case KeyringMethod.RejectRequest:
-      return await keyring.rejectRequest(
-        (request.params as RejectRequestRequest).params.id,
-      );
+    case KeyringMethod.RejectRequest: {
+      const req = request as InternalJsonRpcRequest<RejectRequestRequest>;
+      return await keyring.rejectRequest(req.params.id);
+    }
 
     default:
       throw new MethodNotSupportedError(request.method);

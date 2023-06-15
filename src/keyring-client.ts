@@ -6,12 +6,10 @@ import {
   KeyringRequest,
   SubmitRequestResponse,
 } from './keyring-api';
-import { KeyringInternalRequest, KeyringMethod } from './keyring-internal-api';
+import { InternalRequest, KeyringMethod } from './keyring-internal-api';
 
 export type Sender = {
-  send<Response extends Json>(
-    request: KeyringInternalRequest,
-  ): Promise<Response>;
+  send<Response extends Json>(request: InternalRequest): Promise<Response>;
 };
 
 export class KeyringClient implements Keyring {
