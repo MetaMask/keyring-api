@@ -1,5 +1,5 @@
 import type { SnapController } from '@metamask/snaps-controllers';
-import { HandlerType } from '@metamask/snaps-utils';
+import { HandlerType, ValidatedSnapId } from '@metamask/snaps-utils';
 import { Json } from '@metamask/utils';
 import { v4 as uuid } from 'uuid';
 
@@ -54,7 +54,7 @@ class SnapControllerSender implements Sender {
     params?: Json[] | Record<string, Json>;
   }): Promise<Response> {
     return (await this.#controller.handleRequest({
-      snapId: this.#snapId,
+      snapId: this.#snapId as ValidatedSnapId,
       origin: this.#origin,
       handler: this.#handler,
       request: {
