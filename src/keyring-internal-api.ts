@@ -33,7 +33,7 @@ export enum KeyringMethod {
 export const ListAccountsRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_listAccounts'),
+  method: literal(KeyringMethod.ListAccounts),
 });
 
 export type ListAccountsRequest = Infer<typeof ListAccountsRequestStruct>;
@@ -41,7 +41,7 @@ export type ListAccountsRequest = Infer<typeof ListAccountsRequestStruct>;
 export const GetAccountRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_getAccount'),
+  method: literal(KeyringMethod.GetAccount),
   params: object({
     id: string(),
   }),
@@ -52,7 +52,7 @@ export type GetAccountRequest = Infer<typeof GetAccountRequestStruct>;
 export const CreateAccountRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_createAccount'),
+  method: literal(KeyringMethod.CreateAccount),
   params: object({
     name: string(),
     options: nullable(record(string(), JsonStruct)),
@@ -64,7 +64,7 @@ export type CreateAccountRequest = Infer<typeof CreateAccountRequestStruct>;
 export const FilterAccountChainsStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_filterAccountChains'),
+  method: literal(KeyringMethod.FilterAccountChains),
   params: object({
     id: string(),
     chains: array(string()),
@@ -78,7 +78,7 @@ export type FilterAccountChainsRequest = Infer<
 export const UpdateAccountRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_updateAccount'),
+  method: literal(KeyringMethod.UpdateAccount),
   params: object({
     account: KeyringAccountStruct,
   }),
@@ -89,7 +89,7 @@ export type UpdateAccountRequest = Infer<typeof UpdateAccountRequestStruct>;
 export const DeleteAccountRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_deleteAccount'),
+  method: literal(KeyringMethod.DeleteAccount),
   params: object({
     id: string(),
   }),
@@ -100,7 +100,7 @@ export type DeleteAccountRequest = Infer<typeof DeleteAccountRequestStruct>;
 export const ListRequestsRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_listRequests'),
+  method: literal(KeyringMethod.ListRequests),
 });
 
 export type ListRequestsRequest = Infer<typeof ListRequestsRequestStruct>;
@@ -108,7 +108,7 @@ export type ListRequestsRequest = Infer<typeof ListRequestsRequestStruct>;
 export const GetRequestRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_getRequest'),
+  method: literal(KeyringMethod.GetRequest),
   params: object({
     id: string(),
   }),
@@ -119,7 +119,7 @@ export type GetRequestRequest = Infer<typeof GetRequestRequestStruct>;
 export const SubmitRequestRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_submitRequest'),
+  method: literal(KeyringMethod.SubmitRequest),
   params: KeyringRequestStruct,
 });
 
@@ -128,7 +128,7 @@ export type SubmitRequestRequest = Infer<typeof SubmitRequestRequestStruct>;
 export const ApproveRequestRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_approveRequest'),
+  method: literal(KeyringMethod.ApproveRequest),
   params: object({
     id: string(),
   }),
@@ -139,7 +139,7 @@ export type ApproveRequestRequest = Infer<typeof ApproveRequestRequestStruct>;
 export const RejectRequestRequestStruct = object({
   id: Uuid,
   jsonrpc: literal('2.0'),
-  method: literal('keyring_rejectRequest'),
+  method: literal(KeyringMethod.RejectRequest),
   params: object({
     id: string(),
   }),
