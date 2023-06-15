@@ -13,6 +13,8 @@ import {
   array,
 } from 'superstruct';
 
+export const Uuid = define<string>('id', (value) => isUuid.v4(value as string));
+
 /**
  * Supported EVM methods.
  */
@@ -50,7 +52,7 @@ export const KeyringAccountStruct = object({
   /**
    * Account ID (UUIDv4).
    */
-  id: define<string>('id', (value) => isUuid.v4(value as string)),
+  id: Uuid,
   /**
    * User-chosen account name.
    */

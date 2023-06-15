@@ -10,7 +10,11 @@ import {
   record,
 } from 'superstruct';
 
-import { KeyringAccountStruct, KeyringRequestStruct } from './keyring-api';
+import {
+  KeyringAccountStruct,
+  KeyringRequestStruct,
+  Uuid,
+} from './keyring-api';
 
 export enum KeyringMethod {
   ListAccounts = 'keyring_listAccounts',
@@ -27,12 +31,16 @@ export enum KeyringMethod {
 }
 
 export const ListAccountsRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_listAccounts'),
 });
 
 export type ListAccountsRequest = Infer<typeof ListAccountsRequestStruct>;
 
 export const GetAccountRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_getAccount'),
   params: object({
     id: string(),
@@ -42,6 +50,8 @@ export const GetAccountRequestStruct = object({
 export type GetAccountRequest = Infer<typeof GetAccountRequestStruct>;
 
 export const CreateAccountRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_createAccount'),
   params: object({
     name: string(),
@@ -52,6 +62,8 @@ export const CreateAccountRequestStruct = object({
 export type CreateAccountRequest = Infer<typeof CreateAccountRequestStruct>;
 
 export const FilterAccountChainsStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_filterAccountChains'),
   params: object({
     id: string(),
@@ -64,6 +76,8 @@ export type FilterAccountChainsRequest = Infer<
 >;
 
 export const UpdateAccountRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_updateAccount'),
   params: object({
     account: KeyringAccountStruct,
@@ -73,6 +87,8 @@ export const UpdateAccountRequestStruct = object({
 export type UpdateAccountRequest = Infer<typeof UpdateAccountRequestStruct>;
 
 export const DeleteAccountRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_deleteAccount'),
   params: object({
     id: string(),
@@ -82,12 +98,16 @@ export const DeleteAccountRequestStruct = object({
 export type DeleteAccountRequest = Infer<typeof DeleteAccountRequestStruct>;
 
 export const ListRequestsRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_listRequests'),
 });
 
 export type ListRequestsRequest = Infer<typeof ListRequestsRequestStruct>;
 
 export const GetRequestRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_getRequest'),
   params: object({
     id: string(),
@@ -97,6 +117,8 @@ export const GetRequestRequestStruct = object({
 export type GetRequestRequest = Infer<typeof GetRequestRequestStruct>;
 
 export const SubmitRequestRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_submitRequest'),
   params: KeyringRequestStruct,
 });
@@ -104,6 +126,8 @@ export const SubmitRequestRequestStruct = object({
 export type SubmitRequestRequest = Infer<typeof SubmitRequestRequestStruct>;
 
 export const ApproveRequestRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_approveRequest'),
   params: object({
     id: string(),
@@ -113,6 +137,8 @@ export const ApproveRequestRequestStruct = object({
 export type ApproveRequestRequest = Infer<typeof ApproveRequestRequestStruct>;
 
 export const RejectRequestRequestStruct = object({
+  id: Uuid,
+  jsonrpc: literal('2.0'),
   method: literal('keyring_rejectRequest'),
   params: object({
     id: string(),

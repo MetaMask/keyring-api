@@ -1,25 +1,20 @@
 import { OnRpcRequestHandler } from '@metamask/snaps-utils';
 import { Json, JsonRpcRequest } from '@metamask/utils';
+import { assert } from 'superstruct';
 
 import { Keyring } from './keyring-api';
 import {
-  ApproveRequestRequest,
-  CreateAccountRequest,
-  DeleteAccountRequest,
-  FilterAccountChainsRequest,
-  GetAccountRequest,
-  GetRequestRequest,
-  InternalRequest,
   KeyringMethod,
-  RejectRequestRequest,
-  SubmitRequestRequest,
-  UpdateAccountRequest,
+  GetAccountRequestStruct,
+  CreateAccountRequestStruct,
+  ApproveRequestRequestStruct,
+  DeleteAccountRequestStruct,
+  GetRequestRequestStruct,
+  RejectRequestRequestStruct,
+  SubmitRequestRequestStruct,
+  UpdateAccountRequestStruct,
+  FilterAccountChainsStruct,
 } from './keyring-internal-api';
-
-type InternalJsonRpcRequest<R extends InternalRequest> = {
-  jsonrpc: '2.0';
-  id: string | number | null;
-} & R;
 
 /**
  * Error thrown when a keyring JSON-RPC method is not supported.
@@ -71,55 +66,57 @@ export async function keyringRpcDispatcher(
       return await keyring.listAccounts();
 
     case KeyringMethod.GetAccount: {
-      const req = request as InternalJsonRpcRequest<GetAccountRequest>;
-      return await keyring.getAccount(req.params.id);
+      assert(request, GetAccountRequestStruct);
+      return await keyring.getAccount(request.params.id);
     }
 
     case KeyringMethod.CreateAccount: {
-      const req = request as InternalJsonRpcRequest<CreateAccountRequest>;
-      //@ts-ignore
-      return await keyring.createAccount(req.params.name, req.params.options);
+      assert(request, CreateAccountRequestStruct);
+      return await keyring.createAccount(
+        request.params.name,
+        request.params.options,
+      );
     }
 
     case KeyringMethod.FilterAccountChains: {
-      const req = request as InternalJsonRpcRequest<FilterAccountChainsRequest>;
+      assert(request, FilterAccountChainsStruct);
       return await keyring.filterAccountChains(
-        req.params.id,
-        req.params.chains,
+        request.params.id,
+        request.params.chains,
       );
     }
 
     case KeyringMethod.UpdateAccount: {
-      const req = request as InternalJsonRpcRequest<UpdateAccountRequest>;
-      return await keyring.updateAccount(req.params.account);
+      assert(request, UpdateAccountRequestStruct);
+      return await keyring.updateAccount(request.params.account);
     }
 
     case KeyringMethod.DeleteAccount: {
-      const req = request as InternalJsonRpcRequest<DeleteAccountRequest>;
-      return await keyring.deleteAccount(req.params.id);
+      assert(request, DeleteAccountRequestStruct);
+      return await keyring.deleteAccount(request.params.id);
     }
 
     case KeyringMethod.ListRequests:
       return await keyring.listRequests();
 
     case KeyringMethod.GetRequest: {
-      const req = request as InternalJsonRpcRequest<GetRequestRequest>;
-      return await keyring.getRequest(req.params.id);
+      assert(request, GetRequestRequestStruct);
+      return await keyring.getRequest(request.params.id);
     }
 
     case KeyringMethod.SubmitRequest: {
-      const req = request as InternalJsonRpcRequest<SubmitRequestRequest>;
-      return await keyring.submitRequest(req.params);
+      assert(request, SubmitRequestRequestStruct);
+      return await keyring.submitRequest(request.params);
     }
 
     case KeyringMethod.ApproveRequest: {
-      const req = request as InternalJsonRpcRequest<ApproveRequestRequest>;
-      return await keyring.approveRequest(req.params.id);
+      assert(request, ApproveRequestRequestStruct);
+      return await keyring.approveRequest(request.params.id);
     }
 
     case KeyringMethod.RejectRequest: {
-      const req = request as InternalJsonRpcRequest<RejectRequestRequest>;
-      return await keyring.rejectRequest(req.params.id);
+      assert(request, RejectRequestRequestStruct);
+      return await keyring.rejectRequest(request.params.id);
     }
 
     default:
