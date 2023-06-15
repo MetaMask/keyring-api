@@ -6,7 +6,6 @@ import {
   buildHandlersChain,
   keyringRpcDispatcher,
 } from './keyring-rpc-dispatcher';
-import { KeyringRequest } from './keyring-api';
 
 describe('buildHandlersChain', () => {
   const handler1 = jest.fn();
