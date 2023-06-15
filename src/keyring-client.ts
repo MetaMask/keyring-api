@@ -20,7 +20,7 @@ import {
  * The normal `Omit` type does not distribute over unions. So we use this
  * workaround that applies `Omit` to each member of the union.
  *
- * See: https://github.com/microsoft/TypeScript/issues/31501#issuecomment-1280579305
+ * See: <https://github.com/microsoft/TypeScript/issues/31501#issuecomment-1280579305>
  */
 type OmitUnion<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
 
