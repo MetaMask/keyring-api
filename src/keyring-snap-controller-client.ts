@@ -42,18 +42,18 @@ class SnapControllerSender implements Sender {
   /**
    * Send a request to the snap and return the response.
    *
-   * @param internalRequest - The arguments of the request.
+   * @param request - JSON-RPC request to send to the snap.
    * @returns A promise that resolves to the response of the request.
    */
   async send<Response extends Json>(
-    internalRequest: InternalRequest,
+    request: InternalRequest,
   ): Promise<Response> {
-    assert(internalRequest, InternalRequestStruct);
+    assert(request, InternalRequestStruct);
     return (await this.#controller.handleRequest({
       snapId: this.#snapId as ValidatedSnapId,
       origin: this.#origin,
       handler: this.#handler,
-      request: internalRequest,
+      request,
     })) as Response;
   }
 }
