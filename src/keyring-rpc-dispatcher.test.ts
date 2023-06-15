@@ -7,18 +7,17 @@ import {
 } from './keyring-rpc-dispatcher';
 
 describe('buildHandlersChain', () => {
-  // Mock handlers
   const handler1 = jest.fn();
   const handler2 = jest.fn();
   const handler3 = jest.fn();
 
-  // Create a mock request object
   const request: JsonRpcRequest<Json[] | Record<string, Json>> = {
     jsonrpc: '2.0',
     id: 'test-id',
     method: 'test_method',
     params: {},
   };
+
   const origin = 'metamask';
 
   it('should call the first handler and return its result', async () => {
@@ -93,7 +92,6 @@ describe('buildHandlersChain', () => {
 });
 
 describe('keyringRpcDispatcher', () => {
-  // Mock keyring instance
   const keyring = {
     listAccounts: jest.fn(),
     getAccount: jest.fn(),
