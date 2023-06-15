@@ -50,7 +50,7 @@ export const KeyringAccountStruct = object({
   /**
    * Account ID (UUIDv4).
    */
-  id: define('id', (value) => isUuid.v4(value as string)),
+  id: define<string>('id', (value) => isUuid.v4(value as string)),
   /**
    * User-chosen account name.
    */
@@ -116,7 +116,7 @@ export const KeyringRequestStruct = object({
    *
    * Note: The request ID must be a string.
    */
-  request: JsonRpcRequestStruct,
+  request: KeyringJsonRpcRequestStruct,
 });
 
 /**
