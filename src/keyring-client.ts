@@ -25,16 +25,16 @@ export class KeyringClient implements Keyring {
 
   async listAccounts(): Promise<KeyringAccount[]> {
     return await this.#sender.send<KeyringAccount[]>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.ListAccounts,
     });
   }
 
   async getAccount(id: string): Promise<KeyringAccount> {
     return await this.#sender.send<KeyringAccount>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.GetAccount,
       params: { id },
     });
@@ -45,8 +45,8 @@ export class KeyringClient implements Keyring {
     options: Record<string, Json> | null = null,
   ): Promise<KeyringAccount> {
     return await this.#sender.send<KeyringAccount>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.CreateAccount,
       params: { name, options },
     });
@@ -54,8 +54,8 @@ export class KeyringClient implements Keyring {
 
   async filterAccountChains(id: string, chains: string[]): Promise<string[]> {
     return await this.#sender.send<string[]>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.FilterAccountChains,
       params: { id, chains },
     });
@@ -64,8 +64,8 @@ export class KeyringClient implements Keyring {
   async updateAccount(account: KeyringAccount): Promise<void> {
     assert(account, KeyringAccountStruct);
     await this.#sender.send<null>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.UpdateAccount,
       params: { account },
     });
@@ -73,8 +73,8 @@ export class KeyringClient implements Keyring {
 
   async deleteAccount(id: string): Promise<void> {
     await this.#sender.send<null>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.DeleteAccount,
       params: { id },
     });
@@ -82,16 +82,16 @@ export class KeyringClient implements Keyring {
 
   async listRequests(): Promise<KeyringRequest[]> {
     return await this.#sender.send<KeyringRequest[]>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.ListRequests,
     });
   }
 
   async getRequest(id: string): Promise<KeyringRequest> {
     return await this.#sender.send<KeyringRequest>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.GetRequest,
       params: { id },
     });
@@ -100,8 +100,8 @@ export class KeyringClient implements Keyring {
   async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
     assert(request, KeyringRequestStruct);
     return await this.#sender.send<SubmitRequestResponse>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.SubmitRequest,
       params: request,
     });
@@ -109,8 +109,8 @@ export class KeyringClient implements Keyring {
 
   async approveRequest(id: string): Promise<void> {
     await this.#sender.send<null>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.ApproveRequest,
       params: { id },
     });
@@ -118,8 +118,8 @@ export class KeyringClient implements Keyring {
 
   async rejectRequest(id: string): Promise<void> {
     await this.#sender.send<null>({
-      id: uuid(),
       jsonrpc: '2.0',
+      id: uuid(),
       method: KeyringMethod.RejectRequest,
       params: { id },
     });
