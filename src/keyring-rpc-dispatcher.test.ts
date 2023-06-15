@@ -1,5 +1,6 @@
 import { Json, JsonRpcRequest } from '@metamask/utils';
 
+import { KeyringMethod } from './keyring-internal-api';
 import {
   MethodNotSupportedError,
   buildHandlersChain,
@@ -96,7 +97,7 @@ describe('keyringRpcDispatcher', () => {
     listAccounts: jest.fn(),
     getAccount: jest.fn(),
     createAccount: jest.fn(),
-    filterSupportedChains: jest.fn(),
+    filterAccountChains: jest.fn(),
     updateAccount: jest.fn(),
     deleteAccount: jest.fn(),
     listRequests: jest.fn(),
@@ -114,7 +115,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_listAccounts',
+      method: KeyringMethod.ListAccounts,
     };
 
     keyring.listAccounts.mockResolvedValue('ListAccounts result');
@@ -128,7 +129,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_getAccount',
+      method: KeyringMethod.GetAccount,
       params: { id: 'account_id' },
     };
 
@@ -143,7 +144,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_createAccount',
+      method: KeyringMethod.CreateAccount,
       params: { name: 'account_name', options: {} },
     };
 
@@ -154,20 +155,20 @@ describe('keyringRpcDispatcher', () => {
     expect(result).toBe('CreateAccount result');
   });
 
-  it('should call keyring_filterSupportedChains', async () => {
+  it('should call keyring_filterAccountChains', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_filterSupportedChains',
+      method: KeyringMethod.FilterAccountChains,
       params: { id: 'account_id', chains: ['chain1', 'chain2'] },
     };
 
-    keyring.filterSupportedChains.mockResolvedValue(
+    keyring.filterAccountChains.mockResolvedValue(
       'FilterSupportedChains result',
     );
     const result = await keyringRpcDispatcher(keyring, request);
 
-    expect(keyring.filterSupportedChains).toHaveBeenCalledWith('account_id', [
+    expect(keyring.filterAccountChains).toHaveBeenCalledWith('account_id', [
       'chain1',
       'chain2',
     ]);
@@ -178,7 +179,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_updateAccount',
+      method: KeyringMethod.UpdateAccount,
       params: { account: { id: 'account_id' } },
     };
 
@@ -193,7 +194,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_deleteAccount',
+      method: KeyringMethod.DeleteAccount,
       params: { id: 'account_id' },
     };
 
@@ -208,7 +209,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_listRequests',
+      method: KeyringMethod.ListRequests,
     };
 
     keyring.listRequests.mockResolvedValue('ListRequests result');
@@ -222,7 +223,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_getRequest',
+      method: KeyringMethod.GetRequest,
       params: { id: 'request_id' },
     };
 
@@ -238,7 +239,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_submitRequest',
+      method: KeyringMethod.SubmitRequest,
       params: dappRequest,
     };
 
@@ -253,7 +254,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_approveRequest',
+      method: KeyringMethod.ApproveRequest,
       params: { id: 'request_id' },
     };
 
@@ -268,7 +269,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: 'keyring_rejectRequest',
+      method: KeyringMethod.RejectRequest,
       params: { id: 'request_id' },
     };
 
