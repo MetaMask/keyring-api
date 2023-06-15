@@ -28,12 +28,12 @@ export enum EvmMethod {
   SignTypedDataV4 = 'eth_signTypedData_v4',
 }
 
+export const EvmMethodStruct = enums([...Object.values(EvmMethod)]);
 /**
  * Supported methods.
  */
-export type Method = Infer<typeof EvmMethodStruct>;
-
-export const EvmMethodStruct = enums([...Object.values(EvmMethod)]);
+export type Method = Infer<typeof MethodStruct>;
+export const MethodStruct = union([EvmMethodStruct]);
 
 export const AccountTypeStruct = enums(['eip155:eoa', 'eip155:sca:erc4337']);
 
@@ -66,7 +66,7 @@ export const KeyringAccountStruct = object({
   /**
    * Account supported methods.
    */
-  supportedMethods: EvmMethodStruct,
+  supportedMethods: array(MethodStruct),
   /**
    * Account type.
    */
@@ -80,12 +80,19 @@ export const KeyringAccountStruct = object({
  */
 export type KeyringAccount = Infer<typeof KeyringAccountStruct>;
 
-export const JsonRpcRequestStruct = object({
-  jsonrpc: literal('2.0'),
-  id: string(),
-  method: EvmMethodStruct,
-  params: nullable(JsonStruct),
-});
+export const KeyringJsonRpcRequestStruct = union([
+  object({
+    jsonrpc: literal('2.0'),
+    id: string(),
+    method: string(),
+  }),
+  object({
+    jsonrpc: literal('2.0'),
+    id: string(),
+    method: string(),
+    params: union([array(JsonStruct), record(string(), JsonStruct)]),
+  }),
+]);
 
 /**
  * JSON-RPC request type.
@@ -93,7 +100,7 @@ export const JsonRpcRequestStruct = object({
  * Represents a JSON-RPC request sent by a dApp. The request ID must be a
  * string and the params field cannot be undefined.
  */
-export type JsonRpcRequest = Infer<typeof JsonRpcRequestStruct>;
+export type KeyringJsonRpcRequest = Infer<typeof KeyringJsonRpcRequestStruct>;
 
 export const KeyringRequestStruct = object({
   /**

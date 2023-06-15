@@ -7,6 +7,7 @@ import {
   literal,
   array,
   union,
+  record,
 } from 'superstruct';
 
 import { KeyringAccountStruct, KeyringRequestStruct } from './keyring-api';
@@ -44,7 +45,7 @@ export const CreateAccountRequestStruct = object({
   method: literal('keyring_createAccount'),
   params: object({
     name: string(),
-    options: nullable(JsonStruct),
+    options: nullable(record(string(), JsonStruct)),
   }),
 });
 
