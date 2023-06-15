@@ -58,7 +58,7 @@ export function buildHandlersChain(
  */
 export async function keyringRpcDispatcher(
   keyring: Keyring,
-  request: JsonRpcRequest<Json[] | Record<string, Json>>,
+  request: JsonRpcRequest,
 ): Promise<Json | void> {
   switch (request.method) {
     case KeyringMethod.ListAccounts:
