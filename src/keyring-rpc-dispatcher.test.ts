@@ -6,6 +6,7 @@ import {
   buildHandlersChain,
   keyringRpcDispatcher,
 } from './keyring-rpc-dispatcher';
+import { KeyringRequest } from './keyring-api';
 
 describe('buildHandlersChain', () => {
   const handler1 = jest.fn();
@@ -130,13 +131,15 @@ describe('keyringRpcDispatcher', () => {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: KeyringMethod.GetAccount,
-      params: { id: 'account_id' },
+      params: { id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041' },
     };
 
     keyring.getAccount.mockResolvedValue('GetAccount result');
     const result = await keyringRpcDispatcher(keyring, request);
 
-    expect(keyring.getAccount).toHaveBeenCalledWith('account_id');
+    expect(keyring.getAccount).toHaveBeenCalledWith(
+      '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
+    );
     expect(result).toBe('GetAccount result');
   });
 
@@ -160,7 +163,10 @@ describe('keyringRpcDispatcher', () => {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: KeyringMethod.FilterAccountChains,
-      params: { id: 'account_id', chains: ['chain1', 'chain2'] },
+      params: {
+        id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
+        chains: ['chain1', 'chain2'],
+      },
     };
 
     keyring.filterAccountChains.mockResolvedValue(
@@ -168,10 +174,10 @@ describe('keyringRpcDispatcher', () => {
     );
     const result = await keyringRpcDispatcher(keyring, request);
 
-    expect(keyring.filterAccountChains).toHaveBeenCalledWith('account_id', [
-      'chain1',
-      'chain2',
-    ]);
+    expect(keyring.filterAccountChains).toHaveBeenCalledWith(
+      '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
+      ['chain1', 'chain2'],
+    );
     expect(result).toBe('FilterSupportedChains result');
   });
 
@@ -180,13 +186,29 @@ describe('keyringRpcDispatcher', () => {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: KeyringMethod.UpdateAccount,
-      params: { account: { id: 'account_id' } },
+      params: {
+        account: {
+          id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
+          name: 'test',
+          address: '0x0',
+          options: {},
+          supportedMethods: [],
+          type: 'eip155:eoa',
+        },
+      },
     };
 
     keyring.updateAccount.mockResolvedValue('UpdateAccount result');
     const result = await keyringRpcDispatcher(keyring, request);
 
-    expect(keyring.updateAccount).toHaveBeenCalledWith({ id: 'account_id' });
+    expect(keyring.updateAccount).toHaveBeenCalledWith({
+      id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
+      name: 'test',
+      address: '0x0',
+      options: {},
+      supportedMethods: [],
+      type: 'eip155:eoa',
+    });
     expect(result).toBe('UpdateAccount result');
   });
 
@@ -195,13 +217,15 @@ describe('keyringRpcDispatcher', () => {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: KeyringMethod.DeleteAccount,
-      params: { id: 'account_id' },
+      params: { id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041' },
     };
 
     keyring.deleteAccount.mockResolvedValue('DeleteAccount result');
     const result = await keyringRpcDispatcher(keyring, request);
 
-    expect(keyring.deleteAccount).toHaveBeenCalledWith('account_id');
+    expect(keyring.deleteAccount).toHaveBeenCalledWith(
+      '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
+    );
     expect(result).toBe('DeleteAccount result');
   });
 
@@ -235,7 +259,17 @@ describe('keyringRpcDispatcher', () => {
   });
 
   it('should call keyring_submitRequest', async () => {
-    const dappRequest = { method: 'eth_method', params: [1, 2, 3] };
+    const dappRequest = {
+      account: '4abdd17e-8b0f-4d06-a017-947a64823b3d',
+      scope: '',
+      request: {
+        jsonrpc: '2.0',
+        id: 'c555de37-cf4b-4ff2-8273-39db7fb58f1c',
+        method: 'eth_method',
+        params: [1, 2, 3],
+      },
+    };
+
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
