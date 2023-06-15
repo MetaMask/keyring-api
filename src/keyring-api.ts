@@ -15,64 +15,48 @@ import {
 
 export const Uuid = define<string>('id', (value) => isUuid.v4(value as string));
 
-/**
- * Supported EVM methods.
- */
-export enum EvmMethod {
-  PersonalSign = 'personal_sign',
-  SendTransaction = 'eth_sendTransaction',
-  Sign = 'eth_sign',
-  SignTransaction = 'eth_signTransaction',
-  SignTypedData = 'eth_signTypedData',
-  SignTypedDataV1 = 'eth_signTypedData_v1',
-  SignTypedDataV2 = 'eth_signTypedData_v2',
-  SignTypedDataV3 = 'eth_signTypedData_v3',
-  SignTypedDataV4 = 'eth_signTypedData_v4',
-}
-
-export const EvmMethodStruct = enums([...Object.values(EvmMethod)]);
-/**
- * Supported methods.
- */
-export type Method = Infer<typeof MethodStruct>;
-export const MethodStruct = union([EvmMethodStruct]);
-
-export const AccountTypeStruct = enums(['eip155:eoa', 'eip155:sca:erc4337']);
-
-/**
- * Account types.
- *
- * For EVM accounts (EIP-155), the following account types are supported:
- * - `eip155:eoa`: Externally owned account.
- * - `eip155:sca:erc4337`: Smart contract account (ERC-4337).
- */
-export type AccountType = Infer<typeof AccountTypeStruct>;
-
 export const KeyringAccountStruct = object({
   /**
    * Account ID (UUIDv4).
    */
   id: Uuid,
+
   /**
    * User-chosen account name.
    */
   name: string(),
+
   /**
    * Account address or next receive address (UTXO).
    */
   address: string(),
+
   /**
    * Keyring-dependent account options.
    */
   options: nullable(record(string(), JsonStruct)),
+
   /**
    * Account supported methods.
    */
-  supportedMethods: array(MethodStruct),
+  supportedMethods: array(
+    enums([
+      'personal_sign',
+      'eth_sendTransaction',
+      'eth_sign',
+      'eth_signTransaction',
+      'eth_signTypedData',
+      'eth_signTypedData_v1',
+      'eth_signTypedData_v2',
+      'eth_signTypedData_v3',
+      'eth_signTypedData_v4',
+    ]),
+  ),
+
   /**
    * Account type.
    */
-  type: AccountTypeStruct,
+  type: enums(['eip155:eoa', 'eip155:erc4337']),
 });
 
 /**
@@ -108,11 +92,13 @@ export const KeyringRequestStruct = object({
   /**
    * Account ID (UUIDv4).
    */
-  account: string(),
+  account: Uuid,
+
   /**
    * Request's scope (CAIP-2 chain ID).
    */
   scope: string(),
+
   /**
    * JSON-RPC request sent by the client application.
    *
