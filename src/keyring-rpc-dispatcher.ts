@@ -6,7 +6,7 @@ import {
   ApproveRequestRequest,
   CreateAccountRequest,
   DeleteAccountRequest,
-  FilterSupportedChainsRequest,
+  FilterAccountChainsRequest,
   GetAccountRequest,
   GetRequestRequest,
   InternalRequest,
@@ -77,12 +77,12 @@ export async function keyringRpcDispatcher(
 
     case KeyringMethod.CreateAccount: {
       const req = request as InternalJsonRpcRequest<CreateAccountRequest>;
+      //@ts-ignore
       return await keyring.createAccount(req.params.name, req.params.options);
     }
 
     case KeyringMethod.FilterAccountChains: {
-      const req =
-        request as InternalJsonRpcRequest<FilterSupportedChainsRequest>;
+      const req = request as InternalJsonRpcRequest<FilterAccountChainsRequest>;
       return await keyring.filterAccountChains(
         req.params.id,
         req.params.chains,
