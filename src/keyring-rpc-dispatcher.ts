@@ -80,10 +80,10 @@ export async function keyringRpcDispatcher(
       return await keyring.createAccount(req.params.name, req.params.options);
     }
 
-    case KeyringMethod.FilterSupportedChains: {
+    case KeyringMethod.FilterAccountChains: {
       const req =
         request as InternalJsonRpcRequest<FilterSupportedChainsRequest>;
-      return await keyring.filterSupportedChains(
+      return await keyring.filterAccountChains(
         req.params.id,
         req.params.chains,
       );

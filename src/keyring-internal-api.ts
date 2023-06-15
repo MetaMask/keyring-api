@@ -6,7 +6,7 @@ export enum KeyringMethod {
   ListAccounts = 'keyring_listAccounts',
   GetAccount = 'keyring_getAccount',
   CreateAccount = 'keyring_createAccount',
-  FilterSupportedChains = 'keyring_filterSupportedChains',
+  FilterAccountChains = 'keyring_filterAccountChains',
   UpdateAccount = 'keyring_updateAccount',
   DeleteAccount = 'keyring_deleteAccount',
   ListRequests = 'keyring_listRequests',
@@ -34,7 +34,7 @@ export type CreateAccountRequest = {
 };
 
 export type FilterSupportedChainsRequest = {
-  method: KeyringMethod.FilterSupportedChains;
+  method: KeyringMethod.FilterAccountChains;
   params: { id: string; chains: string[] };
 };
 

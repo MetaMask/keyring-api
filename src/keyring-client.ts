@@ -42,9 +42,9 @@ export class KeyringClient implements Keyring {
     });
   }
 
-  async filterSupportedChains(id: string, chains: string[]): Promise<string[]> {
+  async filterAccountChains(id: string, chains: string[]): Promise<string[]> {
     return await this.#sender.send<string[]>({
-      method: KeyringMethod.FilterSupportedChains,
+      method: KeyringMethod.FilterAccountChains,
       params: { id, chains },
     });
   }

@@ -173,7 +173,7 @@ export type Keyring = {
    * @returns A Promise that resolves to a filtered list of CAIP-2 IDs
    * representing the supported chains.
    */
-  filterSupportedChains(id: string, chains: string[]): Promise<string[]>;
+  filterAccountChains(id: string, chains: string[]): Promise<string[]>;
 
   /**
    * Update an account.
