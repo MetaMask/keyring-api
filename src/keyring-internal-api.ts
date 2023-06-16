@@ -8,6 +8,7 @@ import {
   array,
   union,
   record,
+  never,
 } from 'superstruct';
 
 import {
@@ -31,16 +32,26 @@ export enum KeyringMethod {
   RejectRequest = 'keyring_rejectRequest',
 }
 
+// ----------------------------------------------------------------------------
+// List accounts
+
 export const ListAccountsRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.ListAccounts),
 });
 
 export type ListAccountsRequest = Infer<typeof ListAccountsRequestStruct>;
 
+export const ListAccountsResponseStruct = array(KeyringAccountStruct);
+
+export type ListAccountsResponse = Infer<typeof ListAccountsResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// Get account
+
 export const GetAccountRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.GetAccount),
   params: object({
@@ -50,8 +61,15 @@ export const GetAccountRequestStruct = object({
 
 export type GetAccountRequest = Infer<typeof GetAccountRequestStruct>;
 
+export const GetAccountResponseStruct = KeyringAccountStruct;
+
+export type GetAccountResponse = Infer<typeof GetAccountResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// Create account
+
 export const CreateAccountRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.CreateAccount),
   params: object({
@@ -62,8 +80,15 @@ export const CreateAccountRequestStruct = object({
 
 export type CreateAccountRequest = Infer<typeof CreateAccountRequestStruct>;
 
+export const CreateAccountResponseStruct = KeyringAccountStruct;
+
+export type CreateAccountResponse = Infer<typeof CreateAccountResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// Filter account chains
+
 export const FilterAccountChainsStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.FilterAccountChains),
   params: object({
@@ -76,8 +101,17 @@ export type FilterAccountChainsRequest = Infer<
   typeof FilterAccountChainsStruct
 >;
 
+export const FilterAccountChainsResponseStruct = array(string());
+
+export type FilterAccountChainsResponse = Infer<
+  typeof FilterAccountChainsResponseStruct
+>;
+
+// ----------------------------------------------------------------------------
+// Update account
+
 export const UpdateAccountRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.UpdateAccount),
   params: object({
@@ -87,8 +121,15 @@ export const UpdateAccountRequestStruct = object({
 
 export type UpdateAccountRequest = Infer<typeof UpdateAccountRequestStruct>;
 
+export const UpdateAccountResponseStruct = nullable(never());
+
+export type UpdateAccountResponse = Infer<typeof UpdateAccountResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// Delete account
+
 export const DeleteAccountRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.DeleteAccount),
   params: object({
@@ -98,16 +139,30 @@ export const DeleteAccountRequestStruct = object({
 
 export type DeleteAccountRequest = Infer<typeof DeleteAccountRequestStruct>;
 
+export const DeleteAccountResponseStruct = nullable(never());
+
+export type DeleteAccountResponse = Infer<typeof DeleteAccountResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// List requests
+
 export const ListRequestsRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.ListRequests),
 });
 
 export type ListRequestsRequest = Infer<typeof ListRequestsRequestStruct>;
 
+export const ListRequestsResponseStruct = array(KeyringRequestStruct);
+
+export type ListRequestsResponse = Infer<typeof ListRequestsResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// Get request
+
 export const GetRequestRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.GetRequest),
   params: object({
@@ -117,8 +172,15 @@ export const GetRequestRequestStruct = object({
 
 export type GetRequestRequest = Infer<typeof GetRequestRequestStruct>;
 
+export const GetRequestResponseStruct = KeyringRequestStruct;
+
+export type GetRequestResponse = Infer<typeof GetRequestResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// Submit request
+
 export const SubmitRequestRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.SubmitRequest),
   params: KeyringRequestStruct,
@@ -126,8 +188,14 @@ export const SubmitRequestRequestStruct = object({
 
 export type SubmitRequestRequest = Infer<typeof SubmitRequestRequestStruct>;
 
+// The response type is already defined in the `keyring-api.ts` file since it
+// is used by the `Keyring` interface.
+
+// ----------------------------------------------------------------------------
+// Approve request
+
 export const ApproveRequestRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.ApproveRequest),
   params: object({
@@ -137,8 +205,15 @@ export const ApproveRequestRequestStruct = object({
 
 export type ApproveRequestRequest = Infer<typeof ApproveRequestRequestStruct>;
 
+export const ApproveRequestResponseStruct = nullable(never());
+
+export type ApproveRequestResponse = Infer<typeof ApproveRequestResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// Reject request
+
 export const RejectRequestRequestStruct = object({
-  id: Uuid,
+  id: UuidStruct,
   jsonrpc: literal('2.0'),
   method: literal(KeyringMethod.RejectRequest),
   params: object({
@@ -147,6 +222,13 @@ export const RejectRequestRequestStruct = object({
 });
 
 export type RejectRequestRequest = Infer<typeof RejectRequestRequestStruct>;
+
+export const RejectRequestResponseStruct = nullable(never());
+
+export type RejectRequestResponse = Infer<typeof RejectRequestResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// Internal request
 
 export const InternalRequestStruct = union([
   ListAccountsRequestStruct,
@@ -163,3 +245,22 @@ export const InternalRequestStruct = union([
 ]);
 
 export type InternalRequest = Infer<typeof InternalRequestStruct>;
+
+// ----------------------------------------------------------------------------
+// Internal response
+
+export const InternalResponseStruct = union([
+  ListAccountsResponseStruct,
+  GetAccountResponseStruct,
+  CreateAccountResponseStruct,
+  FilterAccountChainsResponseStruct,
+  UpdateAccountResponseStruct,
+  DeleteAccountResponseStruct,
+  ListRequestsResponseStruct,
+  GetRequestResponseStruct,
+  SubmitRequestResponseStruct,
+  ApproveRequestResponseStruct,
+  RejectRequestResponseStruct,
+]);
+
+export type InternalResponse = Infer<typeof InternalResponseStruct>;
