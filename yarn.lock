@@ -1102,7 +1102,6 @@ __metadata:
     "@metamask/providers": ^11.0.0
     "@metamask/snaps-controllers": ^0.34.1-flask.1
     "@metamask/snaps-types": 0.34.1-flask.1
-    "@metamask/snaps-utils": ^0.34.1-flask.1
     "@metamask/utils": ^5.0.2
     "@types/jest": ^28.1.6
     "@types/node": ^16
