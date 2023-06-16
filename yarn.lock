@@ -1101,7 +1101,6 @@ __metadata:
     "@metamask/eslint-config-typescript": ^11.0.0
     "@metamask/providers": ^11.0.0
     "@metamask/snaps-controllers": ^0.34.1-flask.1
-    "@metamask/snaps-types": 0.34.1-flask.1
     "@metamask/snaps-utils": ^0.34.1-flask.1
     "@metamask/utils": ^5.0.2
     "@types/jest": ^28.1.6
@@ -1312,18 +1311,6 @@ __metadata:
     "@noble/secp256k1": ^1.7.1
     superstruct: ^1.0.3
   checksum: d2d5b743a8b55b6f685708b2b694534585329585c6d94819328e270fd77c68c0bede88b866821db9c22a667eca1f4961ed860d83b438cf009bd1c4df6e75b78a
-  languageName: node
-  linkType: hard
-
-"@metamask/snaps-types@npm:0.34.1-flask.1":
-  version: 0.34.1-flask.1
-  resolution: "@metamask/snaps-types@npm:0.34.1-flask.1"
-  dependencies:
-    "@metamask/providers": ^10.2.1
-    "@metamask/rpc-methods": ^0.34.1-flask.1
-    "@metamask/snaps-utils": ^0.34.1-flask.1
-    "@metamask/utils": ^6.0.0
-  checksum: 52fe378003ad26094f2d6f4e3eff9398f1daba3e300637526e9f9c8776dcc563c4d01a0e359e00e3a99e24c71ecb97163c70025cc7a8b66c729878225d840412
   languageName: node
   linkType: hard
 
