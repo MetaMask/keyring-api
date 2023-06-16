@@ -1,4 +1,4 @@
-import { OnRpcRequestHandler } from '@metamask/snaps-utils';
+import { OnRpcRequestHandler } from '@metamask/snaps-types';
 import { Json, JsonRpcRequest } from '@metamask/utils';
 import { assert } from 'superstruct';
 

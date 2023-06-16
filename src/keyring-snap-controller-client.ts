@@ -1,4 +1,4 @@
-import type { SnapController } from '@metamask/snaps-controllers';
+import { SnapController } from '@metamask/snaps-controllers';
 import { HandlerType, ValidatedSnapId } from '@metamask/snaps-utils';
 import { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
