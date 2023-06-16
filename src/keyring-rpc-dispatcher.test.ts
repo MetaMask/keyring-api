@@ -1,4 +1,4 @@
-import { Json, JsonRpcRequest } from '@metamask/utils';
+import type { Json, JsonRpcRequest } from '@metamask/utils';
 
 import { KeyringMethod } from './keyring-internal-api';
 import {

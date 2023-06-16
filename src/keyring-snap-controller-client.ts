@@ -1,6 +1,6 @@
-import { SnapController } from '@metamask/snaps-controllers';
+import type { SnapController } from '@metamask/snaps-controllers';
 import { HandlerType, ValidatedSnapId } from '@metamask/snaps-utils';
-import { Json } from '@metamask/utils';
+import type { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
 
 import { KeyringClient, Sender } from './keyring-client';

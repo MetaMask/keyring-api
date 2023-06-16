@@ -1,7 +1,7 @@
-import { Json } from '@metamask/utils';
+import type { Json } from '@metamask/utils';
 
 import { KeyringClient, Sender } from './keyring-client';
-import { InternalRequest } from './keyring-internal-api';
+import type { InternalRequest } from './keyring-internal-api';
 
 /**
  * Implementation of the `Sender` interface that can be used to send requests

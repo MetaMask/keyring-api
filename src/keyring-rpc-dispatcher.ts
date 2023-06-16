@@ -1,8 +1,8 @@
-import { OnRpcRequestHandler } from '@metamask/snaps-utils';
-import { Json, JsonRpcRequest } from '@metamask/utils';
+import type { OnRpcRequestHandler } from '@metamask/snaps-utils';
+import type { Json, JsonRpcRequest } from '@metamask/utils';
 import { assert } from 'superstruct';
 
-import { Keyring } from './keyring-api';
+import type { Keyring } from './keyring-api';
 import {
   KeyringMethod,
   GetAccountRequestStruct,

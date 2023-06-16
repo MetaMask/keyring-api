@@ -1,4 +1,4 @@
-import { Json } from '@metamask/utils';
+import type { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
 import { v4 as uuid } from 'uuid';
 
