@@ -1,8 +1,5 @@
-import {
-  OnRpcRequestHandler,
-  Json,
-  JsonRpcRequest,
-} from '@metamask/snaps-types';
+import { OnRpcRequestHandler } from '@metamask/snaps-types';
+import { Json, JsonRpcRequest } from '@metamask/utils';
 import { assert } from 'superstruct';
 
 import { Keyring } from './keyring-api';
