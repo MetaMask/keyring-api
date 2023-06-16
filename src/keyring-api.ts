@@ -1,10 +1,8 @@
 import { Json, JsonStruct } from '@metamask/utils';
-import isUuid from 'is-uuid';
 import {
   literal,
   union,
   nullable,
-  define,
   object,
   string,
   enums,
@@ -13,13 +11,13 @@ import {
   array,
 } from 'superstruct';
 
-export const Uuid = define<string>('id', (value) => isUuid.v4(value as string));
+import { UuidStruct } from './utils';
 
 export const KeyringAccountStruct = object({
   /**
    * Account ID (UUIDv4).
    */
-  id: Uuid,
+  id: UuidStruct,
 
   /**
    * User-chosen account name.
@@ -92,7 +90,7 @@ export const KeyringRequestStruct = object({
   /**
    * Account ID (UUIDv4).
    */
-  account: Uuid,
+  account: UuidStruct,
 
   /**
    * Request's scope (CAIP-2 chain ID).

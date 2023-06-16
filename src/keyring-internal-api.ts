@@ -13,8 +13,9 @@ import {
 import {
   KeyringAccountStruct,
   KeyringRequestStruct,
-  Uuid,
+  SubmitRequestResponseStruct,
 } from './keyring-api';
+import { UuidStruct } from './utils';
 
 export enum KeyringMethod {
   ListAccounts = 'keyring_listAccounts',
