@@ -36,6 +36,7 @@
     "@metamask/snaps-utils": "^0.34.1-flask.1",
     "@metamask/utils": "^5.0.2",
     "@types/uuid": "^9.0.1",
+    "superstruct": "^1.0.3",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
