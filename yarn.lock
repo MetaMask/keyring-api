@@ -1369,7 +1369,6 @@ __metadata:
     "@metamask/snaps-controllers": ^0.34.1-flask.1
     "@metamask/snaps-utils": ^0.34.1-flask.1
     "@metamask/utils": ^5.0.2
-    "@types/is-uuid": ^1.0.0
     "@types/jest": ^28.1.6
     "@types/node": ^16
     "@types/uuid": ^9.0.1
@@ -2000,13 +1999,6 @@ __metadata:
   version: 1.2.10
   resolution: "@types/har-format@npm:1.2.10"
   checksum: 14c0118d809e77a0bac9deec0a87159c28beab21105cfce3aa291b51e28d4c07142851c4e6b93b7ecb4ea237fe07d39ba98a42bb2de2f5891144733411ac76b7
-  languageName: node
-  linkType: hard
-
-"@types/is-uuid@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@types/is-uuid@npm:1.0.0"
-  checksum: f3f211b37ef7c1f290d7129455294e64be7f02e93d8e46eb5059fa2556b53abe1db228c33c0ef5ffa33f08d7df90ef2b4c76bf95c1cc1c41be3f0455164cc69b
   languageName: node
   linkType: hard
 
