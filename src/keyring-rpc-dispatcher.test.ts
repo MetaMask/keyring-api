@@ -3,7 +3,7 @@ import type { Json, JsonRpcRequest } from '@metamask/utils';
 import { KeyringMethod } from './keyring-internal-api';
 import {
   MethodNotSupportedError,
-  buildHandlersChain,
+  chainHandlers,
   keyringRpcDispatcher,
 } from './keyring-rpc-dispatcher';
 
@@ -24,7 +24,11 @@ describe('buildHandlersChain', () => {
   it('should call the first handler and return its result', async () => {
     handler1.mockResolvedValue('Handler 1 result');
 
-    const result = await buildHandlersChain([handler1, handler2, handler3])({
+    const result = await chainHandlers(
+      handler1,
+      handler2,
+      handler3,
+    )({
       origin,
       request,
     });
@@ -39,7 +43,11 @@ describe('buildHandlersChain', () => {
     handler1.mockRejectedValue(new MethodNotSupportedError('test_method'));
     handler2.mockResolvedValue('Handler 2 result');
 
-    const result = await buildHandlersChain([handler1, handler2, handler3])({
+    const result = await chainHandlers(
+      handler1,
+      handler2,
+      handler3,
+    )({
       origin,
       request,
     });
@@ -55,7 +63,11 @@ describe('buildHandlersChain', () => {
     handler2.mockRejectedValue(new MethodNotSupportedError('test_method'));
     handler3.mockResolvedValue('Handler 3 result');
 
-    const result = await buildHandlersChain([handler1, handler2, handler3])({
+    const result = await chainHandlers(
+      handler1,
+      handler2,
+      handler3,
+    )({
       origin,
       request,
     });
@@ -72,7 +84,7 @@ describe('buildHandlersChain', () => {
     handler3.mockRejectedValue(new MethodNotSupportedError('test_method'));
 
     await expect(
-      buildHandlersChain([handler1, handler2, handler3])({ origin, request }),
+      chainHandlers(handler1, handler2, handler3)({ origin, request }),
     ).rejects.toThrow(MethodNotSupportedError);
     expect(handler1).toHaveBeenCalledWith({ origin, request });
     expect(handler2).toHaveBeenCalledWith({ origin, request });
@@ -84,7 +96,7 @@ describe('buildHandlersChain', () => {
     handler1.mockRejectedValue(error);
 
     await expect(
-      buildHandlersChain([handler1, handler2, handler3])({ origin, request }),
+      chainHandlers(handler1, handler2, handler3)({ origin, request }),
     ).rejects.toThrow(error);
     expect(handler1).toHaveBeenCalledWith({ origin, request });
     expect(handler2).not.toHaveBeenCalled();

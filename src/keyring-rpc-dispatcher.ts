@@ -28,11 +28,17 @@ export class MethodNotSupportedError extends Error {
 /**
  * Build a chain of handlers for a JSON-RPC request.
  *
- * @param handlers - Array of handlers.
- * @returns A handler that chains all the handlers in the array.
+ * If a handler throws a MethodNotSupportedError, the next handler in the chain
+ * is called. If all handlers throw a MethodNotSupportedError, the error is re-
+ * thrown.
+ *
+ * Any other error thrown by a handler is re-thrown.
+ *
+ * @param handlers - Handlers to chain.
+ * @returns A handler that chains the given handlers.
  */
-export function buildHandlersChain(
-  handlers: OnRpcRequestHandler[],
+export function chainHandlers(
+  ...handlers: OnRpcRequestHandler[]
 ): OnRpcRequestHandler {
   return async ({ origin, request }) => {
     for (const handler of handlers) {
