@@ -1,5 +1,5 @@
 import type { SnapController } from '@metamask/snaps-controllers';
-import { HandlerType, ValidatedSnapId } from '@metamask/snaps-utils';
+import type { HandlerType, ValidatedSnapId } from '@metamask/snaps-utils';
 import type { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
 
@@ -25,18 +25,18 @@ class SnapControllerSender implements Sender {
    * @param controller - The `SnapController` instance to send requests to.
    * @param snapId - The ID of the snap to use.
    * @param origin - The sender's origin.
-   * @param handler - The handler type.
+   * @param handlerType - The handler type.
    */
   constructor(
     controller: any,
     snapId: string,
     origin: string,
-    handler: HandlerType,
+    handlerType: HandlerType,
   ) {
     this.#controller = controller;
     this.#snapId = snapId;
     this.#origin = origin;
-    this.#handler = handler;
+    this.#handler = handlerType;
   }
 
   /**
@@ -68,18 +68,23 @@ export class KeyringSnapControllerClient extends KeyringClient {
   /**
    * Create a new instance of `KeyringSnapControllerClient`.
    *
+   * The `handlerType` argument has a hard-coded default `string` value instead
+   * of a `HandlerType` value to prevent the `@metamask/snaps-utils` module
+   * from being required at runtime.
+   *
    * @param controller - The `SnapController` instance to use.
    * @param snapId - The ID of the snap to use (default: `'undefined'`).
    * @param origin - The sender's origin (default: `'metamask'`).
-   * @param handler - The handler type (default: `HandlerType.OnRpcRequest`).
+   * @param handlerType - The handler type (default:
+   * `HandlerType.OnRpcRequest`).
    */
   constructor(
     controller: SnapController,
     snapId = 'undefined',
     origin = 'metamask',
-    handler: HandlerType = HandlerType.OnRpcRequest,
+    handlerType: HandlerType = 'onRpcRequest' as HandlerType,
   ) {
-    super(new SnapControllerSender(controller, snapId, origin, handler));
+    super(new SnapControllerSender(controller, snapId, origin, handlerType));
     this.#controller = controller;
   }
 
