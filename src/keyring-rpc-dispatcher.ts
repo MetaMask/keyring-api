@@ -4,7 +4,6 @@ import { assert } from 'superstruct';
 
 import type { Keyring } from './keyring-api';
 import {
-  KeyringMethod,
   GetAccountRequestStruct,
   CreateAccountRequestStruct,
   ApproveRequestRequestStruct,
@@ -68,15 +67,15 @@ export async function keyringRpcDispatcher(
   request: JsonRpcRequest,
 ): Promise<Json | void> {
   switch (request.method) {
-    case KeyringMethod.ListAccounts:
+    case 'keyring_listAccounts':
       return await keyring.listAccounts();
 
-    case KeyringMethod.GetAccount: {
+    case 'keyring_getAccount': {
       assert(request, GetAccountRequestStruct);
       return await keyring.getAccount(request.params.id);
     }
 
-    case KeyringMethod.CreateAccount: {
+    case 'keyring_createAccount': {
       assert(request, CreateAccountRequestStruct);
       return await keyring.createAccount(
         request.params.name,
@@ -84,7 +83,7 @@ export async function keyringRpcDispatcher(
       );
     }
 
-    case KeyringMethod.FilterAccountChains: {
+    case 'keyring_filterAccountChains': {
       assert(request, FilterAccountChainsStruct);
       return await keyring.filterAccountChains(
         request.params.id,
@@ -92,35 +91,35 @@ export async function keyringRpcDispatcher(
       );
     }
 
-    case KeyringMethod.UpdateAccount: {
+    case 'keyring_updateAccount': {
       assert(request, UpdateAccountRequestStruct);
       return await keyring.updateAccount(request.params.account);
     }
 
-    case KeyringMethod.DeleteAccount: {
+    case 'keyring_deleteAccount': {
       assert(request, DeleteAccountRequestStruct);
       return await keyring.deleteAccount(request.params.id);
     }
 
-    case KeyringMethod.ListRequests:
+    case 'keyring_listRequests':
       return await keyring.listRequests();
 
-    case KeyringMethod.GetRequest: {
+    case 'keyring_getRequest': {
       assert(request, GetRequestRequestStruct);
       return await keyring.getRequest(request.params.id);
     }
 
-    case KeyringMethod.SubmitRequest: {
+    case 'keyring_submitRequest': {
       assert(request, SubmitRequestRequestStruct);
       return await keyring.submitRequest(request.params);
     }
 
-    case KeyringMethod.ApproveRequest: {
+    case 'keyring_approveRequest': {
       assert(request, ApproveRequestRequestStruct);
       return await keyring.approveRequest(request.params.id);
     }
 
-    case KeyringMethod.RejectRequest: {
+    case 'keyring_rejectRequest': {
       assert(request, RejectRequestRequestStruct);
       return await keyring.rejectRequest(request.params.id);
     }

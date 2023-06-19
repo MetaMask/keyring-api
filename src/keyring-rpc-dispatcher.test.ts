@@ -1,6 +1,5 @@
 import type { Json, JsonRpcRequest } from '@metamask/utils';
 
-import { KeyringMethod } from './keyring-internal-api';
 import {
   MethodNotSupportedError,
   chainHandlers,
@@ -127,7 +126,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.ListAccounts,
+      method: 'keyring_listAccounts',
     };
 
     keyring.listAccounts.mockResolvedValue('ListAccounts result');
@@ -141,7 +140,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.GetAccount,
+      method: 'keyring_getAccount',
       params: { id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041' },
     };
 
@@ -158,7 +157,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.CreateAccount,
+      method: 'keyring_createAccount',
       params: { name: 'account_name', options: {} },
     };
 
@@ -173,7 +172,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.FilterAccountChains,
+      method: 'keyring_filterAccountChains',
       params: {
         id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
         chains: ['chain1', 'chain2'],
@@ -196,7 +195,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.UpdateAccount,
+      method: 'keyring_updateAccount',
       params: {
         account: {
           id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
@@ -227,7 +226,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.DeleteAccount,
+      method: 'keyring_deleteAccount',
       params: { id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041' },
     };
 
@@ -244,7 +243,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.ListRequests,
+      method: 'keyring_listRequests',
     };
 
     keyring.listRequests.mockResolvedValue('ListRequests result');
@@ -258,7 +257,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.GetRequest,
+      method: 'keyring_getRequest',
       params: { id: 'request_id' },
     };
 
@@ -284,7 +283,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.SubmitRequest,
+      method: 'keyring_submitRequest',
       params: dappRequest,
     };
 
@@ -299,7 +298,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.ApproveRequest,
+      method: 'keyring_approveRequest',
       params: { id: 'request_id' },
     };
 
@@ -314,7 +313,7 @@ describe('keyringRpcDispatcher', () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
-      method: KeyringMethod.RejectRequest,
+      method: 'keyring_rejectRequest',
       params: { id: 'request_id' },
     };
 
