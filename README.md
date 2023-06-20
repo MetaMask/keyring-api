@@ -1,6 +1,29 @@
-# MetaMask Module Template
+# MetaMask Keyring API
 
-This TypeScript module is maintained in the style of the MetaMask team.
+> This TypeScript module is maintained in the style of the MetaMask team.
+
+This TypeScript module simplifies the integration of snaps with MetaMask using
+the Keyring API.
+
+Features:
+
+- **Keyring API Interface**: The module exposes an interface representing the
+  Keyring API. Snaps can implement this interface to seamlessly interact with
+  MetaMask and leverage its functionality.
+
+- **DApp Client**: The module includes a client that enables dApps to
+  communicate with the Keyring snap. This client allows dApps to send requests
+  to the snap, such as retrieving account information or submitting requests.
+
+- **MetaMask Client**: The module provides a client specifically designed for
+  MetaMask integration. This client enables MetaMask to send requests directly
+  to the Keyring snap, facilitating smooth interoperability between the two
+  applications.
+
+- **Request Handler Helper Functions**: The module offers a set of helper
+  functions to simplify the implementation of the request handler in the
+  Keyring snap. These functions assist in processing incoming requests,
+  validating data, and handling various request types from dApps and MetaMask.
 
 ## Template Instructions
 

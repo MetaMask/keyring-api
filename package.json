@@ -1,7 +1,7 @@
 {
   "name": "@metamask/keyring-api",
   "version": "0.1.0",
-  "description": "The MetaMask Node module template",
+  "description": "MetaMask Keyring API",
   "homepage": "https://github.com/MetaMask/keyring-api#readme",
   "bugs": {
     "url": "https://github.com/MetaMask/keyring-api/issues"
