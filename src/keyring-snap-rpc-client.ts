@@ -1,3 +1,4 @@
+import type { MetaMaskInpageProvider } from '@metamask/providers';
 import type { Json } from '@metamask/utils';
 
 import { KeyringClient, Sender } from './keyring-client';
@@ -10,13 +11,17 @@ import type { InternalRequest } from './keyring-internal-api';
 export class SnapRpcSender implements Sender {
   #origin: string;
 
+  #provider: MetaMaskInpageProvider;
+
   /**
    * Create a new instance of `SnapRpcSender`.
    *
    * @param origin - The caller's origin.
+   * @param provider - The `MetaMaskInpageProvider` instance to use.
    */
-  constructor(origin: string) {
+  constructor(origin: string, provider: MetaMaskInpageProvider) {
     this.#origin = origin;
+    this.#provider = provider;
   }
 
   /**
@@ -28,8 +33,7 @@ export class SnapRpcSender implements Sender {
   async send<Response extends Json>(
     request: InternalRequest,
   ): Promise<Response> {
-    // eslint-disable-next-line no-restricted-globals
-    const response = await window.ethereum.request({
+    const response = await this.#provider.request({
       method: 'wallet_invokeSnap',
       params: {
         snapId: this.#origin,
@@ -49,8 +53,9 @@ export class KeyringSnapRpcClient extends KeyringClient {
    * Create a new instance of `KeyringSnapRpcClient`.
    *
    * @param origin - Caller's origin.
+   * @param provider - The `MetaMaskInpageProvider` instance to use.
    */
-  constructor(origin: string) {
-    super(new SnapRpcSender(origin));
+  constructor(origin: string, provider: MetaMaskInpageProvider) {
+    super(new SnapRpcSender(origin, provider));
   }
 }
