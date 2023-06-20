@@ -29,18 +29,18 @@ Features:
 
 Follow these instructions when using this template.
 
-- Update the package name, referenced in the following places:
-  - The `name` field of `package.json`
-  - The README title
-  - The README "Usage" section
-- Update the package description
-  - The package description is referenced at the beginning of the README, and in the `description` field of `package.json`.
-- Update the repository URL, referenced in the following places:
-  - `repository` field of `package.json`
-  - The links in the API section of the README
-- Update the pull request template (`.github/pull_request_template.md`) to remove the `Examples` section that is specific to this template.
-- Update the README "Usage" section, or remove it if it's not needed.
-- Delete these instructions.
+[ ] Update the package name, referenced in the following places:
+  [x] The `name` field of `package.json`
+  [x] The README title
+  [ ] The README "Usage" section
+[x] Update the package description
+  [x] The package description is referenced at the beginning of the README, and in the `description` field of `package.json`.
+[ ] Update the repository URL, referenced in the following places:
+  [x] `repository` field of `package.json`
+  [ ] The links in the API section of the README
+[ ] Update the pull request template (`.github/pull_request_template.md`) to remove the `Examples` section that is specific to this template.
+[ ] Update the README "Usage" section, or remove it if it's not needed.
+[ ] Delete these instructions.
 
 ## Installation
 
@@ -52,7 +52,50 @@ or
 
 ## Usage
 
-_Add examples here_
+### In a snap
+
+Inside the snap, implement the `Keyring` API:
+
+```typescript
+class MySnapKeyring implements Keyring {
+   // Implement the required methods.
+}
+```
+
+Then create a handler that uses an instance of your keyring:
+
+```typescript
+import { keyringRpcDispatcher } from '@metamask/keyring-api';
+
+// Create a new MySnapKeyring instance
+keyring = new MySnapKeyring(keyringState);
+// ...
+
+// And wrap it in a handler
+const keyringHandler: OnRpcRequestHandler = async ({ request }) => {
+   // Load the keyring state if needed
+   // ...
+   return await keyringRpcDispatcher(keyring, request);
+};
+```
+
+Now expose this handler:
+
+```typescript
+export const onRpcRequest: OnRpcRequestHandler = keyringHandler;
+```
+
+Or chain it with other handlers:
+
+```typescript
+import { chainHandlers } from '@metamask/keyring-api';
+
+export const onRpcRequest: OnRpcRequestHandler = chainHandlers(
+   // Other handlers...
+   keyringHandler,
+   // Other handlers...
+);
+```
 
 ## API
 
