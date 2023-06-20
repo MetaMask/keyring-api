@@ -41,7 +41,7 @@ Inside the snap, implement the `Keyring` API:
 
 ```typescript
 class MySnapKeyring implements Keyring {
-   // Implement the required methods.
+  // Implement the required methods.
 }
 ```
 
@@ -56,9 +56,9 @@ keyring = new MySnapKeyring(keyringState);
 
 // And wrap it in a handler
 const keyringHandler: OnRpcRequestHandler = async ({ request }) => {
-   // Load the keyring state if needed
-   // ...
-   return await keyringRpcDispatcher(keyring, request);
+  // Load the keyring state if needed
+  // ...
+  return await keyringRpcDispatcher(keyring, request);
 };
 ```
 
@@ -74,9 +74,9 @@ Or chain it with other handlers:
 import { chainHandlers } from '@metamask/keyring-api';
 
 export const onRpcRequest: OnRpcRequestHandler = chainHandlers(
-   // Other handlers...
-   keyringHandler,
-   // Other handlers...
+  // Other handlers...
+  keyringHandler,
+  // Other handlers...
 );
 ```
 
