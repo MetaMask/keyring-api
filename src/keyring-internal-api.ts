@@ -1,7 +1,6 @@
 import { JsonStruct } from '@metamask/utils';
 import {
   array,
-  enums,
   Infer,
   literal,
   never,
@@ -25,19 +24,7 @@ import { UuidStruct } from './utils';
 export const ListAccountsRequestStruct = object({
   id: UuidStruct,
   jsonrpc: literal('2.0'),
-  method: enums([
-    'keyring_listAccounts',
-    'keyring_getAccount',
-    'keyring_createAccount',
-    'keyring_filterAccountChains',
-    'keyring_updateAccount',
-    'keyring_deleteAccount',
-    'keyring_listRequests',
-    'keyring_getRequest',
-    'keyring_submitRequest',
-    'keyring_approveRequest',
-    'keyring_rejectRequest',
-  ]),
+  method: literal('keyring_listAccounts'),
 });
 
 export type ListAccountsRequest = Infer<typeof ListAccountsRequestStruct>;

@@ -13,6 +13,8 @@ import {
   SubmitRequestRequestStruct,
   UpdateAccountRequestStruct,
   FilterAccountChainsStruct,
+  ListAccountsRequestStruct,
+  ListRequestsRequestStruct,
 } from './keyring-internal-api';
 
 /**
@@ -67,8 +69,10 @@ export async function keyringRpcDispatcher(
   request: JsonRpcRequest,
 ): Promise<Json | void> {
   switch (request.method) {
-    case 'keyring_listAccounts':
+    case 'keyring_listAccounts': {
+      assert(request, ListAccountsRequestStruct);
       return await keyring.listAccounts();
+    }
 
     case 'keyring_getAccount': {
       assert(request, GetAccountRequestStruct);
@@ -101,8 +105,10 @@ export async function keyringRpcDispatcher(
       return await keyring.deleteAccount(request.params.id);
     }
 
-    case 'keyring_listRequests':
+    case 'keyring_listRequests': {
+      assert(request, ListRequestsRequestStruct);
       return await keyring.listRequests();
+    }
 
     case 'keyring_getRequest': {
       assert(request, GetRequestRequestStruct);
