@@ -72,18 +72,23 @@ export class KeyringSnapControllerClient extends KeyringClient {
    * of a `HandlerType` value to prevent the `@metamask/snaps-utils` module
    * from being required at runtime.
    *
-   * @param controller - The `SnapController` instance to use.
-   * @param snapId - The ID of the snap to use (default: `'undefined'`).
-   * @param origin - The sender's origin (default: `'metamask'`).
-   * @param handlerType - The handler type (default:
-   * `HandlerType.OnRpcRequest`).
+   * @param args - Constructor arguments.
+   * @param args.controller - The `SnapController` instance to use.
+   * @param args.snapId - The ID of the snap to use (default: `'undefined'`).
+   * @param args.origin - The sender's origin (default: `'metamask'`).
+   * @param args.handlerType - The handler type (default: `'onRpcRequest'`).
    */
-  constructor(
-    controller: SnapController,
+  constructor({
+    controller,
     snapId = 'undefined',
     origin = 'metamask',
-    handlerType: HandlerType = 'onRpcRequest' as HandlerType,
-  ) {
+    handlerType = 'onRpcRequest' as HandlerType,
+  }: {
+    controller: SnapController;
+    snapId?: string;
+    origin?: string;
+    handlerType?: HandlerType;
+  }) {
     super(new SnapControllerSender(controller, snapId, origin, handlerType));
     this.#controller = controller;
   }
@@ -97,6 +102,9 @@ export class KeyringSnapControllerClient extends KeyringClient {
    * specified snap ID.
    */
   withSnapId(snapId: string): KeyringSnapControllerClient {
-    return new KeyringSnapControllerClient(this.#controller, snapId);
+    return new KeyringSnapControllerClient({
+      controller: this.#controller,
+      snapId,
+    });
   }
 }
