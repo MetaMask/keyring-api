@@ -6,4 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/
+## [0.1.0] - 2023-06-20
+### Added
+- Usage examples to [`README.md`](./README.md).
+- Keyring API definition.
+- JSON-RPC snap keyring client. It is intended to be used by a snap's companion dApp to send requests to the snap.
+- SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
+- Helper functions to create keyring handler in the snap.
+
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/MetaMask/keyring-api/releases/tag/v0.1.0
