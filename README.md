@@ -1,23 +1,29 @@
-# MetaMask Module Template
+# MetaMask Keyring API
 
-This TypeScript module is maintained in the style of the MetaMask team.
+> This TypeScript module is maintained in the style of the MetaMask team.
 
-## Template Instructions
+This TypeScript module simplifies the integration of snaps with MetaMask using
+the Keyring API.
 
-Follow these instructions when using this template.
+Features:
 
-- Update the package name, referenced in the following places:
-  - The `name` field of `package.json`
-  - The README title
-  - The README "Usage" section
-- Update the package description
-  - The package description is referenced at the beginning of the README, and in the `description` field of `package.json`.
-- Update the repository URL, referenced in the following places:
-  - `repository` field of `package.json`
-  - The links in the API section of the README
-- Update the pull request template (`.github/pull_request_template.md`) to remove the `Examples` section that is specific to this template.
-- Update the README "Usage" section, or remove it if it's not needed.
-- Delete these instructions.
+- **Keyring API Interface**: The module exposes an interface representing the
+  Keyring API. Snaps can implement this interface to seamlessly interact with
+  MetaMask and leverage its functionality.
+
+- **DApp Client**: The module includes a client that enables dApps to
+  communicate with the Keyring snap. This client allows dApps to send requests
+  to the snap, such as retrieving account information or submitting requests.
+
+- **MetaMask Client**: The module provides a client specifically designed for
+  MetaMask integration. This client enables MetaMask to send requests directly
+  to the Keyring snap, facilitating smooth interoperability between the two
+  applications.
+
+- **Request Handler Helper Functions**: The module offers a set of helper
+  functions to simplify the implementation of the request handler in the
+  Keyring snap. These functions assist in processing incoming requests,
+  validating data, and handling various request types from dApps and MetaMask.
 
 ## Installation
 
@@ -29,7 +35,50 @@ or
 
 ## Usage
 
-_Add examples here_
+### In a snap
+
+Inside the snap, implement the `Keyring` API:
+
+```typescript
+class MySnapKeyring implements Keyring {
+   // Implement the required methods.
+}
+```
+
+Then create a handler that uses an instance of your keyring:
+
+```typescript
+import { keyringRpcDispatcher } from '@metamask/keyring-api';
+
+// Create a new MySnapKeyring instance
+keyring = new MySnapKeyring(keyringState);
+// ...
+
+// And wrap it in a handler
+const keyringHandler: OnRpcRequestHandler = async ({ request }) => {
+   // Load the keyring state if needed
+   // ...
+   return await keyringRpcDispatcher(keyring, request);
+};
+```
+
+Now expose this handler:
+
+```typescript
+export const onRpcRequest: OnRpcRequestHandler = keyringHandler;
+```
+
+Or chain it with other handlers:
+
+```typescript
+import { chainHandlers } from '@metamask/keyring-api';
+
+export const onRpcRequest: OnRpcRequestHandler = chainHandlers(
+   // Other handlers...
+   keyringHandler,
+   // Other handlers...
+);
+```
 
 ## API
 
