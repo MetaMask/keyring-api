@@ -1,129 +1,131 @@
-import { Json } from '@metamask/utils';
+import { Json, JsonStruct } from '@metamask/utils';
+import {
+  literal,
+  union,
+  nullable,
+  object,
+  string,
+  enums,
+  Infer,
+  record,
+  array,
+} from 'superstruct';
 
-/**
- * Supported EVM methods.
- */
-export enum EvmMethod {
-  PersonalSign = 'personal_sign',
-  SendTransaction = 'eth_sendTransaction',
-  Sign = 'eth_sign',
-  SignTransaction = 'eth_signTransaction',
-  SignTypedData = 'eth_signTypedData',
-  SignTypedDataV1 = 'eth_signTypedData_v1',
-  SignTypedDataV2 = 'eth_signTypedData_v2',
-  SignTypedDataV3 = 'eth_signTypedData_v3',
-  SignTypedDataV4 = 'eth_signTypedData_v4',
-}
+import { UuidStruct } from './utils';
 
-/**
- * Supported methods.
- */
-export type Method = EvmMethod;
+export const KeyringAccountStruct = object({
+  /**
+   * Account ID (UUIDv4).
+   */
+  id: UuidStruct,
 
-/**
- * Account types.
- *
- * For EVM accounts (EIP-155), the following account types are supported:
- * - `eip155:eoa`: Externally owned account.
- * - `eip155:sca:erc4337`: Smart contract account (ERC-4337).
- */
-export type AccountType = 'eip155:eoa' | 'eip155:sca:erc4337';
+  /**
+   * User-chosen account name.
+   */
+  name: string(),
+
+  /**
+   * Account address or next receive address (UTXO).
+   */
+  address: string(),
+
+  /**
+   * Keyring-dependent account options.
+   */
+  options: nullable(record(string(), JsonStruct)),
+
+  /**
+   * Account supported methods.
+   */
+  supportedMethods: array(
+    enums([
+      'personal_sign',
+      'eth_sendTransaction',
+      'eth_sign',
+      'eth_signTransaction',
+      'eth_signTypedData',
+      'eth_signTypedData_v1',
+      'eth_signTypedData_v2',
+      'eth_signTypedData_v3',
+      'eth_signTypedData_v4',
+    ]),
+  ),
+
+  /**
+   * Account type.
+   */
+  type: enums(['eip155:eoa', 'eip155:erc4337']),
+});
 
 /**
  * Account object.
  *
  * Represents an account with its properties and capabilities.
  */
-export type KeyringAccount = {
-  /**
-   * Account ID (UUIDv4).
-   */
-  id: string;
+export type KeyringAccount = Infer<typeof KeyringAccountStruct>;
 
-  /**
-   * User-chosen account name.
-   */
-  name: string;
-
-  /**
-   * Account address or next receive address (UTXO).
-   */
-  address: string;
-
-  /**
-   * Keyring-dependent account options.
-   */
-  options: Record<string, Json> | null;
-
-  /**
-   * Account supported methods.
-   */
-  supportedMethods: Method[];
-
-  /**
-   * Account type.
-   */
-  type: AccountType;
-};
+export const KeyringJsonRpcRequestStruct = union([
+  object({
+    jsonrpc: literal('2.0'),
+    id: string(),
+    method: string(),
+  }),
+  object({
+    jsonrpc: literal('2.0'),
+    id: string(),
+    method: string(),
+    params: union([array(JsonStruct), record(string(), JsonStruct)]),
+  }),
+]);
 
 /**
  * JSON-RPC request type.
  *
- * Represents a JSON-RPC request sent by a client application. The request ID
- * must be a string and the params field cannot be undefined. Because of this,
- * we cannot reuse the `JsonRpcRequest` type from `@metamask/utils`.
- *
- * Also, the `JsonRpcRequest` type from `@metamask/keyring-controller` is not
- * valid JSON, since the `params` field can be undefined.
+ * Represents a JSON-RPC request sent by a dApp. The request ID must be a
+ * string and the params field cannot be undefined.
  */
-export type KeyringJsonRpcRequest =
-  | {
-      jsonrpc: '2.0';
-      id: string;
-      method: string;
-      params: Json[] | Record<string, Json>;
-    }
-  | {
-      jsonrpc: '2.0';
-      id: string;
-      method: string;
-    };
+export type KeyringJsonRpcRequest = Infer<typeof KeyringJsonRpcRequestStruct>;
 
-/**
- * Keyring request.
- *
- * Represents a request made to the keyring for account-related operations.
- */
-export type KeyringRequest = {
+export const KeyringRequestStruct = object({
   /**
    * Account ID (UUIDv4).
    */
-  account: string;
+  account: UuidStruct,
 
   /**
    * Request's scope (CAIP-2 chain ID).
    */
-  scope: string;
+  scope: string(),
 
   /**
    * JSON-RPC request sent by the client application.
    *
    * Note: The request ID must be a string.
    */
-  request: KeyringJsonRpcRequest;
-};
+  request: KeyringJsonRpcRequestStruct,
+});
+
+/**
+ * Keyring request.
+ *
+ * Represents a request made to the keyring for account-related operations.
+ */
+export type KeyringRequest = Infer<typeof KeyringRequestStruct>;
+
+export const SubmitRequestResponseStruct = union([
+  object({
+    pending: literal(true),
+  }),
+  object({
+    pending: literal(false),
+    result: nullable(JsonStruct),
+  }),
+]);
 
 /**
  * Response returned when submitting a request to the Keyring.
  */
-export type SubmitRequestResponse<Result extends Json> =
-  | {
-      pending: true;
-    }
-  | {
-      pending: false;
-      result: Result;
-    };
+export type SubmitRequestResponse = Infer<typeof SubmitRequestResponseStruct>;
 
 /**
  * Keyring interface.
@@ -177,7 +179,7 @@ export type Keyring = {
    * @returns A Promise that resolves to a filtered list of CAIP-2 IDs
    * representing the supported chains.
    */
-  filterSupportedChains(id: string, chains: string[]): Promise<string[]>;
+  filterAccountChains(id: string, chains: string[]): Promise<string[]>;
 
   /**
    * Update an account.
@@ -229,9 +231,7 @@ export type Keyring = {
    * @param request - The KeyringRequest object to submit.
    * @returns A promise that resolves to the request response.
    */
-  submitRequest<Result extends Json = null>(
-    request: KeyringRequest,
-  ): Promise<SubmitRequestResponse<Result>>;
+  submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse>;
 
   /**
    * Approve a request.

@@ -1,18 +1,18 @@
-import { OnRpcRequestHandler } from '@metamask/snaps-utils';
-import { Json, JsonRpcRequest } from '@metamask/utils';
+import type { OnRpcRequestHandler } from '@metamask/snaps-utils';
+import type { Json, JsonRpcRequest } from '@metamask/utils';
+import { assert } from 'superstruct';
 
-import { Keyring } from './keyring-api';
+import type { Keyring } from './keyring-api';
 import {
-  ApproveRequestRequest,
-  CreateAccountRequest,
-  DeleteAccountRequest,
-  FilterSupportedChainsRequest,
-  GetAccountRequest,
-  GetRequestRequest,
-  KeyringMethod,
-  RejectRequestRequest,
-  SubmitRequestRequest,
-  UpdateAccountRequest,
+  GetAccountRequestStruct,
+  CreateAccountRequestStruct,
+  ApproveRequestRequestStruct,
+  DeleteAccountRequestStruct,
+  GetRequestRequestStruct,
+  RejectRequestRequestStruct,
+  SubmitRequestRequestStruct,
+  UpdateAccountRequestStruct,
+  FilterAccountChainsStruct,
 } from './keyring-internal-api';
 
 /**
@@ -27,11 +27,17 @@ export class MethodNotSupportedError extends Error {
 /**
  * Build a chain of handlers for a JSON-RPC request.
  *
- * @param handlers - Array of handlers.
- * @returns A handler that chains all the handlers in the array.
+ * If a handler throws a MethodNotSupportedError, the next handler in the chain
+ * is called. If all handlers throw a MethodNotSupportedError, the error is re-
+ * thrown.
+ *
+ * Any other error thrown by a handler is re-thrown.
+ *
+ * @param handlers - Handlers to chain.
+ * @returns A handler that chains the given handlers.
  */
-export function buildHandlersChain(
-  handlers: OnRpcRequestHandler[],
+export function chainHandlers(
+  ...handlers: OnRpcRequestHandler[]
 ): OnRpcRequestHandler {
   return async ({ origin, request }) => {
     for (const handler of handlers) {
@@ -58,61 +64,65 @@ export function buildHandlersChain(
  */
 export async function keyringRpcDispatcher(
   keyring: Keyring,
-  request: JsonRpcRequest<Json[] | Record<string, Json>>,
+  request: JsonRpcRequest,
 ): Promise<Json | void> {
   switch (request.method) {
-    case KeyringMethod.ListAccounts:
+    case 'keyring_listAccounts':
       return await keyring.listAccounts();
 
-    case KeyringMethod.GetAccount:
-      return await keyring.getAccount(
-        (request.params as GetAccountRequest).params.id,
-      );
+    case 'keyring_getAccount': {
+      assert(request, GetAccountRequestStruct);
+      return await keyring.getAccount(request.params.id);
+    }
 
-    case KeyringMethod.CreateAccount:
+    case 'keyring_createAccount': {
+      assert(request, CreateAccountRequestStruct);
       return await keyring.createAccount(
-        (request.params as CreateAccountRequest).params.name,
-        (request.params as CreateAccountRequest).params.options,
+        request.params.name,
+        request.params.options,
       );
+    }
 
-    case KeyringMethod.FilterSupportedChains:
-      return await keyring.filterSupportedChains(
-        (request.params as FilterSupportedChainsRequest).params.id,
-        (request.params as FilterSupportedChainsRequest).params.chains,
+    case 'keyring_filterAccountChains': {
+      assert(request, FilterAccountChainsStruct);
+      return await keyring.filterAccountChains(
+        request.params.id,
+        request.params.chains,
       );
+    }
 
-    case KeyringMethod.UpdateAccount:
-      return await keyring.updateAccount(
-        (request.params as UpdateAccountRequest).params.account,
-      );
+    case 'keyring_updateAccount': {
+      assert(request, UpdateAccountRequestStruct);
+      return await keyring.updateAccount(request.params.account);
+    }
 
-    case KeyringMethod.DeleteAccount:
-      return await keyring.deleteAccount(
-        (request.params as DeleteAccountRequest).params.id,
-      );
+    case 'keyring_deleteAccount': {
+      assert(request, DeleteAccountRequestStruct);
+      return await keyring.deleteAccount(request.params.id);
+    }
 
-    case KeyringMethod.ListRequests:
+    case 'keyring_listRequests':
       return await keyring.listRequests();
 
-    case KeyringMethod.GetRequest:
-      return await keyring.getRequest(
-        (request.params as GetRequestRequest).params.id,
-      );
+    case 'keyring_getRequest': {
+      assert(request, GetRequestRequestStruct);
+      return await keyring.getRequest(request.params.id);
+    }
 
-    case KeyringMethod.SubmitRequest:
-      return await keyring.submitRequest(
-        (request.params as SubmitRequestRequest).params,
-      );
+    case 'keyring_submitRequest': {
+      assert(request, SubmitRequestRequestStruct);
+      return await keyring.submitRequest(request.params);
+    }
 
-    case KeyringMethod.ApproveRequest:
-      return await keyring.approveRequest(
-        (request.params as ApproveRequestRequest).params.id,
-      );
+    case 'keyring_approveRequest': {
+      assert(request, ApproveRequestRequestStruct);
+      return await keyring.approveRequest(request.params.id);
+    }
 
-    case KeyringMethod.RejectRequest:
-      return await keyring.rejectRequest(
-        (request.params as RejectRequestRequest).params.id,
-      );
+    case 'keyring_rejectRequest': {
+      assert(request, RejectRequestRequestStruct);
+      return await keyring.rejectRequest(request.params.id);
+    }
 
     default:
       throw new MethodNotSupportedError(request.method);

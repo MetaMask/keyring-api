@@ -1,7 +1,7 @@
-import { Json } from '@metamask/utils';
-import { v4 as uuid } from 'uuid';
+import type { Json } from '@metamask/utils';
 
 import { KeyringClient, Sender } from './keyring-client';
+import type { InternalRequest } from './keyring-internal-api';
 
 /**
  * Implementation of the `Sender` interface that can be used to send requests
@@ -22,29 +22,18 @@ export class SnapRpcSender implements Sender {
   /**
    * Send a request to the snap and return the response.
    *
-   * @param args - The arguments of the request.
-   * @param args.method - The method name of the request.
-   * @param args.params - The parameters of the request (optional).
+   * @param request - The JSON-RPC request to send to the snap.
    * @returns A promise that resolves to the response of the request.
    */
-  async send<Response extends Json>({
-    method,
-    params,
-  }: {
-    method: string;
-    params?: Json[] | Record<string, Json>;
-  }): Promise<Response> {
+  async send<Response extends Json>(
+    request: InternalRequest,
+  ): Promise<Response> {
     // eslint-disable-next-line no-restricted-globals
     const response = await window.ethereum.request({
       method: 'wallet_invokeSnap',
       params: {
         snapId: this.#origin,
-        request: {
-          jsonrpc: '2.0',
-          id: uuid(),
-          method,
-          ...(params !== undefined && { params }),
-        },
+        request,
       },
     });
     return response as Response;
