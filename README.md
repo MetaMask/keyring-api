@@ -84,8 +84,8 @@ export const onRpcRequest: OnRpcRequestHandler = chainHandlers(
 
 See our documentation:
 
-- [Latest published API documentation](https://metamask.github.io/metamask-module-template/latest/)
-- [Latest development API documentation](https://metamask.github.io/metamask-module-template/staging/)
+- [Latest published API documentation](https://metamask.github.io/keyring-api/latest/)
+- [Latest development API documentation](https://metamask.github.io/keyring-api/staging/)
 
 ## Contributing
 
