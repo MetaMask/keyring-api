@@ -136,6 +136,18 @@ describe('keyringRpcDispatcher', () => {
     expect(result).toBe('ListAccounts result');
   });
 
+  it('should fail to call keyringRpcDispatcher with a non-JSON-RPC request', async () => {
+    const request = {
+      jsonrpc: '2.0',
+      id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
+      // Missing method name.
+    };
+
+    await expect(keyringRpcDispatcher(keyring, request)).rejects.toThrow(
+      'At path: method -- Expected a string, but received: undefined',
+    );
+  });
+
   it('should call keyring_getAccount', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
@@ -151,6 +163,31 @@ describe('keyringRpcDispatcher', () => {
       '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
     );
     expect(result).toBe('GetAccount result');
+  });
+
+  it('should fail to call keyring_getAccount without the account ID', async () => {
+    const request = {
+      jsonrpc: '2.0',
+      id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
+      method: 'keyring_getAccount',
+      params: {}, // Missing account ID.
+    };
+
+    await expect(keyringRpcDispatcher(keyring, request)).rejects.toThrow(
+      'At path: params.id -- Expected a string, but received: undefined',
+    );
+  });
+
+  it('should fail to call keyring_getAccount without params', async () => {
+    const request = {
+      jsonrpc: '2.0',
+      id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
+      method: 'keyring_getAccount',
+    };
+
+    await expect(keyringRpcDispatcher(keyring, request)).rejects.toThrow(
+      'At path: params -- Expected an object, but received: undefined',
+    );
   });
 
   it('should call keyring_createAccount', async () => {
