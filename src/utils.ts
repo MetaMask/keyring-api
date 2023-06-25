@@ -1,4 +1,4 @@
-import { pattern, string } from 'superstruct';
+import { Struct, assert, pattern, string } from 'superstruct';
 
 /**
  * UUIDv4 struct.
@@ -19,3 +19,23 @@ export const UuidStruct = pattern(
 export type OmitUnion<T, K extends keyof any> = T extends any
   ? Omit<T, K>
   : never;
+
+/**
+ * Assert that a value is valid according to a struct.
+ *
+ * It is similar to superstruct's mask function, but it does not ignore extra
+ * properties.
+ *
+ * @param value - Value to check.
+ * @param struct - Struct to validate the value against.
+ * @param message - Error message to throw if the value is not valid.
+ * @returns The value if it is valid.
+ */
+export function strictMask<T, S>(
+  value: unknown,
+  struct: Struct<T, S>,
+  message?: string,
+): T {
+  assert(value, struct, message);
+  return value;
+}
