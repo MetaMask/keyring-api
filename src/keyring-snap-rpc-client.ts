@@ -1,8 +1,12 @@
 import type { MetaMaskInpageProvider } from '@metamask/providers';
-import type { Json } from '@metamask/utils';
 
 import { KeyringClient, Sender } from './keyring-client';
-import type { InternalRequest } from './keyring-internal-api';
+import {
+  InternalResponseStruct,
+  type InternalRequest,
+  InternalResponse,
+} from './keyring-internal-api';
+import { strictMask } from './utils';
 
 /**
  * Implementation of the `Sender` interface that can be used to send requests
@@ -30,17 +34,17 @@ export class SnapRpcSender implements Sender {
    * @param request - The JSON-RPC request to send to the snap.
    * @returns A promise that resolves to the response of the request.
    */
-  async send<Response extends Json>(
-    request: InternalRequest,
-  ): Promise<Response> {
-    const response = await this.#provider.request({
-      method: 'wallet_invokeSnap',
-      params: {
-        snapId: this.#origin,
-        request,
-      },
-    });
-    return response as Response;
+  async send(request: InternalRequest): Promise<InternalResponse> {
+    return strictMask(
+      await this.#provider.request({
+        method: 'wallet_invokeSnap',
+        params: {
+          snapId: this.#origin,
+          request,
+        },
+      }),
+      InternalResponseStruct,
+    );
   }
 }
 

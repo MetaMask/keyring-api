@@ -1,6 +1,5 @@
 import {
   KeyringAccount,
-  KeyringJsonRpcRequest,
   KeyringRequest,
   SubmitRequestResponse,
   KeyringClient,
@@ -176,11 +175,15 @@ describe('KeyringClient', () => {
   describe('getRequest', () => {
     it('should send a request to get a request and return the response', async () => {
       const id = '71621d8d-62a4-4bf4-97cc-fb8f243679b0';
-      const expectedResponse: KeyringJsonRpcRequest = {
-        jsonrpc: '2.0',
-        id,
-        method: 'personal_sign',
-        params: ['0xe9a74aacd7df8112911ca93260fc5a046f8a64ae', '0x0'],
+      const expectedResponse: KeyringRequest = {
+        account: '46b5ccd3-4786-427c-89d2-cef626dffe9b',
+        scope: 'eip155:1',
+        request: {
+          jsonrpc: '2.0',
+          id,
+          method: 'personal_sign',
+          params: ['0xe9a74aacd7df8112911ca93260fc5a046f8a64ae', '0x0'],
+        },
       };
 
       mockSender.send.mockResolvedValue(expectedResponse);

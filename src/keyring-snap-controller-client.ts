@@ -1,10 +1,13 @@
 import type { SnapController } from '@metamask/snaps-controllers';
 import type { HandlerType, ValidatedSnapId } from '@metamask/snaps-utils';
-import type { Json } from '@metamask/utils';
-import { assert } from 'superstruct';
 
 import { KeyringClient, Sender } from './keyring-client';
-import { InternalRequest, InternalRequestStruct } from './keyring-internal-api';
+import {
+  InternalRequest,
+  InternalResponse,
+  InternalResponseStruct,
+} from './keyring-internal-api';
+import { strictMask } from './utils';
 
 /**
  * Implementation of the `Sender` interface that can be used to send requests
@@ -45,16 +48,16 @@ class SnapControllerSender implements Sender {
    * @param request - JSON-RPC request to send to the snap.
    * @returns A promise that resolves to the response of the request.
    */
-  async send<Response extends Json>(
-    request: InternalRequest,
-  ): Promise<Response> {
-    assert(request, InternalRequestStruct);
-    return (await this.#controller.handleRequest({
-      snapId: this.#snapId as ValidatedSnapId,
-      origin: this.#origin,
-      handler: this.#handler,
-      request,
-    })) as Response;
+  async send(request: InternalRequest): Promise<InternalResponse> {
+    return strictMask(
+      await this.#controller.handleRequest({
+        snapId: this.#snapId as ValidatedSnapId,
+        origin: this.#origin,
+        handler: this.#handler,
+        request,
+      }),
+      InternalResponseStruct,
+    );
   }
 }
 
