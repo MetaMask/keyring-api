@@ -38,7 +38,7 @@ describe('BaseRpcKeyring', () => {
         method: 'keyring_getAccount',
         params: { id: '29b781ba-ef79-49de-ab64-d0154231860e' },
       };
-      await mockKeyring.dispatch(request);
+      await mockKeyring.handleRequest(request);
       expect(mockKeyring.getAccount).toHaveBeenCalledWith(
         (request as GetAccountRequest).params.id,
       );
@@ -50,7 +50,7 @@ describe('BaseRpcKeyring', () => {
         id: '1800984b-4a02-498a-b050-34db3543b85b',
         method: 'invalid_method',
       };
-      await expect(mockKeyring.dispatch(request)).rejects.toThrow(
+      await expect(mockKeyring.handleRequest(request)).rejects.toThrow(
         'Method not supported: invalid_method',
       );
     });

@@ -68,7 +68,7 @@ export function buildHandlersChain(
  * @param request - Keyring JSON-RPC request.
  * @returns A promise that resolves to the keyring response.
  */
-export async function dispatchKeyringRequest(
+export async function handleKeyringRequest(
   keyring: Keyring,
   request: JsonRpcRequest,
 ): Promise<Json | void> {

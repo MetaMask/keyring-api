@@ -3,7 +3,7 @@ import type { Json, JsonRpcRequest } from '@metamask/utils';
 import {
   MethodNotSupportedError,
   buildHandlersChain,
-  dispatchKeyringRequest,
+  handleKeyringRequest,
 } from './keyring-rpc-dispatcher';
 
 describe('buildHandlersChain', () => {
@@ -130,7 +130,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.listAccounts.mockResolvedValue('ListAccounts result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.listAccounts).toHaveBeenCalled();
     expect(result).toBe('ListAccounts result');
@@ -144,7 +144,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     await expect(
-      dispatchKeyringRequest(keyring, request as unknown as JsonRpcRequest),
+      handleKeyringRequest(keyring, request as unknown as JsonRpcRequest),
     ).rejects.toThrow(
       'At path: method -- Expected a string, but received: undefined',
     );
@@ -159,7 +159,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.getAccount.mockResolvedValue('GetAccount result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.getAccount).toHaveBeenCalledWith(
       '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
@@ -175,7 +175,7 @@ describe('keyringRpcDispatcher', () => {
       params: {}, // Missing account ID.
     };
 
-    await expect(dispatchKeyringRequest(keyring, request)).rejects.toThrow(
+    await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
       'At path: params.id -- Expected a string, but received: undefined',
     );
   });
@@ -187,7 +187,7 @@ describe('keyringRpcDispatcher', () => {
       method: 'keyring_getAccount',
     };
 
-    await expect(dispatchKeyringRequest(keyring, request)).rejects.toThrow(
+    await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
       'At path: params -- Expected an object, but received: undefined',
     );
   });
@@ -201,7 +201,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.createAccount.mockResolvedValue('CreateAccount result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.createAccount).toHaveBeenCalledWith('account_name', {});
     expect(result).toBe('CreateAccount result');
@@ -221,7 +221,7 @@ describe('keyringRpcDispatcher', () => {
     keyring.filterAccountChains.mockResolvedValue(
       'FilterSupportedChains result',
     );
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.filterAccountChains).toHaveBeenCalledWith(
       '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
@@ -248,7 +248,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.updateAccount.mockResolvedValue('UpdateAccount result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.updateAccount).toHaveBeenCalledWith({
       id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
@@ -270,7 +270,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.deleteAccount.mockResolvedValue('DeleteAccount result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.deleteAccount).toHaveBeenCalledWith(
       '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
@@ -286,7 +286,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.listRequests.mockResolvedValue('ListRequests result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.listRequests).toHaveBeenCalled();
     expect(result).toBe('ListRequests result');
@@ -301,7 +301,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.getRequest.mockResolvedValue('GetRequest result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.getRequest).toHaveBeenCalledWith('request_id');
     expect(result).toBe('GetRequest result');
@@ -327,7 +327,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.submitRequest.mockResolvedValue('SubmitRequest result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.submitRequest).toHaveBeenCalledWith(dappRequest);
     expect(result).toBe('SubmitRequest result');
@@ -342,7 +342,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.approveRequest.mockResolvedValue('ApproveRequest result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.approveRequest).toHaveBeenCalledWith('request_id');
     expect(result).toBe('ApproveRequest result');
@@ -357,7 +357,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.rejectRequest.mockResolvedValue('RejectRequest result');
-    const result = await dispatchKeyringRequest(keyring, request);
+    const result = await handleKeyringRequest(keyring, request);
 
     expect(keyring.rejectRequest).toHaveBeenCalledWith('request_id');
     expect(result).toBe('RejectRequest result');
@@ -370,7 +370,7 @@ describe('keyringRpcDispatcher', () => {
       method: 'unknown_method',
     };
 
-    await expect(dispatchKeyringRequest(keyring, request)).rejects.toThrow(
+    await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
       MethodNotSupportedError,
     );
   });

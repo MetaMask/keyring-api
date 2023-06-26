@@ -6,7 +6,7 @@ import {
   KeyringRequest,
   SubmitRequestResponse,
 } from './keyring-api';
-import { dispatchKeyringRequest } from './keyring-rpc-dispatcher';
+import { handleKeyringRequest } from './keyring-rpc-dispatcher';
 
 export abstract class BaseRpcKeyring implements Keyring {
   abstract listAccounts(): Promise<KeyringAccount[]>;
@@ -37,12 +37,12 @@ export abstract class BaseRpcKeyring implements Keyring {
   abstract rejectRequest(id: string): Promise<void>;
 
   /**
-   * Dispatch a request JSON-RPC request to the right method.
+   * Handle a keyring JSON-RPC request.
    *
    * @param request - The JSON-RPC request to dispatch.
    * @returns A promise that resolves to the response of the request.
    */
-  async dispatch(request: JsonRpcRequest): Promise<void | Json> {
-    return dispatchKeyringRequest(this, request);
+  async handleRequest(request: JsonRpcRequest): Promise<void | Json> {
+    return handleKeyringRequest(this, request);
   }
 }
