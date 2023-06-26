@@ -2,8 +2,8 @@ import type { Json, JsonRpcRequest } from '@metamask/utils';
 
 import {
   MethodNotSupportedError,
-  chainHandlers,
-  keyringRpcDispatcher,
+  buildHandlersChain,
+  dispatchKeyringRequest,
 } from './keyring-rpc-dispatcher';
 
 describe('buildHandlersChain', () => {
@@ -23,7 +23,7 @@ describe('buildHandlersChain', () => {
   it('should call the first handler and return its result', async () => {
     handler1.mockResolvedValue('Handler 1 result');
 
-    const result = await chainHandlers(
+    const result = await buildHandlersChain(
       handler1,
       handler2,
       handler3,
@@ -42,7 +42,7 @@ describe('buildHandlersChain', () => {
     handler1.mockRejectedValue(new MethodNotSupportedError('test_method'));
     handler2.mockResolvedValue('Handler 2 result');
 
-    const result = await chainHandlers(
+    const result = await buildHandlersChain(
       handler1,
       handler2,
       handler3,
@@ -62,7 +62,7 @@ describe('buildHandlersChain', () => {
     handler2.mockRejectedValue(new MethodNotSupportedError('test_method'));
     handler3.mockResolvedValue('Handler 3 result');
 
-    const result = await chainHandlers(
+    const result = await buildHandlersChain(
       handler1,
       handler2,
       handler3,
@@ -83,7 +83,7 @@ describe('buildHandlersChain', () => {
     handler3.mockRejectedValue(new MethodNotSupportedError('test_method'));
 
     await expect(
-      chainHandlers(handler1, handler2, handler3)({ origin, request }),
+      buildHandlersChain(handler1, handler2, handler3)({ origin, request }),
     ).rejects.toThrow(MethodNotSupportedError);
     expect(handler1).toHaveBeenCalledWith({ origin, request });
     expect(handler2).toHaveBeenCalledWith({ origin, request });
@@ -95,7 +95,7 @@ describe('buildHandlersChain', () => {
     handler1.mockRejectedValue(error);
 
     await expect(
-      chainHandlers(handler1, handler2, handler3)({ origin, request }),
+      buildHandlersChain(handler1, handler2, handler3)({ origin, request }),
     ).rejects.toThrow(error);
     expect(handler1).toHaveBeenCalledWith({ origin, request });
     expect(handler2).not.toHaveBeenCalled();
@@ -130,7 +130,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.listAccounts.mockResolvedValue('ListAccounts result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.listAccounts).toHaveBeenCalled();
     expect(result).toBe('ListAccounts result');
@@ -143,7 +143,9 @@ describe('keyringRpcDispatcher', () => {
       // Missing method name.
     };
 
-    await expect(keyringRpcDispatcher(keyring, request)).rejects.toThrow(
+    await expect(
+      dispatchKeyringRequest(keyring, request as unknown as JsonRpcRequest),
+    ).rejects.toThrow(
       'At path: method -- Expected a string, but received: undefined',
     );
   });
@@ -157,7 +159,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.getAccount.mockResolvedValue('GetAccount result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.getAccount).toHaveBeenCalledWith(
       '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
@@ -166,26 +168,26 @@ describe('keyringRpcDispatcher', () => {
   });
 
   it('should fail to call keyring_getAccount without the account ID', async () => {
-    const request = {
+    const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: 'keyring_getAccount',
       params: {}, // Missing account ID.
     };
 
-    await expect(keyringRpcDispatcher(keyring, request)).rejects.toThrow(
+    await expect(dispatchKeyringRequest(keyring, request)).rejects.toThrow(
       'At path: params.id -- Expected a string, but received: undefined',
     );
   });
 
   it('should fail to call keyring_getAccount without params', async () => {
-    const request = {
+    const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: 'keyring_getAccount',
     };
 
-    await expect(keyringRpcDispatcher(keyring, request)).rejects.toThrow(
+    await expect(dispatchKeyringRequest(keyring, request)).rejects.toThrow(
       'At path: params -- Expected an object, but received: undefined',
     );
   });
@@ -199,7 +201,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.createAccount.mockResolvedValue('CreateAccount result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.createAccount).toHaveBeenCalledWith('account_name', {});
     expect(result).toBe('CreateAccount result');
@@ -219,7 +221,7 @@ describe('keyringRpcDispatcher', () => {
     keyring.filterAccountChains.mockResolvedValue(
       'FilterSupportedChains result',
     );
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.filterAccountChains).toHaveBeenCalledWith(
       '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
@@ -246,7 +248,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.updateAccount.mockResolvedValue('UpdateAccount result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.updateAccount).toHaveBeenCalledWith({
       id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
@@ -268,7 +270,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.deleteAccount.mockResolvedValue('DeleteAccount result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.deleteAccount).toHaveBeenCalledWith(
       '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
@@ -284,7 +286,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.listRequests.mockResolvedValue('ListRequests result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.listRequests).toHaveBeenCalled();
     expect(result).toBe('ListRequests result');
@@ -299,7 +301,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.getRequest.mockResolvedValue('GetRequest result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.getRequest).toHaveBeenCalledWith('request_id');
     expect(result).toBe('GetRequest result');
@@ -325,7 +327,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.submitRequest.mockResolvedValue('SubmitRequest result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.submitRequest).toHaveBeenCalledWith(dappRequest);
     expect(result).toBe('SubmitRequest result');
@@ -340,7 +342,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.approveRequest.mockResolvedValue('ApproveRequest result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.approveRequest).toHaveBeenCalledWith('request_id');
     expect(result).toBe('ApproveRequest result');
@@ -355,7 +357,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     keyring.rejectRequest.mockResolvedValue('RejectRequest result');
-    const result = await keyringRpcDispatcher(keyring, request);
+    const result = await dispatchKeyringRequest(keyring, request);
 
     expect(keyring.rejectRequest).toHaveBeenCalledWith('request_id');
     expect(result).toBe('RejectRequest result');
@@ -368,7 +370,7 @@ describe('keyringRpcDispatcher', () => {
       method: 'unknown_method',
     };
 
-    await expect(keyringRpcDispatcher(keyring, request)).rejects.toThrow(
+    await expect(dispatchKeyringRequest(keyring, request)).rejects.toThrow(
       MethodNotSupportedError,
     );
   });
