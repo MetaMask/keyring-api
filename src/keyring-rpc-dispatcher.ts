@@ -137,7 +137,8 @@ export async function dispatchKeyringRequest(
       return await keyring.rejectRequest(request.params.id);
     }
 
-    default:
+    default: {
       throw new MethodNotSupportedError(request.method);
+    }
   }
 }
