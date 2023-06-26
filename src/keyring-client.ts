@@ -7,12 +7,26 @@ import {
   KeyringAccount,
   KeyringRequest,
   SubmitRequestResponse,
+  SubmitRequestResponseStruct,
 } from './keyring-api';
-import { InternalRequest, InternalRequestStruct } from './keyring-internal-api';
-import { OmitUnion } from './utils';
+import {
+  ApproveRequestResponseStruct,
+  CreateAccountResponseStruct,
+  DeleteAccountResponseStruct,
+  FilterAccountChainsResponseStruct,
+  GetAccountResponseStruct,
+  GetRequestResponseStruct,
+  InternalRequest,
+  InternalResponse,
+  ListAccountsResponseStruct,
+  ListRequestsResponseStruct,
+  RejectRequestResponseStruct,
+  UpdateAccountResponseStruct,
+} from './keyring-internal-api';
+import { OmitUnion, strictMask } from './utils';
 
 export type Sender = {
-  send<Response extends Json>(request: InternalRequest): Promise<Response>;
+  send(request: InternalRequest): Promise<InternalResponse>;
 };
 
 export class KeyringClient implements Keyring {
@@ -33,93 +47,124 @@ export class KeyringClient implements Keyring {
    * @param partial - Partial internal request (method and params).
    * @returns A promise that resolves to the response to the request.
    */
-  async #send<Response extends Json>(
+  async #send(
     partial: OmitUnion<InternalRequest, 'jsonrpc' | 'id'>,
-  ): Promise<Response> {
-    const request = {
+  ): Promise<InternalResponse> {
+    return await this.#sender.send({
       jsonrpc: '2.0',
       id: uuid(),
       ...partial,
-    };
-    assert(request, InternalRequestStruct);
-    return await this.#sender.send<Response>(request);
+    });
   }
 
   async listAccounts(): Promise<KeyringAccount[]> {
-    return await this.#send<KeyringAccount[]>({
-      method: 'keyring_listAccounts',
-    });
+    return strictMask(
+      await this.#send({
+        method: 'keyring_listAccounts',
+      }),
+      ListAccountsResponseStruct,
+    );
   }
 
   async getAccount(id: string): Promise<KeyringAccount> {
-    return await this.#send<KeyringAccount>({
-      method: 'keyring_getAccount',
-      params: { id },
-    });
+    return strictMask(
+      await this.#send({
+        method: 'keyring_getAccount',
+        params: { id },
+      }),
+      GetAccountResponseStruct,
+    );
   }
 
   async createAccount(
     name: string,
     options: Record<string, Json> | null = null,
   ): Promise<KeyringAccount> {
-    return await this.#send<KeyringAccount>({
-      method: 'keyring_createAccount',
-      params: { name, options },
-    });
+    return strictMask(
+      await this.#send({
+        method: 'keyring_createAccount',
+        params: { name, options },
+      }),
+      CreateAccountResponseStruct,
+    );
   }
 
   async filterAccountChains(id: string, chains: string[]): Promise<string[]> {
-    return await this.#send<string[]>({
-      method: 'keyring_filterAccountChains',
-      params: { id, chains },
-    });
+    return strictMask(
+      await this.#send({
+        method: 'keyring_filterAccountChains',
+        params: { id, chains },
+      }),
+      FilterAccountChainsResponseStruct,
+    );
   }
 
   async updateAccount(account: KeyringAccount): Promise<void> {
-    await this.#send<null>({
-      method: 'keyring_updateAccount',
-      params: { account },
-    });
+    assert(
+      await this.#send({
+        method: 'keyring_updateAccount',
+        params: { account },
+      }),
+      UpdateAccountResponseStruct,
+    );
   }
 
   async deleteAccount(id: string): Promise<void> {
-    await this.#send<null>({
-      method: 'keyring_deleteAccount',
-      params: { id },
-    });
+    assert(
+      await this.#send({
+        method: 'keyring_deleteAccount',
+        params: { id },
+      }),
+      DeleteAccountResponseStruct,
+    );
   }
 
   async listRequests(): Promise<KeyringRequest[]> {
-    return await this.#send<KeyringRequest[]>({
-      method: 'keyring_listRequests',
-    });
+    return strictMask(
+      await this.#send({
+        method: 'keyring_listRequests',
+      }),
+      ListRequestsResponseStruct,
+    );
   }
 
   async getRequest(id: string): Promise<KeyringRequest> {
-    return await this.#send<KeyringRequest>({
-      method: 'keyring_getRequest',
-      params: { id },
-    });
+    return strictMask(
+      await this.#send({
+        method: 'keyring_getRequest',
+        params: { id },
+      }),
+      GetRequestResponseStruct,
+    );
   }
 
   async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
-    return await this.#send<SubmitRequestResponse>({
-      method: 'keyring_submitRequest',
-      params: request,
-    });
+    return strictMask(
+      await this.#send({
+        method: 'keyring_submitRequest',
+        params: request,
+      }),
+      SubmitRequestResponseStruct,
+    );
   }
 
   async approveRequest(id: string): Promise<void> {
-    await this.#send<null>({
-      method: 'keyring_approveRequest',
-      params: { id },
-    });
+    assert(
+      await this.#send({
+        method: 'keyring_approveRequest',
+        params: { id },
+      }),
+      ApproveRequestResponseStruct,
+    );
   }
 
   async rejectRequest(id: string): Promise<void> {
-    await this.#send<null>({
-      method: 'keyring_rejectRequest',
-      params: { id },
-    });
+    assert(
+      await this.#send({
+        method: 'keyring_rejectRequest',
+        params: { id },
+      }),
+      RejectRequestResponseStruct,
+    );
   }
 }

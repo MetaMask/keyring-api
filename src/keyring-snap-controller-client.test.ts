@@ -61,6 +61,7 @@ describe('KeyringSnapControllerClient', () => {
         controller: controller as unknown as SnapController,
       });
 
+      controller.handleRequest.mockResolvedValue(accountsList);
       await client.listAccounts();
       expect(controller.handleRequest).toHaveBeenCalledWith({
         ...request,
