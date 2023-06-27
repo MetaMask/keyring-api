@@ -1074,7 +1074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/key-tree@npm:^7.0.0":
+"@metamask/key-tree@npm:^7.0.0, @metamask/key-tree@npm:^7.1.1":
   version: 7.1.1
   resolution: "@metamask/key-tree@npm:7.1.1"
   dependencies:
@@ -1101,7 +1101,7 @@ __metadata:
     "@metamask/eslint-config-typescript": ^11.0.0
     "@metamask/providers": ^11.0.0
     "@metamask/snaps-controllers": ^0.34.1-flask.1
-    "@metamask/snaps-utils": ^0.34.1-flask.1
+    "@metamask/snaps-utils": ^0.35.0-flask.1
     "@metamask/utils": ^6.0.1
     "@types/jest": ^28.1.6
     "@types/node": ^16
@@ -1324,6 +1324,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metamask/snaps-ui@npm:^0.35.0-flask.1":
+  version: 0.35.0-flask.1
+  resolution: "@metamask/snaps-ui@npm:0.35.0-flask.1"
+  dependencies:
+    "@metamask/utils": ^6.0.1
+    superstruct: ^1.0.3
+  checksum: a5ef5e24bccf64240094eb947fcd3910bd6dd0047893791fb91b8753d986102acabf2ba99742571dae2a368be6a287bd86412f36e4ec8ab19f456c6d81b28c4e
+  languageName: node
+  linkType: hard
+
 "@metamask/snaps-utils@npm:^0.34.1-flask.1":
   version: 0.34.1-flask.1
   resolution: "@metamask/snaps-utils@npm:0.34.1-flask.1"
@@ -1349,6 +1359,35 @@ __metadata:
     superstruct: ^1.0.3
     validate-npm-package-name: ^5.0.0
   checksum: a4663a4858c92a656fd22007dff7c612e1a005eaeeb3563bcda0872bb028dc251a5dccb2a59e2c12cdffc12a560751b70484d98a8653ca2417aec0177880eeaa
+  languageName: node
+  linkType: hard
+
+"@metamask/snaps-utils@npm:^0.35.0-flask.1":
+  version: 0.35.0-flask.1
+  resolution: "@metamask/snaps-utils@npm:0.35.0-flask.1"
+  dependencies:
+    "@babel/core": ^7.20.12
+    "@babel/types": ^7.18.7
+    "@metamask/base-controller": ^3.0.0
+    "@metamask/key-tree": ^7.1.1
+    "@metamask/permission-controller": ^4.0.0
+    "@metamask/providers": ^11.0.0
+    "@metamask/snaps-registry": ^1.2.1
+    "@metamask/snaps-ui": ^0.35.0-flask.1
+    "@metamask/utils": ^6.0.1
+    "@noble/hashes": ^1.3.1
+    "@scure/base": ^1.1.1
+    cron-parser: ^4.5.0
+    eth-rpc-errors: ^4.0.3
+    fast-deep-equal: ^3.1.3
+    fast-json-stable-stringify: ^2.1.0
+    is-svg: ^4.4.0
+    rfdc: ^1.3.0
+    semver: ^7.3.7
+    ses: ^0.18.1
+    superstruct: ^1.0.3
+    validate-npm-package-name: ^5.0.0
+  checksum: c9c2965d76e912c968bd9b6793b79c819420a09a981ba84b2d3a8ce0eeb9e1b7c168edc14820d87d2cc401bed3a8f78a32210c2f15f56eec67f1bfcaaeab1767
   languageName: node
   linkType: hard
 
@@ -1408,7 +1447,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:^1.0.0, @noble/hashes@npm:^1.1.3, @noble/hashes@npm:^1.3.0, @noble/hashes@npm:~1.3.0":
+"@noble/hashes@npm:^1.0.0, @noble/hashes@npm:^1.1.3, @noble/hashes@npm:^1.3.0, @noble/hashes@npm:^1.3.1, @noble/hashes@npm:~1.3.0":
   version: 1.3.1
   resolution: "@noble/hashes@npm:1.3.1"
   checksum: 7fdefc0f7a0c1ec27acc6ff88841793e3f93ec4ce6b8a6a12bfc0dd70ae6b7c4c82fe305fdfeda1735d5ad4a9eebe761e6693b3d355689c559e91242f4bc95b1
