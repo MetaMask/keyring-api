@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.1.3]
-### Uncategorized
-- chore(deps): downgrade snaps dependencies to `0.35.2-flask.1` ([#25](https://github.com/MetaMask/keyring-api/pull/25))
+### Changed
+- Downgrade snaps dependencies to `0.35.2-flask.1`. ([#25](https://github.com/MetaMask/keyring-api/pull/25))
 
 ## [0.1.2]
 ### Changed
