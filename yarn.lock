@@ -1253,8 +1253,8 @@ __metadata:
   linkType: hard
 
 "@metamask/snaps-controllers@npm:^1.0.0-prerelease.1":
-  version: 0.34.1-flask.1
-  resolution: "@metamask/snaps-controllers@npm:0.34.1-flask.1"
+  version: 1.0.0-prerelease.1
+  resolution: "@metamask/snaps-controllers@npm:1.0.0-prerelease.1"
   dependencies:
     "@metamask/approval-controller": ^3.0.0
     "@metamask/base-controller": ^3.0.0
@@ -1265,11 +1265,11 @@ __metadata:
     "@metamask/snaps-execution-environments": ^1.0.0-prerelease.1
     "@metamask/snaps-registry": ^1.2.1
     "@metamask/snaps-utils": ^1.0.0-prerelease.1
-    "@metamask/utils": ^6.0.0
+    "@metamask/utils": ^6.0.1
     "@xstate/fsm": ^2.0.0
     concat-stream: ^2.0.0
     cron-parser: ^4.5.0
-    eth-rpc-errors: ^4.0.3
+    eth-rpc-errors: ^4.0.2
     gunzip-maybe: ^1.4.2
     immer: ^9.0.6
     json-rpc-engine: ^6.1.0
@@ -1278,7 +1278,7 @@ __metadata:
     pump: ^3.0.0
     readable-web-to-node-stream: ^3.0.2
     tar-stream: ^2.2.0
-  checksum: bbbde0c12754a138f7169f0ed143e4f158a7edb683c2d8aa3530f1116aca7e3bdd28a584d732f021b6810dadf002b2d9975d32025c9d2c807b1eff60c0f577f3
+  checksum: 695fd90ad0f8bf2befd813e4ca8568b496575d581e94cac608a6daea55be57f508c5615d05e974d2de459a74cd6f84fb5ab7eb763e56e50b28484989e3e04ca6
   languageName: node
   linkType: hard
 
