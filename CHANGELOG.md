@@ -7,11 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.1.2]
-### Uncategorized
-- chore(deps): bump @metamask/snaps-utils from 0.34.1-flask.1 to 1.0.0-prerelease.1 ([#22](https://github.com/MetaMask/keyring-api/pull/22))
-- chore(deps): bump @metamask/snaps-controllers from 0.34.1-flask.1 to 1.0.0-prerelease.1 ([#23](https://github.com/MetaMask/keyring-api/pull/23))
-- chore(deps): bump @metamask/providers from 11.0.0 to 11.1.0 ([#19](https://github.com/MetaMask/keyring-api/pull/19))
-- chore(deps): update snaps dependencies ([#21](https://github.com/MetaMask/keyring-api/pull/21))
+### Changed
+- Update snaps dependencies. ([#21](https://github.com/MetaMask/keyring-api/pull/21))
 
 ## [0.1.1]
 ### Added
