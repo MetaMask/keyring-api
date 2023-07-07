@@ -1,11 +1,11 @@
 import type { MetaMaskInpageProvider } from '@metamask/providers';
 
-import { KeyringClient, Sender } from './keyring-client';
+import { KeyringClient, Sender } from './KeyringClient';
 import {
   InternalResponseStruct,
   type InternalRequest,
   InternalResponse,
-} from './keyring-internal-api';
+} from './internal-api';
 import { strictMask } from './utils';
 
 /**

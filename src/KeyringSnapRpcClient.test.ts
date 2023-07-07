@@ -1,7 +1,7 @@
 import type { MetaMaskInpageProvider } from '@metamask/providers';
 
-import { KeyringAccount } from './keyring-api';
-import { KeyringSnapRpcClient } from './keyring-snap-rpc-client';
+import { KeyringAccount } from './api';
+import { KeyringSnapRpcClient } from './KeyringSnapRpcClient';
 
 describe('KeyringSnapRpcClient', () => {
   const origin = 'mocked-metamask';

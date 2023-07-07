@@ -1,4 +1,4 @@
-import { JsonRpcRequestStruct } from './json-rpc-request';
+import { JsonRpcRequestStruct } from './JsonRpcRequest';
 
 describe('JsonRpcRequestStruct', () => {
   it('should be a valid JsonRpcRequest with a numerical ID', () => {

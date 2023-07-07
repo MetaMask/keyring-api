@@ -1,9 +1,9 @@
-import { JsonRpcRequest } from './json-rpc-request';
+import { JsonRpcRequest } from './JsonRpcRequest';
 import {
   MethodNotSupportedError,
   buildHandlersChain,
   handleKeyringRequest,
-} from './keyring-rpc-dispatcher';
+} from './rpc-dispatcher';
 
 describe('buildHandlersChain', () => {
   const handler1 = jest.fn();

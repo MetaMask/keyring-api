@@ -8,7 +8,7 @@ import {
   KeyringRequest,
   SubmitRequestResponse,
   SubmitRequestResponseStruct,
-} from './keyring-api';
+} from './api';
 import {
   ApproveRequestResponseStruct,
   CreateAccountResponseStruct,
@@ -22,7 +22,7 @@ import {
   ListRequestsResponseStruct,
   RejectRequestResponseStruct,
   UpdateAccountResponseStruct,
-} from './keyring-internal-api';
+} from './internal-api';
 import { OmitUnion, strictMask } from './utils';
 
 export type Sender = {

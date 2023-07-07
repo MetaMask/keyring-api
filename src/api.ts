@@ -11,7 +11,7 @@ import {
   array,
 } from 'superstruct';
 
-import { JsonRpcRequestStruct } from './json-rpc-request';
+import { JsonRpcRequestStruct } from './JsonRpcRequest';
 import { UuidStruct } from './utils';
 
 export const KeyringAccountStruct = object({
