@@ -11,6 +11,7 @@ import {
   array,
 } from 'superstruct';
 
+import { JsonRpcRequestStruct } from './json-rpc-request';
 import { UuidStruct } from './utils';
 
 export const KeyringAccountStruct = object({
@@ -64,28 +65,6 @@ export const KeyringAccountStruct = object({
  */
 export type KeyringAccount = Infer<typeof KeyringAccountStruct>;
 
-export const KeyringJsonRpcRequestStruct = union([
-  object({
-    jsonrpc: literal('2.0'),
-    id: string(),
-    method: string(),
-  }),
-  object({
-    jsonrpc: literal('2.0'),
-    id: string(),
-    method: string(),
-    params: union([array(JsonStruct), record(string(), JsonStruct)]),
-  }),
-]);
-
-/**
- * JSON-RPC request type.
- *
- * Represents a JSON-RPC request sent by a dApp. The request ID must be a
- * string and the params field cannot be undefined.
- */
-export type KeyringJsonRpcRequest = Infer<typeof KeyringJsonRpcRequestStruct>;
-
 export const KeyringRequestStruct = object({
   /**
    * Account ID (UUIDv4).
@@ -102,7 +81,7 @@ export const KeyringRequestStruct = object({
    *
    * Note: The request ID must be a string.
    */
-  request: KeyringJsonRpcRequestStruct,
+  request: JsonRpcRequestStruct,
 });
 
 /**

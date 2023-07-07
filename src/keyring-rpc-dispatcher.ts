@@ -1,11 +1,8 @@
 import type { OnRpcRequestHandler } from '@metamask/snaps-utils';
-import {
-  JsonRpcRequestStruct,
-  type Json,
-  JsonRpcRequest,
-} from '@metamask/utils';
+import type { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
 
+import { JsonRpcRequest, JsonRpcRequestStruct } from './json-rpc-request';
 import type { Keyring } from './keyring-api';
 import {
   GetAccountRequestStruct,
@@ -75,6 +72,7 @@ export async function handleKeyringRequest(
   // We first have to make sure that the request is a valid JSON-RPC request so
   // we can check its method name.
   assert(request, JsonRpcRequestStruct);
+
   switch (request.method) {
     case 'keyring_listAccounts': {
       assert(request, ListAccountsRequestStruct);

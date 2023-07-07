@@ -1,5 +1,4 @@
-import type { Json, JsonRpcRequest } from '@metamask/utils';
-
+import { JsonRpcRequest } from './json-rpc-request';
 import {
   MethodNotSupportedError,
   buildHandlersChain,
@@ -11,7 +10,7 @@ describe('buildHandlersChain', () => {
   const handler2 = jest.fn();
   const handler3 = jest.fn();
 
-  const request: JsonRpcRequest<Json[] | Record<string, Json>> = {
+  const request: JsonRpcRequest = {
     jsonrpc: '2.0',
     id: 'test-id',
     method: 'test_method',
@@ -145,9 +144,7 @@ describe('keyringRpcDispatcher', () => {
 
     await expect(
       handleKeyringRequest(keyring, request as unknown as JsonRpcRequest),
-    ).rejects.toThrow(
-      'At path: method -- Expected a string, but received: undefined',
-    );
+    ).rejects.toThrow('Expected the value to satisfy a union of');
   });
 
   it('should call keyring_getAccount', async () => {
@@ -346,6 +343,18 @@ describe('keyringRpcDispatcher', () => {
 
     expect(keyring.approveRequest).toHaveBeenCalledWith('request_id');
     expect(result).toBe('ApproveRequest result');
+  });
+
+  it('should fail to list requests with a non-UUIDv4 request ID', async () => {
+    const request: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      id: 'invalid-id-string',
+      method: 'keyring_listRequests',
+    };
+
+    await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
+      'At path: id -- Expected a string matching',
+    );
   });
 
   it('should call keyring_rejectRequest', async () => {
