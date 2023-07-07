@@ -18,12 +18,16 @@ import {
 } from './keyring-api';
 import { UuidStruct } from './utils';
 
+const CommonHeader = {
+  jsonrpc: literal('2.0'),
+  id: UuidStruct,
+};
+
 // ----------------------------------------------------------------------------
 // List accounts
 
 export const ListAccountsRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_listAccounts'),
 });
 
@@ -37,8 +41,7 @@ export type ListAccountsResponse = Infer<typeof ListAccountsResponseStruct>;
 // Get account
 
 export const GetAccountRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_getAccount'),
   params: object({
     id: string(),
@@ -55,8 +58,7 @@ export type GetAccountResponse = Infer<typeof GetAccountResponseStruct>;
 // Create account
 
 export const CreateAccountRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_createAccount'),
   params: object({
     name: string(),
@@ -74,8 +76,7 @@ export type CreateAccountResponse = Infer<typeof CreateAccountResponseStruct>;
 // Filter account chains
 
 export const FilterAccountChainsStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_filterAccountChains'),
   params: object({
     id: string(),
@@ -97,8 +98,7 @@ export type FilterAccountChainsResponse = Infer<
 // Update account
 
 export const UpdateAccountRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_updateAccount'),
   params: object({
     account: KeyringAccountStruct,
@@ -115,8 +115,7 @@ export type UpdateAccountResponse = Infer<typeof UpdateAccountResponseStruct>;
 // Delete account
 
 export const DeleteAccountRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_deleteAccount'),
   params: object({
     id: string(),
@@ -133,8 +132,7 @@ export type DeleteAccountResponse = Infer<typeof DeleteAccountResponseStruct>;
 // List requests
 
 export const ListRequestsRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_listRequests'),
 });
 
@@ -148,8 +146,7 @@ export type ListRequestsResponse = Infer<typeof ListRequestsResponseStruct>;
 // Get request
 
 export const GetRequestRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_getRequest'),
   params: object({
     id: string(),
@@ -166,8 +163,7 @@ export type GetRequestResponse = Infer<typeof GetRequestResponseStruct>;
 // Submit request
 
 export const SubmitRequestRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_submitRequest'),
   params: KeyringRequestStruct,
 });
@@ -181,8 +177,7 @@ export type SubmitRequestRequest = Infer<typeof SubmitRequestRequestStruct>;
 // Approve request
 
 export const ApproveRequestRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_approveRequest'),
   params: object({
     id: string(),
@@ -199,8 +194,7 @@ export type ApproveRequestResponse = Infer<typeof ApproveRequestResponseStruct>;
 // Reject request
 
 export const RejectRequestRequestStruct = object({
-  id: UuidStruct,
-  jsonrpc: literal('2.0'),
+  ...CommonHeader,
   method: literal('keyring_rejectRequest'),
   params: object({
     id: string(),
