@@ -3,7 +3,7 @@ import {
   MethodNotSupportedError,
   buildHandlersChain,
   handleKeyringRequest,
-} from './rpc-dispatcher';
+} from './rpc-handler';
 
 describe('buildHandlersChain', () => {
   const handler1 = jest.fn();
