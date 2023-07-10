@@ -23,7 +23,7 @@ describe('KeyringClient', () => {
           id: '49116980-0712-4fa5-b045-e4294f1d440e',
           name: 'Account 1',
           address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
-          options: null,
+          options: {},
           supportedMethods: [],
           type: 'eip155:eoa',
         },
@@ -47,7 +47,7 @@ describe('KeyringClient', () => {
         id: '49116980-0712-4fa5-b045-e4294f1d440e',
         name: 'Account 1',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
-        options: null,
+        options: {},
         supportedMethods: [],
         type: 'eip155:eoa',
       };
@@ -70,7 +70,7 @@ describe('KeyringClient', () => {
         id: '49116980-0712-4fa5-b045-e4294f1d440e',
         name: 'Account 1',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
-        options: null,
+        options: {},
         supportedMethods: [],
         type: 'eip155:eoa',
       };
@@ -81,7 +81,7 @@ describe('KeyringClient', () => {
         jsonrpc: '2.0',
         id: expect.any(String),
         method: 'keyring_createAccount',
-        params: { name: 'Account 1', options: null },
+        params: { name: 'Account 1', options: {} },
       });
       expect(account).toStrictEqual(expectedResponse);
     });
@@ -113,7 +113,7 @@ describe('KeyringClient', () => {
         id: '49116980-0712-4fa5-b045-e4294f1d440e',
         name: 'Account 1',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
-        options: null,
+        options: {},
         supportedMethods: [],
         type: 'eip155:eoa',
       };

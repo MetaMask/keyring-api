@@ -33,7 +33,7 @@ export const KeyringAccountStruct = object({
   /**
    * Keyring-dependent account options.
    */
-  options: nullable(record(string(), JsonStruct)),
+  options: record(string(), JsonStruct),
 
   /**
    * Account supported methods.
@@ -147,7 +147,7 @@ export type Keyring = {
    */
   createAccount(
     name: string,
-    options?: Record<string, Json> | null,
+    options?: Record<string, Json>,
   ): Promise<KeyringAccount>;
 
   /**

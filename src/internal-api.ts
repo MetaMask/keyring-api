@@ -62,7 +62,7 @@ export const CreateAccountRequestStruct = object({
   method: literal('keyring_createAccount'),
   params: object({
     name: string(),
-    options: nullable(record(string(), JsonStruct)),
+    options: record(string(), JsonStruct),
   }),
 });
 
