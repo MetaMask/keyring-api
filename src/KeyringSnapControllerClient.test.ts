@@ -1,7 +1,7 @@
 import { SnapController } from '@metamask/snaps-controllers';
 
-import { KeyringAccount } from './keyring-api';
-import { KeyringSnapControllerClient } from './keyring-snap-controller-client';
+import { KeyringAccount } from './api';
+import { KeyringSnapControllerClient } from './KeyringSnapControllerClient';
 
 describe('KeyringSnapControllerClient', () => {
   const snapId = 'local:localhost:3000';

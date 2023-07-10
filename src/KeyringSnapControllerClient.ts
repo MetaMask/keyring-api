@@ -1,12 +1,12 @@
 import type { SnapController } from '@metamask/snaps-controllers';
 import type { HandlerType, ValidatedSnapId } from '@metamask/snaps-utils';
 
-import { KeyringClient, Sender } from './keyring-client';
 import {
   InternalRequest,
   InternalResponse,
   InternalResponseStruct,
-} from './keyring-internal-api';
+} from './internal-api';
+import { KeyringClient, Sender } from './KeyringClient';
 import { strictMask } from './utils';
 
 /**

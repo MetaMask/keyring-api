@@ -2,8 +2,7 @@ import type { OnRpcRequestHandler } from '@metamask/snaps-utils';
 import type { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
 
-import { JsonRpcRequest, JsonRpcRequestStruct } from './json-rpc-request';
-import type { Keyring } from './keyring-api';
+import type { Keyring } from './api';
 import {
   GetAccountRequestStruct,
   CreateAccountRequestStruct,
@@ -16,7 +15,8 @@ import {
   FilterAccountChainsStruct,
   ListAccountsRequestStruct,
   ListRequestsRequestStruct,
-} from './keyring-internal-api';
+} from './internal-api';
+import { JsonRpcRequest, JsonRpcRequestStruct } from './JsonRpcRequest';
 
 /**
  * Error thrown when a keyring JSON-RPC method is not supported.

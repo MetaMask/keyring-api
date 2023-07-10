@@ -15,7 +15,7 @@ import {
   KeyringAccountStruct,
   KeyringRequestStruct,
   SubmitRequestResponseStruct,
-} from './keyring-api';
+} from './api';
 import { UuidStruct } from './utils';
 
 const CommonHeader = {
