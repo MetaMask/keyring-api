@@ -238,7 +238,7 @@ describe('keyringRpcDispatcher', () => {
           name: 'test',
           address: '0x0',
           options: {},
-          supportedMethods: [],
+          methods: [],
           type: 'eip155:eoa',
         },
       },
@@ -252,7 +252,7 @@ describe('keyringRpcDispatcher', () => {
       name: 'test',
       address: '0x0',
       options: {},
-      supportedMethods: [],
+      methods: [],
       type: 'eip155:eoa',
     });
     expect(result).toBe('UpdateAccount result');

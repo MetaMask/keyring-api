@@ -38,7 +38,7 @@ export const KeyringAccountStruct = object({
   /**
    * Account supported methods.
    */
-  supportedMethods: array(
+  methods: array(
     enums([
       'personal_sign',
       'eth_sendTransaction',
