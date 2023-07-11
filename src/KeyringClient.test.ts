@@ -24,7 +24,7 @@ describe('KeyringClient', () => {
           name: 'Account 1',
           address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
           options: {},
-          supportedMethods: [],
+          methods: [],
           type: 'eip155:eoa',
         },
       ];
@@ -48,7 +48,7 @@ describe('KeyringClient', () => {
         name: 'Account 1',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
         options: {},
-        supportedMethods: [],
+        methods: [],
         type: 'eip155:eoa',
       };
 
@@ -71,7 +71,7 @@ describe('KeyringClient', () => {
         name: 'Account 1',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
         options: {},
-        supportedMethods: [],
+        methods: [],
         type: 'eip155:eoa',
       };
 
@@ -114,7 +114,7 @@ describe('KeyringClient', () => {
         name: 'Account 1',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
         options: {},
-        supportedMethods: [],
+        methods: [],
         type: 'eip155:eoa',
       };
 
