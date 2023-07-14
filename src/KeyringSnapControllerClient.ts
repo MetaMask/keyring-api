@@ -110,4 +110,13 @@ export class KeyringSnapControllerClient extends KeyringClient {
       snapId,
     });
   }
+
+  /**
+   * Get the `SnapController` instance used by this client.
+   *
+   * @returns The `SnapController` instance used by this client.
+   */
+  getController(): SnapController {
+    return this.#controller;
+  }
 }
