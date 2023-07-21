@@ -55,7 +55,7 @@ export const KeyringAccountStruct = object({
   /**
    * Account type.
    */
-  type: enums(['eip155:eoa', 'eip155:erc4337']),
+  type: enums(['eip155:eoa', 'eip155:eip4337']),
 });
 
 /**
