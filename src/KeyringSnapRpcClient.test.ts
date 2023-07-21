@@ -1,6 +1,6 @@
 import type { MetaMaskInpageProvider } from '@metamask/providers';
 
-import { KeyringAccount } from './api';
+import type { KeyringAccount } from './api';
 import { KeyringSnapRpcClient } from './KeyringSnapRpcClient';
 
 describe('KeyringSnapRpcClient', () => {

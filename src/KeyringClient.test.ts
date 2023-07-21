@@ -1,7 +1,7 @@
 import {
-  KeyringAccount,
-  KeyringRequest,
-  SubmitRequestResponse,
+  type KeyringAccount,
+  type KeyringRequest,
+  type SubmitRequestResponse,
   KeyringClient,
 } from '.'; // Import from `index.ts` to test the public API
 

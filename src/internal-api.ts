@@ -1,7 +1,7 @@
 import { JsonStruct } from '@metamask/utils';
 import {
   array,
-  Infer,
+  type Infer,
   literal,
   never,
   nullable,

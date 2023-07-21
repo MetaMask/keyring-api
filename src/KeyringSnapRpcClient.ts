@@ -3,9 +3,9 @@ import type { MetaMaskInpageProvider } from '@metamask/providers';
 import {
   InternalResponseStruct,
   type InternalRequest,
-  InternalResponse,
+  type InternalResponse,
 } from './internal-api';
-import { KeyringClient, Sender } from './KeyringClient';
+import { KeyringClient, type Sender } from './KeyringClient';
 import { strictMask } from './utils';
 
 /**

@@ -1,4 +1,4 @@
-import { Json, JsonStruct } from '@metamask/utils';
+import { type Json, JsonStruct } from '@metamask/utils';
 import {
   literal,
   union,
@@ -6,7 +6,7 @@ import {
   object,
   string,
   enums,
-  Infer,
+  type Infer,
   record,
   array,
 } from 'superstruct';

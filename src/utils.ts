@@ -1,4 +1,4 @@
-import { Struct, assert, pattern, string } from 'superstruct';
+import { type Struct, assert, pattern, string } from 'superstruct';
 
 /**
  * UUIDv4 struct.
@@ -16,8 +16,8 @@ export const UuidStruct = pattern(
  *
  * See: <https://github.com/microsoft/TypeScript/issues/31501#issuecomment-1280579305>
  */
-export type OmitUnion<T, K extends keyof any> = T extends any
-  ? Omit<T, K>
+export type OmitUnion<Type, Key extends keyof any> = Type extends any
+  ? Omit<Type, Key>
   : never;
 
 /**
@@ -31,11 +31,11 @@ export type OmitUnion<T, K extends keyof any> = T extends any
  * @param message - Error message to throw if the value is not valid.
  * @returns The value if it is valid.
  */
-export function strictMask<T, S>(
+export function strictMask<Type, Schema>(
   value: unknown,
-  struct: Struct<T, S>,
+  struct: Struct<Type, Schema>,
   message?: string,
-): T {
+): Type {
   assert(value, struct, message);
   return value;
 }

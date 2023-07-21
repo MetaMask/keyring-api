@@ -1,6 +1,6 @@
-import { SnapController } from '@metamask/snaps-controllers';
+import type { SnapController } from '@metamask/snaps-controllers';
 
-import { KeyringAccount } from './api';
+import type { KeyringAccount } from './api';
 import { KeyringSnapControllerClient } from './KeyringSnapControllerClient';
 
 describe('KeyringSnapControllerClient', () => {
