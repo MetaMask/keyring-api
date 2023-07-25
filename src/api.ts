@@ -41,7 +41,6 @@ export const KeyringAccountStruct = object({
   methods: array(
     enums([
       'personal_sign',
-      'eth_sendTransaction',
       'eth_sign',
       'eth_signTransaction',
       'eth_signTypedData',
