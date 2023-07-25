@@ -69,4 +69,14 @@ describe('KeyringSnapControllerClient', () => {
       });
     });
   });
+
+  describe('getController', () => {
+    it('should return the controller', () => {
+      const client = new KeyringSnapControllerClient({
+        controller: controller as unknown as SnapController,
+      });
+
+      expect(client.getController()).toBe(controller);
+    });
+  });
 });
