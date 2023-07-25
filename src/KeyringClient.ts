@@ -3,10 +3,10 @@ import { assert } from 'superstruct';
 import { v4 as uuid } from 'uuid';
 
 import {
-  Keyring,
-  KeyringAccount,
-  KeyringRequest,
-  SubmitRequestResponse,
+  type Keyring,
+  type KeyringAccount,
+  type KeyringRequest,
+  type SubmitRequestResponse,
   SubmitRequestResponseStruct,
 } from './api';
 import {
@@ -16,14 +16,14 @@ import {
   FilterAccountChainsResponseStruct,
   GetAccountResponseStruct,
   GetRequestResponseStruct,
-  InternalRequest,
-  InternalResponse,
+  type InternalRequest,
+  type InternalResponse,
   ListAccountsResponseStruct,
   ListRequestsResponseStruct,
   RejectRequestResponseStruct,
   UpdateAccountResponseStruct,
 } from './internal-api';
-import { OmitUnion, strictMask } from './utils';
+import { type OmitUnion, strictMask } from './utils';
 
 export type Sender = {
   send(request: InternalRequest): Promise<InternalResponse>;

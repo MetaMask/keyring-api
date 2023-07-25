@@ -1,4 +1,4 @@
-import { JsonRpcRequest } from './JsonRpcRequest';
+import type { JsonRpcRequest } from './JsonRpcRequest';
 import {
   MethodNotSupportedError,
   buildHandlersChain,
