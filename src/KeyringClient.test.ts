@@ -21,7 +21,6 @@ describe('KeyringClient', () => {
       const expectedResponse: KeyringAccount[] = [
         {
           id: '49116980-0712-4fa5-b045-e4294f1d440e',
-          name: 'Account 1',
           address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
           options: {},
           methods: [],
@@ -45,7 +44,6 @@ describe('KeyringClient', () => {
       const id = '49116980-0712-4fa5-b045-e4294f1d440e';
       const expectedResponse = {
         id: '49116980-0712-4fa5-b045-e4294f1d440e',
-        name: 'Account 1',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
         options: {},
         methods: [],
@@ -68,7 +66,6 @@ describe('KeyringClient', () => {
     it('should send a request to create an account and return the response', async () => {
       const expectedResponse = {
         id: '49116980-0712-4fa5-b045-e4294f1d440e',
-        name: 'Account 1',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
         options: {},
         methods: [],
@@ -76,12 +73,12 @@ describe('KeyringClient', () => {
       };
 
       mockSender.send.mockResolvedValue(expectedResponse);
-      const account = await keyring.createAccount('Account 1');
+      const account = await keyring.createAccount();
       expect(mockSender.send).toHaveBeenCalledWith({
         jsonrpc: '2.0',
         id: expect.any(String),
         method: 'keyring_createAccount',
-        params: { name: 'Account 1', options: {} },
+        params: { options: {} },
       });
       expect(account).toStrictEqual(expectedResponse);
     });
@@ -111,7 +108,6 @@ describe('KeyringClient', () => {
     it('should send a request to update an account', async () => {
       const account: KeyringAccount = {
         id: '49116980-0712-4fa5-b045-e4294f1d440e',
-        name: 'Account 1',
         address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
         options: {},
         methods: [],

@@ -61,7 +61,6 @@ export const CreateAccountRequestStruct = object({
   ...CommonHeader,
   method: literal('keyring_createAccount'),
   params: object({
-    name: string(),
     options: record(string(), JsonStruct),
   }),
 });
