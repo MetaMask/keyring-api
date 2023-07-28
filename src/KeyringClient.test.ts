@@ -158,13 +158,13 @@ describe('KeyringClient', () => {
       ];
 
       mockSender.send.mockResolvedValue(expectedResponse);
-      const requests = await keyring.listRequests();
+      const response = await keyring.listRequests();
       expect(mockSender.send).toHaveBeenCalledWith({
         jsonrpc: '2.0',
         id: expect.any(String),
         method: 'keyring_listRequests',
       });
-      expect(requests).toStrictEqual(expectedResponse);
+      expect(response).toStrictEqual(expectedResponse);
     });
   });
 
@@ -183,14 +183,14 @@ describe('KeyringClient', () => {
       };
 
       mockSender.send.mockResolvedValue(expectedResponse);
-      const request = await keyring.getRequest(id);
+      const response = await keyring.getRequest(id);
       expect(mockSender.send).toHaveBeenCalledWith({
         jsonrpc: '2.0',
         id: expect.any(String),
         method: 'keyring_getRequest',
         params: { id },
       });
-      expect(request).toStrictEqual(expectedResponse);
+      expect(response).toStrictEqual(expectedResponse);
     });
   });
 
@@ -227,14 +227,14 @@ describe('KeyringClient', () => {
       const id = '71621d8d-62a4-4bf4-97cc-fb8f243679b0';
 
       mockSender.send.mockResolvedValue(null);
-      const request = await keyring.approveRequest(id);
+      const response = await keyring.approveRequest(id);
       expect(mockSender.send).toHaveBeenCalledWith({
         jsonrpc: '2.0',
         id: expect.any(String),
         method: 'keyring_approveRequest',
         params: { id },
       });
-      expect(request).toBeUndefined();
+      expect(response).toBeUndefined();
     });
   });
 
@@ -243,14 +243,14 @@ describe('KeyringClient', () => {
       const id = '71621d8d-62a4-4bf4-97cc-fb8f243679b0';
 
       mockSender.send.mockResolvedValue(null);
-      const request = await keyring.rejectRequest(id);
+      const response = await keyring.rejectRequest(id);
       expect(mockSender.send).toHaveBeenCalledWith({
         jsonrpc: '2.0',
         id: expect.any(String),
         method: 'keyring_rejectRequest',
         params: { id },
       });
-      expect(request).toBeUndefined();
+      expect(response).toBeUndefined();
     });
   });
 });
