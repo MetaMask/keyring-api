@@ -232,7 +232,7 @@ describe('KeyringClient', () => {
         jsonrpc: '2.0',
         id: expect.any(String),
         method: 'keyring_approveRequest',
-        params: { id },
+        params: { id, result: {} },
       });
       expect(response).toBeUndefined();
     });

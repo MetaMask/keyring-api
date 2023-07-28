@@ -1,18 +1,11 @@
 import { type Json, JsonStruct } from '@metamask/utils';
-import {
-  literal,
-  union,
-  nullable,
-  object,
-  string,
-  enums,
-  type Infer,
-  record,
-  array,
-} from 'superstruct';
+import { object, string, enums, record, array, type Infer } from 'superstruct';
 
+import type { SubmitRequestResponse } from './internal-api';
 import { JsonRpcRequestStruct } from './JsonRpcRequest';
 import { UuidStruct } from './utils';
+
+export type { SubmitRequestResponse } from './internal-api';
 
 export const KeyringAccountStruct = object({
   /**
@@ -84,21 +77,6 @@ export const KeyringRequestStruct = object({
  * Represents a request made to the keyring for account-related operations.
  */
 export type KeyringRequest = Infer<typeof KeyringRequestStruct>;
-
-export const SubmitRequestResponseStruct = union([
-  object({
-    pending: literal(true),
-  }),
-  object({
-    pending: literal(false),
-    result: nullable(JsonStruct),
-  }),
-]);
-
-/**
- * Response returned when submitting a request to the Keyring.
- */
-export type SubmitRequestResponse = Infer<typeof SubmitRequestResponseStruct>;
 
 /**
  * Keyring interface.
@@ -211,7 +189,7 @@ export type Keyring = {
    * @returns A promise that resolves when the request is successfully
    * approved.
    */
-  approveRequest(id: string, result?: Json): Promise<void>;
+  approveRequest(id: string, result?: Record<string, Json>): Promise<void>;
 
   /**
    * Reject a request.

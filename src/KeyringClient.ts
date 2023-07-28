@@ -2,13 +2,7 @@ import type { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
 import { v4 as uuid } from 'uuid';
 
-import {
-  type Keyring,
-  type KeyringAccount,
-  type KeyringRequest,
-  type SubmitRequestResponse,
-  SubmitRequestResponseStruct,
-} from './api';
+import type { Keyring, KeyringAccount, KeyringRequest } from './api';
 import {
   ApproveRequestResponseStruct,
   CreateAccountResponseStruct,
@@ -16,11 +10,13 @@ import {
   FilterAccountChainsResponseStruct,
   GetAccountResponseStruct,
   GetRequestResponseStruct,
-  type InternalRequest,
-  type InternalResponse,
   ListAccountsResponseStruct,
   ListRequestsResponseStruct,
   RejectRequestResponseStruct,
+  SubmitRequestResponseStruct,
+  type InternalRequest,
+  type InternalResponse,
+  type SubmitRequestResponse,
   UpdateAccountResponseStruct,
 } from './internal-api';
 import { type OmitUnion, strictMask } from './utils';
@@ -147,11 +143,14 @@ export class KeyringClient implements Keyring {
     );
   }
 
-  async approveRequest(id: string): Promise<void> {
+  async approveRequest(
+    id: string,
+    result: Record<string, Json> = {},
+  ): Promise<void> {
     assert(
       await this.#send({
         method: 'keyring_approveRequest',
-        params: { id },
+        params: { id, result },
       }),
       ApproveRequestResponseStruct,
     );

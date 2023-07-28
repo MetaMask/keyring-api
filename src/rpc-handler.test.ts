@@ -333,7 +333,7 @@ describe('keyringRpcDispatcher', () => {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: 'keyring_approveRequest',
-      params: { id: 'request_id' },
+      params: { id: 'request_id', result: {} },
     };
 
     keyring.approveRequest.mockResolvedValue('ApproveRequest result');
