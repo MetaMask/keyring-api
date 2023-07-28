@@ -9,7 +9,6 @@ describe('KeyringSnapRpcClient', () => {
   const accountsList: KeyringAccount[] = [
     {
       id: '13f94041-6ae6-451f-a0fe-afdd2fda18a7',
-      name: 'Account 1',
       address: '0xE9A74AACd7df8112911ca93260fC5a046f8a64Ae',
       options: {},
       methods: [],

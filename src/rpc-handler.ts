@@ -86,10 +86,7 @@ export async function handleKeyringRequest(
 
     case 'keyring_createAccount': {
       assert(request, CreateAccountRequestStruct);
-      return await keyring.createAccount(
-        request.params.name,
-        request.params.options,
-      );
+      return await keyring.createAccount(request.params.options);
     }
 
     case 'keyring_filterAccountChains': {

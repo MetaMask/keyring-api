@@ -194,13 +194,13 @@ describe('keyringRpcDispatcher', () => {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: 'keyring_createAccount',
-      params: { name: 'account_name', options: {} },
+      params: { options: {} },
     };
 
     keyring.createAccount.mockResolvedValue('CreateAccount result');
     const result = await handleKeyringRequest(keyring, request);
 
-    expect(keyring.createAccount).toHaveBeenCalledWith('account_name', {});
+    expect(keyring.createAccount).toHaveBeenCalledWith({});
     expect(result).toBe('CreateAccount result');
   });
 
@@ -235,7 +235,6 @@ describe('keyringRpcDispatcher', () => {
       params: {
         account: {
           id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
-          name: 'test',
           address: '0x0',
           options: {},
           methods: [],
@@ -249,7 +248,6 @@ describe('keyringRpcDispatcher', () => {
 
     expect(keyring.updateAccount).toHaveBeenCalledWith({
       id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
-      name: 'test',
       address: '0x0',
       options: {},
       methods: [],

@@ -77,13 +77,12 @@ export class KeyringClient implements Keyring {
   }
 
   async createAccount(
-    name: string,
     options: Record<string, Json> = {},
   ): Promise<KeyringAccount> {
     return strictMask(
       await this.#send({
         method: 'keyring_createAccount',
-        params: { name, options },
+        params: { options },
       }),
       CreateAccountResponseStruct,
     );

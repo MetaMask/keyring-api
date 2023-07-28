@@ -21,11 +21,6 @@ export const KeyringAccountStruct = object({
   id: UuidStruct,
 
   /**
-   * User-chosen account name.
-   */
-  name: string(),
-
-  /**
    * Account address or next receive address (UTXO).
    */
   address: string(),
@@ -136,18 +131,13 @@ export type Keyring = {
   /**
    * Create an account.
    *
-   * Creates a new account with the given name, supported chains, and optional
-   * account options.
+   * Creates a new account with optional, keyring-defined, account options.
    *
-   * @param name - The name of the account.
    * @param options - Keyring-defined options for the account (optional).
    * @returns A promise that resolves to the newly created KeyringAccount
    * object without any private information.
    */
-  createAccount(
-    name: string,
-    options?: Record<string, Json>,
-  ): Promise<KeyringAccount>;
+  createAccount(options?: Record<string, Json>): Promise<KeyringAccount>;
 
   /**
    * Filter supported chains for a given account.
