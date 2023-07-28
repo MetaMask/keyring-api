@@ -3,8 +3,6 @@ import {
   array,
   type Infer,
   literal,
-  never,
-  nullable,
   object,
   record,
   string,
@@ -106,7 +104,7 @@ export const UpdateAccountRequestStruct = object({
 
 export type UpdateAccountRequest = Infer<typeof UpdateAccountRequestStruct>;
 
-export const UpdateAccountResponseStruct = nullable(never());
+export const UpdateAccountResponseStruct = literal(null);
 
 export type UpdateAccountResponse = Infer<typeof UpdateAccountResponseStruct>;
 
@@ -123,7 +121,7 @@ export const DeleteAccountRequestStruct = object({
 
 export type DeleteAccountRequest = Infer<typeof DeleteAccountRequestStruct>;
 
-export const DeleteAccountResponseStruct = nullable(never());
+export const DeleteAccountResponseStruct = literal(null);
 
 export type DeleteAccountResponse = Infer<typeof DeleteAccountResponseStruct>;
 
@@ -185,7 +183,7 @@ export const ApproveRequestRequestStruct = object({
 
 export type ApproveRequestRequest = Infer<typeof ApproveRequestRequestStruct>;
 
-export const ApproveRequestResponseStruct = nullable(never());
+export const ApproveRequestResponseStruct = literal(null);
 
 export type ApproveRequestResponse = Infer<typeof ApproveRequestResponseStruct>;
 
@@ -202,7 +200,7 @@ export const RejectRequestRequestStruct = object({
 
 export type RejectRequestRequest = Infer<typeof RejectRequestRequestStruct>;
 
-export const RejectRequestResponseStruct = nullable(never());
+export const RejectRequestResponseStruct = literal(null);
 
 export type RejectRequestResponse = Infer<typeof RejectRequestResponseStruct>;
 
