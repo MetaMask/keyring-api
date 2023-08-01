@@ -329,17 +329,21 @@ describe('keyringRpcDispatcher', () => {
   });
 
   it('should call keyring_approveRequest', async () => {
+    const payload = { id: 'request_id', data: { signature: '0x0123' } };
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: 'keyring_approveRequest',
-      params: { id: 'request_id', result: {} },
+      params: payload,
     };
 
     keyring.approveRequest.mockResolvedValue('ApproveRequest result');
     const result = await handleKeyringRequest(keyring, request);
 
-    expect(keyring.approveRequest).toHaveBeenCalledWith('request_id');
+    expect(keyring.approveRequest).toHaveBeenCalledWith(
+      payload.id,
+      payload.data,
+    );
     expect(result).toBe('ApproveRequest result');
   });
 

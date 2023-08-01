@@ -183,7 +183,7 @@ export const ApproveRequestRequestStruct = object({
   method: literal('keyring_approveRequest'),
   params: object({
     id: string(),
-    result: record(string(), JsonStruct),
+    data: record(string(), JsonStruct),
   }),
 });
 

@@ -185,11 +185,11 @@ export type Keyring = {
    * Approves the request with the given ID and sets the response if provided.
    *
    * @param id - The ID of the request to approve.
-   * @param result - The response to the request (optional).
+   * @param data - The response to the request (optional).
    * @returns A promise that resolves when the request is successfully
    * approved.
    */
-  approveRequest(id: string, result?: Record<string, Json>): Promise<void>;
+  approveRequest(id: string, data?: Record<string, Json>): Promise<void>;
 
   /**
    * Reject a request.

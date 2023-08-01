@@ -145,12 +145,12 @@ export class KeyringClient implements Keyring {
 
   async approveRequest(
     id: string,
-    result: Record<string, Json> = {},
+    data: Record<string, Json> = {},
   ): Promise<void> {
     assert(
       await this.#send({
         method: 'keyring_approveRequest',
-        params: { id, result },
+        params: { id, data },
       }),
       ApproveRequestResponseStruct,
     );
