@@ -124,7 +124,10 @@ export async function handleKeyringRequest(
 
     case 'keyring_approveRequest': {
       assert(request, ApproveRequestRequestStruct);
-      return await keyring.approveRequest(request.params.id);
+      return await keyring.approveRequest(
+        request.params.id,
+        request.params.data,
+      );
     }
 
     case 'keyring_rejectRequest': {

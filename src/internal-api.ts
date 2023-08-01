@@ -1,19 +1,15 @@
 import { JsonStruct } from '@metamask/utils';
 import {
   array,
-  type Infer,
   literal,
   object,
   record,
   string,
   union,
+  type Infer,
 } from 'superstruct';
 
-import {
-  KeyringAccountStruct,
-  KeyringRequestStruct,
-  SubmitRequestResponseStruct,
-} from './api';
+import { KeyringAccountStruct, KeyringRequestStruct } from './api';
 import { UuidStruct } from './utils';
 
 const CommonHeader = {
@@ -167,8 +163,17 @@ export const SubmitRequestRequestStruct = object({
 
 export type SubmitRequestRequest = Infer<typeof SubmitRequestRequestStruct>;
 
-// The response type is already defined in the `keyring-api.ts` file since it
-// is used by the `Keyring` interface.
+export const SubmitRequestResponseStruct = union([
+  object({
+    pending: literal(true),
+  }),
+  object({
+    pending: literal(false),
+    result: JsonStruct,
+  }),
+]);
+
+export type SubmitRequestResponse = Infer<typeof SubmitRequestResponseStruct>;
 
 // ----------------------------------------------------------------------------
 // Approve request
@@ -178,6 +183,7 @@ export const ApproveRequestRequestStruct = object({
   method: literal('keyring_approveRequest'),
   params: object({
     id: string(),
+    data: record(string(), JsonStruct),
   }),
 });
 
