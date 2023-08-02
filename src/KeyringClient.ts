@@ -7,6 +7,7 @@ import {
   ApproveRequestResponseStruct,
   CreateAccountResponseStruct,
   DeleteAccountResponseStruct,
+  ExportAccountResponseStruct,
   FilterAccountChainsResponseStruct,
   GetAccountResponseStruct,
   GetRequestResponseStruct,
@@ -14,6 +15,7 @@ import {
   ListRequestsResponseStruct,
   RejectRequestResponseStruct,
   SubmitRequestResponseStruct,
+  type ExportAccountResponse,
   type InternalRequest,
   type InternalResponse,
   type SubmitRequestResponse,
@@ -111,6 +113,16 @@ export class KeyringClient implements Keyring {
         params: { id },
       }),
       DeleteAccountResponseStruct,
+    );
+  }
+
+  async exportAccount(id: string): Promise<ExportAccountResponse> {
+    return strictMask(
+      await this.#send({
+        method: 'keyring_exportAccount',
+        params: { id },
+      }),
+      ExportAccountResponseStruct,
     );
   }
 

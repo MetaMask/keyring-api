@@ -1,11 +1,17 @@
 import { type Json, JsonStruct } from '@metamask/utils';
 import { object, string, enums, record, array, type Infer } from 'superstruct';
 
-import type { SubmitRequestResponse } from './internal-api';
+import type {
+  ExportAccountResponse,
+  SubmitRequestResponse,
+} from './internal-api';
 import { JsonRpcRequestStruct } from './JsonRpcRequest';
 import { UuidStruct } from './utils';
 
-export type { SubmitRequestResponse } from './internal-api';
+export type {
+  ExportAccountResponse,
+  SubmitRequestResponse,
+} from './internal-api';
 
 export const KeyringAccountStruct = object({
   /**
@@ -143,6 +149,17 @@ export type Keyring = {
    * @returns A promise that resolves when the account is successfully deleted.
    */
   deleteAccount(id: string): Promise<void>;
+
+  /**
+   * Exports an account's private key.
+   *
+   * If the keyring cannot export a private key, this function should throw an
+   * error.
+   *
+   * @param id - The ID of the account to export.
+   * @returns A promise that resolves to the exported account.
+   */
+  exportAccount(id: string): Promise<ExportAccountResponse>;
 
   /**
    * List all submitted requests.

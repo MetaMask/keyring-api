@@ -110,6 +110,7 @@ describe('keyringRpcDispatcher', () => {
     filterAccountChains: jest.fn(),
     updateAccount: jest.fn(),
     deleteAccount: jest.fn(),
+    exportAccount: jest.fn(),
     listRequests: jest.fn(),
     getRequest: jest.fn(),
     submitRequest: jest.fn(),
