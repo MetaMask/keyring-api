@@ -20,6 +20,7 @@ import {
   type InternalResponse,
   type SubmitRequestResponse,
   UpdateAccountResponseStruct,
+  InternalResponseStruct,
 } from './internal-api';
 import { type OmitUnion, strictMask } from './utils';
 
@@ -48,11 +49,14 @@ export class KeyringClient implements Keyring {
   async #send(
     partial: OmitUnion<InternalRequest, 'jsonrpc' | 'id'>,
   ): Promise<InternalResponse> {
-    return await this.#sender.send({
-      jsonrpc: '2.0',
-      id: uuid(),
-      ...partial,
-    });
+    return strictMask(
+      await this.#sender.send({
+        jsonrpc: '2.0',
+        id: uuid(),
+        ...partial,
+      }),
+      InternalResponseStruct,
+    );
   }
 
   async listAccounts(): Promise<KeyringAccount[]> {
