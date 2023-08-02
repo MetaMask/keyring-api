@@ -1410,8 +1410,8 @@ __metadata:
   linkType: hard
 
 "@metamask/utils@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "@metamask/utils@npm:7.0.0"
+  version: 7.1.0
+  resolution: "@metamask/utils@npm:7.1.0"
   dependencies:
     "@ethereumjs/tx": ^4.1.2
     "@noble/hashes": ^1.3.1
@@ -1419,7 +1419,7 @@ __metadata:
     debug: ^4.3.4
     semver: ^7.5.4
     superstruct: ^1.0.3
-  checksum: cd9fd46a323f655741c654ab07a0e35c07ce2be5d13f2defdd938d7f29b6e8e382782d83dac67bad7cffa38b3aa4fa9b3fb7c8ccca4d16b4d1fd68a39cbba183
+  checksum: 165ed378f4ac5ca42c241d32154e15b609f9e772a9dc069b870613c005dc0e7e4fa92204c30e98ec2317f1e38c77747057671a26fd0a5ba36a288e3c9ef03790
   languageName: node
   linkType: hard
 
