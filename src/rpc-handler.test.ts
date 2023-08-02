@@ -1,3 +1,4 @@
+import type { Keyring } from './api';
 import type { JsonRpcRequest } from './JsonRpcRequest';
 import {
   MethodNotSupportedError,
@@ -348,6 +349,24 @@ describe('keyringRpcDispatcher', () => {
     expect(result).toBe('ApproveRequest result');
   });
 
+  it('should throw MethodNotSupportedError if approveRequest is not implemented', async () => {
+    const request: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
+      method: 'keyring_approveRequest',
+      params: { id: 'request_id', data: {} },
+    };
+
+    const partialKeyring: Keyring = {
+      ...keyring,
+    };
+    delete partialKeyring.approveRequest;
+
+    await expect(handleKeyringRequest(partialKeyring, request)).rejects.toThrow(
+      MethodNotSupportedError,
+    );
+  });
+
   it('should fail to list requests with a non-UUIDv4 request ID', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
@@ -373,6 +392,24 @@ describe('keyringRpcDispatcher', () => {
 
     expect(keyring.rejectRequest).toHaveBeenCalledWith('request_id');
     expect(result).toBe('RejectRequest result');
+  });
+
+  it('should throw MethodNotSupportedError if rejectRequest is not implemented', async () => {
+    const request: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
+      method: 'keyring_rejectRequest',
+      params: { id: 'request_id' },
+    };
+
+    const partialKeyring: Keyring = {
+      ...keyring,
+    };
+    delete partialKeyring.rejectRequest;
+
+    await expect(handleKeyringRequest(partialKeyring, request)).rejects.toThrow(
+      MethodNotSupportedError,
+    );
   });
 
   it('should throw MethodNotSupportedError for an unknown method', async () => {

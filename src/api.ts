@@ -202,7 +202,7 @@ export type Keyring = {
    * @returns A promise that resolves when the request is successfully
    * approved.
    */
-  approveRequest(id: string, data?: Record<string, Json>): Promise<void>;
+  approveRequest?(id: string, data?: Record<string, Json>): Promise<void>;
 
   /**
    * Reject a request.
@@ -213,5 +213,5 @@ export type Keyring = {
    * @returns A promise that resolves when the request is successfully
    * rejected.
    */
-  rejectRequest(id: string): Promise<void>;
+  rejectRequest?(id: string): Promise<void>;
 };
