@@ -122,6 +122,23 @@ export const DeleteAccountResponseStruct = literal(null);
 export type DeleteAccountResponse = Infer<typeof DeleteAccountResponseStruct>;
 
 // ----------------------------------------------------------------------------
+// Export account
+
+export const ExportAccountRequestStruct = object({
+  ...CommonHeader,
+  method: literal('keyring_exportAccount'),
+  params: object({
+    id: string(),
+  }),
+});
+
+export type ExportAccountRequest = Infer<typeof ExportAccountRequestStruct>;
+
+export const ExportAccountResponseStruct = record(string(), JsonStruct);
+
+export type ExportAccountResponse = Infer<typeof ExportAccountResponseStruct>;
+
+// ----------------------------------------------------------------------------
 // List requests
 
 export const ListRequestsRequestStruct = object({
@@ -220,6 +237,7 @@ export const InternalRequestStruct = union([
   FilterAccountChainsStruct,
   UpdateAccountRequestStruct,
   DeleteAccountRequestStruct,
+  ExportAccountRequestStruct,
   ListRequestsRequestStruct,
   GetRequestRequestStruct,
   SubmitRequestRequestStruct,
@@ -239,6 +257,7 @@ export const InternalResponseStruct = union([
   FilterAccountChainsResponseStruct,
   UpdateAccountResponseStruct,
   DeleteAccountResponseStruct,
+  ExportAccountResponseStruct,
   ListRequestsResponseStruct,
   GetRequestResponseStruct,
   SubmitRequestResponseStruct,

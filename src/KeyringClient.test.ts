@@ -142,6 +142,25 @@ describe('KeyringClient', () => {
     });
   });
 
+  describe('exportAccounts', () => {
+    it('should send a request to export an account', async () => {
+      const id = '49116980-0712-4fa5-b045-e4294f1d440e';
+      const expectedResponse = {
+        privateKey: '0x000000000',
+      };
+
+      mockSender.send.mockResolvedValue(expectedResponse);
+      const response = await keyring.exportAccount(id);
+      expect(mockSender.send).toHaveBeenCalledWith({
+        jsonrpc: '2.0',
+        id: expect.any(String),
+        method: 'keyring_exportAccount',
+        params: { id },
+      });
+      expect(response).toStrictEqual(expectedResponse);
+    });
+  });
+
   describe('listRequests', () => {
     it('should send a request to list requests and return the response', async () => {
       const expectedResponse: KeyringRequest[] = [
