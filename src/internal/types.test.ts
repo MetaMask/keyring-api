@@ -20,7 +20,7 @@ describe('InternalAccount', () => {
     expect(() => assert(account, InternalAccountStruct)).not.toThrow();
   });
 
-  it('should throw if snap ID is missing', () => {
+  it('should throw if metadata.keyring.type is not set', () => {
     const account = {
       id: '606a7759-b0fb-48e4-9874-bab62ff8e7eb',
       address: '0x000',
@@ -28,15 +28,41 @@ describe('InternalAccount', () => {
       methods: [],
       type: 'eip155:eoa',
       metadata: {
-        snap: {},
-        keyring: {
-          type: 'Test Keyring',
-        },
+        keyring: {},
       },
     };
 
     expect(() => assert(account, InternalAccountStruct)).toThrow(
-      'At path: metadata.snap.id -- Expected a string, but received: undefined',
+      'At path: metadata.keyring.type -- Expected a string, but received: undefined',
+    );
+  });
+
+  it('should throw if metadata.keyring is not set', () => {
+    const account = {
+      id: '606a7759-b0fb-48e4-9874-bab62ff8e7eb',
+      address: '0x000',
+      options: {},
+      methods: [],
+      type: 'eip155:eoa',
+      metadata: {},
+    };
+
+    expect(() => assert(account, InternalAccountStruct)).toThrow(
+      'At path: metadata.keyring -- Expected an object, but received: undefined',
+    );
+  });
+
+  it('should throw if metadata is not set', () => {
+    const account = {
+      id: '606a7759-b0fb-48e4-9874-bab62ff8e7eb',
+      address: '0x000',
+      options: {},
+      methods: [],
+      type: 'eip155:eoa',
+    };
+
+    expect(() => assert(account, InternalAccountStruct)).toThrow(
+      'At path: metadata -- Expected an object, but received: undefined',
     );
   });
 
