@@ -4,14 +4,14 @@ import { object, string, enums, record, array, type Infer } from 'superstruct';
 import type {
   ExportAccountResponse,
   SubmitRequestResponse,
-} from './internal-api';
+} from './internal/api';
 import { JsonRpcRequestStruct } from './JsonRpcRequest';
 import { UuidStruct } from './utils';
 
 export type {
   ExportAccountResponse,
   SubmitRequestResponse,
-} from './internal-api';
+} from './internal/api';
 
 /**
  * Supported Ethereum methods.

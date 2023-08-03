@@ -15,7 +15,7 @@ import {
   FilterAccountChainsStruct,
   ListAccountsRequestStruct,
   ListRequestsRequestStruct,
-} from './internal-api';
+} from './internal/api';
 import { type JsonRpcRequest, JsonRpcRequestStruct } from './JsonRpcRequest';
 
 /**

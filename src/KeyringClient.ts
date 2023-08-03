@@ -21,7 +21,7 @@ import {
   type SubmitRequestResponse,
   UpdateAccountResponseStruct,
   InternalResponseStruct,
-} from './internal-api';
+} from './internal/api';
 import { type OmitUnion, strictMask } from './utils';
 
 export type Sender = {

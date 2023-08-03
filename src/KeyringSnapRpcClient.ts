@@ -1,6 +1,10 @@
 import type { MetaMaskInpageProvider } from '@metamask/providers';
 
-import type { InternalRequest, InternalResponse } from './internal-api';
+import {
+  InternalResponseStruct,
+  type InternalRequest,
+  type InternalResponse,
+} from './internal/api';
 import { KeyringClient, type Sender } from './KeyringClient';
 
 /**

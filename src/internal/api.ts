@@ -9,8 +9,8 @@ import {
   type Infer,
 } from 'superstruct';
 
-import { KeyringAccountStruct, KeyringRequestStruct } from './api';
-import { UuidStruct } from './utils';
+import { KeyringAccountStruct, KeyringRequestStruct } from '../api';
+import { UuidStruct } from '../utils';
 
 const CommonHeader = {
   jsonrpc: literal('2.0'),
