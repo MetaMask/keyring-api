@@ -9,7 +9,12 @@ import {
   type Infer,
 } from 'superstruct';
 
-import { KeyringAccountStruct, KeyringRequestStruct } from '../api';
+import {
+  ExportAccountResponseStruct,
+  KeyringAccountStruct,
+  KeyringRequestStruct,
+  SubmitRequestResponseStruct,
+} from '../api';
 import { UuidStruct } from '../utils';
 
 const CommonHeader = {
@@ -134,10 +139,6 @@ export const ExportAccountRequestStruct = object({
 
 export type ExportAccountRequest = Infer<typeof ExportAccountRequestStruct>;
 
-export const ExportAccountResponseStruct = record(string(), JsonStruct);
-
-export type ExportAccountResponse = Infer<typeof ExportAccountResponseStruct>;
-
 // ----------------------------------------------------------------------------
 // List requests
 
@@ -180,17 +181,7 @@ export const SubmitRequestRequestStruct = object({
 
 export type SubmitRequestRequest = Infer<typeof SubmitRequestRequestStruct>;
 
-export const SubmitRequestResponseStruct = union([
-  object({
-    pending: literal(true),
-  }),
-  object({
-    pending: literal(false),
-    result: JsonStruct,
-  }),
-]);
-
-export type SubmitRequestResponse = Infer<typeof SubmitRequestResponseStruct>;
+// Response type is defined in the public API.
 
 // ----------------------------------------------------------------------------
 // Approve request

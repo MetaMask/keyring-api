@@ -2,23 +2,29 @@ import type { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
 import { v4 as uuid } from 'uuid';
 
-import type { Keyring, KeyringAccount, KeyringRequest } from './api';
+import {
+  ExportAccountResponseStruct,
+  SubmitRequestResponseStruct,
+} from './api';
+import type {
+  Keyring,
+  KeyringAccount,
+  KeyringRequest,
+  ExportAccountResponse,
+  SubmitRequestResponse,
+} from './api';
 import {
   ApproveRequestResponseStruct,
   CreateAccountResponseStruct,
   DeleteAccountResponseStruct,
-  ExportAccountResponseStruct,
   FilterAccountChainsResponseStruct,
   GetAccountResponseStruct,
   GetRequestResponseStruct,
   ListAccountsResponseStruct,
   ListRequestsResponseStruct,
   RejectRequestResponseStruct,
-  SubmitRequestResponseStruct,
-  type ExportAccountResponse,
   type InternalRequest,
   type InternalResponse,
-  type SubmitRequestResponse,
   UpdateAccountResponseStruct,
   InternalResponseStruct,
 } from './internal/api';
