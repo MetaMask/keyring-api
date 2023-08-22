@@ -2,36 +2,32 @@ import type { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
 import { v4 as uuid } from 'uuid';
 
-import {
-  ExportAccountResponseStruct,
-  SubmitRequestResponseStruct,
-} from './api';
 import type {
   Keyring,
   KeyringAccount,
   KeyringRequest,
-  ExportAccountResponse,
-  SubmitRequestResponse,
+  KeyringAccountData,
+  KeyringResponse,
 } from './api';
 import {
   ApproveRequestResponseStruct,
   CreateAccountResponseStruct,
   DeleteAccountResponseStruct,
+  ExportAccountResponseStruct,
   FilterAccountChainsResponseStruct,
   GetAccountResponseStruct,
   GetRequestResponseStruct,
   ListAccountsResponseStruct,
   ListRequestsResponseStruct,
   RejectRequestResponseStruct,
-  type InternalRequest,
-  type InternalResponse,
+  SubmitRequestResponseStruct,
   UpdateAccountResponseStruct,
-  InternalResponseStruct,
 } from './internal/api';
+import type { JsonRpcRequest } from './JsonRpcRequest';
 import { type OmitUnion, strictMask } from './utils';
 
 export type Sender = {
-  send(request: InternalRequest): Promise<InternalResponse>;
+  send(request: JsonRpcRequest): Promise<Json>;
 };
 
 export class KeyringClient implements Keyring {
@@ -49,20 +45,17 @@ export class KeyringClient implements Keyring {
   /**
    * Send a request to the snap and return the response.
    *
-   * @param partial - Partial internal request (method and params).
+   * @param partial - A partial JSON-RPC request (method and params).
    * @returns A promise that resolves to the response to the request.
    */
   async #send(
-    partial: OmitUnion<InternalRequest, 'jsonrpc' | 'id'>,
-  ): Promise<InternalResponse> {
-    return strictMask(
-      await this.#sender.send({
-        jsonrpc: '2.0',
-        id: uuid(),
-        ...partial,
-      }),
-      InternalResponseStruct,
-    );
+    partial: OmitUnion<JsonRpcRequest, 'jsonrpc' | 'id'>,
+  ): Promise<Json> {
+    return this.#sender.send({
+      jsonrpc: '2.0',
+      id: uuid(),
+      ...partial,
+    });
   }
 
   async listAccounts(): Promise<KeyringAccount[]> {
@@ -126,7 +119,7 @@ export class KeyringClient implements Keyring {
     );
   }
 
-  async exportAccount(id: string): Promise<ExportAccountResponse> {
+  async exportAccount(id: string): Promise<KeyringAccountData> {
     return strictMask(
       await this.#send({
         method: 'keyring_exportAccount',
@@ -155,7 +148,7 @@ export class KeyringClient implements Keyring {
     );
   }
 
-  async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
+  async submitRequest(request: KeyringRequest): Promise<KeyringResponse> {
     return strictMask(
       await this.#send({
         method: 'keyring_submitRequest',

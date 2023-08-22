@@ -104,11 +104,16 @@ export const KeyringRequestStruct = object({
  */
 export type KeyringRequest = Infer<typeof KeyringRequestStruct>;
 
-export const ExportAccountResponseStruct = record(string(), JsonStruct);
+export const KeyringAccountDataStruct = record(string(), JsonStruct);
 
-export type ExportAccountResponse = Infer<typeof ExportAccountResponseStruct>;
+/**
+ * Response to a call to `exportAccount`.
+ *
+ * The exact response depends on the keyring implementation.
+ */
+export type KeyringAccountData = Infer<typeof KeyringAccountDataStruct>;
 
-export const SubmitRequestResponseStruct = union([
+export const KeyringResponseStruct = union([
   object({
     pending: literal(true),
   }),
@@ -118,7 +123,14 @@ export const SubmitRequestResponseStruct = union([
   }),
 ]);
 
-export type SubmitRequestResponse = Infer<typeof SubmitRequestResponseStruct>;
+/**
+ * Response to a call to `submitRequest`.
+ *
+ * Keyring implementations must return a response with `pending: true` if the
+ * request will be handled asynchronously. Otherwise, the response must contain
+ * the result of the request and `pending: false`.
+ */
+export type KeyringResponse = Infer<typeof KeyringResponseStruct>;
 
 /**
  * Keyring interface.
@@ -199,7 +211,7 @@ export type Keyring = {
    * @param id - The ID of the account to export.
    * @returns A promise that resolves to the exported account.
    */
-  exportAccount(id: string): Promise<ExportAccountResponse>;
+  exportAccount(id: string): Promise<KeyringAccountData>;
 
   /**
    * List all submitted requests.
@@ -230,7 +242,7 @@ export type Keyring = {
    * @param request - The KeyringRequest object to submit.
    * @returns A promise that resolves to the request response.
    */
-  submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse>;
+  submitRequest(request: KeyringRequest): Promise<KeyringResponse>;
 
   /**
    * Approve a request.

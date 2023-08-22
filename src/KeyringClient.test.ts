@@ -1,7 +1,7 @@
 import {
   type KeyringAccount,
   type KeyringRequest,
-  type SubmitRequestResponse,
+  type KeyringResponse,
   KeyringClient,
 } from '.'; // Import from `index.ts` to test the public API
 
@@ -225,7 +225,7 @@ describe('KeyringClient', () => {
           params: ['0xe9a74aacd7df8112911ca93260fc5a046f8a64ae', '0x0'],
         },
       };
-      const expectedResponse: SubmitRequestResponse = {
+      const expectedResponse: KeyringResponse = {
         pending: true,
       };
 
