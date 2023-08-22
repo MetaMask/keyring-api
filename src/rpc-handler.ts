@@ -123,6 +123,11 @@ export async function handleKeyringRequest(
     }
 
     case 'keyring_approveRequest': {
+      // This is an optional method, so we have to check if it exists.
+      if (keyring.approveRequest === undefined) {
+        throw new MethodNotSupportedError(request.method);
+      }
+
       assert(request, ApproveRequestRequestStruct);
       return await keyring.approveRequest(
         request.params.id,
@@ -131,6 +136,11 @@ export async function handleKeyringRequest(
     }
 
     case 'keyring_rejectRequest': {
+      // This is an optional method, so we have to check if it exists.
+      if (keyring.rejectRequest === undefined) {
+        throw new MethodNotSupportedError(request.method);
+      }
+
       assert(request, RejectRequestRequestStruct);
       return await keyring.rejectRequest(request.params.id);
     }
