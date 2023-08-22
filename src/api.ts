@@ -13,6 +13,27 @@ export type {
   SubmitRequestResponse,
 } from './internal-api';
 
+/**
+ * Supported Ethereum methods.
+ */
+export enum EthMethod {
+  PersonalSign = 'personal_sign',
+  Sign = 'eth_sign',
+  SignTransaction = 'eth_signTransaction',
+  SignTypedData = 'eth_signTypedData',
+  SignTypedDataV1 = 'eth_signTypedData_v1',
+  SignTypedDataV3 = 'eth_signTypedData_v3',
+  SignTypedDataV4 = 'eth_signTypedData_v4',
+}
+
+/**
+ * Supported Ethereum account types.
+ */
+export enum EthAccountType {
+  Eoa = 'eip155:eoa',
+  Eip4337 = 'eip155:eip4337',
+}
+
 export const KeyringAccountStruct = object({
   /**
    * Account ID (UUIDv4).
@@ -34,17 +55,20 @@ export const KeyringAccountStruct = object({
    */
   methods: array(
     enums([
-      'personal_sign',
-      'eth_sign',
-      'eth_signTransaction',
-      'eth_signTypedData',
+      `${EthMethod.PersonalSign}`,
+      `${EthMethod.Sign}`,
+      `${EthMethod.SignTransaction}`,
+      `${EthMethod.SignTypedData}`,
+      `${EthMethod.SignTypedDataV1}`,
+      `${EthMethod.SignTypedDataV3}`,
+      `${EthMethod.SignTypedDataV4}`,
     ]),
   ),
 
   /**
    * Account type.
    */
-  type: enums(['eip155:eoa', 'eip155:eip4337']),
+  type: enums([`${EthAccountType.Eoa}`, `${EthAccountType.Eip4337}`]),
 });
 
 /**
