@@ -1,5 +1,5 @@
 import { type Json, JsonStruct } from '@metamask/utils';
-import { object, string, enums, record, array, type Infer } from 'superstruct';
+import { type Infer, array, enums, object, record, string } from 'superstruct';
 
 import type {
   ExportAccountResponse,
@@ -7,11 +7,6 @@ import type {
 } from './internal/api';
 import { JsonRpcRequestStruct } from './JsonRpcRequest';
 import { UuidStruct } from './utils';
-
-export type {
-  ExportAccountResponse,
-  SubmitRequestResponse,
-} from './internal/api';
 
 /**
  * Supported Ethereum methods.

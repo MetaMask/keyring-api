@@ -1,10 +1,6 @@
 import type { MetaMaskInpageProvider } from '@metamask/providers';
 
-import {
-  InternalResponseStruct,
-  type InternalRequest,
-  type InternalResponse,
-} from './internal/api';
+import type { InternalRequest, InternalResponse } from './internal/api';
 import { KeyringClient, type Sender } from './KeyringClient';
 
 /**
@@ -34,15 +30,13 @@ export class SnapRpcSender implements Sender {
    * @returns A promise that resolves to the response of the request.
    */
   async send(request: InternalRequest): Promise<InternalResponse> {
-    const response = await this.#provider.request({
+    return this.#provider.request({
       method: 'wallet_invokeSnap',
       params: {
         snapId: this.#origin,
         request,
       },
-    });
-
-    return response as InternalResponse;
+    }) as Promise<InternalResponse>;
   }
 }
 

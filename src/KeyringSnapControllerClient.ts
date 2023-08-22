@@ -1,11 +1,7 @@
 import type { SnapController } from '@metamask/snaps-controllers';
 import type { HandlerType, ValidatedSnapId } from '@metamask/snaps-utils';
 
-import {
-  type InternalRequest,
-  type InternalResponse,
-  InternalResponseStruct,
-} from './internal/api';
+import type { InternalRequest, InternalResponse } from './internal/api';
 import { KeyringClient, type Sender } from './KeyringClient';
 
 /**
@@ -48,14 +44,12 @@ class SnapControllerSender implements Sender {
    * @returns A promise that resolves to the response of the request.
    */
   async send(request: InternalRequest): Promise<InternalResponse> {
-    const response = await this.#controller.handleRequest({
+    return this.#controller.handleRequest({
       snapId: this.#snapId as ValidatedSnapId,
       origin: this.#origin,
       handler: this.#handler,
       request,
-    });
-
-    return response as InternalResponse;
+    }) as Promise<InternalResponse>;
   }
 }
 
