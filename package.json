@@ -37,8 +37,8 @@
   },
   "dependencies": {
     "@metamask/providers": "^11.0.0",
-    "@metamask/snaps-controllers": "^0.38.0-flask.1",
-    "@metamask/snaps-utils": "^0.38.0-flask.1",
+    "@metamask/snaps-controllers": "^0.38.1-flask.1",
+    "@metamask/snaps-utils": "^0.38.1-flask.1",
     "@metamask/utils": "^7.0.0",
     "@types/uuid": "^9.0.1",
     "superstruct": "^1.0.3",
