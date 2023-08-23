@@ -211,7 +211,7 @@ export type Keyring = {
    * @param id - The ID of the account to export.
    * @returns A promise that resolves to the exported account.
    */
-  exportAccount(id: string): Promise<KeyringAccountData>;
+  exportAccount?(id: string): Promise<KeyringAccountData>;
 
   /**
    * List all submitted requests.
@@ -221,7 +221,7 @@ export type Keyring = {
    *
    * @returns A promise that resolves to an array of KeyringRequest objects.
    */
-  listRequests(): Promise<KeyringRequest[]>;
+  listRequests?(): Promise<KeyringRequest[]>;
 
   /**
    * Get a request.
@@ -232,7 +232,7 @@ export type Keyring = {
    * @returns A promise that resolves to the KeyringRequest object if found, or
    * undefined otherwise.
    */
-  getRequest(id: string): Promise<KeyringRequest | undefined>;
+  getRequest?(id: string): Promise<KeyringRequest | undefined>;
 
   /**
    * Submit a request.

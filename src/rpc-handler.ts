@@ -8,6 +8,7 @@ import {
   CreateAccountRequestStruct,
   ApproveRequestRequestStruct,
   DeleteAccountRequestStruct,
+  ExportAccountRequestStruct,
   GetRequestRequestStruct,
   RejectRequestRequestStruct,
   SubmitRequestRequestStruct,
@@ -58,6 +59,21 @@ export function buildHandlersChain(
   };
 }
 
+export enum KeyringRpcMethod {
+  ListAccounts = 'keyring_listAccounts',
+  GetAccount = 'keyring_getAccount',
+  CreateAccount = 'keyring_createAccount',
+  FilterAccountChains = 'keyring_filterAccountChains',
+  UpdateAccount = 'keyring_updateAccount',
+  DeleteAccount = 'keyring_deleteAccount',
+  ExportAccount = 'keyring_exportAccount',
+  ListRequests = 'keyring_listRequests',
+  GetRequest = 'keyring_getRequest',
+  SubmitRequest = 'keyring_submitRequest',
+  ApproveRequest = 'keyring_approveRequest',
+  RejectRequest = 'keyring_rejectRequest',
+}
+
 /**
  * Handles a keyring JSON-RPC request.
  *
@@ -74,75 +90,82 @@ export async function handleKeyringRequest(
   assert(request, JsonRpcRequestStruct);
 
   switch (request.method) {
-    case 'keyring_listAccounts': {
+    case KeyringRpcMethod.ListAccounts: {
       assert(request, ListAccountsRequestStruct);
-      return await keyring.listAccounts();
+      return keyring.listAccounts();
     }
 
-    case 'keyring_getAccount': {
+    case KeyringRpcMethod.GetAccount: {
       assert(request, GetAccountRequestStruct);
-      return await keyring.getAccount(request.params.id);
+      return keyring.getAccount(request.params.id);
     }
 
-    case 'keyring_createAccount': {
+    case KeyringRpcMethod.CreateAccount: {
       assert(request, CreateAccountRequestStruct);
-      return await keyring.createAccount(request.params.options);
+      return keyring.createAccount(request.params.options);
     }
 
-    case 'keyring_filterAccountChains': {
+    case KeyringRpcMethod.FilterAccountChains: {
       assert(request, FilterAccountChainsStruct);
-      return await keyring.filterAccountChains(
+      return keyring.filterAccountChains(
         request.params.id,
         request.params.chains,
       );
     }
 
-    case 'keyring_updateAccount': {
+    case KeyringRpcMethod.UpdateAccount: {
       assert(request, UpdateAccountRequestStruct);
-      return await keyring.updateAccount(request.params.account);
+      return keyring.updateAccount(request.params.account);
     }
 
-    case 'keyring_deleteAccount': {
+    case KeyringRpcMethod.DeleteAccount: {
       assert(request, DeleteAccountRequestStruct);
-      return await keyring.deleteAccount(request.params.id);
+      return keyring.deleteAccount(request.params.id);
     }
 
-    case 'keyring_listRequests': {
+    case KeyringRpcMethod.ExportAccount: {
+      if (keyring.exportAccount === undefined) {
+        throw new MethodNotSupportedError(request.method);
+      }
+      assert(request, ExportAccountRequestStruct);
+      return keyring.exportAccount(request.params.id);
+    }
+
+    case KeyringRpcMethod.ListRequests: {
+      if (keyring.listRequests === undefined) {
+        throw new MethodNotSupportedError(request.method);
+      }
       assert(request, ListRequestsRequestStruct);
-      return await keyring.listRequests();
+      return keyring.listRequests();
     }
 
-    case 'keyring_getRequest': {
+    case KeyringRpcMethod.GetRequest: {
+      if (keyring.getRequest === undefined) {
+        throw new MethodNotSupportedError(request.method);
+      }
       assert(request, GetRequestRequestStruct);
-      return await keyring.getRequest(request.params.id);
+      return keyring.getRequest(request.params.id);
     }
 
-    case 'keyring_submitRequest': {
+    case KeyringRpcMethod.SubmitRequest: {
       assert(request, SubmitRequestRequestStruct);
-      return await keyring.submitRequest(request.params);
+      return keyring.submitRequest(request.params);
     }
 
-    case 'keyring_approveRequest': {
-      // This is an optional method, so we have to check if it exists.
+    case KeyringRpcMethod.ApproveRequest: {
       if (keyring.approveRequest === undefined) {
         throw new MethodNotSupportedError(request.method);
       }
-
       assert(request, ApproveRequestRequestStruct);
-      return await keyring.approveRequest(
-        request.params.id,
-        request.params.data,
-      );
+      return keyring.approveRequest(request.params.id, request.params.data);
     }
 
-    case 'keyring_rejectRequest': {
-      // This is an optional method, so we have to check if it exists.
+    case KeyringRpcMethod.RejectRequest: {
       if (keyring.rejectRequest === undefined) {
         throw new MethodNotSupportedError(request.method);
       }
-
       assert(request, RejectRequestRequestStruct);
-      return await keyring.rejectRequest(request.params.id);
+      return keyring.rejectRequest(request.params.id);
     }
 
     default: {
