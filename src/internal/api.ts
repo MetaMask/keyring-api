@@ -5,12 +5,16 @@ import {
   object,
   record,
   string,
-  union,
   type Infer,
 } from 'superstruct';
 
-import { KeyringAccountStruct, KeyringRequestStruct } from './api';
-import { UuidStruct } from './utils';
+import {
+  KeyringAccountDataStruct,
+  KeyringAccountStruct,
+  KeyringRequestStruct,
+  KeyringResponseStruct,
+} from '../api';
+import { UuidStruct } from '../utils';
 
 const CommonHeader = {
   jsonrpc: literal('2.0'),
@@ -134,7 +138,7 @@ export const ExportAccountRequestStruct = object({
 
 export type ExportAccountRequest = Infer<typeof ExportAccountRequestStruct>;
 
-export const ExportAccountResponseStruct = record(string(), JsonStruct);
+export const ExportAccountResponseStruct = KeyringAccountDataStruct;
 
 export type ExportAccountResponse = Infer<typeof ExportAccountResponseStruct>;
 
@@ -180,15 +184,7 @@ export const SubmitRequestRequestStruct = object({
 
 export type SubmitRequestRequest = Infer<typeof SubmitRequestRequestStruct>;
 
-export const SubmitRequestResponseStruct = union([
-  object({
-    pending: literal(true),
-  }),
-  object({
-    pending: literal(false),
-    result: JsonStruct,
-  }),
-]);
+export const SubmitRequestResponseStruct = KeyringResponseStruct;
 
 export type SubmitRequestResponse = Infer<typeof SubmitRequestResponseStruct>;
 
@@ -226,43 +222,3 @@ export type RejectRequestRequest = Infer<typeof RejectRequestRequestStruct>;
 export const RejectRequestResponseStruct = literal(null);
 
 export type RejectRequestResponse = Infer<typeof RejectRequestResponseStruct>;
-
-// ----------------------------------------------------------------------------
-// Internal request
-
-export const InternalRequestStruct = union([
-  ListAccountsRequestStruct,
-  GetAccountRequestStruct,
-  CreateAccountRequestStruct,
-  FilterAccountChainsStruct,
-  UpdateAccountRequestStruct,
-  DeleteAccountRequestStruct,
-  ExportAccountRequestStruct,
-  ListRequestsRequestStruct,
-  GetRequestRequestStruct,
-  SubmitRequestRequestStruct,
-  ApproveRequestRequestStruct,
-  RejectRequestRequestStruct,
-]);
-
-export type InternalRequest = Infer<typeof InternalRequestStruct>;
-
-// ----------------------------------------------------------------------------
-// Internal response
-
-export const InternalResponseStruct = union([
-  ListAccountsResponseStruct,
-  GetAccountResponseStruct,
-  CreateAccountResponseStruct,
-  FilterAccountChainsResponseStruct,
-  UpdateAccountResponseStruct,
-  DeleteAccountResponseStruct,
-  ExportAccountResponseStruct,
-  ListRequestsResponseStruct,
-  GetRequestResponseStruct,
-  SubmitRequestResponseStruct,
-  ApproveRequestResponseStruct,
-  RejectRequestResponseStruct,
-]);
-
-export type InternalResponse = Infer<typeof InternalResponseStruct>;
