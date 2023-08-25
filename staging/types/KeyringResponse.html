@@ -20,9 +20,13 @@
 <p>Keyring implementations must return a response with <code>pending: true</code> if the
 request will be handled asynchronously. Otherwise, the response must contain
 the result of the request and <code>pending: false</code>.</p>
+<p>In the asynchronous case, the keyring can return a redirect URL to be shown
+to the user. The user can choose to follow the link or cancel the request.
+The main use case for this is to redirect the user to a third-party service
+to approve the request.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/MetaMask/keyring-api/blob/f54a39c/src/api.ts#L133">src/api.ts:133</a></li></ul></aside></div>
+<li>Defined in <a href="https://github.com/MetaMask/keyring-api/blob/c1ea400/src/api.ts#L166">src/api.ts:166</a></li></ul></aside></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
