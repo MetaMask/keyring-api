@@ -12,6 +12,38 @@ requests originated from dApps.
 
 Adds support to [`personal_sign`][personal-sign].
 
+### Parameters
+
+1. Message to sign (required)
+   - Type: `string`
+   - Pattern: `^0x[0-9a-fA-F]*$`
+2. Account address (required)
+   - Type: `string`
+   - Pattern: `^0x[0-9a-fA-F]{40}$`
+
+### Returns
+
+- Signature:
+  - Type: `string`
+  - Pattern: `^0x[0-9a-f]*$`
+
+### Example
+
+**Request:**
+
+```json
+{
+    "method": "personal_sign",
+    "params": []
+}
+```
+
+**Response:**
+
+```json
+""
+```
+
 ## eth_sign
 
 Adds support to [`eth_sign`][eth-sign].
