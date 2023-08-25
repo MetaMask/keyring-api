@@ -227,6 +227,7 @@ describe('KeyringClient', () => {
       };
       const expectedResponse: KeyringResponse = {
         pending: true,
+        redirect: null,
       };
 
       mockSender.send.mockResolvedValue(expectedResponse);
