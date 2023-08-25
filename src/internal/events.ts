@@ -6,7 +6,7 @@ import { KeyringEvent } from '../events';
 import { UuidStruct } from '../utils';
 
 export const AccountCreatedEventStruct = object({
-  method: literal<string>(KeyringEvent.AccountCreated),
+  method: literal(`${KeyringEvent.AccountCreated}`),
   params: object({
     /**
      * New account object.
@@ -16,7 +16,7 @@ export const AccountCreatedEventStruct = object({
 });
 
 export const AccountUpdatedEventStruct = object({
-  method: literal<string>(KeyringEvent.AccountUpdated),
+  method: literal(`${KeyringEvent.AccountUpdated}`),
   params: object({
     /**
      * Updated account object.
@@ -26,7 +26,7 @@ export const AccountUpdatedEventStruct = object({
 });
 
 export const AccountDeletedEventStruct = object({
-  method: literal<string>(KeyringEvent.AccountDeleted),
+  method: literal(`${KeyringEvent.AccountDeleted}`),
   params: object({
     /**
      * Deleted account ID.
@@ -36,7 +36,7 @@ export const AccountDeletedEventStruct = object({
 });
 
 export const RequestApprovedEventStruct = object({
-  method: literal<string>(KeyringEvent.RequestApproved),
+  method: literal(`${KeyringEvent.RequestApproved}`),
   params: object({
     /**
      * Request ID.
@@ -51,7 +51,7 @@ export const RequestApprovedEventStruct = object({
 });
 
 export const RequestRejectedEventStruct = object({
-  method: literal<string>(KeyringEvent.RequestRejected),
+  method: literal(`${KeyringEvent.RequestRejected}`),
   params: object({
     /**
      * Request ID.
