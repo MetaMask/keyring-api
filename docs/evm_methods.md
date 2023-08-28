@@ -51,6 +51,48 @@ Adds support to [`personal_sign`][personal-sign].
 
 Adds support to [`eth_sign`][eth-sign].
 
+> [!WARNING]
+> Please read the following articles to understand the risks of using this
+> method and its differences with `personal_sign`:
+>
+> - [What is 'eth_sign' and why is it a risk?][eth-sign-risk]
+> - [Sign data (MetaMask Docs)][sign-data]
+
+### Parameters
+
+1. **Account address (required)**
+   - Type: `string`
+   - Pattern: `^0x[0-9a-fA-F]{40}$`
+2. **Hash to sign (required)**
+   - Type: `string`
+   - Pattern: `^0x[0-9a-fA-F]{64}$`
+
+### Returns
+
+- **Signature**
+  - Type: `string`
+  - Pattern: `^0x[0-9a-f]+$`
+
+### Example
+
+**Request:**
+
+```json
+{
+  "method": "eth_sign",
+  "params": [
+    "0x5874174dcf1ab6f7efd8496f4f09404cd1c5ba84",
+    "0x879a053d4800c6354e76c7985a865d2922c82fb5b3f4577b2fe08b998954f2e0"
+  ]
+}
+```
+
+**Response:**
+
+```json
+"0xdc447c7a279a4b2114f453d2251a02904292652d37c8c220e92650429f1ef85230051830cef98de154fe0a52e3d2f308dd8b4e5045006482791bea0e5bbf79f71b"
+```
+
 ## eth_signTransaction
 
 Adds support to [`eth_sendTransaction`][eth-send-transaction].
@@ -146,4 +188,6 @@ Adds support to [`eth_signtypeddata_v4`][eth-sign-typed-data].
 [personal-sign]: https://docs.metamask.io/wallet/reference/personal_sign/
 [eth-sign-typed-data]: https://docs.metamask.io/wallet/reference/eth_signtypeddata_v4/
 [eth-sign]: https://docs.metamask.io/wallet/concepts/signing-methods/#eth_sign
+[eth-sign-risk]: https://support.metamask.io/hc/en-us/articles/14764161421467-What-is-eth-sign-and-why-is-it-a-risk-
+[sign-data]: https://docs.metamask.io/wallet/how-to/sign-data/
 [eth-send-transaction]: https://docs.metamask.io/wallet/reference/eth_sendtransaction/
