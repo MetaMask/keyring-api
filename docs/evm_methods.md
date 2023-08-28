@@ -16,7 +16,7 @@ Adds support to [`personal_sign`][personal-sign].
 
 1. **Message to sign (required)**
    - Type: `string`
-   - Pattern: `^0x[0-9a-fA-F]*$`
+   - Pattern: `^0x[0-9a-f]*$`
 2. **Account address (required)**
    - Type: `string`
    - Pattern: `^0x[0-9a-fA-F]{40}$`
@@ -25,7 +25,7 @@ Adds support to [`personal_sign`][personal-sign].
 
 - **Signature**
   - Type: `string`
-  - Pattern: `^0x[0-9a-f]+$`
+  - Pattern: `^0x[0-9a-f]{130}$`
 
 ### Example
 
@@ -65,13 +65,13 @@ Adds support to [`eth_sign`][eth-sign].
    - Pattern: `^0x[0-9a-fA-F]{40}$`
 2. **Hash to sign (required)**
    - Type: `string`
-   - Pattern: `^0x[0-9a-fA-F]{64}$`
+   - Pattern: `^0x[0-9a-f]{64}$`
 
 ### Returns
 
 - **Signature**
   - Type: `string`
-  - Pattern: `^0x[0-9a-f]+$`
+  - Pattern: `^0x[0-9a-f]{130}$`
 
 ### Example
 
@@ -96,6 +96,75 @@ Adds support to [`eth_sign`][eth-sign].
 ## eth_signTransaction
 
 Adds support to [`eth_sendTransaction`][eth-send-transaction].
+
+### Parameters
+
+1. **Transaction (required)**
+   - Type: `object`
+   - Properties:
+     - `type`:
+       - Type: `string`
+       - Pattern: `^0x[0-9a-fA-F]{1,2}$`
+     - `nonce`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+     - `to`
+       - One of:
+         - Contract creation
+           - Type: `null`
+         - Address:
+           - Type: `string`
+           - Pattern: `^0x[0-9a-fA-F]{40}$`
+     - `from`
+       - Type: `string`
+       - Pattern: `^0x[0-9a-fA-F]{40}$`
+     - `gas`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+     - `value`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+     - `input`
+       - Type: `string`
+       - Pattern: `^0x[0-9a-fA-F]*$`
+     - `gasPrice`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+     - `maxPriorityFeePerGas`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+     - `maxFeePerGas`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+     - `accessList`:
+       - Description: EIP-2930 access list
+       - Type: `array`
+       - Properties:
+         - Type: `object`
+         - Properties:
+           - `address`
+             - Type: `string`
+             - Pattern: `^0x[0-9a-fA-F]{40}$`
+           - `storageKeys`
+             - Type: `array`
+             - Properties:
+               - Type: `string`
+               - Pattern: `^0x[0-9a-fA-F]{64}$`
+     - `chainId`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+
+### Returns
+
+- **Signature**
+  - Type: `string`
+  - Pattern: `^0x[0-9a-f]{130}$`
+
+### Example
+
+**Request:**
+
+**Response:**
 
 ## eth_signTypedData_v4
 
@@ -125,7 +194,7 @@ Adds support to [`eth_signtypeddata_v4`][eth-sign-typed-data].
 
 - **Signature**
   - Type: `string`
-  - Pattern: `^0x[0-9a-f]+$`
+  - Pattern: `^0x[0-9a-f]{130}$`
 
 ### Example
 
