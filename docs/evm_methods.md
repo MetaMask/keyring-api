@@ -170,6 +170,22 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
 
 Adds support to [`eth_signtypeddata_v4`][eth-sign-typed-data].
 
+> [!NOTE]
+> You can also implement support for `eth_signTypedData_v1` and
+> `eth_signTypedData_v3`, but they are [deprecated](#deprecated-methods).
+>
+> In summary, the differences between the versions are:
+>
+> - V1 is based upon [an early version of EIP-712][sign-typed-data-v1] that
+>   lacked some later security improvements, and should generally be neglected
+>   in favor of later versions.
+>
+> - V3 is based on [EIP-712][eip-712], except that arrays and recursive data
+>   structures are not supported.
+>
+> - V4 is based on [EIP-712][eip-712], and includes full support of arrays and
+>   recursive data structures.
+
 ### Parameters
 
 1. **Account address (required)**
@@ -252,6 +268,17 @@ Adds support to [`eth_signtypeddata_v4`][eth-sign-typed-data].
 "0x4355c47d63924e8a72e509b65029052eb6c299d53a04e167c5775fd466751c9d07299936d304c153f6443dfa05f40ff007d72911b6f72307f996231605b915621c"
 ```
 
+## Deprecated methods
+
+Please note that the `eth_sign`, `eth_signTypedData_v1` and
+`eth_signTypedData_v3` methods are [deprecated][deprecated-methods] but may
+still be used by some dapps.
+
+## Reference implementation
+
+A reference implementation of the methods described here can be found in the
+[eth-sig-util][eth-sig-util] package.
+
 [execution-api]: https://ethereum.github.io/execution-apis/api-documentation/
 [metamask-api-reference]: https://docs.metamask.io/wallet/reference/
 [personal-sign]: https://docs.metamask.io/wallet/reference/personal_sign/
@@ -260,3 +287,7 @@ Adds support to [`eth_signtypeddata_v4`][eth-sign-typed-data].
 [eth-sign-risk]: https://support.metamask.io/hc/en-us/articles/14764161421467-What-is-eth-sign-and-why-is-it-a-risk-
 [sign-data]: https://docs.metamask.io/wallet/how-to/sign-data/
 [eth-send-transaction]: https://docs.metamask.io/wallet/reference/eth_sendtransaction/
+[deprecated-methods]: https://docs.metamask.io/wallet/concepts/signing-methods/#deprecated-signing-methods
+[sign-typed-data-v1]: https://github.com/ethereum/EIPs/pull/712/commits/21abe254fe0452d8583d5b132b1d7be87c0439ca
+[eip-712]: https://eips.ethereum.org/EIPS/eip-712
+[eth-sig-util]: https://github.com/MetaMask/eth-sig-util
