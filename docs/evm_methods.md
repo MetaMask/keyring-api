@@ -109,7 +109,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
        - Type: `string`
        - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
      - `to`
-       - One of:
+       - One-of:
          - Contract creation
            - Type: `null`
          - Address:
@@ -126,7 +126,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
        - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
      - `input`
        - Type: `string`
-       - Pattern: `^0x[0-9a-fA-F]*$`
+       - Pattern: `^0x[0-9a-f]*$`
      - `gasPrice`
        - Type: `string`
        - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
@@ -149,7 +149,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
              - Type: `array`
              - Properties:
                - Type: `string`
-               - Pattern: `^0x[0-9a-fA-F]{64}$`
+               - Pattern: `^0x[0-9a-f]{64}$`
      - `chainId`
        - Type: `string`
        - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
