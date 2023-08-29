@@ -28,7 +28,7 @@ graph TD
   User -->|Starts a request| DApp
   DApp -->|Submits a request| MetaMask
   MetaMask -->|Submits requests<br/>and manages accounts| Snap
-  Site[Snap UI] -->|Manages requests<br/>and accounts| Snap
+  Site[Snap DApp] -->|Manages requests<br/>and accounts| Snap
   User -.->|Uses for snap-specific logic| Site
 ```
 
@@ -43,14 +43,14 @@ graph TD
 - **Snap**: A snap that implements the Keyring API to manage the user's
   accounts, and to handle requests that use these accounts.
 
-- **Snap UI**: The snap's UI component that allows the user to interact with
+- **Snap DApp**: The snap's UI component that allows the user to interact with
   the snap to perform custom operations on accounts and requests.
 
 ## Account creation
 
 The account creation flow is the initial process that a user will encounter
 when using a keyring snap. It can be triggered by the "Add snap account" button
-in the accounts list or by the Snap UI.
+in the accounts list or by the Snap DApp.
 
 ```mermaid
 sequenceDiagram
@@ -59,7 +59,7 @@ autonumber
 actor User
 participant MetaMask
 participant Snap
-participant Site as Snap UI
+participant Site as Snap DApp
 
 alt Optional
   User ->>+ MetaMask: Add new snap account
@@ -95,7 +95,7 @@ The Keyring API supports two different flows for signing transactions:
   the keyring snap responds with a `{ pending: true, redirect? }` response
   to indicate that the keyring request will be handled asynchronously. This
   response can optionally contain a `redirect` URL that MetaMask will open in a
-  new tab to allow the user to interact with the keyring snap UI.
+  new tab to allow the user to interact with the keyring snap dapp.
 
   Once the keyring snap has completed the request, it sends a notification to
   MetaMask with the result of the request.
@@ -108,7 +108,7 @@ The Keyring API supports two different flows for signing transactions:
   participant DApp
   participant MetaMask
   participant Snap
-  participant Site as Snap UI
+  participant Site as Snap DApp
 
   User ->>+ DApp: Create new sign request
   DApp ->>+ MetaMask: ethereum.request(request)
