@@ -9,6 +9,7 @@ export const InternalAccountStruct = object({
       object({
         id: string(),
         enabled: boolean(),
+        name: string(),
       }),
     ),
     name: string(),

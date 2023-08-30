@@ -90,4 +90,57 @@ describe('InternalAccount', () => {
       'At path: metadata.extra -- Expected a value of type `never`',
     );
   });
+
+  it('should contain snap name, id and enabled if the snap metadata exists', () => {
+    const account = {
+      id: '606a7759-b0fb-48e4-9874-bab62ff8e7eb',
+      address: '0x000',
+      options: {},
+      methods: [],
+      type: 'eip155:eoa',
+      metadata: {
+        keyring: {
+          type: 'Test Keyring',
+        },
+        name: 'Account 1',
+        snap: {
+          id: 'test-snap',
+          enabled: true,
+          name: 'Test Snap',
+        },
+      },
+    };
+
+    expect(() => assert(account, InternalAccountStruct)).not.toThrow();
+  });
+
+  it.each([['name', 'enabled', 'id']])(
+    'should throw if snap.%i is not set',
+    (key: string) => {
+      const account = {
+        id: '606a7759-b0fb-48e4-9874-bab62ff8e7eb',
+        address: '0x000',
+        options: {},
+        methods: [],
+        type: 'eip155:eoa',
+        metadata: {
+          keyring: {
+            type: 'Test Keyring',
+          },
+          name: 'Account 1',
+          snap: {
+            id: 'test-snap',
+            enabled: true,
+            name: 'Test Snap',
+          },
+        },
+      };
+
+      delete account.metadata.snap[key as keyof typeof account.metadata.snap];
+
+      const regex = new RegExp(`At path: metadata.snap.${key}`, 'u');
+
+      expect(() => assert(account, InternalAccountStruct)).toThrow(regex);
+    },
+  );
 });
