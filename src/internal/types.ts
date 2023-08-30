@@ -7,11 +7,11 @@ export const InternalAccountStruct = object({
   metadata: object({
     snap: optional(
       object({
-        id: optional(string()),
-        name: optional(string()),
-        enabled: optional(boolean()),
+        id: string(),
+        enabled: boolean(),
       }),
     ),
+    name: string(),
     keyring: object({
       type: string(),
     }),

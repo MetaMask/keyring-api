@@ -14,6 +14,7 @@ describe('InternalAccount', () => {
         keyring: {
           type: 'Test Keyring',
         },
+        name: 'Account 1',
       },
     };
 
@@ -29,6 +30,7 @@ describe('InternalAccount', () => {
       type: 'eip155:eoa',
       metadata: {
         keyring: {},
+        name: 'Account 1',
       },
     };
 
@@ -44,7 +46,9 @@ describe('InternalAccount', () => {
       options: {},
       methods: [],
       type: 'eip155:eoa',
-      metadata: {},
+      metadata: {
+        name: 'Account 1',
+      },
     };
 
     expect(() => assert(account, InternalAccountStruct)).toThrow(
@@ -77,6 +81,7 @@ describe('InternalAccount', () => {
         keyring: {
           type: 'Test Keyring',
         },
+        name: 'Account 1',
         extra: 'field',
       },
     };
