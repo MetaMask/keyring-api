@@ -21,6 +21,7 @@ export const InternalAccountStruct = object({
     ),
     name: string(),
     lastActive: optional(number()),
+    lastSelected: optional(number()),
     keyring: object({
       type: string(),
     }),
