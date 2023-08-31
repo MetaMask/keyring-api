@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.1]
 ### Changed
 - Set `snap` object keys to be mandatory and move `name` to `metadata` ([#87](https://github.com/MetaMask/keyring-api/pull/87))
-- Update @metamask/post-message-stream from 6.1.2 to 6.2.0 ([#88](https://github.com/MetaMask/keyring-api/pull/88))
 
 ## [0.2.0]
 ### Added
