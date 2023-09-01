@@ -1,4 +1,11 @@
-import { boolean, object, optional, string, type Infer } from 'superstruct';
+import {
+  boolean,
+  object,
+  optional,
+  string,
+  type Infer,
+  number,
+} from 'superstruct';
 
 import { KeyringAccountStruct } from '../api';
 
@@ -13,6 +20,8 @@ export const InternalAccountStruct = object({
       }),
     ),
     name: string(),
+    lastActive: optional(number()),
+    lastSelected: optional(number()),
     keyring: object({
       type: string(),
     }),
