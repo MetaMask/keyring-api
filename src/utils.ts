@@ -1,4 +1,5 @@
-import { type Struct, assert, pattern, string } from 'superstruct';
+import { assert, pattern, string } from 'superstruct';
+import type { Struct } from 'superstruct';
 
 /**
  * UUIDv4 struct.

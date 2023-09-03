@@ -24,7 +24,8 @@ import {
   UpdateAccountResponseStruct,
 } from './internal/api';
 import type { JsonRpcRequest } from './JsonRpcRequest';
-import { type OmitUnion, strictMask } from './utils';
+import type { OmitUnion } from './utils';
+import { strictMask } from './utils';
 
 export type Sender = {
   send(request: JsonRpcRequest): Promise<Json>;
