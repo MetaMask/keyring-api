@@ -124,7 +124,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
      - `value`
        - Type: `string`
        - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
-     - `input`
+     - `data`
        - Type: `string`
        - Pattern: `^0x[0-9a-f]*$`
      - `gasPrice`
@@ -157,14 +157,52 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
 ### Returns
 
 - **Signature**
-  - Type: `string`
-  - Pattern: `^0x[0-9a-f]{130}$`
+  - Type: `object`
+  - Properties:
+    - `v`
+      - Type: `string`
+      - Pattern: `^0x[0-9a-f]{1,2}$`
+    - `r`
+      - Type: `string`
+      - Pattern: `^0x[0-9a-f]{64}$`
+    - `s`
+      - Type: `string`
+      - Pattern: `^0x[0-9a-f]{64}$`
 
 ### Example
 
 **Request:**
 
+```json
+{
+  "method": "eth_signTransaction",
+  "params": [
+    {
+      "type": "0x2",
+      "nonce": "0x0",
+      "to": "0x0c54fccd2e384b4bb6f2e405bf5cbc15a017aafb",
+      "from": "0x5874174dcf1ab6f7efd8496f4f09404cd1c5ba84",
+      "gas": "0x5208",
+      "value": "0x0",
+      "data": "0x",
+      "maxPriorityFeePerGas": "0x3b9aca00",
+      "maxFeePerGas": "0x2540be400",
+      "accessList": [],
+      "chainId": "0xaa36a7"
+    }
+  ]
+}
+```
+
 **Response:**
+
+```json
+{
+  "v": "0x1",
+  "r": "0x51991c5099327d3c7eaa745de60c52a93555e5cbc418eb9b405fe92d986dee08",
+  "s": "0x65b1d20a39360c31de69f872244e23a3549b702e11bc7d8eb3586812ac62be8d"
+}
+```
 
 ## eth_signTypedData_v4
 
