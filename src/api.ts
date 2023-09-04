@@ -98,10 +98,15 @@ export const KeyringRequestStruct = object({
   /**
    * Inner request sent by the client application.
    */
-  request: object({
-    method: string(),
-    params: union([array(JsonStruct), record(string(), JsonStruct)]),
-  }),
+  request: union([
+    object({
+      method: string(),
+    }),
+    object({
+      method: string(),
+      params: union([array(JsonStruct), record(string(), JsonStruct)]),
+    }),
+  ]),
 });
 
 /**
