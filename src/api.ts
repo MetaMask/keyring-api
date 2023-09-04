@@ -12,7 +12,6 @@ import {
   nullable,
 } from 'superstruct';
 
-import { JsonRpcRequestStruct } from './JsonRpcRequest';
 import { UuidStruct } from './utils';
 
 /**
@@ -82,9 +81,9 @@ export type KeyringAccount = Infer<typeof KeyringAccountStruct>;
 
 export const KeyringRequestStruct = object({
   /**
-   * Account ID (UUIDv4).
+   * Keyring request ID (UUIDv4).
    */
-  account: UuidStruct,
+  id: UuidStruct,
 
   /**
    * Request's scope (CAIP-2 chain ID).
@@ -92,11 +91,17 @@ export const KeyringRequestStruct = object({
   scope: string(),
 
   /**
-   * JSON-RPC request sent by the client application.
-   *
-   * Note: The request ID must be a string.
+   * Account ID (UUIDv4).
    */
-  request: JsonRpcRequestStruct,
+  account: UuidStruct,
+
+  /**
+   * Inner request sent by the client application.
+   */
+  request: object({
+    method: string(),
+    params: union([array(JsonStruct), record(string(), JsonStruct)]),
+  }),
 });
 
 /**
