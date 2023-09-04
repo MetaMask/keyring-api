@@ -379,11 +379,10 @@ describe('keyringRpcDispatcher', () => {
 
   it('should call keyring_submitRequest', async () => {
     const dappRequest = {
+      id: 'c555de37-cf4b-4ff2-8273-39db7fb58f1c',
+      scope: 'eip155:1',
       account: '4abdd17e-8b0f-4d06-a017-947a64823b3d',
-      scope: '',
       request: {
-        jsonrpc: '2.0',
-        id: 'c555de37-cf4b-4ff2-8273-39db7fb58f1c',
         method: 'eth_method',
         params: [1, 2, 3],
       },
