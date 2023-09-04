@@ -1,6 +1,7 @@
-import { type Json, JsonStruct } from '@metamask/utils';
+import type { Json } from '@metamask/utils';
+import { JsonStruct } from '@metamask/utils';
+import type { Infer } from 'superstruct';
 import {
-  type Infer,
   array,
   enums,
   literal,

@@ -17,7 +17,8 @@ import {
   ListAccountsRequestStruct,
   ListRequestsRequestStruct,
 } from './internal/api';
-import { type JsonRpcRequest, JsonRpcRequestStruct } from './JsonRpcRequest';
+import type { JsonRpcRequest } from './JsonRpcRequest';
+import { JsonRpcRequestStruct } from './JsonRpcRequest';
 
 /**
  * Error thrown when a keyring JSON-RPC method is not supported.

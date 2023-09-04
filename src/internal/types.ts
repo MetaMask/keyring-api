@@ -1,11 +1,5 @@
-import {
-  boolean,
-  object,
-  optional,
-  string,
-  type Infer,
-  number,
-} from 'superstruct';
+import type { Infer } from 'superstruct';
+import { boolean, object, optional, string, number } from 'superstruct';
 
 import { KeyringAccountStruct } from '../api';
 

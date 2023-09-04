@@ -1,12 +1,6 @@
 import { JsonStruct } from '@metamask/utils';
-import {
-  array,
-  literal,
-  object,
-  record,
-  string,
-  type Infer,
-} from 'superstruct';
+import type { Infer } from 'superstruct';
+import { array, literal, object, record, string } from 'superstruct';
 
 import {
   KeyringAccountDataStruct,
