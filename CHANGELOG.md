@@ -8,15 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.2]
 ### Added
-- docs: add architecture and EVM methods docs ([#86](https://github.com/MetaMask/keyring-api/pull/86))
-- feat: add `lastSelected` and `lastActive` to metadata ([#92](https://github.com/MetaMask/keyring-api/pull/92))
+- Add architecture and EVM methods docs ([#86](https://github.com/MetaMask/keyring-api/pull/86))
+- Add `lastSelected` and `lastActive` to metadata ([#92](https://github.com/MetaMask/keyring-api/pull/92))
 
 ### Changed
-- fix: make request `params` optional ([#96](https://github.com/MetaMask/keyring-api/pull/96))
-- feat(internal): remove `lastActive` field from internal account model ([#95](https://github.com/MetaMask/keyring-api/pull/95))
-- feat: move request ID to outer request ([#94](https://github.com/MetaMask/keyring-api/pull/94))
-- chore(deps): bump @metamask/utils from 8.0.0 to 8.1.0 ([#91](https://github.com/MetaMask/keyring-api/pull/91))
-- chore: change type import ([#93](https://github.com/MetaMask/keyring-api/pull/93))
+- Make request `params` optional ([#96](https://github.com/MetaMask/keyring-api/pull/96))
+- Remove `lastActive` field from internal account model ([#95](https://github.com/MetaMask/keyring-api/pull/95))
+- Move request ID to outer request ([#94](https://github.com/MetaMask/keyring-api/pull/94))
 
 ## [0.2.1]
 ### Changed
