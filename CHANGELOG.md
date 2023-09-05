@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2]
+### Uncategorized
+- docs: add architecture and EVM methods docs ([#86](https://github.com/MetaMask/keyring-api/pull/86))
+- fix: make request `params` optional ([#96](https://github.com/MetaMask/keyring-api/pull/96))
+- feat(internal): remove `lastActive` field from internal account model ([#95](https://github.com/MetaMask/keyring-api/pull/95))
+- feat: move request ID to outer request ([#94](https://github.com/MetaMask/keyring-api/pull/94))
+- chore(deps): bump @metamask/utils from 8.0.0 to 8.1.0 ([#91](https://github.com/MetaMask/keyring-api/pull/91))
+- chore: change type import ([#93](https://github.com/MetaMask/keyring-api/pull/93))
+- feat: add `lastSelected` and `lastActive` to metadata ([#92](https://github.com/MetaMask/keyring-api/pull/92))
+
 ## [0.2.1]
 ### Changed
 - Set `snap` object keys to be mandatory and move `name` to `metadata` ([#87](https://github.com/MetaMask/keyring-api/pull/87))
@@ -52,7 +62,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/MetaMask/keyring-api/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/MetaMask/keyring-api/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/MetaMask/keyring-api/compare/v0.1.3...v0.2.0
 [0.1.3]: https://github.com/MetaMask/keyring-api/compare/v0.1.2...v0.1.3
