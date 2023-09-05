@@ -1,5 +1,4 @@
 # Changelog
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -8,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.2.2]
-
 ### Added
 - docs: add architecture and EVM methods docs ([#86](https://github.com/MetaMask/keyring-api/pull/86))
 - feat: add `lastSelected` and `lastActive` to metadata ([#92](https://github.com/MetaMask/keyring-api/pull/92))
@@ -25,7 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set `snap` object keys to be mandatory and move `name` to `metadata` ([#87](https://github.com/MetaMask/keyring-api/pull/87))
 
 ## [0.2.0]
-
 ### Added
 - Add `InternalAccount` type and create submodule `internal` ([#65](https://github.com/MetaMask/keyring-api/pull/65))
 - Add keyring events and helper functions ([#74](https://github.com/MetaMask/keyring-api/pull/74))
@@ -45,17 +42,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename `supportedMethods` to `methods` ([#35](https://github.com/MetaMask/keyring-api/pull/35))
 
 ## [0.1.3]
-
 ### Changed
 - Downgrade snaps dependencies to `0.35.2-flask.1`. ([#25](https://github.com/MetaMask/keyring-api/pull/25))
 
 ## [0.1.2]
-
 ### Changed
 - Update snaps dependencies. ([#21](https://github.com/MetaMask/keyring-api/pull/21))
 
 ## [0.1.1]
-
 ### Added
 - Validate snap responses for type correctness. ([#15](https://github.com/MetaMask/keyring-api/pull/15))
 
@@ -63,7 +57,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename RPC handling functions. ([#16](https://github.com/MetaMask/keyring-api/pull/16))
 
 ## [0.1.0] - 2023-06-20
-
 ### Added
 - Usage examples to [`README.md`](./README.md).
 - Keyring API definition.
