@@ -16,7 +16,9 @@ import type {
 
 declare const ExactOptionalSymbol: unique symbol;
 
-export type ExactOptionalTag = typeof ExactOptionalSymbol;
+export type ExactOptionalTag = {
+  type: typeof ExactOptionalSymbol;
+};
 
 /**
  * Exclude a type from the properties of a type.
@@ -57,7 +59,7 @@ export type ObjectType<S extends ObjectSchema> = Simplify<
  */
 export function object<S extends ObjectSchema>(
   schema: S,
-): Struct<ObjectType<S>> {
+): Struct<ObjectType<S>, S> {
   return stObject(schema) as any;
 }
 

@@ -1,20 +1,21 @@
 import type { Infer } from 'superstruct';
-import { boolean, object, optional, string, number } from 'superstruct';
+import { boolean, string, number } from 'superstruct';
 
 import { KeyringAccountStruct } from '../api';
+import { exactOptional, object } from '../superstruct';
 
 export const InternalAccountStruct = object({
   ...KeyringAccountStruct.schema,
   metadata: object({
-    snap: optional(
+    name: string(),
+    snap: exactOptional(
       object({
         id: string(),
         enabled: boolean(),
         name: string(),
       }),
     ),
-    name: string(),
-    lastSelected: optional(number()),
+    lastSelected: exactOptional(number()),
     keyring: object({
       type: string(),
     }),
