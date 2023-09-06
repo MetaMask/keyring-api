@@ -99,5 +99,8 @@
       "@metamask/rpc-methods>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
       "@metamask/rpc-methods>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false
     }
+  },
+  "tsd": {
+    "directory": "src"
   }
 }

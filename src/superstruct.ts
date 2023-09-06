@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { hasProperty } from '@metamask/utils';
 import {
   type Infer,
   type Context,
@@ -22,29 +21,31 @@ export type ExactOptionalTag = {
 
 /**
  * Exclude a type from the properties of a type.
+ *
+ * ```ts
+ * type Foo = { a: string | null; b: number };
+ * type Bar = ExcludeType<Foo, null>;
+ * // Bar = { a: string, b: number }
+ * ```
  */
 export type ExcludeType<T, V> = {
   [K in keyof T]: Exclude<T[K], V>;
 };
 
 /**
- * Make the properties of a type optional iff `exactOptionalPropertyTypes` is
- * enabled, otherwise it's a no-op.
- */
-export type ExactPartial<T> = undefined extends ({ a?: boolean } & {
-  a?: boolean | undefined;
-})['a']
-  ? T // Exact optional is disabled.
-  : { [P in keyof T]?: T[P] }; // Exact optional is enabled.
-
-/**
- * Make optional all properties tagged as optional.
+ * Make optional all properties that have the `ExactOptionalTag` type.
+ *
+ * ```ts
+ * type Foo = { a: string | ExactOptionalTag; b: number};
+ * type Bar = ExactOptionalize<Foo>;
+ * // Bar = { a?: string; b: number}
+ * ```
  */
 export type ExactOptionalize<S extends object> = OmitBy<S, ExactOptionalTag> &
-  ExactPartial<ExcludeType<PickBy<S, ExactOptionalTag>, ExactOptionalTag>>;
+  Partial<ExcludeType<PickBy<S, ExactOptionalTag>, ExactOptionalTag>>;
 
 /**
- * Infer a type from an object struct schema.
+ * Infer a type from an superstruct object schema.
  */
 export type ObjectType<S extends ObjectSchema> = Simplify<
   ExactOptionalize<Optionalize<{ [K in keyof S]: Infer<S[K]> }>>
@@ -64,19 +65,27 @@ export function object<S extends ObjectSchema>(
 }
 
 /**
- * Check the last field of a path is present.
+ * Check if the current property is present in its parent object.
  *
  * @param ctx - The context to check.
- * @returns Whether the last field of a path is present.
+ * @returns `true` if the property is present, `false` otherwise.
  */
 function hasOptional(ctx: Context): boolean {
-  const field = ctx.path[ctx.path.length - 1];
-  return hasProperty(ctx.branch[ctx.branch.length - 2], field);
+  const property: string = ctx.path[ctx.path.length - 1];
+  const parent: Record<string, unknown> = ctx.branch[ctx.branch.length - 2];
+
+  return property in parent;
 }
 
 /**
- * Augment a struct to allow _exact_ optional values if the
- * `exactOptionalPropertyTypes` option is set, otherwise it is a no-op.
+ * Augment a struct to allow exact-optional values. Exact-optional values can
+ * be omitted but cannot be `undefined`.
+ *
+ * ```ts
+ * const foo = object({ bar: exactOptional(string()) });
+ * type Foo = Infer<typeof foo>;
+ * // Foo = { bar?: string }
+ * ```
  *
  * @param struct - The struct to augment.
  * @returns The augmented struct.
