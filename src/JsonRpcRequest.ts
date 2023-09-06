@@ -1,30 +1,17 @@
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import {
-  array,
-  literal,
-  nullable,
-  number,
-  object,
-  record,
-  string,
-  union,
-} from 'superstruct';
+import { array, literal, number, record, string, union } from 'superstruct';
 
-const Common = {
+import { exactOptional, object } from './superstruct';
+
+export const JsonRpcRequestStruct = object({
   jsonrpc: literal('2.0'),
-  id: nullable(union([string(), number()])),
+  id: union([string(), number(), literal(null)]),
   method: string(),
-};
-
-const Params = {
-  params: union([array(JsonStruct), record(string(), JsonStruct)]),
-};
-
-export const JsonRpcRequestStruct = union([
-  object({ ...Common }),
-  object({ ...Common, ...Params }),
-]);
+  params: exactOptional(
+    union([array(JsonStruct), record(string(), JsonStruct)]),
+  ),
+});
 
 /**
  * JSON-RPC request type.

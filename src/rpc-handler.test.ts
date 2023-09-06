@@ -146,7 +146,9 @@ describe('keyringRpcDispatcher', () => {
 
     await expect(
       handleKeyringRequest(keyring, request as unknown as JsonRpcRequest),
-    ).rejects.toThrow('Expected the value to satisfy a union of');
+    ).rejects.toThrow(
+      'At path: method -- Expected a string, but received: undefined',
+    );
   });
 
   it('should call keyring_getAccount', async () => {
