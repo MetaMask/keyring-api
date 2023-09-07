@@ -224,7 +224,10 @@ describe('KeyringClient', () => {
       };
       const expectedResponse: KeyringResponse = {
         pending: true,
-        redirect: null,
+        redirect: {
+          message: 'Please continue to the dapp',
+          url: 'https://example.com',
+        },
       };
 
       mockSender.send.mockResolvedValue(expectedResponse);
