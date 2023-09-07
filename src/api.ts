@@ -1,15 +1,7 @@
 import type { Json } from '@metamask/utils';
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import {
-  array,
-  enums,
-  literal,
-  record,
-  string,
-  union,
-  nullable,
-} from 'superstruct';
+import { array, enums, literal, record, string, union } from 'superstruct';
 
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
@@ -140,7 +132,12 @@ export const KeyringResponseStruct = union([
      * with a link to the redirect URL. The user can choose to follow the link
      * or cancel the request.
      */
-    redirect: nullable(string()),
+    redirect: exactOptional(
+      object({
+        message: exactOptional(string()),
+        url: exactOptional(string()),
+      }),
+    ),
   }),
   object({
     /**
