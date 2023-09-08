@@ -24,6 +24,7 @@ import {
   UpdateAccountResponseStruct,
 } from './internal/api';
 import type { JsonRpcRequest } from './JsonRpcRequest';
+import { KeyringRpcMethod } from './rpc-handler';
 import type { OmitUnion } from './utils';
 import { strictMask } from './utils';
 
@@ -62,7 +63,7 @@ export class KeyringClient implements Keyring {
   async listAccounts(): Promise<KeyringAccount[]> {
     return strictMask(
       await this.#send({
-        method: 'keyring_listAccounts',
+        method: KeyringRpcMethod.ListAccounts,
       }),
       ListAccountsResponseStruct,
     );
@@ -71,7 +72,7 @@ export class KeyringClient implements Keyring {
   async getAccount(id: string): Promise<KeyringAccount> {
     return strictMask(
       await this.#send({
-        method: 'keyring_getAccount',
+        method: KeyringRpcMethod.GetAccount,
         params: { id },
       }),
       GetAccountResponseStruct,
@@ -83,7 +84,7 @@ export class KeyringClient implements Keyring {
   ): Promise<KeyringAccount> {
     return strictMask(
       await this.#send({
-        method: 'keyring_createAccount',
+        method: KeyringRpcMethod.CreateAccount,
         params: { options },
       }),
       CreateAccountResponseStruct,
@@ -93,7 +94,7 @@ export class KeyringClient implements Keyring {
   async filterAccountChains(id: string, chains: string[]): Promise<string[]> {
     return strictMask(
       await this.#send({
-        method: 'keyring_filterAccountChains',
+        method: KeyringRpcMethod.FilterAccountChains,
         params: { id, chains },
       }),
       FilterAccountChainsResponseStruct,
@@ -103,7 +104,7 @@ export class KeyringClient implements Keyring {
   async updateAccount(account: KeyringAccount): Promise<void> {
     assert(
       await this.#send({
-        method: 'keyring_updateAccount',
+        method: KeyringRpcMethod.UpdateAccount,
         params: { account },
       }),
       UpdateAccountResponseStruct,
@@ -113,7 +114,7 @@ export class KeyringClient implements Keyring {
   async deleteAccount(id: string): Promise<void> {
     assert(
       await this.#send({
-        method: 'keyring_deleteAccount',
+        method: KeyringRpcMethod.DeleteAccount,
         params: { id },
       }),
       DeleteAccountResponseStruct,
@@ -123,7 +124,7 @@ export class KeyringClient implements Keyring {
   async exportAccount(id: string): Promise<KeyringAccountData> {
     return strictMask(
       await this.#send({
-        method: 'keyring_exportAccount',
+        method: KeyringRpcMethod.ExportAccount,
         params: { id },
       }),
       ExportAccountResponseStruct,
@@ -133,7 +134,7 @@ export class KeyringClient implements Keyring {
   async listRequests(): Promise<KeyringRequest[]> {
     return strictMask(
       await this.#send({
-        method: 'keyring_listRequests',
+        method: KeyringRpcMethod.ListRequests,
       }),
       ListRequestsResponseStruct,
     );
@@ -142,7 +143,7 @@ export class KeyringClient implements Keyring {
   async getRequest(id: string): Promise<KeyringRequest> {
     return strictMask(
       await this.#send({
-        method: 'keyring_getRequest',
+        method: KeyringRpcMethod.GetRequest,
         params: { id },
       }),
       GetRequestResponseStruct,
@@ -152,7 +153,7 @@ export class KeyringClient implements Keyring {
   async submitRequest(request: KeyringRequest): Promise<KeyringResponse> {
     return strictMask(
       await this.#send({
-        method: 'keyring_submitRequest',
+        method: KeyringRpcMethod.SubmitRequest,
         params: request,
       }),
       SubmitRequestResponseStruct,
@@ -165,7 +166,7 @@ export class KeyringClient implements Keyring {
   ): Promise<void> {
     assert(
       await this.#send({
-        method: 'keyring_approveRequest',
+        method: KeyringRpcMethod.ApproveRequest,
         params: { id, data },
       }),
       ApproveRequestResponseStruct,
@@ -175,7 +176,7 @@ export class KeyringClient implements Keyring {
   async rejectRequest(id: string): Promise<void> {
     assert(
       await this.#send({
-        method: 'keyring_rejectRequest',
+        method: KeyringRpcMethod.RejectRequest,
         params: { id },
       }),
       RejectRequestResponseStruct,
