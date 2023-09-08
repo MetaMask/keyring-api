@@ -1,3 +1,5 @@
+import { is } from 'superstruct';
+
 import { JsonRpcRequestStruct } from './JsonRpcRequest';
 
 describe('JsonRpcRequestStruct', () => {
@@ -9,7 +11,7 @@ describe('JsonRpcRequestStruct', () => {
       params: [1, 2, 3],
     };
 
-    expect(JsonRpcRequestStruct.is(request)).toBe(true);
+    expect(is(request, JsonRpcRequestStruct)).toBe(true);
   });
 
   it('should be a valid JsonRpcRequest with a string ID', () => {
@@ -20,7 +22,7 @@ describe('JsonRpcRequestStruct', () => {
       params: [1, 2, 3],
     };
 
-    expect(JsonRpcRequestStruct.is(request)).toBe(true);
+    expect(is(request, JsonRpcRequestStruct)).toBe(true);
   });
 
   it('should be a valid JsonRpcRequest with a null ID', () => {
@@ -31,7 +33,7 @@ describe('JsonRpcRequestStruct', () => {
       params: [1, 2, 3],
     };
 
-    expect(JsonRpcRequestStruct.is(request)).toBe(true);
+    expect(is(request, JsonRpcRequestStruct)).toBe(true);
   });
 
   it('should be a valid JsonRpcRequest without params', () => {
@@ -41,7 +43,7 @@ describe('JsonRpcRequestStruct', () => {
       method: 'my_method',
     };
 
-    expect(JsonRpcRequestStruct.is(request)).toBe(true);
+    expect(is(request, JsonRpcRequestStruct)).toBe(true);
   });
 
   it('should not be a valid JsonRpcRequest if params is undefined', () => {
@@ -52,6 +54,6 @@ describe('JsonRpcRequestStruct', () => {
       params: undefined,
     };
 
-    expect(JsonRpcRequestStruct.is(request)).toBe(false);
+    expect(is(request, JsonRpcRequestStruct)).toBe(false);
   });
 });
