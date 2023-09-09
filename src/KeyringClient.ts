@@ -25,7 +25,6 @@ import {
 } from './internal/api';
 import type { JsonRpcRequest } from './JsonRpcRequest';
 import { KeyringRpcMethod } from './rpc-handler';
-import type { OmitUnion } from './utils';
 import { strictMask } from './utils';
 
 export type Sender = {
@@ -50,9 +49,7 @@ export class KeyringClient implements Keyring {
    * @param partial - A partial JSON-RPC request (method and params).
    * @returns A promise that resolves to the response to the request.
    */
-  async #send(
-    partial: OmitUnion<JsonRpcRequest, 'jsonrpc' | 'id'>,
-  ): Promise<Json> {
+  async #send(partial: Omit<JsonRpcRequest, 'jsonrpc' | 'id'>): Promise<Json> {
     return this.#sender.send({
       jsonrpc: '2.0',
       id: uuid(),
