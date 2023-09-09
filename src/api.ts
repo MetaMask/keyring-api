@@ -163,10 +163,10 @@ export const KeyringResponseStruct = union([
  * request will be handled asynchronously. Otherwise, the response must contain
  * the result of the request and `pending: false`.
  *
- * In the asynchronous case, the keyring can return a redirect URL to be shown
- * to the user. The user can choose to follow the link or cancel the request.
- * The main use case for this is to redirect the user to a third-party service
- * to approve the request.
+ * In the asynchronous case, the keyring can return a redirect URL and message
+ * to be shown to the user. The user can choose to follow the link or cancel
+ * the request. The main use case for this is to redirect the user to the snap
+ * dapp to review the request.
  */
 export type KeyringResponse = Infer<typeof KeyringResponseStruct>;
 
