@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3]
+### Uncategorized
+- chore: use `Omit` instead of `OmitUnion` ([#106](https://github.com/MetaMask/keyring-api/pull/106))
+- chore: update `KeyringResponse` comment ([#103](https://github.com/MetaMask/keyring-api/pull/103))
+- chore: use `KeyringRpcMethod` enum instead of string ([#105](https://github.com/MetaMask/keyring-api/pull/105))
+- chore: refactor tests to match superstruct examples ([#104](https://github.com/MetaMask/keyring-api/pull/104))
+- feat: add redirection message to snap async response ([#102](https://github.com/MetaMask/keyring-api/pull/102))
+- fix: add `exactOptional()` superstruct type ([#100](https://github.com/MetaMask/keyring-api/pull/100))
+- chore(deps): bump @metamask/providers from 11.1.2 to 12.0.0 ([#99](https://github.com/MetaMask/keyring-api/pull/99))
+- chore(deps): bump @metamask/providers from 11.1.1 to 11.1.2 ([#98](https://github.com/MetaMask/keyring-api/pull/98))
+
 ## [0.2.2]
 ### Added
 - Add architecture and EVM methods docs ([#86](https://github.com/MetaMask/keyring-api/pull/86))
@@ -62,7 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/MetaMask/keyring-api/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/MetaMask/keyring-api/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/MetaMask/keyring-api/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/MetaMask/keyring-api/compare/v0.1.3...v0.2.0
