@@ -7,15 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.2.3]
-### Uncategorized
-- chore: use `Omit` instead of `OmitUnion` ([#106](https://github.com/MetaMask/keyring-api/pull/106))
-- chore: update `KeyringResponse` comment ([#103](https://github.com/MetaMask/keyring-api/pull/103))
-- chore: use `KeyringRpcMethod` enum instead of string ([#105](https://github.com/MetaMask/keyring-api/pull/105))
-- chore: refactor tests to match superstruct examples ([#104](https://github.com/MetaMask/keyring-api/pull/104))
-- feat: add redirection message to snap async response ([#102](https://github.com/MetaMask/keyring-api/pull/102))
-- fix: add `exactOptional()` superstruct type ([#100](https://github.com/MetaMask/keyring-api/pull/100))
-- chore(deps): bump @metamask/providers from 11.1.2 to 12.0.0 ([#99](https://github.com/MetaMask/keyring-api/pull/99))
-- chore(deps): bump @metamask/providers from 11.1.1 to 11.1.2 ([#98](https://github.com/MetaMask/keyring-api/pull/98))
+### Added
+- Add redirection message to snap async response ([#102](https://github.com/MetaMask/keyring-api/pull/102))
+
+### Changed
+- Use `Omit` instead of `OmitUnion` ([#106](https://github.com/MetaMask/keyring-api/pull/106))
+- Update `KeyringResponse` comment ([#103](https://github.com/MetaMask/keyring-api/pull/103))
+- Use `KeyringRpcMethod` enum instead of string ([#105](https://github.com/MetaMask/keyring-api/pull/105))
+- Refactor tests to match superstruct examples ([#104](https://github.com/MetaMask/keyring-api/pull/104))
+- Add `exactOptional()` superstruct type ([#100](https://github.com/MetaMask/keyring-api/pull/100))
+- Bump @metamask/providers from 11.1.2 to 12.0.0 ([#99](https://github.com/MetaMask/keyring-api/pull/99))
+- Bump @metamask/providers from 11.1.1 to 11.1.2 ([#98](https://github.com/MetaMask/keyring-api/pull/98))
 
 ## [0.2.2]
 ### Added
