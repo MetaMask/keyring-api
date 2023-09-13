@@ -1,10 +1,5 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import {
-  type Infer,
-  type Context,
-  Struct,
-  object as stObject,
-} from 'superstruct';
+import type { Infer, Context } from 'superstruct';
+import { Struct, object as stObject } from 'superstruct';
 import type {
   ObjectSchema,
   OmitBy,
@@ -20,7 +15,7 @@ export type ExactOptionalTag = {
 };
 
 /**
- * Exclude a type from the properties of a type.
+ * Exclude type `Type` from the properties of `Obj`.
  *
  * ```ts
  * type Foo = { a: string | null; b: number };
@@ -28,8 +23,8 @@ export type ExactOptionalTag = {
  * // Bar = { a: string, b: number }
  * ```
  */
-export type ExcludeType<T, V> = {
-  [K in keyof T]: Exclude<T[K], V>;
+export type ExcludeType<Obj, Type> = {
+  [K in keyof Obj]: Exclude<Obj[K], Type>;
 };
 
 /**
@@ -41,14 +36,17 @@ export type ExcludeType<T, V> = {
  * // Bar = { a?: string; b: number}
  * ```
  */
-export type ExactOptionalize<S extends object> = OmitBy<S, ExactOptionalTag> &
-  Partial<ExcludeType<PickBy<S, ExactOptionalTag>, ExactOptionalTag>>;
+export type ExactOptionalize<Schema extends object> = OmitBy<
+  Schema,
+  ExactOptionalTag
+> &
+  Partial<ExcludeType<PickBy<Schema, ExactOptionalTag>, ExactOptionalTag>>;
 
 /**
  * Infer a type from an superstruct object schema.
  */
-export type ObjectType<S extends ObjectSchema> = Simplify<
-  ExactOptionalize<Optionalize<{ [K in keyof S]: Infer<S[K]> }>>
+export type ObjectType<Schema extends ObjectSchema> = Simplify<
+  ExactOptionalize<Optionalize<{ [K in keyof Schema]: Infer<Schema[K]> }>>
 >;
 
 /**
@@ -58,9 +56,9 @@ export type ObjectType<S extends ObjectSchema> = Simplify<
  * @param schema - The object schema.
  * @returns A struct representing an object with a known set of properties.
  */
-export function object<S extends ObjectSchema>(
-  schema: S,
-): Struct<ObjectType<S>, S> {
+export function object<Schema extends ObjectSchema>(
+  schema: Schema,
+): Struct<ObjectType<Schema>, Schema> {
   return stObject(schema) as any;
 }
 
@@ -90,9 +88,9 @@ function hasOptional(ctx: Context): boolean {
  * @param struct - The struct to augment.
  * @returns The augmented struct.
  */
-export function exactOptional<T, S>(
-  struct: Struct<T, S>,
-): Struct<T | ExactOptionalTag, S> {
+export function exactOptional<Type, Schema>(
+  struct: Struct<Type, Schema>,
+): Struct<Type | ExactOptionalTag, Schema> {
   return new Struct({
     ...struct,
 
@@ -100,6 +98,6 @@ export function exactOptional<T, S>(
       !hasOptional(ctx) || struct.validator(value, ctx),
 
     refiner: (value, ctx) =>
-      !hasOptional(ctx) || struct.refiner(value as T, ctx),
+      !hasOptional(ctx) || struct.refiner(value as Type, ctx),
   });
 }
