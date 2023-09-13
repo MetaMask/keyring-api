@@ -1,6 +1,6 @@
 {
   "name": "@metamask/keyring-api",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "MetaMask Keyring API",
   "keywords": [
     "metamask",

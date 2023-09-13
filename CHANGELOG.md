@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4]
+### Uncategorized
+- build: fix linting and compatibility with older `tsc` ([#108](https://github.com/MetaMask/keyring-api/pull/108))
+
 ## [0.2.3]
 ### Added
 - Add redirection message to snap async response ([#102](https://github.com/MetaMask/keyring-api/pull/102))
@@ -75,7 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.3...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.4...HEAD
+[0.2.4]: https://github.com/MetaMask/keyring-api/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/MetaMask/keyring-api/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/MetaMask/keyring-api/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/MetaMask/keyring-api/compare/v0.2.0...v0.2.1
