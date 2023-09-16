@@ -41,9 +41,12 @@ export class MethodNotSupportedError extends Error {
  * @param handlers - Handlers to chain.
  * @returns A handler that chains the given handlers.
  */
-export function buildHandlersChain(
-  ...handlers: OnRpcRequestHandler[]
-): OnRpcRequestHandler {
+export function buildHandlersChain<
+  Params extends Json[] | Record<string, Json> | undefined =
+    | Json[]
+    | Record<string, Json>
+    | undefined,
+>(...handlers: OnRpcRequestHandler<Params>[]): OnRpcRequestHandler<Params> {
   return async ({ origin, request }) => {
     for (const handler of handlers) {
       try {
