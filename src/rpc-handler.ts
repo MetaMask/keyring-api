@@ -1,4 +1,3 @@
-import type { OnRpcRequestHandler } from '@metamask/snaps-utils';
 import type { Json } from '@metamask/utils';
 import { assert } from 'superstruct';
 
@@ -27,37 +26,6 @@ export class MethodNotSupportedError extends Error {
   constructor(method: string) {
     super(`Method not supported: ${method}`);
   }
-}
-
-/**
- * Build a chain of handlers for a JSON-RPC request.
- *
- * If a handler throws a MethodNotSupportedError, the next handler in the chain
- * is called. If all handlers throw a MethodNotSupportedError, the error is re-
- * thrown.
- *
- * Any other error thrown by a handler is re-thrown.
- *
- * @param handlers - Handlers to chain.
- * @returns A handler that chains the given handlers.
- */
-export function buildHandlersChain(
-  ...handlers: OnRpcRequestHandler[]
-): OnRpcRequestHandler {
-  return async ({ origin, request }) => {
-    for (const handler of handlers) {
-      try {
-        return await handler({ origin, request });
-      } catch (error) {
-        if (!(error instanceof MethodNotSupportedError)) {
-          throw error;
-        }
-      }
-    }
-
-    // All handlers failed to handle the request.
-    throw new MethodNotSupportedError(request.method);
-  };
 }
 
 export enum KeyringRpcMethod {
@@ -173,4 +141,14 @@ export async function handleKeyringRequest(
       throw new MethodNotSupportedError(request.method);
     }
   }
+}
+
+/**
+ * Check if a method is a keyring RPC method.
+ *
+ * @param method - Method to check.
+ * @returns Whether the method is a keyring RPC method.
+ */
+export function isKeyringRpcMethod(method: string): boolean {
+  return Object.values(KeyringRpcMethod).includes(method as KeyringRpcMethod);
 }

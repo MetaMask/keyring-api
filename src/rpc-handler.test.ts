@@ -1,107 +1,11 @@
 import type { Keyring } from './api';
 import type { JsonRpcRequest } from './JsonRpcRequest';
 import {
+  KeyringRpcMethod,
   MethodNotSupportedError,
-  buildHandlersChain,
   handleKeyringRequest,
+  isKeyringRpcMethod,
 } from './rpc-handler';
-
-describe('buildHandlersChain', () => {
-  const handler1 = jest.fn();
-  const handler2 = jest.fn();
-  const handler3 = jest.fn();
-
-  const request: JsonRpcRequest = {
-    jsonrpc: '2.0',
-    id: 'test-id',
-    method: 'test_method',
-    params: {},
-  };
-
-  const origin = 'metamask';
-
-  it('should call the first handler and return its result', async () => {
-    handler1.mockResolvedValue('Handler 1 result');
-
-    const result = await buildHandlersChain(
-      handler1,
-      handler2,
-      handler3,
-    )({
-      origin,
-      request,
-    });
-
-    expect(handler1).toHaveBeenCalledWith({ origin, request });
-    expect(handler2).not.toHaveBeenCalled();
-    expect(handler3).not.toHaveBeenCalled();
-    expect(result).toBe('Handler 1 result');
-  });
-
-  it('should call the second handler if the first handler throws MethodNotSupportedError', async () => {
-    handler1.mockRejectedValue(new MethodNotSupportedError('test_method'));
-    handler2.mockResolvedValue('Handler 2 result');
-
-    const result = await buildHandlersChain(
-      handler1,
-      handler2,
-      handler3,
-    )({
-      origin,
-      request,
-    });
-
-    expect(handler1).toHaveBeenCalledWith({ origin, request });
-    expect(handler2).toHaveBeenCalledWith({ origin, request });
-    expect(handler3).not.toHaveBeenCalled();
-    expect(result).toBe('Handler 2 result');
-  });
-
-  it('should call the third handler if the first two handlers throw MethodNotSupportedError', async () => {
-    handler1.mockRejectedValue(new MethodNotSupportedError('test_method'));
-    handler2.mockRejectedValue(new MethodNotSupportedError('test_method'));
-    handler3.mockResolvedValue('Handler 3 result');
-
-    const result = await buildHandlersChain(
-      handler1,
-      handler2,
-      handler3,
-    )({
-      origin,
-      request,
-    });
-
-    expect(handler1).toHaveBeenCalledWith({ origin, request });
-    expect(handler2).toHaveBeenCalledWith({ origin, request });
-    expect(handler3).toHaveBeenCalledWith({ origin, request });
-    expect(result).toBe('Handler 3 result');
-  });
-
-  it('should throw MethodNotSupportedError if all handlers throw MethodNotSupportedError', async () => {
-    handler1.mockRejectedValue(new MethodNotSupportedError('test_method'));
-    handler2.mockRejectedValue(new MethodNotSupportedError('test_method'));
-    handler3.mockRejectedValue(new MethodNotSupportedError('test_method'));
-
-    await expect(
-      buildHandlersChain(handler1, handler2, handler3)({ origin, request }),
-    ).rejects.toThrow(MethodNotSupportedError);
-    expect(handler1).toHaveBeenCalledWith({ origin, request });
-    expect(handler2).toHaveBeenCalledWith({ origin, request });
-    expect(handler3).toHaveBeenCalledWith({ origin, request });
-  });
-
-  it('should throw an error if a non-MethodNotSupportedError is thrown by any handler', async () => {
-    const error = new Error('Something went wrong');
-    handler1.mockRejectedValue(error);
-
-    await expect(
-      buildHandlersChain(handler1, handler2, handler3)({ origin, request }),
-    ).rejects.toThrow(error);
-    expect(handler1).toHaveBeenCalledWith({ origin, request });
-    expect(handler2).not.toHaveBeenCalled();
-    expect(handler3).not.toHaveBeenCalled();
-  });
-});
 
 describe('keyringRpcDispatcher', () => {
   const keyring = {
@@ -496,5 +400,23 @@ describe('keyringRpcDispatcher', () => {
     await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
       MethodNotSupportedError,
     );
+  });
+});
+
+describe('isKeyringRpcMethod', () => {
+  it.each([
+    [`${KeyringRpcMethod.ListAccounts}`, true],
+    [`${KeyringRpcMethod.GetAccount}`, true],
+    [`${KeyringRpcMethod.CreateAccount}`, true],
+    [`${KeyringRpcMethod.FilterAccountChains}`, true],
+    [`${KeyringRpcMethod.UpdateAccount}`, true],
+    [`${KeyringRpcMethod.DeleteAccount}`, true],
+    [`${KeyringRpcMethod.ListRequests}`, true],
+    [`${KeyringRpcMethod.GetAccount}`, true],
+    [`${KeyringRpcMethod.ApproveRequest}`, true],
+    [`${KeyringRpcMethod.RejectRequest}`, true],
+    [`keyring_invalid`, false],
+  ])(`%s should be %s`, (method, expected) => {
+    expect(isKeyringRpcMethod(method)).toBe(expected);
   });
 });
