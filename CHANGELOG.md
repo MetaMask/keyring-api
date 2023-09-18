@@ -7,12 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.2.5]
-### Uncategorized
-- feat: remove `buildHandlersChain` ([#114](https://github.com/MetaMask/keyring-api/pull/114))
-- docs: update doc for `eth_signTransaction` ([#111](https://github.com/MetaMask/keyring-api/pull/111))
-- feat: remove unversioned `eth_signTypedData` method ([#113](https://github.com/MetaMask/keyring-api/pull/113))
-- chore(deps): bump @metamask/providers from 12.0.0 to 13.0.0 ([#115](https://github.com/MetaMask/keyring-api/pull/115))
-- chore(deps-dev): bump @metamask/eslint-config from 12.1.0 to 12.2.0 ([#110](https://github.com/MetaMask/keyring-api/pull/110))
+### Changed
+- Remove `buildHandlersChain` ([#114](https://github.com/MetaMask/keyring-api/pull/114))
+- Update doc for `eth_signTransaction` ([#111](https://github.com/MetaMask/keyring-api/pull/111))
+- Remove un-versioned `eth_signTypedData` method ([#113](https://github.com/MetaMask/keyring-api/pull/113))
 
 ## [0.2.4]
 ### Changed
