@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.5]
+### Changed
+- Remove `buildHandlersChain` ([#114](https://github.com/MetaMask/keyring-api/pull/114))
+- Update doc for `eth_signTransaction` ([#111](https://github.com/MetaMask/keyring-api/pull/111))
+- Remove un-versioned `eth_signTypedData` method ([#113](https://github.com/MetaMask/keyring-api/pull/113))
+
 ## [0.2.4]
 ### Changed
 - Fix linting and compatibility with older `tsc` ([#108](https://github.com/MetaMask/keyring-api/pull/108)).
@@ -79,7 +85,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.4...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.5...HEAD
+[0.2.5]: https://github.com/MetaMask/keyring-api/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/MetaMask/keyring-api/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/MetaMask/keyring-api/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/MetaMask/keyring-api/compare/v0.2.1...v0.2.2
