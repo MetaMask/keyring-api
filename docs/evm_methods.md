@@ -118,15 +118,15 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
      - `from`
        - Type: `string`
        - Pattern: `^0x[0-9a-fA-F]{40}$`
-     - `gas`
-       - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
      - `value`
        - Type: `string`
        - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
      - `data`
        - Type: `string`
        - Pattern: `^0x[0-9a-f]*$`
+     - `gasLimit`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
      - `gasPrice`
        - Type: `string`
        - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
@@ -171,7 +171,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
 
 ### Example
 
-**Request:**
+**EIP-1559 request:**
 
 ```json
 {
@@ -179,15 +179,36 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
   "params": [
     {
       "type": "0x2",
-      "nonce": "0x0",
+      "nonce": "0x1",
       "to": "0x0c54fccd2e384b4bb6f2e405bf5cbc15a017aafb",
-      "from": "0x5874174dcf1ab6f7efd8496f4f09404cd1c5ba84",
-      "gas": "0x5208",
+      "from": "0x660265edc169bab511a40c0e049cc1e33774443d",
       "value": "0x0",
       "data": "0x",
+      "gasLimit": "0x5208",
       "maxPriorityFeePerGas": "0x3b9aca00",
       "maxFeePerGas": "0x2540be400",
       "accessList": [],
+      "chainId": "0xaa36a7"
+    }
+  ]
+}
+```
+
+**Legacy request:**
+
+```json
+{
+  "method": "eth_signTransaction",
+  "params": [
+    {
+      "type": "0x0",
+      "nonce": "0x0",
+      "to": "0x0c54fccd2e384b4bb6f2e405bf5cbc15a017aafb",
+      "from": "0x660265edc169bab511a40c0e049cc1e33774443d",
+      "value": "0x0",
+      "data": "0x",
+      "gasLimit": "0x5208",
+      "gasPrice": "0x2540be400",
       "chainId": "0xaa36a7"
     }
   ]
