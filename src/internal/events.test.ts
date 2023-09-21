@@ -1,5 +1,7 @@
 import { is } from 'superstruct';
 
+import { EthAccountType } from '../api';
+import { KeyringEvent } from '../events';
 import {
   AccountCreatedEventStruct,
   AccountDeletedEventStruct,
@@ -7,8 +9,6 @@ import {
   RequestApprovedEventStruct,
   RequestRejectedEventStruct,
 } from './events';
-import { EthAccountType } from '../api';
-import { KeyringEvent } from '../events';
 
 describe('events', () => {
   describe('AccountCreatedEventStruct', () => {
