@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.6]
+### Uncategorized
+- chore: remove unused lavamoat allowed scripts ([#122](https://github.com/MetaMask/keyring-api/pull/122))
+- docs: update events in sequence diagram ([#121](https://github.com/MetaMask/keyring-api/pull/121))
+- chore(deps): update Snap and ESLint dependencies ([#117](https://github.com/MetaMask/keyring-api/pull/117))
+- chore(deps): bump @metamask/rpc-methods from 0.38.1-flask.1 to 2.0.0 ([#120](https://github.com/MetaMask/keyring-api/pull/120))
+
 ## [0.2.5]
 ### Changed
 - Remove `buildHandlersChain` ([#114](https://github.com/MetaMask/keyring-api/pull/114))
@@ -85,7 +92,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.5...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.6...HEAD
+[0.2.6]: https://github.com/MetaMask/keyring-api/compare/v0.2.5...v0.2.6
 [0.2.5]: https://github.com/MetaMask/keyring-api/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/MetaMask/keyring-api/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/MetaMask/keyring-api/compare/v0.2.2...v0.2.3
