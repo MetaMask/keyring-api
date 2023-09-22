@@ -80,7 +80,7 @@ User ->>+ Site: Create new account
 Site ->> Site: Custom logic to create account
 Site ->>+ Snap: keyring_createAccount(options?)
 Snap ->> Snap: Custom logic to create account
-Snap ->>+ MetaMask: snap_manageAccounts("create", account)
+Snap ->>+ MetaMask: snap_manageAccounts("event:accountCreated", account)
 User ->> MetaMask: Approve account creation
 MetaMask -->>- Snap: OK
 Snap -->>- Site: OK
@@ -135,7 +135,7 @@ The Keyring API supports two different flows for signing transactions:
   Site ->> Site: Custom logic to handle request
   Site ->>+ Snap: keyring_approveRequest(id, data?)
   Snap ->> Snap: Custom logic to handle request
-  Snap ->>+ MetaMask: snap_manageAccounts("submit", id, result)
+  Snap ->>+ MetaMask: snap_manageAccounts("event:requestApproved", { id, result })
 
   MetaMask -->> DApp: result
   MetaMask -->>- Snap: OK
