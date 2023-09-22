@@ -7,17 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.2.6]
-### Uncategorized
-- chore: remove unused lavamoat allowed scripts ([#122](https://github.com/MetaMask/keyring-api/pull/122))
-- docs: update events in sequence diagram ([#121](https://github.com/MetaMask/keyring-api/pull/121))
-- chore(deps): update Snap and ESLint dependencies ([#117](https://github.com/MetaMask/keyring-api/pull/117))
-- chore(deps): bump @metamask/rpc-methods from 0.38.1-flask.1 to 2.0.0 ([#120](https://github.com/MetaMask/keyring-api/pull/120))
+### Changed
+- Remove unused lavamoat allowed scripts ([#122](https://github.com/MetaMask/keyring-api/pull/122)).
+- Update events in sequence diagram ([#121](https://github.com/MetaMask/keyring-api/pull/121)).
+- Update Snap and ESLint dependencies ([#117](https://github.com/MetaMask/keyring-api/pull/117)).
+- Bump @metamask/rpc-methods from 0.38.1-flask.1 to 2.0.0 ([#120](https://github.com/MetaMask/keyring-api/pull/120)).
 
 ## [0.2.5]
 ### Changed
-- Remove `buildHandlersChain` ([#114](https://github.com/MetaMask/keyring-api/pull/114))
-- Update doc for `eth_signTransaction` ([#111](https://github.com/MetaMask/keyring-api/pull/111))
-- Remove un-versioned `eth_signTypedData` method ([#113](https://github.com/MetaMask/keyring-api/pull/113))
+- Remove `buildHandlersChain` ([#114](https://github.com/MetaMask/keyring-api/pull/114)).
+- Update doc for `eth_signTransaction` ([#111](https://github.com/MetaMask/keyring-api/pull/111)).
+- Remove un-versioned `eth_signTypedData` method ([#113](https://github.com/MetaMask/keyring-api/pull/113)).
 
 ## [0.2.4]
 ### Changed
