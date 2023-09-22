@@ -80,6 +80,83 @@ export const onRpcRequest: OnRpcRequestHandler = chainHandlers(
 );
 ```
 
+### Migrating from API 0.1.x to 0.2.x
+
+The following changes were made to the API, which may require changes to your
+implementation:
+
+- In the `KeyringAccount` type, the `supportedMethods` property was renamed to
+  `methods`.
+
+  ```diff
+  - supportedMethods: string[];
+  + methods: string[];
+  ```
+
+- In the `KeyringAccount` type, the `name` property was removed.
+
+  ```diff
+  - name: string;
+  ```
+
+- In the `KeyringAccount` type, add the `options` property can no longer be
+  null.
+
+  ```diff
+  - options: Record<string, unknown> | null;
+  + options: Record<string, unknown>;
+  ```
+
+- In the `KeyringAccount` type, the `eth_signTypedData` method was removed from
+  the list of available methods.
+
+  ```diff
+  - 'eth_signTypedData',
+  ```
+
+  It was an alias for the `eth_signTypedData_v1` method, which is still
+  present.
+
+- Snaps should now use the `emitSnapKeyringEvent()` helper function to notify
+  MetaMask about events:
+
+  ```ts
+  // Event to emit when an account is created.
+  emitSnapKeyringEvent(snap, KeyringEvent.AccountCreated, { account });
+
+  // Event to emit when an account is updated.
+  emitSnapKeyringEvent(snap, KeyringEvent.AccountUpdated, { account });
+
+  // Event to emit when an account is deleted.
+  emitSnapKeyringEvent(snap, KeyringEvent.AccountDeleted, { id: account.id });
+
+  // Event to emit when a request is approved.
+  emitSnapKeyringEvent(snap, KeyringEvent.RequestApproved, {
+    id: request.id,
+    result,
+  });
+
+  // Event to emit when a request is rejected.
+  emitSnapKeyringEvent(snap, KeyringEvent.RequestRejected, { id: request.id });
+  ```
+
+- Keyrings that implement the [async transaction
+  flow](./docs/architecture.md#transaction-flow) can now return an optional
+  `redirect` property that contains an URL and a message to be displayed to the
+  user. This will, in a future release of MetaMask, be used to inform the user
+  on how to continue the transaction flow.
+
+  ```ts
+  return {
+    pending: true,
+    redirect: {
+      message:
+        'Please connect to the Snap dapp to finish sining the transaction.',
+      url: 'https://example.com/sign?tx=1234',
+    },
+  };
+  ```
+
 ## API
 
 See our documentation:
