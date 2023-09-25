@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.7]
+### Added
+- Export events types ([#125](https://github.com/MetaMask/keyring-api/pull/125))
+
 ## [0.2.6]
 ### Changed
 - Remove unused lavamoat allowed scripts ([#122](https://github.com/MetaMask/keyring-api/pull/122)).
@@ -92,7 +96,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.6...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.7...HEAD
+[0.2.7]: https://github.com/MetaMask/keyring-api/compare/v0.2.6...v0.2.7
 [0.2.6]: https://github.com/MetaMask/keyring-api/compare/v0.2.5...v0.2.6
 [0.2.5]: https://github.com/MetaMask/keyring-api/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/MetaMask/keyring-api/compare/v0.2.3...v0.2.4
