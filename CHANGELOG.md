@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.2.7]
-### Uncategorized
-- feat: export events types ([#125](https://github.com/MetaMask/keyring-api/pull/125))
+### Added
+- Export events types ([#125](https://github.com/MetaMask/keyring-api/pull/125))
 
 ## [0.2.6]
 ### Changed
