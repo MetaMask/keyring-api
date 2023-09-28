@@ -11,8 +11,8 @@ Features:
   Keyring API. Snaps can implement this interface to seamlessly interact with
   MetaMask and leverage its functionality.
 
-- **DApp Client**: The module includes a client that enables dApps to
-  communicate with the Keyring snap. This client allows dApps to send requests
+- **Dapp Client**: The module includes a client that enables dapps to
+  communicate with the Keyring snap. This client allows dapps to send requests
   to the snap, such as retrieving account information or submitting requests.
 
 - **MetaMask Client**: The module provides a client specifically designed for
@@ -23,7 +23,7 @@ Features:
 - **Request Handler Helper Functions**: The module offers a set of helper
   functions to simplify the implementation of the request handler in the
   Keyring snap. These functions assist in processing incoming requests,
-  validating data, and handling various request types from dApps and MetaMask.
+  validating data, and handling various request types from dapps and MetaMask.
 
 ## Installation
 

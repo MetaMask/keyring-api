@@ -1,7 +1,7 @@
 # EVM Methods
 
 Here we document the methods that a keyring snap may implement to support
-requests originated from dApps.
+requests originated from dapps.
 
 > [!NOTE]
 > The methods described here may have different returns values than the ones
