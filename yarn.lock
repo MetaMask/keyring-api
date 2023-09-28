@@ -1332,20 +1332,20 @@ __metadata:
   linkType: hard
 
 "@metamask/snaps-execution-environments@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@metamask/snaps-execution-environments@npm:2.0.0"
+  version: 2.0.1
+  resolution: "@metamask/snaps-execution-environments@npm:2.0.1"
   dependencies:
     "@metamask/object-multiplex": ^1.2.0
     "@metamask/post-message-stream": ^7.0.0
     "@metamask/providers": ^11.1.1
     "@metamask/rpc-methods": ^2.0.0
-    "@metamask/snaps-utils": ^2.0.0
+    "@metamask/snaps-utils": ^2.0.1
     "@metamask/utils": ^8.1.0
     eth-rpc-errors: ^4.0.3
     json-rpc-engine: ^6.1.0
     nanoid: ^3.1.31
     superstruct: ^1.0.3
-  checksum: bd744aa39b20430c8ef69532ba026213b8f81ffaf64a092a77e76561f653a3ebeab2c2c1b1ee069798c44e4e17203a6816810f558cea7a44d94499ad198dbade
+  checksum: a1a62b651fd69bfdf7ca22b60060bb426175fd630637f5af5f20625cc9468a4ccd7e602122167cc6f2643242047cd3f229fd2dc9398148064eccc642cd8c889e
   languageName: node
   linkType: hard
 
@@ -1370,7 +1370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-utils@npm:^2.0.0":
+"@metamask/snaps-utils@npm:^2.0.0, @metamask/snaps-utils@npm:^2.0.1":
   version: 2.0.1
   resolution: "@metamask/snaps-utils@npm:2.0.1"
   dependencies:
