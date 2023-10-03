@@ -37,6 +37,13 @@
     "test:types": "tsd",
     "test:watch": "jest --watch"
   },
+  "resolutions": {
+    "@metamask/rpc-methods": "github:danroc/snaps#workspace=@metamask/rpc-methods&commit=19b09740fa2116f244b11a359ce988afbdb0bf8e",
+    "@metamask/snaps-controllers": "github:danroc/snaps#workspace=@metamask/snaps-controllers&commit=19b09740fa2116f244b11a359ce988afbdb0bf8e",
+    "@metamask/snaps-execution-environments": "github:danroc/snaps#workspace=@metamask/snaps-execution-environments&commit=19b09740fa2116f244b11a359ce988afbdb0bf8e",
+    "@metamask/snaps-types": "github:danroc/snaps#workspace=@metamask/snaps-types&commit=19b09740fa2116f244b11a359ce988afbdb0bf8e",
+    "@metamask/snaps-utils": "github:danroc/snaps#workspace=@metamask/snaps-utils&commit=19b09740fa2116f244b11a359ce988afbdb0bf8e"
+  },
   "dependencies": {
     "@metamask/providers": "^13.0.0",
     "@metamask/rpc-methods": "^2.0.0",

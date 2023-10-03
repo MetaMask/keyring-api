@@ -27,7 +27,7 @@ describe('KeyringSnapRpcClient', () => {
         provider as unknown as MetaMaskInpageProvider,
       );
       const request = {
-        method: 'wallet_invokeSnap',
+        method: 'wallet_invokeKeyring',
         params: {
           snapId: 'mocked-metamask',
           request: {
