@@ -154,8 +154,7 @@ implementation:
   return {
     pending: true,
     redirect: {
-      message:
-        'Please go to the Snap Dapp to finish sining the transaction.',
+      message: 'Please go to the Snap Dapp to finish sining the transaction.',
       url: 'https://example.com/sign?tx=1234',
     },
   };
