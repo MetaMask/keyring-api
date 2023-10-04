@@ -108,8 +108,8 @@ The Keyring API supports two different flows for signing transactions:
   participant Snap
   participant Site as Snap Dapp
 
-  User ->>+ DApp: Create new sign request
-  DApp ->>+ MetaMask: ethereum.request(request)
+  User ->>+ Dapp: Create new sign request
+  Dapp ->>+ MetaMask: ethereum.request(request)
   MetaMask ->> MetaMask: Display request to user
   User ->> MetaMask: Approve request
 
@@ -156,8 +156,8 @@ The Keyring API supports two different flows for signing transactions:
   participant MetaMask
   participant Snap
 
-  User ->>+ DApp: Create new sign request
-  DApp ->>+ MetaMask: ethereum.request(request)
+  User ->>+ Dapp: Create new sign request
+  Dapp ->>+ MetaMask: ethereum.request(request)
   MetaMask ->> MetaMask: Display request to user
   User ->> MetaMask: Approve request
 
