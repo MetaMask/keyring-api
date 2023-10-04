@@ -161,7 +161,7 @@ implementation:
   ```
 
 - The `buildHandlersChain` helper function was removed from the API. Instead,
-  should implement your own handler. For example:
+  you must implement your own handler. For example:
 
   ```ts
   export const onRpcRequest: OnRpcRequestHandler = async ({
