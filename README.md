@@ -121,24 +121,28 @@ implementation:
   MetaMask about events:
 
   ```ts
-  // Event to emit when an account is created.
+  // Emit an event to indicate that an account was created.
   emitSnapKeyringEvent(snap, KeyringEvent.AccountCreated, { account });
 
-  // Event to emit when an account is updated.
+  // Emit an event to indicate that an account was updated.
   emitSnapKeyringEvent(snap, KeyringEvent.AccountUpdated, { account });
 
-  // Event to emit when an account is deleted.
+  // Emit an event to indicate that an account was deleted.
   emitSnapKeyringEvent(snap, KeyringEvent.AccountDeleted, { id: account.id });
 
-  // Event to emit when a request is approved.
+  // Emit an event to indicate that a request was approved.
   emitSnapKeyringEvent(snap, KeyringEvent.RequestApproved, {
     id: request.id,
     result,
   });
 
-  // Event to emit when a request is rejected.
+  // Emit an event to indicate that a request was rejected.
   emitSnapKeyringEvent(snap, KeyringEvent.RequestRejected, { id: request.id });
   ```
+
+  > [!IMPORTANT]
+  > For all events above, MetaMask may return an error indicating that the
+  > event was not handled, possibly because it contains invalid arguments.
 
 - Keyrings that implement the [async transaction
   flow](./docs/architecture.md#transaction-flow) can now return an optional
@@ -151,9 +155,29 @@ implementation:
     pending: true,
     redirect: {
       message:
-        'Please connect to the Snap dapp to finish sining the transaction.',
+        'Please go to the Snap Dapp to finish sining the transaction.',
       url: 'https://example.com/sign?tx=1234',
     },
+  };
+  ```
+
+- The `buildHandlersChain` helper function was removed from the API. Instead,
+  should implement your own handler. For example:
+
+  ```ts
+  export const onRpcRequest: OnRpcRequestHandler = async ({
+    request,
+    origin,
+  }) => {
+    // Check if origin is allowed to call the method.
+    if (!hasPermission(origin, request.method)) {
+      throw new Error(
+        `Origin '${origin}' is not allowed to call '${request.method}'`,
+      );
+    }
+
+    // Dispatch the request to the keyring.
+    return handleKeyringRequest(await getKeyring(), request as any);
   };
   ```
 
