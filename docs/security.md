@@ -4,10 +4,10 @@
 
 Account Snap developers should adhere to the following security considerations.
 
-### Don't add secret information to the account object
+### Don't add secret information to account objects
 
-Account objects (i.e., `KeyringAccount` instances) are exposed to dapps and the
-extension. Therefore, it's crucial not to store any secret information within
+Account objects (i.e., `KeyringAccount` instances) are exposed to dapps and
+MetaMask. Therefore, it's crucial not to store any secret information within
 them.
 
 **:x: DO NOT DO THIS:**
@@ -33,7 +33,7 @@ const account: KeyringAccount = {
 
 **:white_check_mark: DO THIS INSTEAD:**
 
-Store any secret information that you need in the snap's state:
+Store any secret information that you need in the Snap's state:
 
 ```ts
 await snap.request({
@@ -47,73 +47,84 @@ await snap.request({
 });
 ```
 
-### Verify the origin of all requests
+### Limit the methods exposed to dapps
 
-It's essential for your snap to confirm the origin of all requests. This
-measure prevents a malicious dapp from impersonating the user or a legitimate
-dapp and sending requests to your snap.
+MetaMask enforces the following restrictions based on the origin type of the
+caller:
 
-**The following methods can be called by MetaMask:**
+| Method                        |  MetaMask Origin   |    Dapp Origin     |
+| :---------------------------- | :----------------: | :----------------: |
+| `keyring_listAccounts`        | :white_check_mark: | :white_check_mark: |
+| `keyring_getAccount`          | :white_check_mark: | :white_check_mark: |
+| `keyring_createAccount`       |        :x:         | :white_check_mark: |
+| `keyring_filterAccountChains` | :white_check_mark: | :white_check_mark: |
+| `keyring_updateAccount`       |        :x:         | :white_check_mark: |
+| `keyring_deleteAccount`       | :white_check_mark: | :white_check_mark: |
+| `keyring_exportAccount`       |        :x:         | :white_check_mark: |
+| `keyring_listRequests`        | :white_check_mark: | :white_check_mark: |
+| `keyring_getRequest`          | :white_check_mark: | :white_check_mark: |
+| `keyring_submitRequest`       | :white_check_mark: |        :x:         |
+| `keyring_approveRequest`      |        :x:         | :white_check_mark: |
+| `keyring_rejectRequest`       | :white_check_mark: | :white_check_mark: |
 
-> [!IMPORTANT]
-> The `origin` value for requests coming from MetaMask is: `'metamask'`.
+So, for example, a dapp is not allowed to call the `keyring_submitRequest`
+method of your Snap, and MetaMask is not allowed to call the
+`keyring_createAccount` method.
 
-- `keyring_listAccounts`
-- `keyring_getAccount`
-- `keyring_filterAccountChains`
-- `keyring_deleteAccount`
-- `keyring_listRequests`
-- `keyring_getRequest`
-- `keyring_submitRequest`
-- `keyring_rejectRequest`
+MetaMask also enforces that only dapps allowlisted in the Snap's manifest can
+call the methods above. For example, if your Snap's manifest contains the
+following allowlist:
 
-**And dapps can call the following methods:**
-
-> [!IMPORTANT]
-> The `origin` value for requests coming from a dapp is the dapp's URL. Ensure
-> that the request originates from a legitimate dapp, and that any domain used
-> for development purposes (e.g. `http://localhost`) is not authorized in your
-> production snap.
-
-- `keyring_listAccounts`
-- `keyring_getAccount`
-- `keyring_createAccount`
-- `keyring_filterAccountChains`
-- `keyring_updateAccount`
-- `keyring_deleteAccount`
-- `keyring_exportAccount`
-- `keyring_listRequests`
-- `keyring_getRequest`
-- `keyring_approveRequest`
-- `keyring_rejectRequest`
-
-**Here is an example implementation:**
-
-```ts
-const originPermissions: Record<string, string[]> = {
-  'metamask': [
-    // List of allowed methods from MetaMask.
-  ],
-  'https://<dapp domain>': [
-    // List of allowed methods from the dapp.
-  ],
-};
-
-if (!originPermissions[origin]?.includes(request.method)) {
-  // REJECT the request.
+```json
+{
+  "endowment:keyring": {
+    "allowedOrigins": ["https://<dapp domain>"]
+  }
 }
 ```
 
+Then only the dapp at `https://<dapp domain>` can call the methods above. If a
+dapp hosted in a different domain attempts to call one of these methods, the
+request will be rejected by MetaMask.
+
+But Snap developers are advised to further constrain the methods that are
+exposed to dapps in accordance with their Snap's functionality. For instance,
+if your Snap does not support account deletion via dapps, your Snap should
+reject calls to the `keyring_deleteAccount` method originating from dapps.
+
+Your Snap can also impose varying restrictions depending on the calling dapp.
+For example, _dapp-1_ may have access to a different set of methods than
+_dapp-2_.
+
+The following code snippet provides an example of how to implement such logic:
+
+```ts
+const permissions: Record<string, string[]> = {
+  'https://<dapp-1 domain>': [
+    // List of allowed methods for dapp-1.
+  ],
+  'https://<dapp-2 domain>': [
+    // List of allowed methods for dapp-2.
+  ],
+};
+
+if (origin !== 'metamask' && !permissions[origin]?.includes(request.method)) {
+  // Reject the request.
+}
+```
+
+Notice, however, that both dapps need to be allowlisted in the Snap's manifest.
+
 ### Ensure that the redirect URL cannot be manipulated
 
-If your snap implements the [asynchronous transaction
+If your Snap implements the [asynchronous transaction
 flow](./architecture.md#transaction-flow), ensure that the redirect URL is
 valid and cannot be manipulated, otherwise the user could be redirected to a
 malicious website.
 
 ```ts
 async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
-  // Your snap's custom logic here...
+  // Your Snap's custom logic here...
   return {
     pending: true,
     redirect: {
@@ -125,9 +136,16 @@ async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
 }
 ```
 
+> [!IMPORTANT]
+> Only HTTPS URLs are allowed in the `url` field, and the provided URL will be
+> checked against a [list of blocked domains][eth-phishing-detect]. However,
+> for development purposes, HTTP URLs are allowed on Flask.
+
 ### Remove all debug code from your production Snap
 
-Ensure that all debug code is removed from your production snap. This mistake
+Ensure that all debug code is removed from your production Snap. This mistake
 can lead to multiple security vulnerabilities. For example, secret information
 may be logged to the console, or a security check may be bypassed by a
 malicious dapp.
+
+[eth-phishing-detect]: https://github.com/MetaMask/eth-phishing-detect
