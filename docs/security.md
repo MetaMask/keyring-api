@@ -148,4 +148,37 @@ can lead to multiple security vulnerabilities. For example, secret information
 may be logged to the console, or a security check may be bypassed by a
 malicious dapp.
 
+### Don't expose Keyring methods through the `onRpcRequest` export
+
+The `onRpcRequest` export is intended to be a general-purpose export and thus
+has no restrictions on the methods that can be called.
+
+Ensure that you only export Keyring methods through the `onKeyringRequest`
+export. It has extra security checks in place that are enforced by MetaMask.
+
+**:x: DO NOT DO THIS:**
+
+```ts
+export const onRpcRequest: OnRpcRequestHandler = async ({
+  //           ~~~           ~~~
+  origin,
+  request,
+}) => {
+  return handleKeyringRequest(keyring, request);
+};
+```
+
+**:white_check_mark: DO THIS INSTEAD:**
+
+```ts
+export const onKeyringRequest: OnKeyringRequestHandler = async ({
+  //           ~~~~~~~           ~~~~~~~
+  origin,
+  request,
+}) => {
+  // Any custom logic or extra security checks here...
+  return handleKeyringRequest(keyring, request);
+};
+```
+
 [eth-phishing-detect]: https://github.com/MetaMask/eth-phishing-detect
