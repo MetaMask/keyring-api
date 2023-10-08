@@ -133,8 +133,7 @@ async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
     pending: true,
     redirect: {
       message: 'Please continue in the Dapp.',
-      // !!! MAKE SURE THIS IS A SAFE URL !!!
-      url: 'https://<dapp domain>/sign?tx=1234',
+      url: 'https://<dapp domain>/sign?tx=1234', // !!! ENSURE THIS IS A SAFE URL !!!
     },
   };
 }
