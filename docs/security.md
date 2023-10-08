@@ -75,10 +75,14 @@ MetaMask also enforces that only dapps allowlisted in the Snap's manifest can
 call the methods above. For example, if your Snap's manifest contains the
 following allowlist:
 
-```json
+```jsonc
 {
-  "endowment:keyring": {
-    "allowedOrigins": ["https://<dapp domain>"]
+  // Other fields of the manifest...
+  "initialPermissions": {
+    // Other initial permissions...
+    "endowment:keyring": {
+      "allowedOrigins": ["https://<dapp domain>"]
+    }
   }
 }
 ```
@@ -113,7 +117,7 @@ if (origin !== 'metamask' && !permissions[origin]?.includes(request.method)) {
 }
 ```
 
-Notice, however, that both dapps need to be allowlisted in the Snap's manifest.
+Notice, however, that both dapps must be allowlisted in the Snap's manifest.
 
 ### Ensure that the redirect URL cannot be manipulated
 
