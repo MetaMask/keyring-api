@@ -3,11 +3,11 @@
  */
 export enum KeyringEvent {
   // Account events
-  AccountCreated = 'event:accountCreated',
-  AccountUpdated = 'event:accountUpdated',
-  AccountDeleted = 'event:accountDeleted',
+  AccountCreated = 'notify:accountCreated',
+  AccountUpdated = 'notify:accountUpdated',
+  AccountDeleted = 'notify:accountDeleted',
 
   // Request events
-  RequestApproved = 'event:requestApproved',
-  RequestRejected = 'event:requestRejected',
+  RequestApproved = 'notify:requestApproved',
+  RequestRejected = 'notify:requestRejected',
 }
