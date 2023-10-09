@@ -1,4 +1,5 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -7,52 +8,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [1.0.0-rc.1]
-### Uncategorized
-- chore(deps): bump @metamask/scure-bip39 from 2.1.0 to 2.1.1 ([#146](https://github.com/MetaMask/keyring-api/pull/146))
-- feat!: use the `onKeyringRequest` snap export ([#145](https://github.com/MetaMask/keyring-api/pull/145))
-- refactor!: change the events' prefix to `notify:` ([#139](https://github.com/MetaMask/keyring-api/pull/139))
-- docs: remove some bad code from examples ([#142](https://github.com/MetaMask/keyring-api/pull/142))
-- chore(deps): bump @metamask/base-controller from 3.2.2 to 3.2.3 ([#141](https://github.com/MetaMask/keyring-api/pull/141))
-- chore: fix typo in the readme ([#138](https://github.com/MetaMask/keyring-api/pull/138))
-- chore: fix more "DApp" vs "Dapp" inconsistencies ([#140](https://github.com/MetaMask/keyring-api/pull/140))
-- chore(deps): bump @metamask/approval-controller from 3.5.1 to 3.5.2 ([#132](https://github.com/MetaMask/keyring-api/pull/132))
-- chore(deps): bump postcss from 8.4.24 to 8.4.31 ([#137](https://github.com/MetaMask/keyring-api/pull/137))
-- chore(deps): bump @metamask/scure-bip39 from 2.1.0 to 2.1.1 ([#135](https://github.com/MetaMask/keyring-api/pull/135))
-- chore(deps): bump @metamask/snaps-controllers from 2.0.1 to 2.0.2 ([#134](https://github.com/MetaMask/keyring-api/pull/134))
-- chore(docs): fix some typos and consistency problems ([#131](https://github.com/MetaMask/keyring-api/pull/131))
-- chore(deps): bump @metamask/base-controller from 3.2.1 to 3.2.2 ([#133](https://github.com/MetaMask/keyring-api/pull/133))
-- ci: trigger CI on merge queues ([#136](https://github.com/MetaMask/keyring-api/pull/136))
-- docs: document how to migrate from API 0.1.x to 0.2.x ([#124](https://github.com/MetaMask/keyring-api/pull/124))
-- chore(deps): bump @metamask/snaps-controllers from 2.0.0 to 2.0.1 ([#130](https://github.com/MetaMask/keyring-api/pull/130))
-- chore(deps-dev): bump @metamask/auto-changelog from 3.2.0 to 3.3.0 ([#128](https://github.com/MetaMask/keyring-api/pull/128))
-- chore(deps): bump @metamask/snaps-utils from 2.0.0 to 2.0.1 ([#127](https://github.com/MetaMask/keyring-api/pull/127))
+
+### Added
+
+- Document how to migrate from API 0.1.x to 0.2.x ([#124](https://github.com/MetaMask/keyring-api/pull/124)).
+
+### Changed
+
+- **BREAKING:** Use the `onKeyringRequest` snap export ([#145](https://github.com/MetaMask/keyring-api/pull/145)).
+- **BREAKING:** Change the events' prefix to `notify:` ([#139](https://github.com/MetaMask/keyring-api/pull/139)).
 
 ## [0.2.7]
+
 ### Added
+
 - Export events types ([#125](https://github.com/MetaMask/keyring-api/pull/125))
 
 ## [0.2.6]
+
 ### Changed
+
 - Remove unused lavamoat allowed scripts ([#122](https://github.com/MetaMask/keyring-api/pull/122)).
 - Update events in sequence diagram ([#121](https://github.com/MetaMask/keyring-api/pull/121)).
 - Update Snap and ESLint dependencies ([#117](https://github.com/MetaMask/keyring-api/pull/117)).
 - Bump @metamask/rpc-methods from 0.38.1-flask.1 to 2.0.0 ([#120](https://github.com/MetaMask/keyring-api/pull/120)).
 
 ## [0.2.5]
+
 ### Changed
+
 - Remove `buildHandlersChain` ([#114](https://github.com/MetaMask/keyring-api/pull/114)).
 - Update doc for `eth_signTransaction` ([#111](https://github.com/MetaMask/keyring-api/pull/111)).
 - Remove un-versioned `eth_signTypedData` method ([#113](https://github.com/MetaMask/keyring-api/pull/113)).
 
 ## [0.2.4]
+
 ### Changed
+
 - Fix linting and compatibility with older `tsc` ([#108](https://github.com/MetaMask/keyring-api/pull/108)).
 
 ## [0.2.3]
+
 ### Added
+
 - Add redirection message to snap async response ([#102](https://github.com/MetaMask/keyring-api/pull/102)).
 
 ### Changed
+
 - Use `Omit` instead of `OmitUnion` ([#106](https://github.com/MetaMask/keyring-api/pull/106)).
 - Update `KeyringResponse` comment ([#103](https://github.com/MetaMask/keyring-api/pull/103)).
 - Use `KeyringRpcMethod` enum instead of string ([#105](https://github.com/MetaMask/keyring-api/pull/105)).
@@ -62,21 +64,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump @metamask/providers from 11.1.1 to 11.1.2 ([#98](https://github.com/MetaMask/keyring-api/pull/98)).
 
 ## [0.2.2]
+
 ### Added
+
 - Add architecture and EVM methods docs ([#86](https://github.com/MetaMask/keyring-api/pull/86)).
 - Add `lastSelected` and `lastActive` to metadata ([#92](https://github.com/MetaMask/keyring-api/pull/92)).
 
 ### Changed
+
 - Make request `params` optional ([#96](https://github.com/MetaMask/keyring-api/pull/96)).
 - Remove `lastActive` field from internal account model ([#95](https://github.com/MetaMask/keyring-api/pull/95)).
 - Move request ID to outer request ([#94](https://github.com/MetaMask/keyring-api/pull/94)).
 
 ## [0.2.1]
+
 ### Changed
+
 - Set `snap` object keys to be mandatory and move `name` to `metadata` ([#87](https://github.com/MetaMask/keyring-api/pull/87)).
 
 ## [0.2.0]
+
 ### Added
+
 - Add `InternalAccount` type and create submodule `internal` ([#65](https://github.com/MetaMask/keyring-api/pull/65)).
 - Add keyring events and helper functions ([#74](https://github.com/MetaMask/keyring-api/pull/74)).
 - Add a `redirect` field to asynchronous request responses ([#75](https://github.com/MetaMask/keyring-api/pull/75)).
@@ -84,6 +93,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `getController` to client ([#43](https://github.com/MetaMask/keyring-api/pull/43)).
 
 ### Changed
+
 - Rename `erc4337` -> `eip4337` ([#42](https://github.com/MetaMask/keyring-api/pull/42)).
 - Make `options` a mandatory field of `KeyringAccount` ([#30](https://github.com/MetaMask/keyring-api/pull/30)).
 - Make `approveRequest` and `rejectRequest` optional ([#63](https://github.com/MetaMask/keyring-api/pull/63)).
@@ -95,22 +105,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename `supportedMethods` to `methods` ([#35](https://github.com/MetaMask/keyring-api/pull/35)).
 
 ## [0.1.3]
+
 ### Changed
+
 - Downgrade snaps dependencies to `0.35.2-flask.1` ([#25](https://github.com/MetaMask/keyring-api/pull/25)).
 
 ## [0.1.2]
+
 ### Changed
+
 - Update snaps dependencies ([#21](https://github.com/MetaMask/keyring-api/pull/21)).
 
 ## [0.1.1]
+
 ### Added
+
 - Validate snap responses for type correctness ([#15](https://github.com/MetaMask/keyring-api/pull/15)).
 
 ### Changed
+
 - Rename RPC handling functions ([#16](https://github.com/MetaMask/keyring-api/pull/16)).
 
 ## [0.1.0] - 2023-06-20
+
 ### Added
+
 - Usage examples to [`README.md`](./README.md).
 - Keyring API definition.
 - JSON-RPC snap keyring client. It is intended to be used by a snap's companion dapp to send requests to the snap.
