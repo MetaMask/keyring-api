@@ -176,7 +176,7 @@ implementation:
     }
 
     // Dispatch the request to the keyring.
-    return handleKeyringRequest(await getKeyring(), request as any);
+    return handleKeyringRequest(keyring, request);
   };
   ```
 
