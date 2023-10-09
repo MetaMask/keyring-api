@@ -179,7 +179,7 @@ you must implement your own handler. For example:</p>
 <li>Generally any changes that don&#39;t affect consumers of the package (e.g. lockfile changes or development environment changes) are omitted. Exceptions may be made for changes that might be of interest despite not having an effect upon the published package (e.g. major test improvements, security improvements, improved documentation, etc.).</li>
 <li>Try to explain each change in terms that users of the package would understand (e.g. avoid referencing internal variables/concepts).</li>
 <li>Consolidate related changes into one change entry if it makes it easier to explain.</li>
-<li>Run <code>yarn auto-changelog validate --rc</code> to check that the changelog is correctly formatted.</li>
+<li>Run <code>yarn auto-changelog validate --prettier --rc</code> to check that the changelog is correctly formatted.</li>
 </ul>
 </li>
 <li><p>Review and QA the release.</p>
