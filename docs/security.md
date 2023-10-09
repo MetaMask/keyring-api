@@ -16,7 +16,7 @@ them.
 const account: KeyringAccount = {
   id: uuid(),
   options: {
-    someSecret: '0x01234...78', // !!! DO NOT DO THIS !!!
+    privateKey: '0x01234...78', // !!! DO NOT DO THIS !!!
   },
   address,
   methods: [
@@ -41,7 +41,8 @@ await snap.request({
   params: {
     operation: 'update',
     newState: {
-      someSecret: '0x01234...78',
+      // Your Snap's state here...
+      privateKey: '0x01234...78',
     },
   },
 });
