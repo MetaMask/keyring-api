@@ -39,9 +39,9 @@
   },
   "dependencies": {
     "@metamask/providers": "^13.0.0",
-    "@metamask/rpc-methods": "^2.0.0",
-    "@metamask/snaps-controllers": "^2.0.0",
-    "@metamask/snaps-utils": "^2.0.0",
+    "@metamask/rpc-methods": "^3.0.0",
+    "@metamask/snaps-controllers": "^3.0.0",
+    "@metamask/snaps-utils": "^3.0.0",
     "@metamask/utils": "^8.1.0",
     "@types/uuid": "^9.0.1",
     "superstruct": "^1.0.3",

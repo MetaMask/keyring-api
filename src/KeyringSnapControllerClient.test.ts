@@ -24,7 +24,7 @@ describe('KeyringSnapControllerClient', () => {
     const request = {
       snapId,
       origin: 'metamask',
-      handler: 'onRpcRequest',
+      handler: 'onKeyringRequest',
       request: {
         id: expect.any(String),
         jsonrpc: '2.0',

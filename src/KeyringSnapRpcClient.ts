@@ -33,7 +33,7 @@ export class SnapRpcSender implements Sender {
    */
   async send(request: JsonRpcRequest): Promise<Json> {
     return this.#provider.request({
-      method: 'wallet_invokeSnap',
+      method: 'wallet_invokeKeyring',
       params: {
         snapId: this.#origin,
         request,
