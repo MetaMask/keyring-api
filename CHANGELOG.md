@@ -6,6 +6,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc.1]
+### Uncategorized
+- chore(deps): bump @metamask/scure-bip39 from 2.1.0 to 2.1.1 ([#146](https://github.com/MetaMask/keyring-api/pull/146))
+- feat!: use the `onKeyringRequest` snap export ([#145](https://github.com/MetaMask/keyring-api/pull/145))
+- refactor!: change the events' prefix to `notify:` ([#139](https://github.com/MetaMask/keyring-api/pull/139))
+- docs: remove some bad code from examples ([#142](https://github.com/MetaMask/keyring-api/pull/142))
+- chore(deps): bump @metamask/base-controller from 3.2.2 to 3.2.3 ([#141](https://github.com/MetaMask/keyring-api/pull/141))
+- chore: fix typo in the readme ([#138](https://github.com/MetaMask/keyring-api/pull/138))
+- chore: fix more "DApp" vs "Dapp" inconsistencies ([#140](https://github.com/MetaMask/keyring-api/pull/140))
+- chore(deps): bump @metamask/approval-controller from 3.5.1 to 3.5.2 ([#132](https://github.com/MetaMask/keyring-api/pull/132))
+- chore(deps): bump postcss from 8.4.24 to 8.4.31 ([#137](https://github.com/MetaMask/keyring-api/pull/137))
+- chore(deps): bump @metamask/scure-bip39 from 2.1.0 to 2.1.1 ([#135](https://github.com/MetaMask/keyring-api/pull/135))
+- chore(deps): bump @metamask/snaps-controllers from 2.0.1 to 2.0.2 ([#134](https://github.com/MetaMask/keyring-api/pull/134))
+- chore(docs): fix some typos and consistency problems ([#131](https://github.com/MetaMask/keyring-api/pull/131))
+- chore(deps): bump @metamask/base-controller from 3.2.1 to 3.2.2 ([#133](https://github.com/MetaMask/keyring-api/pull/133))
+- ci: trigger CI on merge queues ([#136](https://github.com/MetaMask/keyring-api/pull/136))
+- docs: document how to migrate from API 0.1.x to 0.2.x ([#124](https://github.com/MetaMask/keyring-api/pull/124))
+- chore(deps): bump @metamask/snaps-controllers from 2.0.0 to 2.0.1 ([#130](https://github.com/MetaMask/keyring-api/pull/130))
+- chore(deps-dev): bump @metamask/auto-changelog from 3.2.0 to 3.3.0 ([#128](https://github.com/MetaMask/keyring-api/pull/128))
+- chore(deps): bump @metamask/snaps-utils from 2.0.0 to 2.0.1 ([#127](https://github.com/MetaMask/keyring-api/pull/127))
+
 ## [0.2.7]
 ### Added
 - Export events types ([#125](https://github.com/MetaMask/keyring-api/pull/125))
@@ -96,7 +117,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v0.2.7...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v1.0.0-rc.1...HEAD
+[1.0.0-rc.1]: https://github.com/MetaMask/keyring-api/compare/v0.2.7...v1.0.0-rc.1
 [0.2.7]: https://github.com/MetaMask/keyring-api/compare/v0.2.6...v0.2.7
 [0.2.6]: https://github.com/MetaMask/keyring-api/compare/v0.2.5...v0.2.6
 [0.2.5]: https://github.com/MetaMask/keyring-api/compare/v0.2.4...v0.2.5
