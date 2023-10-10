@@ -35,6 +35,9 @@ or
 
 ## Usage
 
+> [!IMPORTANT]
+> Please make sure to read the [security recommendations](./docs/security.md).
+
 ### In a snap
 
 Inside the snap, implement the `Keyring` API:
