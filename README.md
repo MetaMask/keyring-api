@@ -2,7 +2,7 @@
 
 > This TypeScript module is maintained in the style of the MetaMask team.
 
-This TypeScript module simplifies the integration of snaps with MetaMask using
+This TypeScript module simplifies the integration of Snaps with MetaMask using
 the Keyring API.
 
 Features:
@@ -12,17 +12,17 @@ Features:
   MetaMask and leverage its functionality.
 
 - **Dapp Client**: The module includes a client that enables dapps to
-  communicate with the Keyring snap. This client allows dapps to send requests
-  to the snap, such as retrieving account information or submitting requests.
+  communicate with the Keyring Snap. This client allows dapps to send requests
+  to the Snap, such as retrieving account information or submitting requests.
 
 - **MetaMask Client**: The module provides a client specifically designed for
   MetaMask integration. This client enables MetaMask to send requests directly
-  to the Keyring snap, facilitating smooth interoperability between the two
+  to the Keyring Snap, facilitating smooth interoperability between the two
   applications.
 
 - **Request Handler Helper Functions**: The module offers a set of helper
   functions to simplify the implementation of the request handler in the
-  Keyring snap. These functions assist in processing incoming requests,
+  Keyring Snap. These functions assist in processing incoming requests,
   validating data, and handling various request types from dapps and MetaMask.
 
 ## Installation
@@ -33,57 +33,196 @@ or
 
 `npm install @metamask/keyring-api`
 
-## Usage
+## Keyring Snaps
+
+Starting with MetaMask 11.5, Snaps can implement the Keyring API. This allows
+users to manage their accounts in a more flexible way, and enables developers
+to build new types of accounts.
 
 > [!IMPORTANT]
-> Please make sure to read the [security recommendations](./docs/security.md).
+> Before implementing your Snap, please make sure to read the [security
+> recommendations](./docs/security.md) and the [architecture
+> document](./docs/architecture.md).
 
-### In a snap
+Follow these steps to implement the Keyring API in your Snap. Please note that
+these instruction assume that you are already familiar with the process of
+[developing a Snap](https://docs.metamask.io/).
 
-Inside the snap, implement the `Keyring` API:
+1. **Implement the Keyring API:**
 
-```typescript
-class MySnapKeyring implements Keyring {
-  // Implement the required methods.
-}
-```
+   Inside your Snap, implement the `Keyring` API:
 
-Then create a handler that uses an instance of your keyring:
+   ```typescript
+   class MySnapKeyring implements Keyring {
+     // Implement the required methods here...
+   }
+   ```
 
-```typescript
-import { keyringRpcDispatcher } from '@metamask/keyring-api';
+   > [!WARNING]
+   > Ensure that your keyring implements the [methods called by
+   > MetaMask](./docs/security.md#limit-the-methods-exposed-to-dapps),
+   > otherwise some features may not work.
 
-// Create a new MySnapKeyring instance
-keyring = new MySnapKeyring(keyringState);
-// ...
+2. **Handle requests submitted by MetaMask:**
 
-// And wrap it in a handler
-const keyringHandler: OnRpcRequestHandler = async ({ request }) => {
-  // Load the keyring state if needed
-  // ...
-  return await keyringRpcDispatcher(keyring, request);
-};
-```
+   MetaMask will submit requests through the `submitRequest` method of your the
+   Keyring API (check the supported [EVM methods](./docs/evm_methods.md)). Here
+   is an example of request:
 
-Now expose this handler:
+   ```json
+   {
+     "id": "d6e23af6-4bea-48dd-aeb0-7d3c30ea67f9",
+     "scope": "",
+     "account": "69438371-bef3-4957-9f91-c3f22c1d75f3",
+     "request": {
+       "method": "personal_sign",
+       "params": [
+         "0x4578616d706c652060706572736f6e616c5f7369676e60206d657373616765",
+         "0x5874174dcf1ab6F7Efd8496f4f09404CD1c5bA84"
+       ]
+     }
+   }
+   ```
 
-```typescript
-export const onRpcRequest: OnRpcRequestHandler = keyringHandler;
-```
+   Where:
 
-Or chain it with other handlers:
+   - `id` is unique identifier for the request.
 
-```typescript
-import { chainHandlers } from '@metamask/keyring-api';
+   - `scope` is the CAIP-2 chain ID of the selected chain. Currently, this
+     property is always an empty string. Your Snap should use the chain ID
+     present in the request object instead.
 
-export const onRpcRequest: OnRpcRequestHandler = chainHandlers(
-  // Other handlers...
-  keyringHandler,
-  // Other handlers...
-);
-```
+   - `account` is the ID of the account that should handle the request.
 
-### Migrating from API 0.1.x to 0.2.x
+   - `request` is the request object.
+
+   Your Snap must respond with either a synchronous result:
+
+   ```typescript
+   return { pending: false, result };
+   ```
+
+   Or an asynchronous result:
+
+   ```typescript
+   return { pending: true, redirect: { message, url } };
+   ```
+
+   The redirect message and URL will be displayed to the user to inform them
+   about how to continue the transaction flow.
+
+3. **Notify MetaMask about events:**
+
+   The following actions must be notified to MetaMask:
+
+   1. When an account is created:
+
+      ```typescript
+      try {
+        emitSnapKeyringEvent(snap, KeyringEvent.AccountCreated, { account });
+        // Update your snap's state...
+      } catch (error) {
+        // Handle the error...
+      }
+      ```
+
+      MetaMask will return an error if the account already exists or if the
+      account object is invalid.
+
+   2. When an account is updated:
+
+      ```typescript
+      try {
+        emitSnapKeyringEvent(snap, KeyringEvent.AccountUpdated, { account });
+        // Update your snap's state...
+      } catch (error) {
+        // Handle the error...
+      }
+      ```
+
+      MetaMask will return an error if the account does not exist, if the
+      account object is invalid, or if the account address changed.
+
+   3. When an account is deleted:
+
+      ```typescript
+      try {
+        emitSnapKeyringEvent(snap, KeyringEvent.AccountDeleted, {
+          id: account.id,
+        });
+        // Update your snap's state...
+      } catch (error) {
+        // Handle the error...
+      }
+      ```
+
+      The delete event is idempotent, so it is safe to emit it even if the
+      account does not exist.
+
+   4. When a request is approved:
+
+      ```typescript
+      try {
+        emitSnapKeyringEvent(snap, KeyringEvent.RequestApproved, {
+          id: request.id,
+          result,
+        });
+        // Update your snap's state...
+      } catch (error) {
+        // Handle the error...
+      }
+      ```
+
+      MetaMask will return an error if the request does not exist.
+
+      > [!NOTE]
+      > This only applies to Snaps that implement the [async
+      > flow](./docs/architecture.md#transaction-flow).
+
+   5. When a request is rejected:
+
+      ```typescript
+      try {
+        emitSnapKeyringEvent(snap, KeyringEvent.RequestRejected, {
+          id: request.id,
+        });
+        // Update your snap's state...
+      } catch (error) {
+        // Handle the error...
+      }
+      ```
+
+      MetaMask will return an error if the request does not exist.
+
+      > [!NOTE]
+      > This only applies to Snaps that implement the [async
+      > flow](./docs/architecture.md#transaction-flow).
+
+4. **Expose the Keyring API:**
+
+   Then create a handler to expose the keyring methods to MetaMask and your dapp:
+
+   ```typescript
+   export const onKeyringRequest: OnKeyringRequestHandler = async ({
+     origin,
+     request,
+   }) => {
+     // Your custom logic here...
+     return handleKeyringRequest(keyring, request);
+   };
+   ```
+
+5. **Call the keyring methods from your dapp:**
+
+   Now you should be able to call your Keyring Snap from your dapp, for
+   example:
+
+   ```typescript
+   const client = new KeyringSnapRpcClient(snapId, window.ethereum);
+   const accounts = await client.listAccounts();
+   ```
+
+## Migrating from 0.1.x to 0.2.x
 
 The following changes were made to the API, which may require changes to your
 implementation:
@@ -182,6 +321,20 @@ implementation:
     return handleKeyringRequest(keyring, request);
   };
   ```
+
+## Migrating from 0.2.x to 1.x.x
+
+The following changes were made to the API, which may require changes to your
+implementation:
+
+- Your Snap must expose the Keyring methods through the `onKeyringRequest`
+  export instead of the `onRpcRequest` export.
+
+- Your Snap must request the new `endowment:keyring` endowment, and list any
+  dapp that should be allowed to call the Keyring methods.
+
+For more details about the changes, please refer to the [security
+guidelines](./docs/security.md).
 
 ## API
 
