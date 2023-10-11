@@ -19,7 +19,7 @@
 <blockquote>
 <p>This TypeScript module is maintained in the style of the MetaMask team.</p>
 </blockquote>
-<p>This TypeScript module simplifies the integration of snaps with MetaMask using
+<p>This TypeScript module simplifies the integration of Snaps with MetaMask using
 the Keyring API.</p>
 <p>Features:</p>
 <ul>
@@ -28,17 +28,17 @@ Keyring API. Snaps can implement this interface to seamlessly interact with
 MetaMask and leverage its functionality.</p>
 </li>
 <li><p><strong>Dapp Client</strong>: The module includes a client that enables dapps to
-communicate with the Keyring snap. This client allows dapps to send requests
-to the snap, such as retrieving account information or submitting requests.</p>
+communicate with the Keyring Snap. This client allows dapps to send requests
+to the Snap, such as retrieving account information or submitting requests.</p>
 </li>
 <li><p><strong>MetaMask Client</strong>: The module provides a client specifically designed for
 MetaMask integration. This client enables MetaMask to send requests directly
-to the Keyring snap, facilitating smooth interoperability between the two
+to the Keyring Snap, facilitating smooth interoperability between the two
 applications.</p>
 </li>
 <li><p><strong>Request Handler Helper Functions</strong>: The module offers a set of helper
 functions to simplify the implementation of the request handler in the
-Keyring snap. These functions assist in processing incoming requests,
+Keyring Snap. These functions assist in processing incoming requests,
 validating data, and handling various request types from dapps and MetaMask.</p>
 </li>
 </ul>
@@ -50,56 +50,147 @@ validating data, and handling various request types from dapps and MetaMask.</p>
 <p>or</p>
 <p><code>npm install @metamask/keyring-api</code></p>
 
-<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
-  <h2>Usage</h2>
+<a href="#keyring-snaps" id="keyring-snaps" style="color: inherit; text-decoration: none;">
+  <h2>Keyring Snaps</h2>
 </a>
+<p>Starting with MetaMask 11.5, Snaps can implement the Keyring API. This allows
+users to manage their accounts in a more flexible way, and enables developers
+to build new types of accounts.</p>
+<blockquote>
+<p>[!IMPORTANT]
+Before implementing your Snap, please make sure to read the <a href="./docs/security.md">security
+recommendations</a> and the <a href="./docs/architecture.md">architecture
+document</a>.</p>
+</blockquote>
+<p>Follow these steps to implement the Keyring API in your Snap. Please note that
+these instruction assume that you are already familiar with the process of
+<a href="https://docs.metamask.io/">developing a Snap</a>.</p>
+<ol>
+<li><p><strong>Implement the Keyring API:</strong></p>
+<p>Inside your Snap, implement the <code>Keyring</code> API:</p>
+<pre><code class="language-typescript"><span class="hl-0">class</span><span class="hl-1"> </span><span class="hl-2">MySnapKeyring</span><span class="hl-1"> </span><span class="hl-0">implements</span><span class="hl-1"> </span><span class="hl-2">Keyring</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">// Implement the required methods here...</span><br/><span class="hl-1">}</span>
+</code></pre>
+<blockquote>
+<p>[!WARNING]
+Ensure that your keyring implements the <a href="./docs/security.md#limit-the-methods-exposed-to-dapps">methods called by
+MetaMask</a>,
+otherwise some features may not work.</p>
+</blockquote>
+</li>
+<li><p><strong>Handle requests submitted by MetaMask:</strong></p>
+<p>MetaMask will submit requests through the <code>submitRequest</code> method of your the
+Keyring API (check the supported <a href="./docs/evm_methods.md">EVM methods</a>). Here
+is an example of request:</p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-4">&quot;id&quot;</span><span class="hl-1">: </span><span class="hl-5">&quot;d6e23af6-4bea-48dd-aeb0-7d3c30ea67f9&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">&quot;scope&quot;</span><span class="hl-1">: </span><span class="hl-5">&quot;&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">&quot;account&quot;</span><span class="hl-1">: </span><span class="hl-5">&quot;69438371-bef3-4957-9f91-c3f22c1d75f3&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">&quot;request&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-4">&quot;method&quot;</span><span class="hl-1">: </span><span class="hl-5">&quot;personal_sign&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">&quot;params&quot;</span><span class="hl-1">: [</span><br/><span class="hl-1">      </span><span class="hl-5">&quot;0x4578616d706c652060706572736f6e616c5f7369676e60206d657373616765&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-5">&quot;0x5874174dcf1ab6F7Efd8496f4f09404CD1c5bA84&quot;</span><br/><span class="hl-1">    ]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><p><code>id</code> is unique identifier for the request.</p>
+</li>
+<li><p><code>scope</code> is the CAIP-2 chain ID of the selected chain. Currently, this
+property is always an empty string. Your Snap should use the chain ID
+present in the request object instead.</p>
+</li>
+<li><p><code>account</code> is the ID of the account that should handle the request.</p>
+</li>
+<li><p><code>request</code> is the request object.</p>
+</li>
+</ul>
+<p>Your Snap must respond with either a synchronous result:</p>
+<pre><code class="language-typescript"><span class="hl-6">return</span><span class="hl-1"> { </span><span class="hl-7">pending:</span><span class="hl-1"> </span><span class="hl-0">false</span><span class="hl-1">, </span><span class="hl-7">result</span><span class="hl-1"> };</span>
+</code></pre>
+<p>Or an asynchronous result:</p>
+<pre><code class="language-typescript"><span class="hl-6">return</span><span class="hl-1"> { </span><span class="hl-7">pending:</span><span class="hl-1"> </span><span class="hl-0">true</span><span class="hl-1">, </span><span class="hl-7">redirect:</span><span class="hl-1"> { </span><span class="hl-7">message</span><span class="hl-1">, </span><span class="hl-7">url</span><span class="hl-1"> } };</span>
+</code></pre>
+<p>The redirect message and URL will be displayed to the user to inform them
+about how to continue the transaction flow.</p>
+</li>
+<li><p><strong>Notify MetaMask about events:</strong></p>
+<p>The following actions must be notified to MetaMask:</p>
+<ol>
+<li><p>When an account is created:</p>
+<pre><code class="language-typescript"><span class="hl-6">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">AccountCreated</span><span class="hl-1">, { </span><span class="hl-7">account</span><span class="hl-1"> });</span><br/><span class="hl-1">  </span><span class="hl-3">// Update your snap&#39;s state...</span><br/><span class="hl-1">} </span><span class="hl-6">catch</span><span class="hl-1"> (</span><span class="hl-7">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-3">// Handle the error...</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>MetaMask will return an error if the account already exists or if the
+account object is invalid.</p>
+</li>
+<li><p>When an account is updated:</p>
+<pre><code class="language-typescript"><span class="hl-6">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">AccountUpdated</span><span class="hl-1">, { </span><span class="hl-7">account</span><span class="hl-1"> });</span><br/><span class="hl-1">  </span><span class="hl-3">// Update your snap&#39;s state...</span><br/><span class="hl-1">} </span><span class="hl-6">catch</span><span class="hl-1"> (</span><span class="hl-7">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-3">// Handle the error...</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>MetaMask will return an error if the account does not exist, if the
+account object is invalid, or if the account address changed.</p>
+</li>
+<li><p>When an account is deleted:</p>
+<pre><code class="language-typescript"><span class="hl-6">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">AccountDeleted</span><span class="hl-1">, {</span><br/><span class="hl-1">    </span><span class="hl-7">id:</span><span class="hl-1"> </span><span class="hl-7">account</span><span class="hl-1">.</span><span class="hl-7">id</span><span class="hl-1">,</span><br/><span class="hl-1">  });</span><br/><span class="hl-1">  </span><span class="hl-3">// Update your snap&#39;s state...</span><br/><span class="hl-1">} </span><span class="hl-6">catch</span><span class="hl-1"> (</span><span class="hl-7">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-3">// Handle the error...</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>The delete event is idempotent, so it is safe to emit it even if the
+account does not exist.</p>
+</li>
+<li><p>When a request is approved:</p>
+<pre><code class="language-typescript"><span class="hl-6">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">RequestApproved</span><span class="hl-1">, {</span><br/><span class="hl-1">    </span><span class="hl-7">id:</span><span class="hl-1"> </span><span class="hl-7">request</span><span class="hl-1">.</span><span class="hl-7">id</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-7">result</span><span class="hl-1">,</span><br/><span class="hl-1">  });</span><br/><span class="hl-1">  </span><span class="hl-3">// Update your snap&#39;s state...</span><br/><span class="hl-1">} </span><span class="hl-6">catch</span><span class="hl-1"> (</span><span class="hl-7">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-3">// Handle the error...</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>MetaMask will return an error if the request does not exist.</p>
+<blockquote>
+<p>[!NOTE]
+This only applies to Snaps that implement the <a href="./docs/architecture.md#transaction-flow">async
+flow</a>.</p>
+</blockquote>
+</li>
+<li><p>When a request is rejected:</p>
+<pre><code class="language-typescript"><span class="hl-6">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">RequestRejected</span><span class="hl-1">, {</span><br/><span class="hl-1">    </span><span class="hl-7">id:</span><span class="hl-1"> </span><span class="hl-7">request</span><span class="hl-1">.</span><span class="hl-7">id</span><span class="hl-1">,</span><br/><span class="hl-1">  });</span><br/><span class="hl-1">  </span><span class="hl-3">// Update your snap&#39;s state...</span><br/><span class="hl-1">} </span><span class="hl-6">catch</span><span class="hl-1"> (</span><span class="hl-7">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-3">// Handle the error...</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>MetaMask will return an error if the request does not exist.</p>
+<blockquote>
+<p>[!NOTE]
+This only applies to Snaps that implement the <a href="./docs/architecture.md#transaction-flow">async
+flow</a>.</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p><strong>Expose the Keyring API:</strong></p>
+<p>Then create a handler to expose the keyring methods to MetaMask and your dapp:</p>
+<pre><code class="language-typescript"><span class="hl-6">export</span><span class="hl-1"> </span><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-8">onKeyringRequest</span><span class="hl-1">: </span><span class="hl-2">OnKeyringRequestHandler</span><span class="hl-1"> = </span><span class="hl-0">async</span><span class="hl-1"> ({</span><br/><span class="hl-1">  </span><span class="hl-7">origin</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-7">request</span><span class="hl-1">,</span><br/><span class="hl-1">}) </span><span class="hl-0">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">// Your custom logic here...</span><br/><span class="hl-1">  </span><span class="hl-6">return</span><span class="hl-1"> </span><span class="hl-8">handleKeyringRequest</span><span class="hl-1">(</span><span class="hl-7">keyring</span><span class="hl-1">, </span><span class="hl-7">request</span><span class="hl-1">);</span><br/><span class="hl-1">};</span>
+</code></pre>
+</li>
+<li><p><strong>Call the keyring methods from your dapp:</strong></p>
+<p>Now you should be able to call your Keyring Snap from your dapp, for
+example:</p>
+<pre><code class="language-typescript"><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-9">client</span><span class="hl-1"> = </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-8">KeyringSnapRpcClient</span><span class="hl-1">(</span><span class="hl-7">snapId</span><span class="hl-1">, </span><span class="hl-7">window</span><span class="hl-1">.</span><span class="hl-7">ethereum</span><span class="hl-1">);</span><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-9">accounts</span><span class="hl-1"> = </span><span class="hl-6">await</span><span class="hl-1"> </span><span class="hl-7">client</span><span class="hl-1">.</span><span class="hl-8">listAccounts</span><span class="hl-1">();</span>
+</code></pre>
+</li>
+</ol>
 
-<a href="#in-a-snap" id="in-a-snap" style="color: inherit; text-decoration: none;">
-  <h3>In a snap</h3>
-</a>
-<p>Inside the snap, implement the <code>Keyring</code> API:</p>
-<pre><code class="language-typescript"><span class="hl-0">class</span><span class="hl-1"> </span><span class="hl-2">MySnapKeyring</span><span class="hl-1"> </span><span class="hl-0">implements</span><span class="hl-1"> </span><span class="hl-2">Keyring</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">// Implement the required methods.</span><br/><span class="hl-1">}</span>
-</code></pre>
-<p>Then create a handler that uses an instance of your keyring:</p>
-<pre><code class="language-typescript"><span class="hl-4">import</span><span class="hl-1"> { </span><span class="hl-5">keyringRpcDispatcher</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-6">&#39;@metamask/keyring-api&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-3">// Create a new MySnapKeyring instance</span><br/><span class="hl-5">keyring</span><span class="hl-1"> = </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-7">MySnapKeyring</span><span class="hl-1">(</span><span class="hl-5">keyringState</span><span class="hl-1">);</span><br/><span class="hl-3">// ...</span><br/><br/><span class="hl-3">// And wrap it in a handler</span><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-7">keyringHandler</span><span class="hl-1">: </span><span class="hl-2">OnRpcRequestHandler</span><span class="hl-1"> = </span><span class="hl-0">async</span><span class="hl-1"> ({ </span><span class="hl-5">request</span><span class="hl-1"> }) </span><span class="hl-0">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">// Load the keyring state if needed</span><br/><span class="hl-1">  </span><span class="hl-3">// ...</span><br/><span class="hl-1">  </span><span class="hl-4">return</span><span class="hl-1"> </span><span class="hl-4">await</span><span class="hl-1"> </span><span class="hl-7">keyringRpcDispatcher</span><span class="hl-1">(</span><span class="hl-5">keyring</span><span class="hl-1">, </span><span class="hl-5">request</span><span class="hl-1">);</span><br/><span class="hl-1">};</span>
-</code></pre>
-<p>Now expose this handler:</p>
-<pre><code class="language-typescript"><span class="hl-4">export</span><span class="hl-1"> </span><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-8">onRpcRequest</span><span class="hl-1">: </span><span class="hl-2">OnRpcRequestHandler</span><span class="hl-1"> = </span><span class="hl-5">keyringHandler</span><span class="hl-1">;</span>
-</code></pre>
-<p>Or chain it with other handlers:</p>
-<pre><code class="language-typescript"><span class="hl-4">import</span><span class="hl-1"> { </span><span class="hl-5">chainHandlers</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-6">&#39;@metamask/keyring-api&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">export</span><span class="hl-1"> </span><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-8">onRpcRequest</span><span class="hl-1">: </span><span class="hl-2">OnRpcRequestHandler</span><span class="hl-1"> = </span><span class="hl-7">chainHandlers</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-3">// Other handlers...</span><br/><span class="hl-1">  </span><span class="hl-5">keyringHandler</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">// Other handlers...</span><br/><span class="hl-1">);</span>
-</code></pre>
-
-<a href="#migrating-from-api-01x-to-02x" id="migrating-from-api-01x-to-02x" style="color: inherit; text-decoration: none;">
-  <h3>Migrating from API 0.1.x to 0.2.x</h3>
+<a href="#migrating-from-01x-to-02x" id="migrating-from-01x-to-02x" style="color: inherit; text-decoration: none;">
+  <h2>Migrating from 0.1.x to 0.2.x</h2>
 </a>
 <p>The following changes were made to the API, which may require changes to your
 implementation:</p>
 <ul>
 <li><p>In the <code>KeyringAccount</code> type, the <code>supportedMethods</code> property was renamed to
 <code>methods</code>.</p>
-<pre><code class="language-diff"><span class="hl-6">- supportedMethods: string[];</span><br/><span class="hl-9">+ methods: string[];</span>
+<pre><code class="language-diff"><span class="hl-5">- supportedMethods: string[];</span><br/><span class="hl-10">+ methods: string[];</span>
 </code></pre>
 </li>
 <li><p>In the <code>KeyringAccount</code> type, the <code>name</code> property was removed.</p>
-<pre><code class="language-diff"><span class="hl-6">- name: string;</span>
+<pre><code class="language-diff"><span class="hl-5">- name: string;</span>
 </code></pre>
 </li>
 <li><p>In the <code>KeyringAccount</code> type, add the <code>options</code> property can no longer be
 null.</p>
-<pre><code class="language-diff"><span class="hl-6">- options: Record&lt;string, unknown&gt; | null;</span><br/><span class="hl-9">+ options: Record&lt;string, unknown&gt;;</span>
+<pre><code class="language-diff"><span class="hl-5">- options: Record&lt;string, unknown&gt; | null;</span><br/><span class="hl-10">+ options: Record&lt;string, unknown&gt;;</span>
 </code></pre>
 </li>
 <li><p>In the <code>KeyringAccount</code> type, the <code>eth_signTypedData</code> method was removed from
 the list of available methods.</p>
-<pre><code class="language-diff"><span class="hl-6">- &#39;eth_signTypedData&#39;,</span>
+<pre><code class="language-diff"><span class="hl-5">- &#39;eth_signTypedData&#39;,</span>
 </code></pre>
 <p>It was an alias for the <code>eth_signTypedData_v1</code> method, which is still
 present.</p>
 </li>
 <li><p>Snaps should now use the <code>emitSnapKeyringEvent()</code> helper function to notify
 MetaMask about events:</p>
-<pre><code class="language-ts"><span class="hl-3">// Emit an event to indicate that an account was created.</span><br/><span class="hl-7">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-5">snap</span><span class="hl-1">, </span><span class="hl-5">KeyringEvent</span><span class="hl-1">.</span><span class="hl-5">AccountCreated</span><span class="hl-1">, { </span><span class="hl-5">account</span><span class="hl-1"> });</span><br/><br/><span class="hl-3">// Emit an event to indicate that an account was updated.</span><br/><span class="hl-7">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-5">snap</span><span class="hl-1">, </span><span class="hl-5">KeyringEvent</span><span class="hl-1">.</span><span class="hl-5">AccountUpdated</span><span class="hl-1">, { </span><span class="hl-5">account</span><span class="hl-1"> });</span><br/><br/><span class="hl-3">// Emit an event to indicate that an account was deleted.</span><br/><span class="hl-7">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-5">snap</span><span class="hl-1">, </span><span class="hl-5">KeyringEvent</span><span class="hl-1">.</span><span class="hl-5">AccountDeleted</span><span class="hl-1">, { </span><span class="hl-5">id:</span><span class="hl-1"> </span><span class="hl-5">account</span><span class="hl-1">.</span><span class="hl-5">id</span><span class="hl-1"> });</span><br/><br/><span class="hl-3">// Emit an event to indicate that a request was approved.</span><br/><span class="hl-7">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-5">snap</span><span class="hl-1">, </span><span class="hl-5">KeyringEvent</span><span class="hl-1">.</span><span class="hl-5">RequestApproved</span><span class="hl-1">, {</span><br/><span class="hl-1">  </span><span class="hl-5">id:</span><span class="hl-1"> </span><span class="hl-5">request</span><span class="hl-1">.</span><span class="hl-5">id</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-5">result</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-3">// Emit an event to indicate that a request was rejected.</span><br/><span class="hl-7">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-5">snap</span><span class="hl-1">, </span><span class="hl-5">KeyringEvent</span><span class="hl-1">.</span><span class="hl-5">RequestRejected</span><span class="hl-1">, { </span><span class="hl-5">id:</span><span class="hl-1"> </span><span class="hl-5">request</span><span class="hl-1">.</span><span class="hl-5">id</span><span class="hl-1"> });</span>
+<pre><code class="language-ts"><span class="hl-3">// Emit an event to indicate that an account was created.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">AccountCreated</span><span class="hl-1">, { </span><span class="hl-7">account</span><span class="hl-1"> });</span><br/><br/><span class="hl-3">// Emit an event to indicate that an account was updated.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">AccountUpdated</span><span class="hl-1">, { </span><span class="hl-7">account</span><span class="hl-1"> });</span><br/><br/><span class="hl-3">// Emit an event to indicate that an account was deleted.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">AccountDeleted</span><span class="hl-1">, { </span><span class="hl-7">id:</span><span class="hl-1"> </span><span class="hl-7">account</span><span class="hl-1">.</span><span class="hl-7">id</span><span class="hl-1"> });</span><br/><br/><span class="hl-3">// Emit an event to indicate that a request was approved.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">RequestApproved</span><span class="hl-1">, {</span><br/><span class="hl-1">  </span><span class="hl-7">id:</span><span class="hl-1"> </span><span class="hl-7">request</span><span class="hl-1">.</span><span class="hl-7">id</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-7">result</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-3">// Emit an event to indicate that a request was rejected.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">RequestRejected</span><span class="hl-1">, { </span><span class="hl-7">id:</span><span class="hl-1"> </span><span class="hl-7">request</span><span class="hl-1">.</span><span class="hl-7">id</span><span class="hl-1"> });</span>
 </code></pre>
 <blockquote>
 <p>[!IMPORTANT]
@@ -112,15 +203,31 @@ flow</a> can now return an optional
 <code>redirect</code> property that contains an URL and a message to be displayed to the
 user. This will, in a future release of MetaMask, be used to inform the user
 on how to continue the transaction flow.</p>
-<pre><code class="language-ts"><span class="hl-4">return</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">pending:</span><span class="hl-1"> </span><span class="hl-0">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-5">redirect:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-5">message:</span><span class="hl-1"> </span><span class="hl-6">&#39;Please go to the Snap Dapp to finish sining the transaction.&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-5">url:</span><span class="hl-1"> </span><span class="hl-6">&#39;https://example.com/sign?tx=1234&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">};</span>
+<pre><code class="language-ts"><span class="hl-6">return</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-7">pending:</span><span class="hl-1"> </span><span class="hl-0">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-7">redirect:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-7">message:</span><span class="hl-1"> </span><span class="hl-5">&#39;Please go to the Snap Dapp to finish sining the transaction.&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-7">url:</span><span class="hl-1"> </span><span class="hl-5">&#39;https://example.com/sign?tx=1234&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">};</span>
 </code></pre>
 </li>
 <li><p>The <code>buildHandlersChain</code> helper function was removed from the API. Instead,
 you must implement your own handler. For example:</p>
-<pre><code class="language-ts"><span class="hl-4">export</span><span class="hl-1"> </span><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-7">onRpcRequest</span><span class="hl-1">: </span><span class="hl-2">OnRpcRequestHandler</span><span class="hl-1"> = </span><span class="hl-0">async</span><span class="hl-1"> ({</span><br/><span class="hl-1">  </span><span class="hl-5">request</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-5">origin</span><span class="hl-1">,</span><br/><span class="hl-1">}) </span><span class="hl-0">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">// Check if origin is allowed to call the method.</span><br/><span class="hl-1">  </span><span class="hl-4">if</span><span class="hl-1"> (!</span><span class="hl-7">hasPermission</span><span class="hl-1">(</span><span class="hl-5">origin</span><span class="hl-1">, </span><span class="hl-5">request</span><span class="hl-1">.</span><span class="hl-5">method</span><span class="hl-1">)) {</span><br/><span class="hl-1">    </span><span class="hl-4">throw</span><span class="hl-1"> </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-7">Error</span><span class="hl-1">(</span><br/><span class="hl-1">      </span><span class="hl-6">`Origin &#39;</span><span class="hl-0">${</span><span class="hl-5">origin</span><span class="hl-0">}</span><span class="hl-6">&#39; is not allowed to call &#39;</span><span class="hl-0">${</span><span class="hl-5">request</span><span class="hl-10">.</span><span class="hl-5">method</span><span class="hl-0">}</span><span class="hl-6">&#39;`</span><span class="hl-1">,</span><br/><span class="hl-1">    );</span><br/><span class="hl-1">  }</span><br/><br/><span class="hl-1">  </span><span class="hl-3">// Dispatch the request to the keyring.</span><br/><span class="hl-1">  </span><span class="hl-4">return</span><span class="hl-1"> </span><span class="hl-7">handleKeyringRequest</span><span class="hl-1">(</span><span class="hl-5">keyring</span><span class="hl-1">, </span><span class="hl-5">request</span><span class="hl-1">);</span><br/><span class="hl-1">};</span>
+<pre><code class="language-ts"><span class="hl-6">export</span><span class="hl-1"> </span><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-8">onRpcRequest</span><span class="hl-1">: </span><span class="hl-2">OnRpcRequestHandler</span><span class="hl-1"> = </span><span class="hl-0">async</span><span class="hl-1"> ({</span><br/><span class="hl-1">  </span><span class="hl-7">request</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-7">origin</span><span class="hl-1">,</span><br/><span class="hl-1">}) </span><span class="hl-0">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">// Check if origin is allowed to call the method.</span><br/><span class="hl-1">  </span><span class="hl-6">if</span><span class="hl-1"> (!</span><span class="hl-8">hasPermission</span><span class="hl-1">(</span><span class="hl-7">origin</span><span class="hl-1">, </span><span class="hl-7">request</span><span class="hl-1">.</span><span class="hl-7">method</span><span class="hl-1">)) {</span><br/><span class="hl-1">    </span><span class="hl-6">throw</span><span class="hl-1"> </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-8">Error</span><span class="hl-1">(</span><br/><span class="hl-1">      </span><span class="hl-5">`Origin &#39;</span><span class="hl-0">${</span><span class="hl-7">origin</span><span class="hl-0">}</span><span class="hl-5">&#39; is not allowed to call &#39;</span><span class="hl-0">${</span><span class="hl-7">request</span><span class="hl-11">.</span><span class="hl-7">method</span><span class="hl-0">}</span><span class="hl-5">&#39;`</span><span class="hl-1">,</span><br/><span class="hl-1">    );</span><br/><span class="hl-1">  }</span><br/><br/><span class="hl-1">  </span><span class="hl-3">// Dispatch the request to the keyring.</span><br/><span class="hl-1">  </span><span class="hl-6">return</span><span class="hl-1"> </span><span class="hl-8">handleKeyringRequest</span><span class="hl-1">(</span><span class="hl-7">keyring</span><span class="hl-1">, </span><span class="hl-7">request</span><span class="hl-1">);</span><br/><span class="hl-1">};</span>
 </code></pre>
 </li>
 </ul>
+
+<a href="#migrating-from-02x-to-1xx" id="migrating-from-02x-to-1xx" style="color: inherit; text-decoration: none;">
+  <h2>Migrating from 0.2.x to 1.x.x</h2>
+</a>
+<p>The following changes were made to the API, which may require changes to your
+implementation:</p>
+<ul>
+<li><p>Your Snap must expose the Keyring methods through the <code>onKeyringRequest</code>
+export instead of the <code>onRpcRequest</code> export.</p>
+</li>
+<li><p>Your Snap must request the new <code>endowment:keyring</code> endowment, and list any
+dapp that should be allowed to call the Keyring methods.</p>
+</li>
+</ul>
+<p>For more details about the changes, please refer to the <a href="./docs/security.md">security
+guidelines</a>.</p>
 
 <a href="#api" id="api" style="color: inherit; text-decoration: none;">
   <h2>API</h2>
