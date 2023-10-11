@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0]
+
+### Added
+
+- Add migration steps to 1.0.0 ([#149](https://github.com/MetaMask/keyring-api/pull/149)).
+- Add Account Snaps security guidelines ([#143](https://github.com/MetaMask/keyring-api/pull/143)).
+
+### Changed
+
+- Bump @metamask/rpc-errors from 6.0.0 to 6.1.0 ([#151](https://github.com/MetaMask/keyring-api/pull/151)).
+- Bump postcss from 8.4.24 to 8.4.31 ([#150](https://github.com/MetaMask/keyring-api/pull/150)).
+
 ## [1.0.0-rc.1]
 
 ### Added
@@ -136,7 +148,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v1.0.0-rc.1...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/MetaMask/keyring-api/compare/v1.0.0-rc.1...v1.0.0
 [1.0.0-rc.1]: https://github.com/MetaMask/keyring-api/compare/v0.2.7...v1.0.0-rc.1
 [0.2.7]: https://github.com/MetaMask/keyring-api/compare/v0.2.6...v0.2.7
 [0.2.6]: https://github.com/MetaMask/keyring-api/compare/v0.2.5...v0.2.6
