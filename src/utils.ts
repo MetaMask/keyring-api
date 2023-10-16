@@ -1,12 +1,15 @@
-import { assert, pattern, string } from 'superstruct';
+import { assert, define } from 'superstruct';
 import type { Struct } from 'superstruct';
+
+const UUID_V4_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
 
 /**
  * UUIDv4 struct.
  */
-export const UuidStruct = pattern(
-  string(),
-  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu,
+export const UuidStruct = define<string>(
+  'UuidV4',
+  (id: unknown): boolean => typeof id === 'string' && UUID_V4_REGEX.test(id),
 );
 
 /**

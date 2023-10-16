@@ -77,7 +77,7 @@ describe('keyringRpcDispatcher', () => {
     };
 
     await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
-      'At path: params.id -- Expected a string, but received: undefined',
+      'At path: params.id -- Expected a value of type `UuidV4`, but received: `undefined`',
     );
   });
 
