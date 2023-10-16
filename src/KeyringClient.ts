@@ -23,8 +23,8 @@ import {
   SubmitRequestResponseStruct,
   UpdateAccountResponseStruct,
 } from './internal/api';
+import { KeyringRpcMethod } from './internal/rpc';
 import type { JsonRpcRequest } from './JsonRpcRequest';
-import { KeyringRpcMethod } from './rpc-handler';
 import { strictMask } from './utils';
 
 export type Sender = {

@@ -1,11 +1,7 @@
 import type { Keyring } from './api';
+import { KeyringRpcMethod, isKeyringRpcMethod } from './internal/rpc';
 import type { JsonRpcRequest } from './JsonRpcRequest';
-import {
-  KeyringRpcMethod,
-  MethodNotSupportedError,
-  handleKeyringRequest,
-  isKeyringRpcMethod,
-} from './rpc-handler';
+import { MethodNotSupportedError, handleKeyringRequest } from './rpc-handler';
 
 describe('keyringRpcDispatcher', () => {
   const keyring = {
