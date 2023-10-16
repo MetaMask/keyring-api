@@ -255,13 +255,15 @@ describe('keyringRpcDispatcher', () => {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: 'keyring_getRequest',
-      params: { id: 'request_id' },
+      params: { id: '523713e3-f751-4a20-8788-c7a0ea92bef5' },
     };
 
     keyring.getRequest.mockResolvedValue('GetRequest result');
     const result = await handleKeyringRequest(keyring, request);
 
-    expect(keyring.getRequest).toHaveBeenCalledWith('request_id');
+    expect(keyring.getRequest).toHaveBeenCalledWith(
+      '523713e3-f751-4a20-8788-c7a0ea92bef5',
+    );
     expect(result).toBe('GetRequest result');
   });
 
@@ -270,7 +272,7 @@ describe('keyringRpcDispatcher', () => {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: 'keyring_getRequest',
-      params: { id: 'request_id' },
+      params: { id: '0cea396f-54e4-4fa9-bf33-8419da668add' },
     };
 
     const partialKeyring: Keyring = {
@@ -309,7 +311,10 @@ describe('keyringRpcDispatcher', () => {
   });
 
   it('should call keyring_approveRequest', async () => {
-    const payload = { id: 'request_id', data: { signature: '0x0123' } };
+    const payload = {
+      id: '59db4ff8-8eb3-4a75-8ef3-b80aff8fa780',
+      data: { signature: '0x0123' },
+    };
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
@@ -362,13 +367,15 @@ describe('keyringRpcDispatcher', () => {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
       method: 'keyring_rejectRequest',
-      params: { id: 'request_id' },
+      params: { id: 'e5efe6d2-b703-4740-baf5-eb0fc47ba4ad' },
     };
 
     keyring.rejectRequest.mockResolvedValue('RejectRequest result');
     const result = await handleKeyringRequest(keyring, request);
 
-    expect(keyring.rejectRequest).toHaveBeenCalledWith('request_id');
+    expect(keyring.rejectRequest).toHaveBeenCalledWith(
+      'e5efe6d2-b703-4740-baf5-eb0fc47ba4ad',
+    );
     expect(result).toBe('RejectRequest result');
   });
 
