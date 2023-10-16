@@ -345,15 +345,49 @@ describe('keyringRpcDispatcher', () => {
     );
   });
 
-  it('should fail to list requests with a non-UUIDv4 request ID', async () => {
+  it('calls the keyring with a non-UUIDv4 string request ID', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
-      id: 'invalid-id-string',
+      id: 'request-id',
       method: 'keyring_listRequests',
     };
 
+    keyring.listRequests.mockResolvedValue([]);
+    expect(await handleKeyringRequest(keyring, request)).toStrictEqual([]);
+  });
+
+  it('calls the keyring with a number request ID', async () => {
+    const request: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'keyring_listRequests',
+    };
+
+    keyring.listRequests.mockResolvedValue([]);
+    expect(await handleKeyringRequest(keyring, request)).toStrictEqual([]);
+  });
+
+  it('calls the keyring with a null request ID', async () => {
+    const request: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      id: null,
+      method: 'keyring_listRequests',
+    };
+
+    keyring.listRequests.mockResolvedValue([]);
+    expect(await handleKeyringRequest(keyring, request)).toStrictEqual([]);
+  });
+
+  it('fails to call the keyring with a boolean request ID', async () => {
+    const request: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      id: true as any,
+      method: 'keyring_listRequests',
+    };
+
+    keyring.listRequests.mockResolvedValue([]);
     await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
-      'At path: id -- Expected a string matching',
+      'At path: id -- Expected the value to satisfy a union of `string | number | literal`, but received: true',
     );
   });
 
