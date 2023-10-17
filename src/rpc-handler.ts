@@ -16,6 +16,7 @@ import {
   ListAccountsRequestStruct,
   ListRequestsRequestStruct,
 } from './internal/api';
+import { KeyringRpcMethod } from './internal/rpc';
 import type { JsonRpcRequest } from './JsonRpcRequest';
 import { JsonRpcRequestStruct } from './JsonRpcRequest';
 
@@ -26,21 +27,6 @@ export class MethodNotSupportedError extends Error {
   constructor(method: string) {
     super(`Method not supported: ${method}`);
   }
-}
-
-export enum KeyringRpcMethod {
-  ListAccounts = 'keyring_listAccounts',
-  GetAccount = 'keyring_getAccount',
-  CreateAccount = 'keyring_createAccount',
-  FilterAccountChains = 'keyring_filterAccountChains',
-  UpdateAccount = 'keyring_updateAccount',
-  DeleteAccount = 'keyring_deleteAccount',
-  ExportAccount = 'keyring_exportAccount',
-  ListRequests = 'keyring_listRequests',
-  GetRequest = 'keyring_getRequest',
-  SubmitRequest = 'keyring_submitRequest',
-  ApproveRequest = 'keyring_approveRequest',
-  RejectRequest = 'keyring_rejectRequest',
 }
 
 /**
@@ -141,14 +127,4 @@ export async function handleKeyringRequest(
       throw new MethodNotSupportedError(request.method);
     }
   }
-}
-
-/**
- * Check if a method is a keyring RPC method.
- *
- * @param method - Method to check.
- * @returns Whether the method is a keyring RPC method.
- */
-export function isKeyringRpcMethod(method: string): boolean {
-  return Object.values(KeyringRpcMethod).includes(method as KeyringRpcMethod);
 }
