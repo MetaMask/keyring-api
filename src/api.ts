@@ -1,9 +1,9 @@
 import type { Json } from '@metamask/utils';
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import { array, enums, literal, record, string, union } from 'superstruct';
+import { array, enums, record, string, union } from 'superstruct';
 
-import { exactOptional, object } from './superstruct';
+import { exactOptional, object, literal } from './superstruct';
 import { UuidStruct } from './utils';
 
 /**

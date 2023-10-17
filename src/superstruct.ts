@@ -1,5 +1,5 @@
 import type { Infer, Context } from 'superstruct';
-import { Struct, object as stObject } from 'superstruct';
+import { Struct, object as stObject, literal as stLiteral } from 'superstruct';
 import type {
   ObjectSchema,
   OmitBy,
@@ -100,4 +100,28 @@ export function exactOptional<Type, Schema>(
     refiner: (value, ctx) =>
       !hasOptional(ctx) || struct.refiner(value as Type, ctx),
   });
+}
+
+/**
+ * Wrap superstruct's literal values, but adding a type name to the struct if
+ * the constant is a string, number, boolean, undefined or null.
+ *
+ * @param constant - The literal value.
+ * @returns The struct representing the literal value.
+ */
+export function literal<Type>(constant: Type): Struct<Type, null> {
+  let name = 'literal';
+
+  if (['string', 'number', 'boolean'].includes(typeof constant)) {
+    name = JSON.stringify(constant);
+  } else if (constant === null) {
+    name = 'null';
+  } else if (constant === undefined) {
+    name = 'undefined';
+  }
+
+  const struct = stLiteral(constant);
+  struct.type = name;
+
+  return struct;
 }

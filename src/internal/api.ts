@@ -1,6 +1,6 @@
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import { array, literal, object, record, string } from 'superstruct';
+import { array, object, record, string } from 'superstruct';
 
 import {
   KeyringAccountDataStruct,
@@ -8,6 +8,7 @@ import {
   KeyringRequestStruct,
   KeyringResponseStruct,
 } from '../api';
+import { literal } from '../superstruct';
 import { UuidStruct } from '../utils';
 
 const CommonHeader = {

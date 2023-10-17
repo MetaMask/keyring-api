@@ -1,6 +1,6 @@
-import { is, literal, max, number, string, union } from 'superstruct';
+import { is, max, number, string, union } from 'superstruct';
 
-import { exactOptional, object } from '.';
+import { exactOptional, literal, object } from '.';
 
 describe('superstruct', () => {
   describe('exactOptional', () => {
@@ -67,6 +67,66 @@ describe('superstruct', () => {
       expect(is({ foo: 0 }, struct)).toBe(true);
       expect(is({ foo: -1 }, struct)).toBe(true);
       expect(is({ foo: 1 }, struct)).toBe(false);
+    });
+  });
+
+  describe('literal', () => {
+    it('should support string literals', () => {
+      const struct = literal('foo');
+
+      expect(is('foo', struct)).toBe(true);
+      expect(is('bar', struct)).toBe(false);
+    });
+
+    it('should support boolean literals', () => {
+      const struct = literal(false);
+
+      expect(is(true, struct)).toBe(false);
+      expect(is(false, struct)).toBe(true);
+    });
+
+    it('should support number literals', () => {
+      const struct = literal(0);
+
+      expect(is(0, struct)).toBe(true);
+      expect(is(1, struct)).toBe(false);
+    });
+
+    it('should support null literals', () => {
+      const struct = literal(null);
+
+      expect(is(null, struct)).toBe(true);
+      expect(is(undefined, struct)).toBe(false);
+    });
+
+    it('should have the string value as type name', () => {
+      const struct = literal('foo');
+      expect(struct.type).toBe('"foo"');
+    });
+
+    it('should have the number value as type name', () => {
+      const struct = literal(0);
+      expect(struct.type).toBe('0');
+    });
+
+    it('should have the boolean value as type name', () => {
+      const struct = literal(true);
+      expect(struct.type).toBe('true');
+    });
+
+    it('should have undefined as type name', () => {
+      const struct = literal(undefined);
+      expect(struct.type).toBe('undefined');
+    });
+
+    it('should have null as type name', () => {
+      const struct = literal(null);
+      expect(struct.type).toBe('null');
+    });
+
+    it('should have literal as type name', () => {
+      const struct = literal({});
+      expect(struct.type).toBe('literal');
     });
   });
 });

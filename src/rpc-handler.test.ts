@@ -23,6 +23,18 @@ describe('keyringRpcDispatcher', () => {
     jest.clearAllMocks();
   });
 
+  it('should throw if the jsonrpc version is invalid', async () => {
+    const request = {
+      jsonrpc: '1.0',
+      id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
+      method: 'keyring_listAccounts',
+    };
+
+    await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
+      'At path: jsonrpc -- Expected the literal `"2.0"`, but received: "1.0"',
+    );
+  });
+
   it('should call keyring_listAccounts', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',

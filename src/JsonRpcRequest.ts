@@ -1,8 +1,8 @@
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import { array, literal, number, record, string, union } from 'superstruct';
+import { array, number, record, string, union } from 'superstruct';
 
-import { exactOptional, object } from './superstruct';
+import { exactOptional, literal, object } from './superstruct';
 
 export const JsonRpcRequestStruct = object({
   jsonrpc: literal('2.0'),
