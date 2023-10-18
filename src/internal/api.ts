@@ -43,7 +43,7 @@ export const GetAccountRequestStruct = object({
   ...CommonHeader,
   method: literal('keyring_getAccount'),
   params: object({
-    id: string(),
+    id: UuidStruct,
   }),
 });
 
@@ -77,7 +77,7 @@ export const FilterAccountChainsStruct = object({
   ...CommonHeader,
   method: literal('keyring_filterAccountChains'),
   params: object({
-    id: string(),
+    id: UuidStruct,
     chains: array(string()),
   }),
 });
@@ -116,7 +116,7 @@ export const DeleteAccountRequestStruct = object({
   ...CommonHeader,
   method: literal('keyring_deleteAccount'),
   params: object({
-    id: string(),
+    id: UuidStruct,
   }),
 });
 
@@ -133,7 +133,7 @@ export const ExportAccountRequestStruct = object({
   ...CommonHeader,
   method: literal('keyring_exportAccount'),
   params: object({
-    id: string(),
+    id: UuidStruct,
   }),
 });
 
@@ -164,7 +164,7 @@ export const GetRequestRequestStruct = object({
   ...CommonHeader,
   method: literal('keyring_getRequest'),
   params: object({
-    id: string(),
+    id: UuidStruct,
   }),
 });
 
@@ -196,7 +196,7 @@ export const ApproveRequestRequestStruct = object({
   ...CommonHeader,
   method: literal('keyring_approveRequest'),
   params: object({
-    id: string(),
+    id: UuidStruct,
     data: record(string(), JsonStruct),
   }),
 });
@@ -214,7 +214,7 @@ export const RejectRequestRequestStruct = object({
   ...CommonHeader,
   method: literal('keyring_rejectRequest'),
   params: object({
-    id: string(),
+    id: UuidStruct,
   }),
 });
 
