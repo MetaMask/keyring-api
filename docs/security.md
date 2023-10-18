@@ -155,6 +155,33 @@ can lead to multiple security vulnerabilities. For example, secret information
 may be logged to the console, or a security check may be bypassed by a
 malicious dapp.
 
+### Sanitize errors to remove sensitive information
+
+Ensure that all errors returned by your Snap are sanitized. This mistake can
+lead to secrets being exposed to dapps or MetaMask through error messages.
+
+**:x: DO NOT DO THIS:**
+
+```ts
+// !!! DO NOT DO THIS !!!
+//
+// If `inputSecretValue` contains invalid hexadecimal characters, its value
+// will be added to the error thrown by `toBuffer`.
+const privateKey = toBuffer(inputSecretValue);
+// Use `privateKey` here ...
+```
+
+**:white_check_mark: DO THIS INSTEAD:**
+
+```ts
+try {
+  const privateKey = toBuffer(inputSecretValue);
+  // Use `privateKey` here ...
+} catch (error) {
+  throw new Error('Invalid private key');
+}
+```
+
 ### Don't expose Keyring methods through the `onRpcRequest` export
 
 The `onRpcRequest` export is intended to be a general-purpose export and thus
