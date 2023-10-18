@@ -1,7 +1,7 @@
 import type { Keyring } from './api';
 import { KeyringRpcMethod, isKeyringRpcMethod } from './internal/rpc';
 import type { JsonRpcRequest } from './JsonRpcRequest';
-import { MethodNotSupportedError, handleKeyringRequest } from './rpc-handler';
+import { handleKeyringRequest } from './rpc-handler';
 
 describe('keyringRpcDispatcher', () => {
   const keyring = {
@@ -197,7 +197,7 @@ describe('keyringRpcDispatcher', () => {
     expect(result).toStrictEqual(expected);
   });
 
-  it('should throw MethodNotSupportedError if exportAccount is not implemented', async () => {
+  it('should throw an error if exportAccount is not implemented', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
@@ -211,7 +211,7 @@ describe('keyringRpcDispatcher', () => {
     delete partialKeyring.exportAccount;
 
     await expect(handleKeyringRequest(partialKeyring, request)).rejects.toThrow(
-      MethodNotSupportedError,
+      'Method not supported: keyring_exportAccount',
     );
   });
 
@@ -229,7 +229,7 @@ describe('keyringRpcDispatcher', () => {
     expect(result).toBe('ListRequests result');
   });
 
-  it('should throw MethodNotSupportedError if listRequests is not implemented', async () => {
+  it('should throw an error if listRequests is not implemented', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
@@ -242,7 +242,7 @@ describe('keyringRpcDispatcher', () => {
     delete partialKeyring.listRequests;
 
     await expect(handleKeyringRequest(partialKeyring, request)).rejects.toThrow(
-      MethodNotSupportedError,
+      'Method not supported: keyring_listRequests',
     );
   });
 
@@ -263,7 +263,7 @@ describe('keyringRpcDispatcher', () => {
     expect(result).toBe('GetRequest result');
   });
 
-  it('should throw MethodNotSupportedError if getRequest is not implemented', async () => {
+  it('should throw an error if getRequest is not implemented', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
@@ -277,7 +277,7 @@ describe('keyringRpcDispatcher', () => {
     delete partialKeyring.getRequest;
 
     await expect(handleKeyringRequest(partialKeyring, request)).rejects.toThrow(
-      MethodNotSupportedError,
+      'Method not supported: keyring_getRequest',
     );
   });
 
@@ -328,7 +328,7 @@ describe('keyringRpcDispatcher', () => {
     expect(result).toBe('ApproveRequest result');
   });
 
-  it('should throw MethodNotSupportedError if approveRequest is not implemented', async () => {
+  it('should throw an error if approveRequest is not implemented', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
@@ -342,7 +342,7 @@ describe('keyringRpcDispatcher', () => {
     delete partialKeyring.approveRequest;
 
     await expect(handleKeyringRequest(partialKeyring, request)).rejects.toThrow(
-      MethodNotSupportedError,
+      'Method not supported: keyring_approveRequest',
     );
   });
 
@@ -409,7 +409,7 @@ describe('keyringRpcDispatcher', () => {
     expect(result).toBe('RejectRequest result');
   });
 
-  it('should throw MethodNotSupportedError if rejectRequest is not implemented', async () => {
+  it('should throw an error if rejectRequest is not implemented', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
@@ -423,11 +423,11 @@ describe('keyringRpcDispatcher', () => {
     delete partialKeyring.rejectRequest;
 
     await expect(handleKeyringRequest(partialKeyring, request)).rejects.toThrow(
-      MethodNotSupportedError,
+      'Method not supported: keyring_rejectRequest',
     );
   });
 
-  it('should throw MethodNotSupportedError for an unknown method', async () => {
+  it('should throw an error for an unknown method', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
@@ -435,7 +435,22 @@ describe('keyringRpcDispatcher', () => {
     };
 
     await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
-      MethodNotSupportedError,
+      'Method not supported: unknown_method',
+    );
+  });
+
+  it('should throw an "unknown error" if the error message is not a string', async () => {
+    const request: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      id: '80c25a6b-4a76-44f4-88c5-7b3b76f72a74',
+      method: 'keyring_listAccounts',
+    };
+
+    const error = new Error();
+    error.message = 1 as unknown as string;
+    keyring.listAccounts.mockRejectedValue(error);
+    await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
+      'An unknown error occurred while handling the keyring request',
     );
   });
 });
