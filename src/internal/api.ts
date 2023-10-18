@@ -16,6 +16,7 @@ import {
   KeyringRequestStruct,
   KeyringResponseStruct,
 } from '../api';
+import { UuidStruct } from '../utils';
 
 const CommonHeader = {
   jsonrpc: literal('2.0'),
