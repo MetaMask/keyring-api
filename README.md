@@ -1,7 +1,5 @@
 # MetaMask Keyring API
 
-> This TypeScript module is maintained in the style of the MetaMask team.
-
 This TypeScript module simplifies the integration of Snaps with MetaMask using
 the Keyring API.
 
