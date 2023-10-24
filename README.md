@@ -35,7 +35,12 @@ or
 
 ## Keyring Snaps
 
-Starting with MetaMask 11.5, Snaps can implement the Keyring API. This allows
+> [!NOTE]
+> To test your Snap, you will need MetaMask 11.4 or later. You can also build
+> MetaMask from [source](https://github.com/MetaMask/metamask-extension)
+> from the `develop` branch.
+
+Starting with MetaMask 11.4, Snaps can implement the Keyring API. This allows
 users to manage their accounts in a more flexible way, and enables developers
 to build new types of accounts.
 
@@ -46,7 +51,7 @@ to build new types of accounts.
 
 Follow these steps to implement the Keyring API in your Snap. Please note that
 these instruction assume that you are already familiar with the process of
-[developing a Snap](https://docs.metamask.io/).
+[developing a Snap](https://docs.metamask.io/snaps/).
 
 1. **Implement the Keyring API:**
 
@@ -58,7 +63,7 @@ these instruction assume that you are already familiar with the process of
    }
    ```
 
-   > [!WARNING]
+   > [!IMPORTANT]
    > Ensure that your keyring implements the [methods called by
    > MetaMask](./docs/security.md#limit-the-methods-exposed-to-dapps),
    > otherwise some features may not work.
