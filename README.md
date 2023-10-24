@@ -35,18 +35,16 @@ or
 
 ## Keyring Snaps
 
-> [!NOTE]
-> To test your Snap, you will need MetaMask 11.4 or later. You can also build
-> MetaMask from [source](https://github.com/MetaMask/metamask-extension)
-> from the `develop` branch.
+> **:pencil: Note:** To test your Snap, you will need MetaMask 11.4 or later.
+> You can also build MetaMask from [source][extension-repo] from the `develop`
+> branch.
 
 Starting with MetaMask 11.4, Snaps can implement the Keyring API. This allows
 users to manage their accounts in a more flexible way, and enables developers
 to build new types of accounts.
 
-> [!IMPORTANT]
-> Before implementing your Snap, please make sure to read the [security
-> recommendations](./docs/security.md) and the [architecture
+> **:point_up: Important**: Before implementing your Snap, please make sure to read the
+> [security recommendations](./docs/security.md) and the [architecture
 > document](./docs/architecture.md).
 
 Follow these steps to implement the Keyring API in your Snap. Please note that
@@ -63,10 +61,9 @@ these instruction assume that you are already familiar with the process of
    }
    ```
 
-   > [!IMPORTANT]
-   > Ensure that your keyring implements the [methods called by
-   > MetaMask](./docs/security.md#limit-the-methods-exposed-to-dapps),
-   > otherwise some features may not work.
+   > **:point_up: Important**: Ensure that your keyring implements the [methods
+   > called by MetaMask][exposed-methods], otherwise some features may not
+   > work.
 
 2. **Handle requests submitted by MetaMask:**
 
@@ -180,8 +177,7 @@ these instruction assume that you are already familiar with the process of
 
       MetaMask will return an error if the request does not exist.
 
-      > [!NOTE]
-      > This only applies to Snaps that implement the [async
+      > **:pencil: Note:** This only applies to Snaps that implement the [async
       > flow](./docs/architecture.md#transaction-flow).
 
    5. When a request is rejected:
@@ -199,8 +195,7 @@ these instruction assume that you are already familiar with the process of
 
       MetaMask will return an error if the request does not exist.
 
-      > [!NOTE]
-      > This only applies to Snaps that implement the [async
+      > **:pencil: Note:** This only applies to Snaps that implement the [async
       > flow](./docs/architecture.md#transaction-flow).
 
 4. **Expose the Keyring API:**
@@ -287,9 +282,9 @@ implementation:
   emitSnapKeyringEvent(snap, KeyringEvent.RequestRejected, { id: request.id });
   ```
 
-  > [!IMPORTANT]
-  > For all events above, MetaMask may return an error indicating that the
-  > event was not handled, possibly because it contains invalid arguments.
+  > **:point_up: Important**: For all events above, MetaMask may return an error
+  > indicating that the event was not handled, possibly because it contains
+  > invalid arguments.
 
 - Keyrings that implement the [async transaction
   flow](./docs/architecture.md#transaction-flow) can now return an optional
@@ -400,3 +395,6 @@ The project follows the same release process as the other libraries in the MetaM
    - Wait for the `publish-release` GitHub Action workflow to finish. This should trigger a second job (`publish-npm`), which will wait for a run approval by the [`npm publishers`](https://github.com/orgs/MetaMask/teams/npm-publishers) team.
    - Approve the `publish-npm` job (or ask somebody on the npm publishers team to approve it for you).
    - Once the `publish-npm` job has finished, check npm to verify that it has been published.
+
+[extension-repo]: https://github.com/MetaMask/metamask-extension
+[exposed-methods]: ./docs/security.md#limit-the-methods-exposed-to-dapps
