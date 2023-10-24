@@ -14,22 +14,23 @@ Let's introduce some terminology used across the Keyring API:
 
 - **Keyring Snap**: A Snap that implements the Keyring API.
 
-- **Keyring request**: A request from MetaMask to a Keyring Snap to perform an
+- **Keyring request**: A request from MetaMask to a keyring Snap to perform an
   action on, or using, a keyring account. It wraps the original request sent by
   the dapp and adds some metadata to it.
 
-## Components diagram
+## System context diagram
 
-In most use cases, we will encounter the following components when interacting
-with an account managed by a Keyring Snap:
+In most use cases, we will encounter the following systems when interacting
+with an account managed by a keyring Snap:
 
 ```mermaid
 graph TD
-  User -->|Starts a request| Dapp
-  Dapp -->|Submits a request| MetaMask
-  MetaMask -->|Submits requests<br/>and manages accounts| Snap
-  Site[Snap Dapp] -->|Manages requests<br/>and accounts| Snap
-  User -.->|Uses for Snap-specific logic| Site
+  User -->|Starts requests| Dapp
+  Dapp -->|Submits requests| MetaMask
+  MetaMask -->|Submits requests and<br/>manages accounts| Snap
+  Snap -->|Notifies about account<br/>and request events| MetaMask
+  Site[Snap Dapp] -..->|Manages requests<br/>and accounts| Snap
+  User -->|Uses for Snap-specific logic| Site
 ```
 
 - **User**: The web3 user interacting with the Snap, the dapp, and MetaMask.
@@ -38,18 +39,18 @@ graph TD
   on an account.
 
 - **MetaMask**: The web3 provider that dapps connect to. It routes requests to
-  the Keyring Snaps and lets the user perform some level of account management.
+  the keyring Snaps and lets the user perform some level of account management.
 
 - **Snap**: A Snap that implements the Keyring API to manage the user's
   accounts, and to handle requests that use these accounts.
 
 - **Snap Dapp**: The Snap's UI component that allows the user to interact with
-  the Snap to perform custom operations on accounts and requests.
+  the Snap to manage accounts and requests.
 
 ## Account creation
 
 The account creation flow is the initial process that a user will encounter
-when using a Keyring Snap. It can be triggered by the "Add Snap account" button
+when using a keyring Snap. It can be triggered by the "Add Snap account" button
 in the accounts list or by the Snap dapp.
 
 ```mermaid
@@ -89,13 +90,13 @@ Site -->>- User: Done
 
 The Keyring API supports two different flows for signing transactions:
 
-- **Asynchronous**: MetaMask sends a keyring request to the Keyring Snap, and
-  the Keyring Snap responds with a `{ pending: true, redirect? }` response
+- **Asynchronous**: MetaMask sends a keyring request to the keyring Snap, and
+  the keyring Snap responds with a `{ pending: true, redirect? }` response
   to indicate that the keyring request will be handled asynchronously. This
   response can optionally contain a `redirect` URL that MetaMask will open in a
-  new tab to allow the user to interact with the Keyring Snap dapp.
+  new tab to allow the user to interact with the keyring Snap dapp.
 
-  Once the Keyring Snap has completed the request, it sends a notification to
+  Once the keyring Snap has completed the request, it sends a notification to
   MetaMask with the result of the request.
 
   ```mermaid
@@ -143,8 +144,8 @@ The Keyring API supports two different flows for signing transactions:
   Dapp -->>- User: Done
   ```
 
-- **Synchronous**: MetaMask sends a keyring request to the Keyring Snap, and
-  the Keyring Snap responds with a `{ pending: false, result }` response that
+- **Synchronous**: MetaMask sends a keyring request to the keyring Snap, and
+  the keyring Snap responds with a `{ pending: false, result }` response that
   contains the result of the request.
 
   ```mermaid
