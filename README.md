@@ -41,8 +41,8 @@ Starting with MetaMask 11.4, Snaps can implement the Keyring API. This allows
 users to manage their accounts in a more flexible way, and enables developers
 to build new types of accounts.
 
-> **:point_up: Important**: Before implementing your Snap, please make sure to read the
-> [security recommendations](./docs/security.md) and the [architecture
+> **:point_up: Important**: Before implementing your Snap, please make sure to
+> read the [security recommendations](./docs/security.md) and the [architecture
 > document](./docs/architecture.md).
 
 Follow these steps to implement the Keyring API in your Snap. Please note that
