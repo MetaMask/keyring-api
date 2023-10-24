@@ -53,28 +53,31 @@ validating data, and handling various request types from dapps and MetaMask.</p>
 <a href="#keyring-snaps" id="keyring-snaps" style="color: inherit; text-decoration: none;">
   <h2>Keyring Snaps</h2>
 </a>
-<p>Starting with MetaMask 11.5, Snaps can implement the Keyring API. This allows
+<blockquote>
+<p><strong>:pencil: Note:</strong> To test your Snap, you will need MetaMask 11.4 or later.
+You can also build MetaMask from <a href="https://github.com/MetaMask/metamask-extension">source</a> from the <code>develop</code>
+branch.</p>
+</blockquote>
+<p>Starting with MetaMask 11.4, Snaps can implement the Keyring API. This allows
 users to manage their accounts in a more flexible way, and enables developers
 to build new types of accounts.</p>
 <blockquote>
-<p>[!IMPORTANT]
-Before implementing your Snap, please make sure to read the <a href="./docs/security.md">security
-recommendations</a> and the <a href="./docs/architecture.md">architecture
+<p><strong>:point_up: Important</strong>: Before implementing your Snap, please make sure to read the
+<a href="./docs/security.md">security recommendations</a> and the <a href="./docs/architecture.md">architecture
 document</a>.</p>
 </blockquote>
 <p>Follow these steps to implement the Keyring API in your Snap. Please note that
 these instruction assume that you are already familiar with the process of
-<a href="https://docs.metamask.io/">developing a Snap</a>.</p>
+<a href="https://docs.metamask.io/snaps/">developing a Snap</a>.</p>
 <ol>
 <li><p><strong>Implement the Keyring API:</strong></p>
 <p>Inside your Snap, implement the <code>Keyring</code> API:</p>
 <pre><code class="language-typescript"><span class="hl-0">class</span><span class="hl-1"> </span><span class="hl-2">MySnapKeyring</span><span class="hl-1"> </span><span class="hl-0">implements</span><span class="hl-1"> </span><span class="hl-2">Keyring</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">// Implement the required methods here...</span><br/><span class="hl-1">}</span>
 </code></pre>
 <blockquote>
-<p>[!WARNING]
-Ensure that your keyring implements the <a href="./docs/security.md#limit-the-methods-exposed-to-dapps">methods called by
-MetaMask</a>,
-otherwise some features may not work.</p>
+<p><strong>:point_up: Important</strong>: Ensure that your keyring implements the <a href="./docs/security.md#limit-the-methods-exposed-to-dapps">methods
+called by MetaMask</a>, otherwise some features may not
+work.</p>
 </blockquote>
 </li>
 <li><p><strong>Handle requests submitted by MetaMask:</strong></p>
@@ -131,8 +134,7 @@ account does not exist.</p>
 </code></pre>
 <p>MetaMask will return an error if the request does not exist.</p>
 <blockquote>
-<p>[!NOTE]
-This only applies to Snaps that implement the <a href="./docs/architecture.md#transaction-flow">async
+<p><strong>:pencil: Note:</strong> This only applies to Snaps that implement the <a href="./docs/architecture.md#transaction-flow">async
 flow</a>.</p>
 </blockquote>
 </li>
@@ -141,8 +143,7 @@ flow</a>.</p>
 </code></pre>
 <p>MetaMask will return an error if the request does not exist.</p>
 <blockquote>
-<p>[!NOTE]
-This only applies to Snaps that implement the <a href="./docs/architecture.md#transaction-flow">async
+<p><strong>:pencil: Note:</strong> This only applies to Snaps that implement the <a href="./docs/architecture.md#transaction-flow">async
 flow</a>.</p>
 </blockquote>
 </li>
@@ -193,9 +194,9 @@ MetaMask about events:</p>
 <pre><code class="language-ts"><span class="hl-3">// Emit an event to indicate that an account was created.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">AccountCreated</span><span class="hl-1">, { </span><span class="hl-7">account</span><span class="hl-1"> });</span><br/><br/><span class="hl-3">// Emit an event to indicate that an account was updated.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">AccountUpdated</span><span class="hl-1">, { </span><span class="hl-7">account</span><span class="hl-1"> });</span><br/><br/><span class="hl-3">// Emit an event to indicate that an account was deleted.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">AccountDeleted</span><span class="hl-1">, { </span><span class="hl-7">id:</span><span class="hl-1"> </span><span class="hl-7">account</span><span class="hl-1">.</span><span class="hl-7">id</span><span class="hl-1"> });</span><br/><br/><span class="hl-3">// Emit an event to indicate that a request was approved.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">RequestApproved</span><span class="hl-1">, {</span><br/><span class="hl-1">  </span><span class="hl-7">id:</span><span class="hl-1"> </span><span class="hl-7">request</span><span class="hl-1">.</span><span class="hl-7">id</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-7">result</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-3">// Emit an event to indicate that a request was rejected.</span><br/><span class="hl-8">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-7">snap</span><span class="hl-1">, </span><span class="hl-7">KeyringEvent</span><span class="hl-1">.</span><span class="hl-7">RequestRejected</span><span class="hl-1">, { </span><span class="hl-7">id:</span><span class="hl-1"> </span><span class="hl-7">request</span><span class="hl-1">.</span><span class="hl-7">id</span><span class="hl-1"> });</span>
 </code></pre>
 <blockquote>
-<p>[!IMPORTANT]
-For all events above, MetaMask may return an error indicating that the
-event was not handled, possibly because it contains invalid arguments.</p>
+<p><strong>:point_up: Important</strong>: For all events above, MetaMask may return an error
+indicating that the event was not handled, possibly because it contains
+invalid arguments.</p>
 </blockquote>
 </li>
 <li><p>Keyrings that implement the <a href="./docs/architecture.md#transaction-flow">async transaction
