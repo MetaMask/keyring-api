@@ -35,9 +35,9 @@ or
 
 ## Keyring Snaps
 
-> **:pencil: Note:** To test your Snap, you will need MetaMask 11.4 or later.
-> You can also build MetaMask from [source][extension-repo] from the `develop`
-> branch.
+> **:pencil: Note:** To test your Keyring Snap, you will need MetaMask 11.4 or
+> later. You can also build MetaMask from [source][extension-repo] from the
+> `develop` branch.
 
 Starting with MetaMask 11.4, Snaps can implement the Keyring API. This allows
 users to manage their accounts in a more flexible way, and enables developers
