@@ -25,11 +25,15 @@ Features:
 
 ## Installation
 
-`yarn add @metamask/keyring-api`
+```bash
+yarn add @metamask/keyring-api
+```
 
 or
 
-`npm install @metamask/keyring-api`
+```bash
+npm install @metamask/keyring-api
+```
 
 ## Keyring Snaps
 
