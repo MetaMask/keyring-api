@@ -168,7 +168,7 @@ lead to secrets being exposed to dapps or MetaMask through error messages.
 // If `inputSecretValue` contains invalid hexadecimal characters, its value
 // will be added to the error thrown by `toBuffer`.
 const privateKey = toBuffer(inputSecretValue);
-// Use `privateKey` here ...
+// Use `privateKey` here...
 ```
 
 **:white_check_mark: DO THIS INSTEAD:**
@@ -176,7 +176,7 @@ const privateKey = toBuffer(inputSecretValue);
 ```ts
 try {
   const privateKey = toBuffer(inputSecretValue);
-  // Use `privateKey` here ...
+  // Use `privateKey` here...
 } catch (error) {
   throw new Error('Invalid private key');
 }
