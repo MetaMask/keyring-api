@@ -1,4 +1,4 @@
-import type { SnapsGlobalObject } from '@metamask/rpc-methods';
+import type { SnapsGlobalObject } from '@metamask/snaps-rpc-methods';
 import type { Json } from '@metamask/utils';
 
 import type { KeyringEvent } from './events';
