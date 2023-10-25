@@ -29,7 +29,7 @@ graph TD
   Dapp -->|Submits requests| MetaMask
   MetaMask -->|Submits requests and<br/>manages accounts| Snap
   Snap -->|Notifies about account<br/>and request events| MetaMask
-  Site[Snap Dapp] -..->|Manages requests<br/>and accounts| Snap
+  Site[Snap Companion Dapp] -->|Manages requests<br/>and accounts| MetaMask
   User -->|Uses for Snap-specific logic| Site
 ```
 
@@ -44,14 +44,14 @@ graph TD
 - **Snap**: A Snap that implements the Keyring API to manage the user's
   accounts, and to handle requests that use these accounts.
 
-- **Snap Dapp**: The Snap's UI component that allows the user to interact with
-  the Snap to manage accounts and requests.
+- **Snap Companion Dapp**: The Snap's UI component that allows the user to
+  interact with the Snap to manage accounts and requests.
 
-## Account creation
+## Snap installation
 
 The account creation flow is the initial process that a user will encounter
-when using a keyring Snap. It can be triggered by the "Add Snap account" button
-in the accounts list or by the Snap dapp.
+when using a keyring Snap. It can be initiated by the "Add account Snap" button
+in MetaMask's accounts list or by the Snap companion dapp.
 
 ```mermaid
 sequenceDiagram
@@ -60,20 +60,35 @@ autonumber
 actor User
 participant MetaMask
 participant Snap
-participant Site as Snap Dapp
+participant Site as Snap Companion Dapp
 
-alt If the Snap is not installed yet
-  User ->>+ MetaMask: Add new Snap account
+alt Optional
+  User ->>+ MetaMask: Add new account Snap
   MetaMask ->> MetaMask: Display suggested Snaps
   User ->> MetaMask: Select Snap
   MetaMask ->> Site: Open in a new tab
   deactivate MetaMask
-
-  Site ->>+ MetaMask: Install Snap?
-  MetaMask ->> MetaMask: Display permissions dialog
-  User ->> MetaMask: Approve permissions
-  MetaMask -->>- Site: OK
 end
+
+Site ->>+ MetaMask: Install Snap?
+MetaMask ->> MetaMask: Display permissions dialog
+User ->> MetaMask: Approve permissions
+MetaMask -->>- Site: OK
+```
+
+## Account creation
+
+Once your keyring Snap is installed, the user can use the Snap companion dapp
+to create or import accounts.
+
+```mermaid
+sequenceDiagram
+autonumber
+
+actor User
+participant MetaMask
+participant Snap
+participant Site as Snap Companion Dapp
 
 User ->>+ Site: Create new account
 Site ->> Site: Custom logic to create account
@@ -91,10 +106,10 @@ Site -->>- User: Done
 The Keyring API supports two different flows for signing transactions:
 
 - **Asynchronous**: MetaMask sends a keyring request to the keyring Snap, and
-  the keyring Snap responds with a `{ pending: true, redirect? }` response
-  to indicate that the keyring request will be handled asynchronously. This
+  the keyring Snap responds with a `{ pending: true, redirect? }` response to
+  indicate that the keyring request will be handled asynchronously. This
   response can optionally contain a `redirect` URL that MetaMask will open in a
-  new tab to allow the user to interact with the keyring Snap dapp.
+  new tab to allow the user to interact with the keyring Snap companion dapp.
 
   Once the keyring Snap has completed the request, it sends a notification to
   MetaMask with the result of the request.
@@ -107,7 +122,7 @@ The Keyring API supports two different flows for signing transactions:
   participant Dapp
   participant MetaMask
   participant Snap
-  participant Site as Snap Dapp
+  participant Site as Snap Companion Dapp
 
   User ->>+ Dapp: Create new sign request
   Dapp ->>+ MetaMask: ethereum.request(request)
