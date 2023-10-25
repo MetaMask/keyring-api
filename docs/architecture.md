@@ -27,7 +27,7 @@ with an account managed by a keyring Snap:
 graph TD
   User -->|Uses to submit requests<br/>and manage accounts| MetaMask
   User -->|Starts requests| Dapp
-  User -->|Uses for Snap-specific logic| Site
+  User -->|Uses to manage<br/>requests and accounts| Site
   Dapp -->|Submits requests| MetaMask
   Site[Snap Companion Dapp] -->|Manages requests<br/>and accounts| MetaMask
   MetaMask -->|Submits requests and<br/>manages accounts| Snap
