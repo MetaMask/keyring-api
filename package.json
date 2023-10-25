@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@metamask/providers": "^13.0.0",
-    "@metamask/rpc-methods": "^3.0.0",
     "@metamask/snaps-controllers": "^3.0.0",
+    "@metamask/snaps-rpc-methods": "^3.1.0",
     "@metamask/snaps-utils": "^3.0.0",
     "@metamask/utils": "^8.1.0",
     "@types/uuid": "^9.0.1",
@@ -90,8 +90,8 @@
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,
-      "@metamask/rpc-methods>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
-      "@metamask/rpc-methods>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false
+      "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
+      "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false
     }
   },
   "tsd": {
