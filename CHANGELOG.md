@@ -7,24 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [1.1.0]
-### Uncategorized
-- chore(deps): bump @metamask/snaps-utils from 3.0.0 to 3.1.0 ([#169](https://github.com/MetaMask/keyring-api/pull/169))
-- docs: minor fixes to the docs ([#174](https://github.com/MetaMask/keyring-api/pull/174))
-- chore: add missing "Keyring" to docs ([#173](https://github.com/MetaMask/keyring-api/pull/173))
-- docs: update MetaMask version and remove admonitions ([#172](https://github.com/MetaMask/keyring-api/pull/172))
-- chore(deps-dev): bump @metamask/auto-changelog from 3.4.0 to 3.4.1 ([#168](https://github.com/MetaMask/keyring-api/pull/168))
-- chore(deps): bump @metamask/snaps-ui from 3.0.0 to 3.0.1 ([#171](https://github.com/MetaMask/keyring-api/pull/171))
-- test: enable lcov report exporter ([#161](https://github.com/MetaMask/keyring-api/pull/161))
-- feat: define `UuidStruct` as a named type ([#159](https://github.com/MetaMask/keyring-api/pull/159))
-- chore(deps): bump @babel/traverse from 7.22.5 to 7.23.2 ([#163](https://github.com/MetaMask/keyring-api/pull/163))
-- chore(deps-dev): bump @metamask/auto-changelog from 3.3.0 to 3.4.0 ([#165](https://github.com/MetaMask/keyring-api/pull/165))
-- chore(deps): bump @metamask/json-rpc-engine from 7.1.1 to 7.2.0 ([#164](https://github.com/MetaMask/keyring-api/pull/164))
-- fix: allow the request ID to be a string, number or null ([#156](https://github.com/MetaMask/keyring-api/pull/156))
-- docs: add guideline to sanitize errors ([#160](https://github.com/MetaMask/keyring-api/pull/160))
-- fix: use `UuidStruct` for IDs in the internap API ([#158](https://github.com/MetaMask/keyring-api/pull/158))
-- refactor: move internal RPC methods to `rpc.ts` ([#157](https://github.com/MetaMask/keyring-api/pull/157))
-- chore(deps): bump @metamask/snaps-registry from 2.0.0 to 2.1.0 ([#155](https://github.com/MetaMask/keyring-api/pull/155))
-- chore(deps): bump @metamask/providers from 13.0.0 to 13.1.0 ([#153](https://github.com/MetaMask/keyring-api/pull/153))
+
+### Changed
+- `UuidStruct` is now a named type ([#159](https://github.com/MetaMask/keyring-api/pull/159))
+- Migrate from `@metamask/rpc-methods` to `@metamask/snaps-rpc-methods` ([#175](https://github.com/MetaMask/keyring-api/pull/175))
+
+### Fixed
+- Allow the request ID to be a string, number or null ([#156](https://github.com/MetaMask/keyring-api/pull/156))
+- Documentation fixes ([#160](https://github.com/MetaMask/keyring-api/pull/160)) ([#174](https://github.com/MetaMask/keyring-api/pull/174)) ([#173](https://github.com/MetaMask/keyring-api/pull/173)) ([#172](https://github.com/MetaMask/keyring-api/pull/172))
+- Use `UuidStruct` for IDs in the internal API ([#158](https://github.com/MetaMask/keyring-api/pull/158))
+- Bump `@metamask/json-rpc-engine` from `^7.1.1` to `^7.2.0` ([#164](https://github.com/MetaMask/keyring-api/pull/164))
 
 ## [1.0.0]
 ### Added
