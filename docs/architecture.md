@@ -59,6 +59,7 @@ graph TD
   Site[Snap Companion Dapp] ------>|Manages requests<br/>and accounts| SnapController
   User -->|Uses to submit requests<br/>and manage accounts| UI
   Dapp --->|Submits requests| TransactionsController
+
   subgraph MetaMask
     UI -->|Manages accounts| KeyringController
     UI -->|Submits requests| TransactionsController
@@ -66,6 +67,7 @@ graph TD
     KeyringController -->|Submits requests and<br/>manages accounts| SnapKeyring
     SnapKeyring -->|Submits requests and<br/>manages accounts| SnapController
   end
+
   SnapController -->|Submits requests and<br/>manages accounts| Snap
   Snap -->|Notifies about account<br/>and request events| SnapController
   SnapController -->|Notifies about account<br/>and request events| SnapKeyring
