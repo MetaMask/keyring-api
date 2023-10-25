@@ -25,6 +25,7 @@ with an account managed by a keyring Snap:
 
 ```mermaid
 graph TD
+  User -->|Uses to submit requests<br/>and manage accounts| MetaMask
   User -->|Starts requests| Dapp
   Dapp -->|Submits requests| MetaMask
   MetaMask -->|Submits requests and<br/>manages accounts| Snap
@@ -33,7 +34,8 @@ graph TD
   User -->|Uses for Snap-specific logic| Site
 ```
 
-- **User**: The web3 user interacting with the Snap, the dapp, and MetaMask.
+- **User**: The web3 user interacting with the dapp, the Snap companion dapp,
+  and MetaMask.
 
 - **Dapp**: The web3 application that is requesting an action to be performed
   on an account.
@@ -46,6 +48,28 @@ graph TD
 
 - **Snap Companion Dapp**: The Snap's UI component that allows the user to
   interact with the Snap to manage accounts and requests.
+
+## Components diagram
+
+This components diagram shows the internal components of MetaMask and **can be
+ignored by keyring Snap developers.**
+
+```mermaid
+graph TD
+  Site[Snap Companion Dapp] ------>|Manages requests<br/>and accounts| SnapController
+  User -->|Uses to submit requests<br/>and manage accounts| UI
+  Dapp --->|Submits requests| TransactionsController
+  subgraph MetaMask
+    UI -->|Manages accounts| KeyringController
+    UI -->|Submits requests| TransactionsController
+    TransactionsController -->|Submits requests| KeyringController
+    KeyringController -->|Submits requests and<br/>manages accounts| SnapKeyring
+    SnapKeyring -->|Submits requests and<br/>manages accounts| SnapController
+  end
+  SnapController -->|Submits requests and<br/>manages accounts| Snap
+  Snap -->|Notifies about account<br/>and request events| SnapController
+  SnapController -->|Notifies about account<br/>and request events| SnapKeyring
+```
 
 ## Snap installation
 
