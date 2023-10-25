@@ -125,82 +125,93 @@ Snap -->>- Site: OK
 Site -->>- User: Done
 ```
 
-## Transaction Flow
+## Transaction flows
 
-The Keyring API supports two different flows for signing transactions:
+The Keyring API supports two different types of flows for handling requests:
+synchronous and asynchronous. The choice of which flow to implement depends on
+the use case of the Keyring Snap.
 
-- **Asynchronous**: MetaMask sends a keyring request to the keyring Snap, and
-  the keyring Snap responds with a `{ pending: true, redirect? }` response to
-  indicate that the keyring request will be handled asynchronously. This
-  response can optionally contain a `redirect` URL that MetaMask will open in a
-  new tab to allow the user to interact with the keyring Snap companion dapp.
+In general, the asynchronous flow should be used when the request requires user
+interaction or when the request will take a long time to complete. The
+synchronous flow should be preferred for any other use case.
 
-  Once the keyring Snap has completed the request, it sends a notification to
-  MetaMask with the result of the request.
+### Asynchronous transaction flow
 
-  ```mermaid
-  sequenceDiagram
-  autonumber
+In the asynchronous transaction flow, MetaMask sends a keyring request to the
+keyring Snap, and the keyring Snap responds with a `{ pending: true, redirect?
+}` response to indicate that the keyring request will be handled
+asynchronously. This response can optionally contain a `redirect` URL that
+MetaMask will open in a new tab to allow the user to interact with the keyring
+Snap companion dapp.
 
-  actor User
-  participant Dapp
-  participant MetaMask
-  participant Snap
-  participant Site as Snap Companion Dapp
+Once the keyring Snap has completed the request, it sends a notification to
+MetaMask with the result of the request.
 
-  User ->>+ Dapp: Create new sign request
-  Dapp ->>+ MetaMask: ethereum.request(request)
-  MetaMask ->> MetaMask: Display request to user
-  User ->> MetaMask: Approve request
+```mermaid
+sequenceDiagram
+autonumber
 
-  MetaMask ->>+ Snap: keyring_submitRequest(request)
-  Snap ->> Snap: Save request to Snap's state
-  Snap -->>- MetaMask: { pending: true, redirect? }
-  alt There is a redirect URL
-    User ->> MetaMask: Acknowledge redirection
-    MetaMask ->>+ Site: Open redirect URL in a new tab
-  end
-  deactivate MetaMask
+actor User
+participant Dapp
+participant MetaMask
+participant Snap
+participant Site as Snap Companion Dapp
 
-  Site ->>+ Snap: keyring_getRequests(id)
-  Snap -->>- Site: request
+User ->>+ Dapp: Create new sign request
+Dapp ->>+ MetaMask: ethereum.request(request)
+MetaMask ->> MetaMask: Display request to user
+User ->> MetaMask: Approve request
 
-  Site ->> Site: Custom logic to handle request
-  Site ->>+ Snap: keyring_approveRequest(id, data?)
-  Snap ->> Snap: Custom logic to handle request
-  Snap ->>+ MetaMask: snap_manageAccounts("notify:requestApproved", { id, result })
+MetaMask ->>+ Snap: keyring_submitRequest(request)
+Snap ->> Snap: Save request to Snap's state
+Snap -->>- MetaMask: { pending: true, redirect? }
+alt There is a redirect URL
+  User ->> MetaMask: Acknowledge redirection
+  MetaMask ->>+ Site: Open redirect URL in a new tab
+end
+deactivate MetaMask
 
-  MetaMask -->> Dapp: result
-  MetaMask -->>- Snap: OK
-  Snap -->>- Site: OK
-  deactivate Site
+Site ->>+ Snap: keyring_getRequests(id)
+Snap -->>- Site: request
 
-  Dapp -->>- User: Done
-  ```
+Site ->> Site: Custom logic to handle request
+Site ->>+ Snap: keyring_approveRequest(id, data?)
+Snap ->> Snap: Custom logic to handle request
+Snap ->>+ MetaMask: snap_manageAccounts("notify:requestApproved", { id, result })
 
-- **Synchronous**: MetaMask sends a keyring request to the keyring Snap, and
-  the keyring Snap responds with a `{ pending: false, result }` response that
-  contains the result of the request.
+MetaMask -->> Dapp: result
+MetaMask -->>- Snap: OK
+Snap -->>- Site: OK
+deactivate Site
 
-  ```mermaid
-  sequenceDiagram
-  autonumber
+Dapp -->>- User: Done
+```
 
-  actor User
-  participant Dapp
-  participant MetaMask
-  participant Snap
+### Synchronous transaction flow
 
-  User ->>+ Dapp: Create new sign request
-  Dapp ->>+ MetaMask: ethereum.request(request)
-  MetaMask ->> MetaMask: Display request to user
-  User ->> MetaMask: Approve request
+In the synchronous transaction flow, MetaMask sends a keyring request to the
+keyring Snap, and the keyring Snap responds with a `{ pending: false, result }`
+response that contains the result of the request.
 
-  MetaMask ->>+ Snap: keyring_submitRequest(request)
-  Snap ->> Snap: Custom logic to handle request
-  Snap -->>- MetaMask: { pendind: false, result }
+```mermaid
+sequenceDiagram
+autonumber
 
-  MetaMask -->>- Dapp: result
+actor User
+participant Dapp
+participant MetaMask
+participant Snap
 
-  Dapp -->>- User: Done
-  ```
+User ->>+ Dapp: Create new sign request
+Dapp ->>+ MetaMask: ethereum.request(request)
+MetaMask ->> MetaMask: Display request to user
+User ->> MetaMask: Approve request
+
+MetaMask ->>+ Snap: keyring_submitRequest(request)
+Snap ->> Snap: Custom logic to handle request
+Snap -->>- MetaMask: { pendind: false, result }
+
+MetaMask -->>- Dapp: result
+
+Dapp -->>- User: Done
+```
