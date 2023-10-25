@@ -165,11 +165,6 @@ The Keyring API supports two different flows for signing transactions:
   Site ->>+ Snap: keyring_getRequests(id)
   Snap -->>- Site: request
 
-  alt Optional
-    Site ->> Site: Display request to user
-    User ->> Site: Approve request
-  end
-
   Site ->> Site: Custom logic to handle request
   Site ->>+ Snap: keyring_approveRequest(id, data?)
   Snap ->> Snap: Custom logic to handle request
