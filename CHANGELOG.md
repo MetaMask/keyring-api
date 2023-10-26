@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0]
+
+### Changed
+
+- `UuidStruct` is now a named type ([#159](https://github.com/MetaMask/keyring-api/pull/159))
+- Migrate from `@metamask/rpc-methods` to `@metamask/snaps-rpc-methods` ([#175](https://github.com/MetaMask/keyring-api/pull/175))
+
+### Fixed
+
+- Allow the request ID to be a string, number or null ([#156](https://github.com/MetaMask/keyring-api/pull/156))
+- Documentation fixes ([#160](https://github.com/MetaMask/keyring-api/pull/160)) ([#174](https://github.com/MetaMask/keyring-api/pull/174)) ([#173](https://github.com/MetaMask/keyring-api/pull/173)) ([#172](https://github.com/MetaMask/keyring-api/pull/172))
+- Use `UuidStruct` for IDs in the internal API ([#158](https://github.com/MetaMask/keyring-api/pull/158))
+- Bump `@metamask/json-rpc-engine` from `^7.1.1` to `^7.2.0` ([#164](https://github.com/MetaMask/keyring-api/pull/164))
+
 ## [1.0.0]
 
 ### Added
@@ -148,7 +162,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/MetaMask/keyring-api/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/MetaMask/keyring-api/compare/v1.0.0-rc.1...v1.0.0
 [1.0.0-rc.1]: https://github.com/MetaMask/keyring-api/compare/v0.2.7...v1.0.0-rc.1
 [0.2.7]: https://github.com/MetaMask/keyring-api/compare/v0.2.6...v0.2.7
