@@ -122,10 +122,9 @@ Notice, however, that both dapps must be allowlisted in the Snap's manifest.
 
 ### Ensure that the redirect URL cannot be manipulated
 
-If your Snap implements the [asynchronous transaction
-flow](./architecture.md#transaction-flow), ensure that the redirect URL is
-valid and cannot be manipulated, otherwise the user could be redirected to a
-malicious website.
+If your Snap implements the [asynchronous transaction flow][async-flow], ensure
+that the redirect URL is valid and cannot be manipulated, otherwise the user
+could be redirected to a malicious website.
 
 ```ts
 async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
@@ -168,7 +167,7 @@ lead to secrets being exposed to dapps or MetaMask through error messages.
 // If `inputSecretValue` contains invalid hexadecimal characters, its value
 // will be added to the error thrown by `toBuffer`.
 const privateKey = toBuffer(inputSecretValue);
-// Use `privateKey` here ...
+// Use `privateKey` here...
 ```
 
 **:white_check_mark: DO THIS INSTEAD:**
@@ -176,7 +175,7 @@ const privateKey = toBuffer(inputSecretValue);
 ```ts
 try {
   const privateKey = toBuffer(inputSecretValue);
-  // Use `privateKey` here ...
+  // Use `privateKey` here...
 } catch (error) {
   throw new Error('Invalid private key');
 }
@@ -216,3 +215,4 @@ export const onKeyringRequest: OnKeyringRequestHandler = async ({
 ```
 
 [eth-phishing-detect]: https://github.com/MetaMask/eth-phishing-detect
+[async-flow]: ./architecture.md#asynchronous-transaction-flow

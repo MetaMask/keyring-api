@@ -10,40 +10,43 @@ Features:
   MetaMask and leverage its functionality.
 
 - **Dapp Client**: The module includes a client that enables dapps to
-  communicate with the Keyring Snap. This client allows dapps to send requests
+  communicate with the keyring Snap. This client allows dapps to send requests
   to the Snap, such as retrieving account information or submitting requests.
 
 - **MetaMask Client**: The module provides a client specifically designed for
   MetaMask integration. This client enables MetaMask to send requests directly
-  to the Keyring Snap, facilitating smooth interoperability between the two
+  to the keyring Snap, facilitating smooth interoperability between the two
   applications.
 
 - **Request Handler Helper Functions**: The module offers a set of helper
   functions to simplify the implementation of the request handler in the
-  Keyring Snap. These functions assist in processing incoming requests,
+  keyring Snap. These functions assist in processing incoming requests,
   validating data, and handling various request types from dapps and MetaMask.
 
 ## Installation
 
-`yarn add @metamask/keyring-api`
+```bash
+yarn add @metamask/keyring-api
+```
 
 or
 
-`npm install @metamask/keyring-api`
+```bash
+npm install @metamask/keyring-api
+```
 
 ## Keyring Snaps
 
-> **:pencil: Note:** To test your Keyring Snap, you will need MetaMask 11.4 or
-> later. You can also build MetaMask from [source][extension-repo] from the
-> `develop` branch.
+> **:point_up: Important**: Before implementing your Snap, please make sure to
+> read the [security recommendations](./docs/security.md) and the [architecture
+> document](./docs/architecture.md).
 
 Starting with MetaMask 11.4, Snaps can implement the Keyring API. This allows
 users to manage their accounts in a more flexible way, and enables developers
 to build new types of accounts.
 
-> **:point_up: Important**: Before implementing your Snap, please make sure to
-> read the [security recommendations](./docs/security.md) and the [architecture
-> document](./docs/architecture.md).
+> **:pencil: Note:** You can also build MetaMask from [source][extension-repo]
+> from the `develop` branch.
 
 Follow these steps to implement the Keyring API in your Snap. Please note that
 these instruction assume that you are already familiar with the process of
@@ -175,8 +178,8 @@ these instruction assume that you are already familiar with the process of
 
       MetaMask will return an error if the request does not exist.
 
-      > **:pencil: Note:** This only applies to Snaps that implement the [async
-      > flow](./docs/architecture.md#transaction-flow).
+      > **:pencil: Note:** This only applies to Snaps that implement the
+      > [asynchronous transaction flow][async-flow].
 
    5. When a request is rejected:
 
@@ -193,8 +196,8 @@ these instruction assume that you are already familiar with the process of
 
       MetaMask will return an error if the request does not exist.
 
-      > **:pencil: Note:** This only applies to Snaps that implement the [async
-      > flow](./docs/architecture.md#transaction-flow).
+      > **:pencil: Note:** This only applies to Snaps that implement the
+      > [asynchronous transaction flow][async-flow].
 
 4. **Expose the Keyring API:**
 
@@ -212,7 +215,7 @@ these instruction assume that you are already familiar with the process of
 
 5. **Call the keyring methods from your dapp:**
 
-   Now you should be able to call your Keyring Snap from your dapp, for
+   Now you should be able to call your keyring Snap from your dapp, for
    example:
 
    ```typescript
@@ -284,11 +287,10 @@ implementation:
   > indicating that the event was not handled, possibly because it contains
   > invalid arguments.
 
-- Keyrings that implement the [async transaction
-  flow](./docs/architecture.md#transaction-flow) can now return an optional
-  `redirect` property that contains an URL and a message to be displayed to the
-  user. This will, in a future release of MetaMask, be used to inform the user
-  on how to continue the transaction flow.
+- Keyrings that implement the [asynchronous transaction flow][async-flow] can
+  now return an optional `redirect` property that contains an URL and a message
+  to be displayed to the user. This will, in a future release of MetaMask, be
+  used to inform the user on how to continue the transaction flow.
 
   ```ts
   return {
@@ -396,3 +398,4 @@ The project follows the same release process as the other libraries in the MetaM
 
 [extension-repo]: https://github.com/MetaMask/metamask-extension
 [exposed-methods]: ./docs/security.md#limit-the-methods-exposed-to-dapps
+[async-flow]: ./docs/architecture.md#asynchronous-transaction-flow
