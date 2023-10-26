@@ -954,15 +954,15 @@ __metadata:
   linkType: hard
 
 "@metamask/approval-controller@npm:^4.0.0":
-  version: 4.0.1
-  resolution: "@metamask/approval-controller@npm:4.0.1"
+  version: 4.1.0
+  resolution: "@metamask/approval-controller@npm:4.1.0"
   dependencies:
     "@metamask/base-controller": ^3.2.3
     "@metamask/rpc-errors": ^6.1.0
     "@metamask/utils": ^8.1.0
     immer: ^9.0.6
     nanoid: ^3.1.31
-  checksum: 104f78f226b7a30821d4f7aa1a354659b32c812ab965691552177a6559bde89e5bce598239c99f0e83ef09c9a8d0aaab35f3ddbd07a45b34a0b08ad2066f46e6
+  checksum: b75c900fc656cfc141f8954ccb48346970d561ba83852ec1d27cecddb6606033e03ea560d7253847bd09dfb8317548c9be9cb92c50d906e55134d892d3785806
   languageName: node
   linkType: hard
 
