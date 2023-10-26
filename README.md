@@ -10,17 +10,17 @@ Features:
   MetaMask and leverage its functionality.
 
 - **Dapp Client**: The module includes a client that enables dapps to
-  communicate with the keyring Snap. This client allows dapps to send requests
+  communicate with the account Snap. This client allows dapps to send requests
   to the Snap, such as retrieving account information or submitting requests.
 
 - **MetaMask Client**: The module provides a client specifically designed for
   MetaMask integration. This client enables MetaMask to send requests directly
-  to the keyring Snap, facilitating smooth interoperability between the two
+  to the account Snap, facilitating smooth interoperability between the two
   applications.
 
 - **Request Handler Helper Functions**: The module offers a set of helper
   functions to simplify the implementation of the request handler in the
-  keyring Snap. These functions assist in processing incoming requests,
+  account Snap. These functions assist in processing incoming requests,
   validating data, and handling various request types from dapps and MetaMask.
 
 ## Installation
@@ -35,7 +35,7 @@ or
 npm install @metamask/keyring-api
 ```
 
-## Keyring Snaps
+## Account Snaps
 
 > **:point_up: Important**: Before implementing your Snap, please make sure to
 > read the [security recommendations](./docs/security.md) and the [architecture
@@ -215,7 +215,7 @@ these instruction assume that you are already familiar with the process of
 
 5. **Call the keyring methods from your dapp:**
 
-   Now you should be able to call your keyring Snap from your dapp, for
+   Now you should be able to call your account Snap from your dapp, for
    example:
 
    ```typescript
