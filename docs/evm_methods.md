@@ -1,6 +1,6 @@
 # EVM Methods
 
-Here we document the methods that a keyring snap may implement to support
+Here we document the methods that an account Snap may implement to support
 requests originated from dapps.
 
 > [!NOTE]
