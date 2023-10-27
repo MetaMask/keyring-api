@@ -1,27 +1,17 @@
 # MetaMask Keyring API
 
-This TypeScript module simplifies the integration of Snaps with MetaMask using
-the Keyring API.
+The Keyring API defines a standard interface for account management in MetaMask
+and account Snaps. Its goal is to enable easy integration of new account types
+in the MetaMask ecosystem.
 
 Features:
 
-- **Keyring API Interface**: The module exposes an interface representing the
-  Keyring API. Snaps can implement this interface to seamlessly interact with
-  MetaMask and leverage its functionality.
+- **Keyring API interface**: The interface that should be implemented by new
+  keyrings and account Snaps to support account management in MetaMask.
 
-- **Dapp Client**: The module includes a client that enables dapps to
-  communicate with the account Snap. This client allows dapps to send requests
-  to the Snap, such as retrieving account information or submitting requests.
-
-- **MetaMask Client**: The module provides a client specifically designed for
-  MetaMask integration. This client enables MetaMask to send requests directly
-  to the account Snap, facilitating smooth interoperability between the two
-  applications.
-
-- **Request Handler Helper Functions**: The module offers a set of helper
-  functions to simplify the implementation of the request handler in the
-  account Snap. These functions assist in processing incoming requests,
-  validating data, and handling various request types from dapps and MetaMask.
+- **Keyring clients**: Helper classes that simplify the integration of keyrings
+  in MetaMask, and abstract away from dapps the complexity of having to deal
+  with raw JSON-RPC requests to interact with account Snaps.
 
 ## Installation
 
