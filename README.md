@@ -326,12 +326,12 @@ implementation:
 For more details about the changes, please refer to the [security
 guidelines](./docs/security.md).
 
-## API
+## API reference
 
-See our documentation:
+The latest API documentation is available here:
 
-- [Latest published API documentation](https://metamask.github.io/keyring-api/latest/)
-- [Latest development API documentation](https://metamask.github.io/keyring-api/staging/)
+- [Release version](https://metamask.github.io/keyring-api/latest/)
+- [Development version](https://metamask.github.io/keyring-api/staging/)
 
 ## Contributing
 
