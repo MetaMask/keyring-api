@@ -69,7 +69,7 @@ these instruction assume that you are already familiar with the process of
 2. **Handle requests submitted by MetaMask:**
 
    MetaMask will submit requests through the `submitRequest` method of your the
-   Keyring API (check the supported [EVM methods](./docs/evm_methods.md)). Here
+   Keyring API (check the supported [EVM methods](./docs/evm-methods.md)). Here
    is an example of request:
 
    ```json
