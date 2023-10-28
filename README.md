@@ -191,7 +191,8 @@ these instruction assume that you are already familiar with the process of
 
 4. **Expose the Keyring API:**
 
-   Then create a handler to expose the keyring methods to MetaMask and your dapp:
+   Then create a handler to expose the keyring methods to MetaMask and your
+   dapp:
 
    ```typescript
    export const onKeyringRequest: OnKeyringRequestHandler = async ({
@@ -273,9 +274,9 @@ implementation:
   emitSnapKeyringEvent(snap, KeyringEvent.RequestRejected, { id: request.id });
   ```
 
-  > :point_up: **Important**: For all events above, MetaMask may return an error
-  > indicating that the event was not handled, possibly because it contains
-  > invalid arguments.
+  > :point_up: **Important**: For all events above, MetaMask may return an
+  > error indicating that the event was not handled, possibly because it
+  > contains invalid arguments.
 
 - Keyrings that implement the [asynchronous transaction flow][async-flow] can
   now return an optional `redirect` property that contains an URL and a message
