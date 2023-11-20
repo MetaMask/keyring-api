@@ -1,5 +1,6 @@
 import type { SnapController } from '@metamask/snaps-controllers';
-import type { HandlerType, ValidatedSnapId } from '@metamask/snaps-utils';
+import type { SnapId } from '@metamask/snaps-sdk';
+import type { HandlerType } from '@metamask/snaps-utils';
 import type { Json } from '@metamask/utils';
 
 import type { JsonRpcRequest } from './JsonRpcRequest';
@@ -10,7 +11,7 @@ import { KeyringClient, type Sender } from './KeyringClient';
  * to a snap through a `SnapController`.
  */
 class SnapControllerSender implements Sender {
-  #snapId: string;
+  #snapId: SnapId;
 
   #origin: string;
 
@@ -28,7 +29,7 @@ class SnapControllerSender implements Sender {
    */
   constructor(
     controller: any,
-    snapId: string,
+    snapId: SnapId,
     origin: string,
     handler: HandlerType,
   ) {
@@ -46,7 +47,7 @@ class SnapControllerSender implements Sender {
    */
   async send(request: JsonRpcRequest): Promise<Json> {
     return this.#controller.handleRequest({
-      snapId: this.#snapId as ValidatedSnapId,
+      snapId: this.#snapId,
       origin: this.#origin,
       handler: this.#handler,
       request,
@@ -76,12 +77,12 @@ export class KeyringSnapControllerClient extends KeyringClient {
    */
   constructor({
     controller,
-    snapId = 'undefined',
+    snapId = 'undefined' as SnapId,
     origin = 'metamask',
     handler = 'onKeyringRequest' as HandlerType,
   }: {
     controller: SnapController;
-    snapId?: string;
+    snapId?: SnapId;
     origin?: string;
     handler?: HandlerType;
   }) {
@@ -97,7 +98,7 @@ export class KeyringSnapControllerClient extends KeyringClient {
    * @returns A new instance of `KeyringSnapControllerClient` with the
    * specified snap ID.
    */
-  withSnapId(snapId: string): KeyringSnapControllerClient {
+  withSnapId(snapId: SnapId): KeyringSnapControllerClient {
     return new KeyringSnapControllerClient({
       controller: this.#controller,
       snapId,

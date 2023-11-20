@@ -1,4 +1,4 @@
-import type { SnapsGlobalObject } from '@metamask/snaps-rpc-methods';
+import type { SnapsProvider } from '@metamask/snaps-sdk';
 import type { Json } from '@metamask/utils';
 
 import type { KeyringEvent } from './events';
@@ -11,7 +11,7 @@ import type { KeyringEvent } from './events';
  * @param data - The event data.
  */
 export async function emitSnapKeyringEvent(
-  snap: SnapsGlobalObject,
+  snap: SnapsProvider,
   event: KeyringEvent,
   data: Record<string, Json>,
 ): Promise<void> {
