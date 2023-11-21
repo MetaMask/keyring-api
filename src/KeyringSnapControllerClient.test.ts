@@ -1,10 +1,11 @@
 import type { SnapController } from '@metamask/snaps-controllers';
+import type { SnapId } from '@metamask/snaps-sdk';
 
 import type { KeyringAccount } from './api';
 import { KeyringSnapControllerClient } from './KeyringSnapControllerClient';
 
 describe('KeyringSnapControllerClient', () => {
-  const snapId = 'local:localhost:3000';
+  const snapId = 'local:localhost:3000' as SnapId;
 
   const accountsList: KeyringAccount[] = [
     {
