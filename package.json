@@ -38,7 +38,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@metamask/providers": "^13.0.0",
+    "@metamask/providers": "^14.0.1",
     "@metamask/snaps-controllers": "^3.4.0",
     "@metamask/snaps-sdk": "^1.1.0",
     "@metamask/snaps-utils": "^4.0.1",
