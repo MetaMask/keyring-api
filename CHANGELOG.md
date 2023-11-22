@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [2.0.0]
+### Changed
+- **BREAKING**: Update `@metamask/providers` from `^13.0.0` to `^14.0.1` ([#209](https://github.com/MetaMask/keyring-api/pull/209))
+  - Consolidation on `readable-stream@^3.6.2`. Users should upgrade to `extension-port-stream@^3.0.0` and `json-rpc-middleware-stream@^5.0.0`.
+- Documentation updates ([#185](https://github.com/MetaMask/keyring-api/pull/185)) ([#201](https://github.com/MetaMask/keyring-api/pull/201))
+
+### Fixed
+- Exclude `*.test-d.ts` files from builds ([#184](https://github.com/MetaMask/keyring-api/pull/184))
+- Remove `@metamask/snaps-ui` from dependency tree ([#204](https://github.com/MetaMask/keyring-api/pull/204))
 
 ## [1.1.0]
 ### Changed
