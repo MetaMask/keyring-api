@@ -217,8 +217,9 @@ export const onKeyringRequest: OnKeyringRequestHandler = async ({
 ### Don't fetch remote code from inside your Snap
 
 Your Snap should be self-contained and not fetch code from external sources.
-Otherwise a compromised server could use this mechanism to inject malicious
-code into your Snap.
+Otherwise, a compromised server could use this mechanism to inject malicious
+code into your Snap. Additionally, some functionality of your Snap could break
+if the remote server is down.
 
 [eth-phishing-detect]: https://github.com/MetaMask/eth-phishing-detect
 [async-flow]: ./architecture.md#asynchronous-transaction-flow
