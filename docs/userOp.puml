@@ -1,0 +1,126 @@
+@startuml
+autonumber
+skinparam fontname Arial
+
+participant Dapp
+participant UserOpController
+participant AccountsController
+participant Bundler
+' participant KeyringController
+participant Snap
+
+Dapp -> UserOpController ++: ""{""\n\
+""  chainId, // Ignored by MetaMask""\n\
+""  from,""\n\
+""  to,""\n\
+""  value,""\n\
+""  data,""\n\
+}
+
+UserOpController -> AccountsController ++: ""getAccountByAddress(tx.from)""
+AccountsController --> UserOpController --: ""account""
+
+UserOpController -> Snap ++: ""buildUserOperation({""\n\
+""  account: account.id,""\n\
+""  scope: `eip155:${chainId}`,""\n\
+""  transactions: [ // List of transactions""\n\
+""    {""\n\
+""      to,""\n\
+""      value,""\n\
+""      data,""\n\
+""    },""\n\
+""  ]""\n\
+})
+
+Snap --> UserOpController --: ""{""\n\
+""  callData,""\n\
+""  initCode?,""\n\
+""  nonce,""\n\
+""  gasLimits?: {""\n\
+""    callGasLimit,""\n\
+""    verificationGasLimit,""\n\
+""    preVerificationGas,""\n\
+""  },""\n\
+""  dummySignature?,""\n\
+""  dummyPaymasterAndData?,""\n\
+""  bundler?,""\n\
+""}""
+
+UserOpController -> UserOpController: Check if the account is already deployed
+
+alt The account is already deployed
+  UserOpController -> UserOpController: Remove the ""initCode"" if set
+else The account is not deployed and the ""initCode"" isn't present
+  UserOpController -> Dapp: Throw an error (without the exact reason)
+end
+
+alt The ""gas"" isn't set
+  UserOpController -> UserOpController: Estimate and set ""gas"" values
+end
+
+UserOpController -> Snap ++: ""updateUserOperation({""\n\
+""  sender,""\n\
+""  nonce,""\n\
+""  initCode,""\n\
+""  callData,""\n\
+""  callGasLimit,""\n\
+""  verificationGasLimit,""\n\
+""  preVerificationGas,""\n\
+""  maxFeePerGas,""\n\
+""  maxPriorityFeePerGas,""\n\
+""  paymasterAndData, // Dummy values or empty""\n\
+""  signature, // Dummy values or empty""\n\
+""})""
+
+Snap --> UserOpController --: ""{""\n\
+""  paymasterAndData,""\n\
+""}""
+
+UserOpController -> UserOpController: Update ""paymasterAndData"" and\n\
+remove the dummy signature
+
+UserOpController -> UserOpController: Display approval UI
+
+UserOpController -> Snap ++: ""signUserOperation({""\n\
+""  sender,""\n\
+""  nonce,""\n\
+""  initCode,""\n\
+""  callData,""\n\
+""  callGasLimit,""\n\
+""  verificationGasLimit,""\n\
+""  preVerificationGas,""\n\
+""  maxFeePerGas,""\n\
+""  maxPriorityFeePerGas,""\n\
+""  paymasterAndData,""\n\
+""  signature, // Empty""\n\
+""})""
+
+Snap --> UserOpController --: ""{""\n\
+""  signature,""\n\
+""}""
+
+UserOpController -> UserOpController: Update ""signature""
+
+UserOpController -> Bundler ++: ""eth_sendUserOperation([""\n\
+""  {""\n\
+""    sender,""\n\
+""    nonce,""\n\
+""    initCode,""\n\
+""    callData,""\n\
+""    callGasLimit,""\n\
+""    verificationGasLimit,""\n\
+""    preVerificationGas,""\n\
+""    maxFeePerGas,""\n\
+""    maxPriorityFeePerGas,""\n\
+""    paymasterAndData,""\n\
+""    signature,""\n\
+""  },""\n\
+""  entrypoint,""\n\
+""])""
+
+Bundler --> UserOpController --: ""userOpHash""
+
+UserOpController -> UserOpController: Wait until the bundle is submitted
+
+UserOpController --> Dapp --: ""txHash""
+@enduml
