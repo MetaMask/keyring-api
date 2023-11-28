@@ -1,4 +1,4 @@
-import type { Infer } from 'superstruct';
+import { string, type Infer } from 'superstruct';
 
 import { object } from '../../superstruct';
 import { EthAddressStruct, EthBytesStruct, EthUint256Struct } from '../types';
@@ -45,3 +45,21 @@ export const EthBasicTransactionStruct = object({
 });
 
 export type EthBasicTransaction = Infer<typeof EthBasicTransactionStruct>;
+
+export const EthPreparedUserOperationStruct = object({
+  callData: EthBytesStruct,
+  initCode: EthBytesStruct,
+  nonce: EthUint256Struct,
+  gasLimits: object({
+    callGasLimit: EthUint256Struct,
+    verificationGasLimit: EthUint256Struct,
+    preVerificationGas: EthUint256Struct,
+  }),
+  dummySignature: EthBytesStruct,
+  dummyPaymasterAndData: EthBytesStruct,
+  bundlerUrl: string(),
+});
+
+export type EthPreparedUserOperation = Infer<
+  typeof EthPreparedUserOperationStruct
+>;

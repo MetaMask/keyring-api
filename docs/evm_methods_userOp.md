@@ -56,7 +56,7 @@ Prepare a new UserOperation from transaction data.
     - `dummyPaymasterAndData`
       - Type: `string`
       - Pattern: `^0x[0-9a-f]*$`
-    - `bundler`
+    - `bundlerUrl`
       - Type: `string`
 
 ### Example
