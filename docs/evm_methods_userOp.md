@@ -19,7 +19,7 @@ Let the keyring prepare a user operation from transaction data.
          - Pattern: `^0x[0-9a-fA-F]{40}$`
        - `value`
          - Type: `string`
-         - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+         - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
        - `data`
          - Type: `string`
          - Pattern: `^0x[0-9a-f]*$`
@@ -37,19 +37,19 @@ Let the keyring prepare a user operation from transaction data.
       - Pattern: `^0x[0-9a-f]*$`
     - `nonce`
       - Type: `string`
-      - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+      - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
     - `gasLimits` (optional)
       - Type: `object`
       - Properties
         - `callGasLimit`
           - Type: `string`
-          - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+          - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
         - `verificationGasLimit`
           - Type: `string`
-          - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+          - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
         - `preVerificationGas`
           - Type: `string`
-          - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+          - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
     - `dummySignature`
       - Type: `string`
       - Pattern: `^0x[0-9a-f]*$`
@@ -113,7 +113,7 @@ Let the keyring modify _some_ properties of a user operation.
        - Pattern: `^0x[0-9a-fA-F]{40}$`
      - `nonce`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `initCode`
        - Type: `string`
        - Pattern: `^0x[0-9a-f]*$`
@@ -122,19 +122,19 @@ Let the keyring modify _some_ properties of a user operation.
        - Pattern: `^0x[0-9a-f]*$`
      - `callGasLimit`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `verificationGasLimit`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `preVerificationGas`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `maxFeePerGas`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `maxPriorityFeePerGas`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `paymasterAndData`
        - Type: `string`
        - Pattern: `^0x[0-9a-f]*$`
