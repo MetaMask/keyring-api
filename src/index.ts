@@ -1,4 +1,5 @@
 export * from './api';
+export * from './eth';
 export * from './events';
 export * from './internal';
 export * from './KeyringClient';
