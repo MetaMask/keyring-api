@@ -22,3 +22,26 @@ export const EthUserOperationStruct = object({
 });
 
 export type EthUserOperation = Infer<typeof EthUserOperationStruct>;
+
+/**
+ * Struct containing the most basic transaction information required to
+ * construct a UserOperation.
+ */
+export const EthBasicTransactionStruct = object({
+  /**
+   * Address of the transaction recipient.
+   */
+  to: EthAddressStruct,
+
+  /**
+   * Amount of wei to transfer to the recipient.
+   */
+  value: EthUint256Struct,
+
+  /**
+   * Data to pass to the recipient.
+   */
+  data: EthBytesStruct,
+});
+
+export type EthBasicTransaction = Infer<typeof EthBasicTransactionStruct>;
