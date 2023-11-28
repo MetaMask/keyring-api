@@ -1,8 +1,8 @@
-@startuml
+@startuml "ERC-4337 Account Support"
 autonumber
 skinparam fontname Arial
 
-title 4337 Account Support (DRAFT)
+title "ERC-4337 UserOperation Signing"
 
 participant Dapp
 participant MetaMask
