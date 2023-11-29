@@ -1,6 +1,6 @@
 import { string, type Infer } from 'superstruct';
 
-import { object } from '../../superstruct';
+import { exactOptional, object } from '../../superstruct';
 import { EthAddressStruct, EthBytesStruct, EthUint256Struct } from '../types';
 
 /**
@@ -27,7 +27,7 @@ export type EthUserOperation = Infer<typeof EthUserOperationStruct>;
  * Struct containing the most basic transaction information required to
  * construct a UserOperation.
  */
-export const EthBasicTransactionStruct = object({
+export const EthBaseTransactionStruct = object({
   /**
    * Address of the transaction recipient.
    */
@@ -44,22 +44,22 @@ export const EthBasicTransactionStruct = object({
   data: EthBytesStruct,
 });
 
-export type EthBasicTransaction = Infer<typeof EthBasicTransactionStruct>;
+export type EthBaseTransaction = Infer<typeof EthBaseTransactionStruct>;
 
-export const EthPreparedUserOperationStruct = object({
-  callData: EthBytesStruct,
-  initCode: EthBytesStruct,
+export const EthBaseUserOperationStruct = object({
   nonce: EthUint256Struct,
-  gasLimits: object({
-    callGasLimit: EthUint256Struct,
-    verificationGasLimit: EthUint256Struct,
-    preVerificationGas: EthUint256Struct,
-  }),
-  dummySignature: EthBytesStruct,
+  initCode: EthBytesStruct,
+  callData: EthBytesStruct,
+  gasLimits: exactOptional(
+    object({
+      callGasLimit: EthUint256Struct,
+      verificationGasLimit: EthUint256Struct,
+      preVerificationGas: EthUint256Struct,
+    }),
+  ),
   dummyPaymasterAndData: EthBytesStruct,
+  dummySignature: EthBytesStruct,
   bundlerUrl: string(),
 });
 
-export type EthPreparedUserOperation = Infer<
-  typeof EthPreparedUserOperationStruct
->;
+export type EthBaseUserOperation = Infer<typeof EthBaseUserOperationStruct>;
