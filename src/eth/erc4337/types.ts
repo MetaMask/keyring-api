@@ -63,3 +63,9 @@ export const EthBaseUserOperationStruct = object({
 });
 
 export type EthBaseUserOperation = Infer<typeof EthBaseUserOperationStruct>;
+
+export const EthUserOperationPatchStruct = object({
+  paymasterAndData: EthBytesStruct,
+});
+
+export type EthUserOperationPatch = Infer<typeof EthUserOperationPatchStruct>;
