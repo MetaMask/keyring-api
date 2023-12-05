@@ -1,7 +1,7 @@
 # EVM Methods for ERC-4337 Accounts
 
 Here we document the methods that an account Snap may implement to support
-requests originated from dapps.
+requests using [ERC-4337][erc-4337] accounts.
 
 ## eth_prepareUserOperation
 
@@ -267,3 +267,5 @@ Sign an UserOperation.
 ```json
 "0x6565acc7efd3c85e4c0c221c2958ff6c3ae68401b23b33fdcd1a2d49034c30d97b1cfa17487b90253a5dfd54ef5188688592c2fd56ba44ee4d948ea259d636cd550f6dd21b"
 ```
+
+[erc-4337]: https://eips.ethereum.org/EIPS/eip-4337
