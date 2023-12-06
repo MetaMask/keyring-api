@@ -105,7 +105,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
        - Pattern: `^0x[0-9a-fA-F]{1,2}$`
      - `nonce`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `to`
        - One-of:
          - Contract creation
@@ -118,22 +118,22 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
        - Pattern: `^0x[0-9a-fA-F]{40}$`
      - `value`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `data`
        - Type: `string`
        - Pattern: `^0x[0-9a-f]*$`
      - `gasLimit`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `gasPrice`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `maxPriorityFeePerGas`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `maxFeePerGas`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
      - `accessList`:
        - Description: EIP-2930 access list
        - Type: `array`
@@ -150,7 +150,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
                - Pattern: `^0x[0-9a-f]{64}$`
      - `chainId`
        - Type: `string`
-       - Pattern: `^0x([1-9a-f]+[0-9a-f]*|0)$`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
 
 ### Returns
 

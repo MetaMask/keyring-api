@@ -10,12 +10,17 @@ import { UuidStruct } from './utils';
  * Supported Ethereum methods.
  */
 export enum EthMethod {
+  // General signing methods
   PersonalSign = 'personal_sign',
   Sign = 'eth_sign',
   SignTransaction = 'eth_signTransaction',
   SignTypedDataV1 = 'eth_signTypedData_v1',
   SignTypedDataV3 = 'eth_signTypedData_v3',
   SignTypedDataV4 = 'eth_signTypedData_v4',
+  // ERC-4337 methods
+  PrepareUserOperation = 'eth_prepareUserOperation',
+  PatchUserOperation = 'eth_patchUserOperation',
+  SignUserOperation = 'eth_signUserOperation',
 }
 
 /**
@@ -23,7 +28,7 @@ export enum EthMethod {
  */
 export enum EthAccountType {
   Eoa = 'eip155:eoa',
-  Eip4337 = 'eip155:eip4337',
+  Erc4337 = 'eip155:erc4337',
 }
 
 export const KeyringAccountStruct = object({
@@ -53,13 +58,16 @@ export const KeyringAccountStruct = object({
       `${EthMethod.SignTypedDataV1}`,
       `${EthMethod.SignTypedDataV3}`,
       `${EthMethod.SignTypedDataV4}`,
+      `${EthMethod.PrepareUserOperation}`,
+      `${EthMethod.PatchUserOperation}`,
+      `${EthMethod.SignUserOperation}`,
     ]),
   ),
 
   /**
    * Account type.
    */
-  type: enums([`${EthAccountType.Eoa}`, `${EthAccountType.Eip4337}`]),
+  type: enums([`${EthAccountType.Eoa}`, `${EthAccountType.Erc4337}`]),
 });
 
 /**
