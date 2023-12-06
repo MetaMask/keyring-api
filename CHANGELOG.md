@@ -9,11 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.0]
 
+### Added
+
+- **BREAKING**: Add support for ERC-4337 transactions ([#213](https://github.com/MetaMask/keyring-api/pull/213))
+  - Enum `EthMethods` has been extended with `eth_prepareUserOperation`, `eth_patchUserOperation`, `eth_signUserOperation`
+  - Enum `EthAccountType` has been extended with `eip155:erc4337`
+
 ### Changed
 
 - **BREAKING**: Update `@metamask/providers` from `^13.0.0` to `^14.0.1` ([#209](https://github.com/MetaMask/keyring-api/pull/209))
   - Consolidation on `readable-stream@^3.6.2`. Users should upgrade to `extension-port-stream@^3.0.0` and `json-rpc-middleware-stream@^5.0.0`.
+- Replace deprecated `@metamask/snaps-ui` with `@metamask/snaps-sdk` ([#204](https://github.com/MetaMask/keyring-api/pull/204))
+  - Replace `@metamask/snaps-rpc-methods` with `@metamask/snaps-sdk`
+  - Update `@metamask/snaps-controllers` and `@metamask/snaps-utils` to versions that don't rely on `@metamask/snaps-ui`
 - Documentation updates ([#185](https://github.com/MetaMask/keyring-api/pull/185)) ([#201](https://github.com/MetaMask/keyring-api/pull/201))
+
+### Removed
+
+- **BREAKING** `EthAccountType.Eip4337` has been removed. `eip155:eip4337` should be replaced with `erc:4337`
 
 ### Fixed
 
