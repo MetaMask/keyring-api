@@ -53,7 +53,7 @@ validating data, and handling various request types from dapps and MetaMask.</p>
   <h2>Account Snaps</h2>
 </a>
 <blockquote>
-<p><strong>:point_up: Important</strong>: Before implementing your Snap, please make sure to
+<p>:point_up: <strong>Important</strong>: Before implementing your Snap, please make sure to
 read the <a href="./docs/security.md">security recommendations</a> and the <a href="./docs/architecture.md">architecture
 document</a>.</p>
 </blockquote>
@@ -61,7 +61,7 @@ document</a>.</p>
 users to manage their accounts in a more flexible way, and enables developers
 to build new types of accounts.</p>
 <blockquote>
-<p><strong>:pencil: Note:</strong> You can also build MetaMask from <a href="https://github.com/MetaMask/metamask-extension">source</a>
+<p>:pencil2: <strong>Note:</strong> You can also build MetaMask from <a href="https://github.com/MetaMask/metamask-extension">source</a>
 from the <code>develop</code> branch.</p>
 </blockquote>
 <p>Follow these steps to implement the Keyring API in your Snap. Please note that
@@ -73,14 +73,14 @@ these instruction assume that you are already familiar with the process of
 <pre><code class="language-typescript"><span class="hl-3">class</span><span class="hl-1"> </span><span class="hl-4">MySnapKeyring</span><span class="hl-1"> </span><span class="hl-3">implements</span><span class="hl-1"> </span><span class="hl-4">Keyring</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">// Implement the required methods here...</span><br/><span class="hl-1">}</span>
 </code></pre>
 <blockquote>
-<p><strong>:point_up: Important</strong>: Ensure that your keyring implements the <a href="./docs/security.md#limit-the-methods-exposed-to-dapps">methods
+<p>:point_up: <strong>Important</strong>: Ensure that your keyring implements the <a href="./docs/security.md#limit-the-methods-exposed-to-dapps">methods
 called by MetaMask</a>, otherwise some features may not
 work.</p>
 </blockquote>
 </li>
 <li><p><strong>Handle requests submitted by MetaMask:</strong></p>
 <p>MetaMask will submit requests through the <code>submitRequest</code> method of your the
-Keyring API (check the supported <a href="./docs/evm_methods.md">EVM methods</a>). Here
+Keyring API (check the supported <a href="./docs/evm-methods.md">EVM methods</a>). Here
 is an example of request:</p>
 <pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-6">&quot;id&quot;</span><span class="hl-1">: </span><span class="hl-2">&quot;d6e23af6-4bea-48dd-aeb0-7d3c30ea67f9&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-6">&quot;scope&quot;</span><span class="hl-1">: </span><span class="hl-2">&quot;&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-6">&quot;account&quot;</span><span class="hl-1">: </span><span class="hl-2">&quot;69438371-bef3-4957-9f91-c3f22c1d75f3&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-6">&quot;request&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-6">&quot;method&quot;</span><span class="hl-1">: </span><span class="hl-2">&quot;personal_sign&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-6">&quot;params&quot;</span><span class="hl-1">: [</span><br/><span class="hl-1">      </span><span class="hl-2">&quot;0x4578616d706c652060706572736f6e616c5f7369676e60206d657373616765&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">&quot;0x5874174dcf1ab6F7Efd8496f4f09404CD1c5bA84&quot;</span><br/><span class="hl-1">    ]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
 </code></pre>
@@ -132,7 +132,7 @@ account does not exist.</p>
 </code></pre>
 <p>MetaMask will return an error if the request does not exist.</p>
 <blockquote>
-<p><strong>:pencil: Note:</strong> This only applies to Snaps that implement the
+<p>:pencil2: <strong>Note:</strong> This only applies to Snaps that implement the
 <a href="./docs/architecture.md#asynchronous-transaction-flow">asynchronous transaction flow</a>.</p>
 </blockquote>
 </li>
@@ -141,7 +141,7 @@ account does not exist.</p>
 </code></pre>
 <p>MetaMask will return an error if the request does not exist.</p>
 <blockquote>
-<p><strong>:pencil: Note:</strong> This only applies to Snaps that implement the
+<p>:pencil2: <strong>Note:</strong> This only applies to Snaps that implement the
 <a href="./docs/architecture.md#asynchronous-transaction-flow">asynchronous transaction flow</a>.</p>
 </blockquote>
 </li>
@@ -192,7 +192,7 @@ MetaMask about events:</p>
 <pre><code class="language-ts"><span class="hl-5">// Emit an event to indicate that an account was created.</span><br/><span class="hl-0">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-8">snap</span><span class="hl-1">, </span><span class="hl-8">KeyringEvent</span><span class="hl-1">.</span><span class="hl-8">AccountCreated</span><span class="hl-1">, { </span><span class="hl-8">account</span><span class="hl-1"> });</span><br/><br/><span class="hl-5">// Emit an event to indicate that an account was updated.</span><br/><span class="hl-0">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-8">snap</span><span class="hl-1">, </span><span class="hl-8">KeyringEvent</span><span class="hl-1">.</span><span class="hl-8">AccountUpdated</span><span class="hl-1">, { </span><span class="hl-8">account</span><span class="hl-1"> });</span><br/><br/><span class="hl-5">// Emit an event to indicate that an account was deleted.</span><br/><span class="hl-0">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-8">snap</span><span class="hl-1">, </span><span class="hl-8">KeyringEvent</span><span class="hl-1">.</span><span class="hl-8">AccountDeleted</span><span class="hl-1">, { </span><span class="hl-8">id:</span><span class="hl-1"> </span><span class="hl-8">account</span><span class="hl-1">.</span><span class="hl-8">id</span><span class="hl-1"> });</span><br/><br/><span class="hl-5">// Emit an event to indicate that a request was approved.</span><br/><span class="hl-0">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-8">snap</span><span class="hl-1">, </span><span class="hl-8">KeyringEvent</span><span class="hl-1">.</span><span class="hl-8">RequestApproved</span><span class="hl-1">, {</span><br/><span class="hl-1">  </span><span class="hl-8">id:</span><span class="hl-1"> </span><span class="hl-8">request</span><span class="hl-1">.</span><span class="hl-8">id</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-8">result</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-5">// Emit an event to indicate that a request was rejected.</span><br/><span class="hl-0">emitSnapKeyringEvent</span><span class="hl-1">(</span><span class="hl-8">snap</span><span class="hl-1">, </span><span class="hl-8">KeyringEvent</span><span class="hl-1">.</span><span class="hl-8">RequestRejected</span><span class="hl-1">, { </span><span class="hl-8">id:</span><span class="hl-1"> </span><span class="hl-8">request</span><span class="hl-1">.</span><span class="hl-8">id</span><span class="hl-1"> });</span>
 </code></pre>
 <blockquote>
-<p><strong>:point_up: Important</strong>: For all events above, MetaMask may return an error
+<p>:point_up: <strong>Important</strong>: For all events above, MetaMask may return an error
 indicating that the event was not handled, possibly because it contains
 invalid arguments.</p>
 </blockquote>
@@ -343,6 +343,11 @@ guidelines</a>.</p>
 <li class="tsd-kind-type-alias"><a href="types/CreateAccountResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Create<wbr/>Account<wbr/>Response</a></li>
 <li class="tsd-kind-type-alias"><a href="types/DeleteAccountRequest.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Delete<wbr/>Account<wbr/>Request</a></li>
 <li class="tsd-kind-type-alias"><a href="types/DeleteAccountResponse.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Delete<wbr/>Account<wbr/>Response</a></li>
+<li class="tsd-kind-type-alias"><a href="types/EthBaseTransaction.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Eth<wbr/>Base<wbr/>Transaction</a></li>
+<li class="tsd-kind-type-alias"><a href="types/EthBaseUserOperation.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Eth<wbr/>Base<wbr/>User<wbr/>Operation</a></li>
+<li class="tsd-kind-type-alias"><a href="types/EthKeyring.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Eth<wbr/>Keyring</a></li>
+<li class="tsd-kind-type-alias"><a href="types/EthUserOperation.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Eth<wbr/>User<wbr/>Operation</a></li>
+<li class="tsd-kind-type-alias"><a href="types/EthUserOperationPatch.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Eth<wbr/>User<wbr/>Operation<wbr/>Patch</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ExactOptionalTag.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Exact<wbr/>Optional<wbr/>Tag</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ExactOptionalize.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Exact<wbr/>Optionalize</a></li>
 <li class="tsd-kind-type-alias"><a href="types/ExcludeType.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Exclude<wbr/>Type</a></li>
@@ -381,6 +386,13 @@ guidelines</a>.</p>
 <li class="tsd-kind-variable"><a href="variables/CreateAccountResponseStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Create<wbr/>Account<wbr/>Response<wbr/>Struct</a></li>
 <li class="tsd-kind-variable"><a href="variables/DeleteAccountRequestStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Delete<wbr/>Account<wbr/>Request<wbr/>Struct</a></li>
 <li class="tsd-kind-variable"><a href="variables/DeleteAccountResponseStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Delete<wbr/>Account<wbr/>Response<wbr/>Struct</a></li>
+<li class="tsd-kind-variable"><a href="variables/EthAddressStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Eth<wbr/>Address<wbr/>Struct</a></li>
+<li class="tsd-kind-variable"><a href="variables/EthBaseTransactionStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Eth<wbr/>Base<wbr/>Transaction<wbr/>Struct</a></li>
+<li class="tsd-kind-variable"><a href="variables/EthBaseUserOperationStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Eth<wbr/>Base<wbr/>User<wbr/>Operation<wbr/>Struct</a></li>
+<li class="tsd-kind-variable"><a href="variables/EthBytesStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Eth<wbr/>Bytes<wbr/>Struct</a></li>
+<li class="tsd-kind-variable"><a href="variables/EthUint256Struct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Eth<wbr/>Uint256<wbr/>Struct</a></li>
+<li class="tsd-kind-variable"><a href="variables/EthUserOperationPatchStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Eth<wbr/>User<wbr/>Operation<wbr/>Patch<wbr/>Struct</a></li>
+<li class="tsd-kind-variable"><a href="variables/EthUserOperationStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Eth<wbr/>User<wbr/>Operation<wbr/>Struct</a></li>
 <li class="tsd-kind-variable"><a href="variables/ExportAccountRequestStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Export<wbr/>Account<wbr/>Request<wbr/>Struct</a></li>
 <li class="tsd-kind-variable"><a href="variables/ExportAccountResponseStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Export<wbr/>Account<wbr/>Response<wbr/>Struct</a></li>
 <li class="tsd-kind-variable"><a href="variables/FilterAccountChainsResponseStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Filter<wbr/>Account<wbr/>Chains<wbr/>Response<wbr/>Struct</a></li>
@@ -406,7 +418,8 @@ guidelines</a>.</p>
 <li class="tsd-kind-variable"><a href="variables/SubmitRequestResponseStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Submit<wbr/>Request<wbr/>Response<wbr/>Struct</a></li>
 <li class="tsd-kind-variable"><a href="variables/UpdateAccountRequestStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Update<wbr/>Account<wbr/>Request<wbr/>Struct</a></li>
 <li class="tsd-kind-variable"><a href="variables/UpdateAccountResponseStruct.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-32-path"></use><use href="#icon-32-text"></use></svg>Update<wbr/>Account<wbr/>Response<wbr/>Struct</a></li>
-<li class="tsd-kind-function"><a href="functions/emitSnapKeyringEvent.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>emit<wbr/>Snap<wbr/>Keyring<wbr/>Event</a></li>
+<li class="tsd-kind-function"><a href="functions/definePattern.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>define<wbr/>Pattern</a></li>
+<li class="tsd-kind-function"><a href="functions/emitSnapKeyringEvent.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>emit<wbr/>Snap<wbr/>Keyring<wbr/>Event</a></li>
 <li class="tsd-kind-function"><a href="functions/exactOptional.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>exact<wbr/>Optional</a></li>
 <li class="tsd-kind-function"><a href="functions/handleKeyringRequest.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>handle<wbr/>Keyring<wbr/>Request</a></li>
 <li class="tsd-kind-function"><a href="functions/isKeyringRpcMethod.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>is<wbr/>Keyring<wbr/>Rpc<wbr/>Method</a></li>
