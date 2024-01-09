@@ -39,9 +39,9 @@
   },
   "dependencies": {
     "@metamask/providers": "^14.0.1",
-    "@metamask/snaps-controllers": "^3.4.1",
-    "@metamask/snaps-sdk": "^1.2.0",
-    "@metamask/snaps-utils": "^5.0.0",
+    "@metamask/snaps-controllers": "^4.0.0",
+    "@metamask/snaps-sdk": "^1.3.2",
+    "@metamask/snaps-utils": "^5.1.2",
     "@metamask/utils": "^8.1.0",
     "@types/uuid": "^9.0.1",
     "superstruct": "^1.0.3",
