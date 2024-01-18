@@ -3,7 +3,6 @@ export * from './eth';
 export * from './events';
 export * from './internal';
 export * from './KeyringClient';
-export * from './KeyringSnapControllerClient';
 export * from './KeyringSnapRpcClient';
 export * from './rpc-handler';
 export * from './snap-utils';
