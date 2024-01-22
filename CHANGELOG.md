@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0]
+
+### Changed
+
+- Bump `@metamask/utils` from 8.2.1 to 8.3.0 ([#238](https://github.com/MetaMask/keyring-api/pull/238))
+- Bump Snap dependencies ([#236](https://github.com/MetaMask/keyring-api/pull/236))
+  - Bump `@metamask/snaps-controllers` to ^4.0.0
+  - Bump `@metamask/snaps-sdk` to ^1.3.2
+  - Bump `@metamask/snaps-utils` to ^5.1.2
+- Bump `@metamask/approval-controller` from 5.0.0 to 5.1.1 ([#225](https://github.com/MetaMask/keyring-api/pull/225))
+- Bump `@metamask/base-controller` from 4.0.0 to 4.0.1 ([#226](https://github.com/MetaMask/keyring-api/pull/226))
+- Bump `@metamask/json-rpc-engine` from 7.3.0 to 7.3.1 ([#227](https://github.com/MetaMask/keyring-api/pull/227))
+- Bump `@metamask/auto-changelog` from 3.4.3 to 3.4.4 ([#223](https://github.com/MetaMask/keyring-api/pull/223))
+- Bump `@metamask/snaps-sdk` from 1.3.0 to 1.3.1 ([#222](https://github.com/MetaMask/keyring-api/pull/222))
+
+### Removed
+
+- **BREAKING**: remove `KeyringSnapControllerClient` class to fix dependency problems ([#241](https://github.com/MetaMask/keyring-api/pull/241))
+
 ## [2.0.0]
 
 ### Added
@@ -188,7 +207,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/MetaMask/keyring-api/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/MetaMask/keyring-api/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/MetaMask/keyring-api/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/MetaMask/keyring-api/compare/v1.0.0-rc.1...v1.0.0
