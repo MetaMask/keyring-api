@@ -82,7 +82,7 @@ gen_enforced_dependency(WorkspaceCwd, DependencyIdent, null, DependencyType) :-
   workspace_has_dependency(WorkspaceCwd, DependencyIdent, DependencyRange, DependencyType),
   DependencyType == 'devDependencies'.
 
-% The package must specify a minimum Node version of 16.
+% The package must specify a minimum Node version of 18.
 gen_enforced_field(WorkspaceCwd, 'engines.node', '^18.18 || >=20').
 
 % The package is public.
