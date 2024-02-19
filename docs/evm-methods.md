@@ -217,7 +217,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
 
 ```json
 {
-  "v": "0x1",
+  "v": "0x01",
   "r": "0x51991c5099327d3c7eaa745de60c52a93555e5cbc418eb9b405fe92d986dee08",
   "s": "0x65b1d20a39360c31de69f872244e23a3549b702e11bc7d8eb3586812ac62be8d"
 }
