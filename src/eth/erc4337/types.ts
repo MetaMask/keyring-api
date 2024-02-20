@@ -1,4 +1,4 @@
-import { optional, string, type Infer } from 'superstruct';
+import { string, type Infer } from 'superstruct';
 
 import { exactOptional, object } from '../../superstruct';
 import { EthAddressStruct, EthBytesStruct, EthUint256Struct } from '../types';
@@ -66,9 +66,9 @@ export type EthBaseUserOperation = Infer<typeof EthBaseUserOperationStruct>;
 
 export const EthUserOperationPatchStruct = object({
   paymasterAndData: EthBytesStruct,
-  callDataLimit: optional(EthUint256Struct),
-  verificationGasLimit: optional(EthUint256Struct),
-  preVerificationGas: optional(EthUint256Struct),
+  callGasLimit: exactOptional(EthUint256Struct),
+  verificationGasLimit: exactOptional(EthUint256Struct),
+  preVerificationGas: exactOptional(EthUint256Struct),
 });
 
 export type EthUserOperationPatch = Infer<typeof EthUserOperationPatchStruct>;
