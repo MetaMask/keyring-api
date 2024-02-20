@@ -152,13 +152,13 @@ Patch _some_ allowed properties of an UserOperation.
       - Pattern: `^0x[0-9a-f]*$`
     - `callGasLimit` (optional)
       - Type: `string`
-      - Pattern: `^0x[0-9a-f]*$`
-    - `preverificationGas` (optional)
+      - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
+    - `preVerificationGas` (optional)
       - Type: `string`
-      - Pattern: `^0x[0-9a-f]*$`
+      - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
     - `verificationGasLimit` (optional)
       - Type: `string`
-      - Pattern: `^0x[0-9a-f]*$`
+      - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
 
 ### Example
 
