@@ -77,6 +77,9 @@ MetaMask -> Snap ++: ""patchUserOperation({""\n\
 
 Snap --> MetaMask --: ""{""\n\
 ""  paymasterAndData?,""\n\
+""  callGasLimit?,""\n\
+""  verificationGasLimit?,""\n\
+""  preVerificationGas?,""\n\
 ""}""
 
 MetaMask -> MetaMask: Update ""paymasterAndData"" and\n\

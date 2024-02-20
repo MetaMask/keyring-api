@@ -150,6 +150,15 @@ Patch _some_ allowed properties of an UserOperation.
     - `paymasterAndData`
       - Type: `string`
       - Pattern: `^0x[0-9a-f]*$`
+    - `callGasLimit` (optional)
+      - Type: `string`
+      - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
+    - `preVerificationGas` (optional)
+      - Type: `string`
+      - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
+    - `verificationGasLimit` (optional)
+      - Type: `string`
+      - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
 
 ### Example
 
@@ -180,7 +189,10 @@ Patch _some_ allowed properties of an UserOperation.
 
 ```json
 {
-  "paymasterAndData": "0x952514d7cBCB495EACeB86e02154921401dB0Cd9dac17f958d2ee523a2206206994597c13d831ec700000000000000000000000000000000000000000000000000000000779b3fbb00000000000000006565b267000000000000000000000000000000000000000029195b31a9b1c6ccdeff53e359ebbcd5f075a93c1aaed93302e5fde5faf8047028b296b8a3fa4e22b063af5069ae9f656736ffda0ee090c0311155722b905f781b"
+  "paymasterAndData": "0x952514d7cBCB495EACeB86e02154921401dB0Cd9dac17f958d2ee523a2206206994597c13d831ec700000000000000000000000000000000000000000000000000000000779b3fbb00000000000000006565b267000000000000000000000000000000000000000029195b31a9b1c6ccdeff53e359ebbcd5f075a93c1aaed93302e5fde5faf8047028b296b8a3fa4e22b063af5069ae9f656736ffda0ee090c0311155722b905f781b",
+  "callGasLimit": "0x58a83",
+  "verificationGasLimit": "0xe8c4",
+  "preVerificationGas": "0xc57c"
 }
 ```
 

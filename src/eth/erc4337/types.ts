@@ -66,6 +66,9 @@ export type EthBaseUserOperation = Infer<typeof EthBaseUserOperationStruct>;
 
 export const EthUserOperationPatchStruct = object({
   paymasterAndData: EthBytesStruct,
+  callGasLimit: exactOptional(EthUint256Struct),
+  verificationGasLimit: exactOptional(EthUint256Struct),
+  preVerificationGas: exactOptional(EthUint256Struct),
 });
 
 export type EthUserOperationPatch = Infer<typeof EthUserOperationPatchStruct>;
