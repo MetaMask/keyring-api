@@ -9,20 +9,18 @@ Prepare a new UserOperation from transaction data.
 
 ### Parameters (Array)
 
-1. **Transactions (required)**
-   - Type: `array`
+1. **Transaction Intents (repeated, required)**
+   - Type: `object`
    - Properties:
-     - Type: `object`
-     - Properties:
-       - `to`
-         - Type: `string`
-         - Pattern: `^0x[0-9a-fA-F]{40}$`
-       - `value`
-         - Type: `string`
-         - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
-       - `data`
-         - Type: `string`
-         - Pattern: `^0x[0-9a-f]*$`
+     - `to`
+       - Type: `string`
+       - Pattern: `^0x[0-9a-fA-F]{40}$`
+     - `value`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
+     - `data`
+       - Type: `string`
+       - Pattern: `^0x[0-9a-f]*$`
 
 ### Returns
 
