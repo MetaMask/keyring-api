@@ -11,3 +11,8 @@ export const EthUint256Struct = definePattern(
   'EthUint256',
   /^0x([1-9a-f][0-9a-f]*|0)$/iu,
 );
+
+export const BundlerUrlStruct = definePattern(
+  'BundlerUrl',
+  /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$/iu,
+);
