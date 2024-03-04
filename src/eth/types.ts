@@ -1,4 +1,5 @@
 import { refine, string } from 'superstruct';
+
 import { definePattern } from '../superstruct';
 
 export const EthBytesStruct = definePattern('EthBytes', /^0x[0-9a-f]*$/iu);
