@@ -19,7 +19,7 @@ describe('types', () => {
   it('fails if it does not start with http or https', () => {
     const url = 'ftp://api.example.com';
     expect(() => BundlerUrlStruct.assert(url)).toThrow(
-      'Expected a value of type `BundlerUrl`, but received: `"ftp://api.example.com"`',
+      'Expected a value of type `string`, but received: `"ftp://api.example.com"`',
     );
   });
 

@@ -1,3 +1,4 @@
+import { refine, string } from 'superstruct';
 import { definePattern } from '../superstruct';
 
 export const EthBytesStruct = definePattern('EthBytes', /^0x[0-9a-f]*$/iu);
@@ -12,7 +13,18 @@ export const EthUint256Struct = definePattern(
   /^0x([1-9a-f][0-9a-f]*|0)$/iu,
 );
 
-export const BundlerUrlStruct = definePattern(
+export const BundlerUrlStruct = refine(
+  string(),
   'BundlerUrl',
-  /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$/iu,
+  (value: string) => {
+    let url;
+
+    try {
+      url = new URL(value);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  },
 );
