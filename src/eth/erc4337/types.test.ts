@@ -78,18 +78,22 @@ describe('types', () => {
   });
 
   describe('EthBaseUserOperationStruct', () => {
+    const baseUserOp = {
+      nonce: '0x1',
+      initCode: '0x',
+      callData: '0x70641a22000000000000000000000000',
+      gasLimits: {
+        callGasLimit: '0x58a83',
+        verificationGasLimit: '0xe8c4',
+        preVerificationGas: '0xc57c',
+      },
+      dummyPaymasterAndData: '0x1234',
+      dummySignature: '0x1234',
+    };
+
     it('is a valid BaseUserOperation', () => {
       const userOp = {
-        nonce: '0x1',
-        initCode: '0x',
-        callData: '0x70641a22000000000000000000000000',
-        gasLimits: {
-          callGasLimit: '0x58a83',
-          verificationGasLimit: '0xe8c4',
-          preVerificationGas: '0xc57c',
-        },
-        dummyPaymasterAndData: '0x1234',
-        dummySignature: '0x1234',
+        ...baseUserOp,
         bundlerUrl: 'https://example.com',
       };
       expect(() => assert(userOp, EthBaseUserOperationStruct)).not.toThrow();
@@ -97,16 +101,7 @@ describe('types', () => {
 
     it('has an invalid BaseUserOperation with an incorrect url string', () => {
       const userOp = {
-        nonce: '0x1',
-        initCode: '0x',
-        callData: '0x70641a22000000000000000000000000',
-        gasLimits: {
-          callGasLimit: '0x58a83',
-          verificationGasLimit: '0xe8c4',
-          preVerificationGas: '0xc57c',
-        },
-        dummyPaymasterAndData: '0x1234',
-        dummySignature: '0x1234',
+        ...baseUserOp,
         bundlerUrl: 'random string',
       };
       expect(() => assert(userOp, EthBaseUserOperationStruct)).toThrow(
@@ -116,16 +111,7 @@ describe('types', () => {
 
     it('cannot have an empty bundler url', () => {
       const userOp = {
-        nonce: '0x1',
-        initCode: '0x',
-        callData: '0x70641a22000000000000000000000000',
-        gasLimits: {
-          callGasLimit: '0x58a83',
-          verificationGasLimit: '0xe8c4',
-          preVerificationGas: '0xc57c',
-        },
-        dummyPaymasterAndData: '0x1234',
-        dummySignature: '0x1234',
+        ...baseUserOp,
         bundlerUrl: '',
       };
       expect(() => assert(userOp, EthBaseUserOperationStruct)).toThrow(
