@@ -1,6 +1,6 @@
-import { string, type Infer } from 'superstruct';
+import { type Infer } from 'superstruct';
 
-import { exactOptional, object } from '../../superstruct';
+import { UrlStruct, exactOptional, object } from '../../superstruct';
 import { EthAddressStruct, EthBytesStruct, EthUint256Struct } from '../types';
 
 /**
@@ -59,7 +59,7 @@ export const EthBaseUserOperationStruct = object({
   ),
   dummyPaymasterAndData: EthBytesStruct,
   dummySignature: EthBytesStruct,
-  bundlerUrl: string(),
+  bundlerUrl: UrlStruct,
 });
 
 export type EthBaseUserOperation = Infer<typeof EthBaseUserOperationStruct>;

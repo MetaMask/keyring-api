@@ -1,6 +1,6 @@
 import { assert } from 'superstruct';
 
-import { EthUserOperationStruct } from './types';
+import { EthUserOperationStruct, EthBaseUserOperationStruct } from './types';
 
 describe('types', () => {
   it('is a valid UserOperation', () => {
@@ -75,5 +75,60 @@ describe('types', () => {
     expect(() => assert(userOp, EthUserOperationStruct)).toThrow(
       'At path: nonce -- Expected a value of type `EthUint256`, but received: `"0x01"`',
     );
+  });
+
+  describe('EthBaseUserOperationStruct', () => {
+    const baseUserOp = {
+      nonce: '0x1',
+      initCode: '0x',
+      callData: '0x70641a22000000000000000000000000',
+      gasLimits: {
+        callGasLimit: '0x58a83',
+        verificationGasLimit: '0xe8c4',
+        preVerificationGas: '0xc57c',
+      },
+      dummyPaymasterAndData: '0x1234',
+      dummySignature: '0x1234',
+    };
+
+    it('is a valid BaseUserOperation', () => {
+      const userOp = {
+        ...baseUserOp,
+        bundlerUrl: 'https://example.com',
+      };
+      expect(() => assert(userOp, EthBaseUserOperationStruct)).not.toThrow();
+    });
+
+    it('has an invalid BaseUserOperation with an incorrect url string', () => {
+      const userOp = {
+        ...baseUserOp,
+        bundlerUrl: 'random string',
+      };
+      expect(() => assert(userOp, EthBaseUserOperationStruct)).toThrow(
+        'At path: bundlerUrl -- Expected a value of type `Url`, but received: `"random string"`',
+      );
+    });
+
+    it('cannot have an empty bundler url', () => {
+      const userOp = {
+        ...baseUserOp,
+        bundlerUrl: '',
+      };
+      expect(() => assert(userOp, EthBaseUserOperationStruct)).toThrow(
+        'At path: bundlerUrl -- Expected a value of type `Url`, but received: `""`',
+      );
+    });
+
+    it('does not throw if gasLimits are undefined', () => {
+      const userOp = {
+        nonce: '0x1',
+        initCode: '0x',
+        callData: '0x70641a22000000000000000000000000',
+        dummyPaymasterAndData: '0x1234',
+        dummySignature: '0x1234',
+        bundlerUrl: 'https://example.com',
+      };
+      expect(() => assert(userOp, EthBaseUserOperationStruct)).not.toThrow();
+    });
   });
 });
