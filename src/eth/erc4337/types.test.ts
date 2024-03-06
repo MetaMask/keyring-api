@@ -105,7 +105,7 @@ describe('types', () => {
         bundlerUrl: 'random string',
       };
       expect(() => assert(userOp, EthBaseUserOperationStruct)).toThrow(
-        'At path: bundlerUrl -- Expected a value of type `string`, but received: `"random string"`',
+        'At path: bundlerUrl -- Expected a value of type `Url`, but received: `"random string"`',
       );
     });
 
@@ -115,7 +115,7 @@ describe('types', () => {
         bundlerUrl: '',
       };
       expect(() => assert(userOp, EthBaseUserOperationStruct)).toThrow(
-        'At path: bundlerUrl -- Expected a value of type `string`, but received: `""`',
+        'At path: bundlerUrl -- Expected a value of type `Url`, but received: `""`',
       );
     });
 
