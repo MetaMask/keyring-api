@@ -7,22 +7,22 @@ requests using [ERC-4337][erc-4337] accounts.
 
 Prepare a new UserOperation from transaction data.
 
+> ✏️ **Note:** The return value of this method requires the properties `dummySignature` and `dummyPaymasterAndData`. This is necessary because the UserOperation needs its total size in bytes to be determined in order to accurately estimate the gas costs from the bundler.
+
 ### Parameters (Array)
 
-1. **Transactions (required)**
-   - Type: `array`
+1. **Transaction Intents (repeated, required)**
+   - Type: `object`
    - Properties:
-     - Type: `object`
-     - Properties:
-       - `to`
-         - Type: `string`
-         - Pattern: `^0x[0-9a-fA-F]{40}$`
-       - `value`
-         - Type: `string`
-         - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
-       - `data`
-         - Type: `string`
-         - Pattern: `^0x[0-9a-f]*$`
+     - `to`
+       - Type: `string`
+       - Pattern: `^0x[0-9a-fA-F]{40}$`
+     - `value`
+       - Type: `string`
+       - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
+     - `data`
+       - Type: `string`
+       - Pattern: `^0x[0-9a-f]*$`
 
 ### Returns
 

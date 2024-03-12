@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.1]
+
+### Changed
+
+- Bump @metamask/providers to 15.0.0, @metamask/snaps-sdk to ^3.1.0 and @@metamask/utils to ^8.3.0([#266](https://github.com/MetaMask/keyring-api/pull/266))
+- Bump @metamask/json-rpc-engine from 7.3.2 to 7.3.3 ([#264](https://github.com/MetaMask/keyring-api/pull/264))
+- Bump @metamask/snaps-sdk from 3.0.0 to 3.0.1 ([#261](https://github.com/MetaMask/keyring-api/pull/261))
+- Bump @metamask/snaps-sdk from 1.4.0 to 3.0.0 ([#259](https://github.com/MetaMask/keyring-api/pull/259))
+- Bump @metamask/rpc-errors from 6.1.0 to 6.2.1 ([#258](https://github.com/MetaMask/keyring-api/pull/258))
+
+## [4.0.0]
+
+### Changed
+
+- **BREAKING** Update node min version to 18.x ([#247](https://github.com/MetaMask/keyring-api/pull/247))
+- Update `eth_patchUserOperation` to return optional gas limit values ([#250](https://github.com/MetaMask/keyring-api/pull/250))
+- Bump `ip` from 2.0.0 to 2.0.1 ([#253](https://github.com/MetaMask/keyring-api/pull/253))
+- Bump `@metamask/json-rpc-engine` from 7.3.1 to 7.3.2 ([#246](https://github.com/MetaMask/keyring-api/pull/246))
+- Bump `@metamask/snaps-sdk` from 1.3.2 to 1.4.0 ([#243](https://github.com/MetaMask/keyring-api/pull/243))
+
 ## [3.0.0]
 
 ### Changed
@@ -207,7 +227,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v4.0.1...HEAD
+[4.0.1]: https://github.com/MetaMask/keyring-api/compare/v4.0.0...v4.0.1
+[4.0.0]: https://github.com/MetaMask/keyring-api/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/MetaMask/keyring-api/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/MetaMask/keyring-api/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/MetaMask/keyring-api/compare/v1.0.0...v1.1.0
