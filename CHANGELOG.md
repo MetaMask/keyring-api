@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.2]
+
+### Changed
+
+- Bump @metamask/snaps-sdk to ^3.1.1 ([#271](https://github.com/MetaMask/keyring-api/pull/271))
+- Bump @metamask/safe-event-emitter from 3.0.0 to 3.1.0 ([#270](https://github.com/MetaMask/keyring-api/pull/270))
+- Fix bundler URL validation ([#262](https://github.com/MetaMask/keyring-api/pull/262))
+
 ## [4.0.1]
 
 ### Changed
@@ -227,7 +235,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v4.0.1...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v4.0.2...HEAD
+[4.0.2]: https://github.com/MetaMask/keyring-api/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/MetaMask/keyring-api/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/MetaMask/keyring-api/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/MetaMask/keyring-api/compare/v2.0.0...v3.0.0
