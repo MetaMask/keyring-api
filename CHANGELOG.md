@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Bump `@metamask/snaps-sdk` version to ^3.1.1 ([#271](https://github.com/MetaMask/keyring-api/pull/271))
+- Bump @metamask/snaps-sdk version to ^3.1.1 ([#271](https://github.com/MetaMask/keyring-api/pull/271))
 - Bump @metamask/safe-event-emitter from 3.0.0 to 3.1.0 ([#270](https://github.com/MetaMask/keyring-api/pull/270))
 - Fix bundler URL validation ([#262](https://github.com/MetaMask/keyring-api/pull/262))
 
