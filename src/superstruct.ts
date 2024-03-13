@@ -132,7 +132,7 @@ export function definePattern(
  * @param value - The value to be validated.
  * @returns A boolean indicating if the value is a valid URL.
  */
-export const UrlStruct = define('Url', (value: unknown) => {
+export const UrlStruct = define<string>('Url', (value: unknown) => {
   let url;
 
   try {
