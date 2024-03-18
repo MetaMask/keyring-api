@@ -1,4 +1,4 @@
-import type { MetaMaskInpageProvider } from '@metamask/providers';
+import type { SnapsEthereumProvider } from '@metamask/snaps-sdk';
 import type { Json } from '@metamask/utils';
 
 import type { JsonRpcRequest } from './JsonRpcRequest';
@@ -12,15 +12,15 @@ import { KeyringClient } from './KeyringClient';
 export class SnapRpcSender implements Sender {
   #origin: string;
 
-  #provider: MetaMaskInpageProvider;
+  #provider: SnapsEthereumProvider;
 
   /**
    * Create a new instance of `SnapRpcSender`.
    *
    * @param origin - The caller's origin.
-   * @param provider - The `MetaMaskInpageProvider` instance to use.
+   * @param provider - The provider instance to use.
    */
-  constructor(origin: string, provider: MetaMaskInpageProvider) {
+  constructor(origin: string, provider: SnapsEthereumProvider) {
     this.#origin = origin;
     this.#provider = provider;
   }
@@ -51,9 +51,9 @@ export class KeyringSnapRpcClient extends KeyringClient {
    * Create a new instance of `KeyringSnapRpcClient`.
    *
    * @param origin - Caller's origin.
-   * @param provider - The `MetaMaskInpageProvider` instance to use.
+   * @param provider - The provider instance to use.
    */
-  constructor(origin: string, provider: MetaMaskInpageProvider) {
+  constructor(origin: string, provider: SnapsEthereumProvider) {
     super(new SnapRpcSender(origin, provider));
   }
 }
