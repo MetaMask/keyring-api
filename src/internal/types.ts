@@ -2,6 +2,7 @@ import type { Infer, Struct } from 'superstruct';
 import { boolean, string, number, define, mask, validate } from 'superstruct';
 
 import { BaseKeyringAccountStruct } from '../api';
+import { BtcP2wpkhAccountStruct, BtcAccountType } from '../btc/types';
 import {
   EthEoaAccountStruct,
   EthErc4337AccountStruct,
@@ -43,12 +44,24 @@ export type InternalEthErc4337Account = Infer<
   typeof InternalEthErc4337AccountStruct
 >;
 
+export const InternalBtcP2wpkhAccountStruct = object({
+  ...BtcP2wpkhAccountStruct.schema,
+  ...InternalAccountMetadataStruct.schema,
+});
+
+export type InternalBtcP2wpkhAccount = Infer<
+  typeof InternalBtcP2wpkhAccountStruct
+>;
+
 export const InternalAccountStructs: Record<
   string,
-  Struct<InternalEthEoaAccount> | Struct<InternalEthErc4337Account>
+  | Struct<InternalEthEoaAccount>
+  | Struct<InternalEthErc4337Account>
+  | Struct<InternalBtcP2wpkhAccount>
 > = {
   [`${EthAccountType.Eoa}`]: InternalEthEoaAccountStruct,
   [`${EthAccountType.Erc4337}`]: InternalEthErc4337AccountStruct,
+  [`${BtcAccountType.P2wpkh}`]: InternalBtcP2wpkhAccountStruct,
 };
 
 export const InternalAccountStruct = define(

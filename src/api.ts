@@ -14,6 +14,8 @@ import {
 } from 'superstruct';
 
 import type { StaticAssertAbstractAccount } from './base-types';
+import type { BtcP2wpkhAccount } from './btc';
+import { BtcP2wpkhAccountStruct, BtcAccountType } from './btc';
 import type { EthEoaAccount, EthErc4337Account } from './eth';
 import {
   EthEoaAccountStruct,
@@ -27,7 +29,7 @@ import { UuidStruct } from './utils';
  * Type of supported accounts.
  */
 export type KeyringAccounts = StaticAssertAbstractAccount<
-  EthEoaAccount | EthErc4337Account
+  EthEoaAccount | EthErc4337Account | BtcP2wpkhAccount
 >;
 
 /**
@@ -35,10 +37,11 @@ export type KeyringAccounts = StaticAssertAbstractAccount<
  */
 export const KeyringAccountStructs: Record<
   string,
-  Struct<EthEoaAccount> | Struct<EthErc4337Account>
+  Struct<EthEoaAccount> | Struct<EthErc4337Account> | Struct<BtcP2wpkhAccount>
 > = {
   [`${EthAccountType.Eoa}`]: EthEoaAccountStruct,
   [`${EthAccountType.Erc4337}`]: EthErc4337AccountStruct,
+  [`${BtcAccountType.P2wpkh}`]: BtcP2wpkhAccountStruct,
 };
 
 /**
@@ -48,7 +51,11 @@ export const BaseKeyringAccountStruct = object({
   /**
    * Account type.
    */
-  type: enums([`${EthAccountType.Eoa}`, `${EthAccountType.Erc4337}`]),
+  type: enums([
+    `${EthAccountType.Eoa}`,
+    `${EthAccountType.Erc4337}`,
+    `${BtcAccountType.P2wpkh}`,
+  ]),
 });
 
 /**

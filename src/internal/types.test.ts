@@ -3,13 +3,19 @@ import { assert } from 'superstruct';
 import { InternalAccountStruct } from '.';
 
 describe('InternalAccount', () => {
-  it('should have the correct structure', () => {
+  it.each([
+    { type: 'eip155:eoa', address: '0x000' },
+    {
+      type: 'bip122:p2wpkh',
+      address: 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4',
+    },
+  ])('should have the correct structure: %s', ({ type, address }) => {
     const account = {
       id: '606a7759-b0fb-48e4-9874-bab62ff8e7eb',
-      address: '0x000',
+      address,
       options: {},
       methods: [],
-      type: 'eip155:eoa',
+      type,
       metadata: {
         keyring: {
           type: 'Test Keyring',
