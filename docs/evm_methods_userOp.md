@@ -280,4 +280,59 @@ Sign an UserOperation.
 "0x6565acc7efd3c85e4c0c221c2958ff6c3ae68401b23b33fdcd1a2d49034c30d97b1cfa17487b90253a5dfd54ef5188688592c2fd56ba44ee4d948ea259d636cd550f6dd21b"
 ```
 
+## eth_decodeUserOperationCallData
+
+### Parameters (Array)
+
+1. **Call data**
+   - Type: `string`
+   - Pattern: `^0x[0-9a-f]*$`
+
+### Returns
+
+- **Transaction Intents**
+  - Type: `array`
+  - Properties:
+    - Type: `object`
+    - Properties:
+    - `to`
+      - Type: `string`
+      - Pattern: `^0x[0-9a-fA-F]{40}$`
+    - `value`
+      - Type: `string`
+      - Pattern: `^0x([1-9a-f][0-9a-f]*|0)$`
+    - `data`
+      - Type: `string`
+      - Pattern: `^0x[0-9a-f]*$`
+
+### Example
+
+**Request:**
+
+```json
+{
+  "method": "eth_decodeUserOperationCallData",
+  "params": [
+    "0x70641a22000000000000000000000000f3de3c0d654fda23dad170f0f320a921725091270"
+  ]
+}
+```
+
+**Response:**
+
+```json
+[
+  {
+    "to": "0x0c54fccd2e384b4bb6f2e405bf5cbc15a017aafb",
+    "value": "0x1234",
+    "data": "0x"
+  },
+  {
+    "to": "0x660265edc169bab511a40c0e049cc1e33774443d",
+    "value": "0x0",
+    "data": "0x619a309f"
+  }
+]
+```
+
 [erc-4337]: https://eips.ethereum.org/EIPS/eip-4337
