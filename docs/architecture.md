@@ -209,16 +209,22 @@ participant Snap
 User ->>+ Dapp: Create new sign request
 Dapp ->>+ MetaMask: ethereum.request(request)
 alt Is EIP-4337 account?
-  MetaMask ->>+ Snap: keyring_prepareRequest(request)
+  MetaMask ->>+ Snap: keyring_submitRequest({request, method: eth_prepareUserOperation})
   Snap ->> Snap: Custom logic to prepare request
   Snap -->>- MetaMask: { request }
+  MetaMask ->>+ Snap: keyring_submitRequest({request, method: eth_patchUserOperation})
+  Snap -->>- MetaMask: { paymasterAndData?, calldata?, callGasLimit?, verificationGasLimit?, preVerificationGas? }
+  alt If calldata was changed
+    MetaMask ->>+ Snap: keyring_submitRequest({request, method: eth_decodeUserOperationCallData})
+    Snap -->>- MetaMask: { intents }
+  end
 end
 MetaMask ->> MetaMask: Display request to user
 User ->> MetaMask: Approve request
 
 MetaMask ->>+ Snap: keyring_submitRequest(request)
 Snap ->> Snap: Custom logic to handle request
-Snap -->>- MetaMask: { pendind: false, result }
+Snap -->>- MetaMask: { pending: false, result }
 
 MetaMask -->>- Dapp: result
 
