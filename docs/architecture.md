@@ -163,11 +163,6 @@ participant Site as Snap Companion Dapp
 
 User ->>+ Dapp: Create new sign request
 Dapp ->>+ MetaMask: ethereum.request(request)
-alt Is EIP-4337 account?
-  MetaMask ->>+ Snap: keyring_prepareRequest(request)
-  Snap ->> Snap: Custom logic to prepare request
-  Snap -->>- MetaMask: { request }
-end
 MetaMask ->> MetaMask: Display request to user
 User ->> MetaMask: Approve request
 
