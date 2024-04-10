@@ -1,6 +1,6 @@
 {
   "name": "@metamask/keyring-api",
-  "version": "4.0.1",
+  "version": "5.1.0",
   "description": "MetaMask Keyring API",
   "keywords": [
     "metamask",
@@ -38,8 +38,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@metamask/providers": "^15.0.0",
-    "@metamask/snaps-sdk": "^3.1.0",
+    "@metamask/snaps-sdk": "^3.1.1",
     "@metamask/utils": "^8.3.0",
     "@types/uuid": "^9.0.1",
     "superstruct": "^1.0.3",
@@ -53,6 +52,7 @@
     "@metamask/eslint-config-jest": "^12.1.0",
     "@metamask/eslint-config-nodejs": "^12.1.0",
     "@metamask/eslint-config-typescript": "^12.1.0",
+    "@metamask/providers": "^16.0.0",
     "@types/jest": "^28.1.6",
     "@types/node": "^16",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
@@ -76,6 +76,9 @@
     "tsd": "^0.29.0",
     "typedoc": "^0.23.15",
     "typescript": "~4.8.4"
+  },
+  "peerDependencies": {
+    "@metamask/providers": ">=15 <17"
   },
   "packageManager": "yarn@3.2.1",
   "engines": {
