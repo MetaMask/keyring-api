@@ -85,6 +85,22 @@ Snap --> MetaMask --: ""{""\n\
 MetaMask -> MetaMask: Update ""paymasterAndData"" and\n\
 remove the dummy signature
 
+alt Calldata has been changed
+MetaMask -> Snap ++: ""eth_decodeUserOperationCallData({""\n\
+""  callData,""\n\
+""})""
+Snap --> MetaMask --: ""{""\n\
+""  intents: [ // List of transactions""\n\
+""    {""\n\
+""      to,""\n\
+""      value,""\n\
+""      data,""\n\
+""    },""\n\
+""  ]""\n\
+})
+end
+
+
 MetaMask -> MetaMask: Display approval UI
 
 MetaMask -> Snap ++: ""signUserOperation([""\n\
