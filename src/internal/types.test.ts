@@ -15,6 +15,7 @@ describe('InternalAccount', () => {
           type: 'Test Keyring',
         },
         name: 'Account 1',
+        importTime: 1713153716,
       },
     };
 
@@ -31,6 +32,7 @@ describe('InternalAccount', () => {
       metadata: {
         keyring: {},
         name: 'Account 1',
+        importTime: 1713153716,
       },
     };
 
@@ -48,6 +50,7 @@ describe('InternalAccount', () => {
       type: 'eip155:eoa',
       metadata: {
         name: 'Account 1',
+        importTime: 1713153716,
       },
     };
 
@@ -82,6 +85,7 @@ describe('InternalAccount', () => {
           type: 'Test Keyring',
         },
         name: 'Account 1',
+        importTime: 1713153716,
         extra: 'field',
       },
     };
@@ -103,6 +107,7 @@ describe('InternalAccount', () => {
           type: 'Test Keyring',
         },
         name: 'Account 1',
+        importTime: 1713153716,
         snap: {
           id: 'test-snap',
           enabled: true,
@@ -128,6 +133,7 @@ describe('InternalAccount', () => {
             type: 'Test Keyring',
           },
           name: 'Account 1',
+          importTime: 1713153716,
           snap: {
             id: 'test-snap',
             enabled: true,
