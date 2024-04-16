@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.0.0]
+
+### Changed
+
+- **BREAKING**: Add `importTime` property to `InternalAccount` metadata ([#289](https://github.com/MetaMask/keyring-api/pull/289))
+- Bump tar from 6.1.15 to 6.2.1 ([#286](https://github.com/MetaMask/keyring-api/pull/286))
+- Bump @metamask/snaps-sdk from 3.2.0 to 4.0.0 ([#287](https://github.com/MetaMask/keyring-api/pull/287))
+- Add documentation for `eth_decodeUserOperationCallData` ([#254](https://github.com/MetaMask/keyring-api/pull/254))
+- Bump @metamask/snaps-sdk from 3.1.1 to 3.2.0 ([#284](https://github.com/MetaMask/keyring-api/pull/284))
+
 ## [5.1.0]
 
 ### Changed
@@ -252,7 +262,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v5.1.0...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/MetaMask/keyring-api/compare/v5.1.0...v6.0.0
 [5.1.0]: https://github.com/MetaMask/keyring-api/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/MetaMask/keyring-api/compare/v4.0.2...v5.0.0
 [4.0.2]: https://github.com/MetaMask/keyring-api/compare/v4.0.1...v4.0.2
