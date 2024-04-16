@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **BREAKING**: Add importTime property to `InternalAccount` metadata ([#289](https://github.com/MetaMask/keyring-api/pull/289))
+- **BREAKING**: Add `importTime` property to `InternalAccount` metadata ([#289](https://github.com/MetaMask/keyring-api/pull/289))
 - Bump tar from 6.1.15 to 6.2.1 ([#286](https://github.com/MetaMask/keyring-api/pull/286))
 - Bump @metamask/snaps-sdk from 3.2.0 to 4.0.0 ([#287](https://github.com/MetaMask/keyring-api/pull/287))
 - Add documentation for `eth_decodeUserOperationCallData` ([#254](https://github.com/MetaMask/keyring-api/pull/254))
