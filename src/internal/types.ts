@@ -16,6 +16,7 @@ export const InternalAccountStruct = object({
       }),
     ),
     lastSelected: exactOptional(number()),
+    importTime: number(),
     keyring: object({
       type: string(),
     }),
