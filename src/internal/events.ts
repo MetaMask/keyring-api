@@ -1,5 +1,5 @@
 import { JsonStruct } from '@metamask/utils';
-import { boolean, literal, object } from 'superstruct';
+import { boolean, literal, object, string } from 'superstruct';
 
 import { KeyringAccountStruct } from '../api';
 import { KeyringEvent } from '../events';
@@ -13,6 +13,15 @@ export const AccountCreatedEventStruct = object({
      * New account object.
      */
     account: KeyringAccountStruct,
+
+    /**
+     * Account name suggestion provided to the MetaMask client.
+     *
+     * The keyring can suggest a name for the account, but it's up to the
+     * client to decide whether to use it. The keyring won't be informed if the
+     * client decides to use a different name.
+     */
+    accountNameSuggestion: exactOptional(string()),
 
     /**
      * Instructs MetaMask to display the add account confirmation dialog in the UI.
