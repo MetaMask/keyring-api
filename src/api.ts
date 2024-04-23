@@ -21,6 +21,12 @@ import {
 } from './eth';
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
+import { AbstractAccountStruct } from './base-types';
+
+/**
+ * Type of supported accounts.
+ */
+export type KeyringAccounts = EthEoaAccount | EthErc4337Account;
 
 /**
  * Mapping between account types and their matching `superstruct` schema.
@@ -38,16 +44,11 @@ export const KeyringAccountTypedStruct = object({
 });
 
 /**
- * Type for any supported accounts.
- */
-export type AnyKeyringAccount = EthEoaAccount | EthErc4337Account;
-
-/**
  * Account as a `superstruct.object`.
  *
  * See {@link KeyringAccount}.
  */
-export const KeyringAccountStruct = define<AnyKeyringAccount>(
+export const KeyringAccountStruct = define<KeyringAccounts>(
   // We do use a custom `define` for this type to avoid having to use a `union` since error
   // messages are a bit confusing.
   // Doing manual validation allows us to use the "concrete" type of each supported acounts giving
