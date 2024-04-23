@@ -1,7 +1,12 @@
 import type { Infer } from 'superstruct';
-import { union, boolean, string, number } from 'superstruct';
+import { boolean, string, number, define, mask, validate } from 'superstruct';
 
-import { EthEoaAccountStruct, EthErc4337AccountStruct } from '../eth/types';
+import { KeyringAccountTypedStruct } from '../api';
+import {
+  EthEoaAccountStruct,
+  EthErc4337AccountStruct,
+  EthAccountType,
+} from '../eth/types';
 import { exactOptional, object } from '../superstruct';
 
 export const InternalAccountMetadataStruct = object({
@@ -22,10 +27,28 @@ export const InternalAccountMetadataStruct = object({
   }),
 });
 
-export const InternalAccountStruct = union([
-  object({ ...EthEoaAccountStruct.schema, ...InternalAccountMetadataStruct.schema }),
-  object({ ...EthErc4337AccountStruct.schema, ...InternalAccountMetadataStruct.schema }),
-]);
+export const InternalAccountStructs: Record<string, any> = {
+  [`${EthAccountType.Eoa}`]: object({
+    ...EthEoaAccountStruct.schema,
+    ...InternalAccountMetadataStruct.schema,
+  }),
+  [`${EthAccountType.Erc4337}`]: object({
+    ...EthErc4337AccountStruct.schema,
+    ...InternalAccountMetadataStruct.schema,
+  }),
+};
+
+export const InternalAccountStruct = define(
+  'InternalAccount',
+  (value: unknown) => {
+    const account = mask(value, KeyringAccountTypedStruct);
+
+    // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
+    const [error] = validate(value, InternalAccountStructs[account.type]);
+
+    return error ?? true;
+  },
+);
 
 /**
  * Internal account representation.

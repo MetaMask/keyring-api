@@ -1,16 +1,64 @@
 import type { Json } from '@metamask/utils';
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import { array, literal, record, string, union } from 'superstruct';
+import {
+  enums,
+  array,
+  define,
+  validate,
+  literal,
+  record,
+  string,
+  union,
+  mask,
+} from 'superstruct';
 
-import { EthEoaAccountStruct, EthErc4337AccountStruct } from './eth';
+import {
+  EthEoaAccountStruct,
+  EthErc4337AccountStruct,
+  EthAccountType,
+} from './eth';
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
 
-export const KeyringAccountStruct = union([
-  EthEoaAccountStruct,
-  EthErc4337AccountStruct,
-]);
+/**
+ * Mapping between account types and their matching `superstruct` schema.
+ */
+export const KeyringAccountStructs: Record<string, any> = {
+  [`${EthAccountType.Eoa}`]: EthEoaAccountStruct,
+  [`${EthAccountType.Erc4337}`]: EthErc4337AccountStruct,
+};
+
+/**
+ * Base type with account's type for any account as a `superstruct.object`.
+ */
+export const KeyringAccountTypedStruct = object({
+  type: enums(Object.keys(KeyringAccountStructs)),
+});
+
+/**
+ * Type for any supported accounts.
+ */
+export type AnyKeyringAccount =
+  | Infer<typeof EthEoaAccountStruct>
+  | Infer<typeof EthErc4337AccountStruct>;
+
+/**
+ * Account as a `superstruct.object`.
+ *
+ * See {@link KeyringAccount}.
+ */
+export const KeyringAccountStruct = define<AnyKeyringAccount>(
+  'KeyringAccount',
+  (value: unknown) => {
+    const account = mask(value, KeyringAccountTypedStruct);
+
+    // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
+    const [error] = validate(value, KeyringAccountStructs[account.type]);
+
+    return error ?? true;
+  },
+);
 
 /**
  * Account object.
