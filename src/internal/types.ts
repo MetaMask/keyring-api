@@ -1,11 +1,10 @@
 import type { Infer } from 'superstruct';
-import { boolean, string, number } from 'superstruct';
+import { union, boolean, string, number } from 'superstruct';
 
-import { KeyringAccountStruct } from '../api';
+import { EthEoaAccountStruct, EthErc4337AccountStruct } from '../eth/types';
 import { exactOptional, object } from '../superstruct';
 
-export const InternalAccountStruct = object({
-  ...KeyringAccountStruct.schema,
+export const InternalAccountMetadataStruct = object({
   metadata: object({
     name: string(),
     snap: exactOptional(
@@ -22,6 +21,11 @@ export const InternalAccountStruct = object({
     }),
   }),
 });
+
+export const InternalAccountStruct = union([
+  object({ ...EthEoaAccountStruct.schema, ...InternalAccountMetadataStruct.schema }),
+  object({ ...EthErc4337AccountStruct.schema, ...InternalAccountMetadataStruct.schema }),
+]);
 
 /**
  * Internal account representation.

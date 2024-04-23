@@ -1,74 +1,16 @@
 import type { Json } from '@metamask/utils';
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import { array, enums, literal, record, string, union } from 'superstruct';
+import { array, literal, record, string, union } from 'superstruct';
 
+import { EthEoaAccountStruct, EthErc4337AccountStruct } from './eth';
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
 
-/**
- * Supported Ethereum methods.
- */
-export enum EthMethod {
-  // General signing methods
-  PersonalSign = 'personal_sign',
-  Sign = 'eth_sign',
-  SignTransaction = 'eth_signTransaction',
-  SignTypedDataV1 = 'eth_signTypedData_v1',
-  SignTypedDataV3 = 'eth_signTypedData_v3',
-  SignTypedDataV4 = 'eth_signTypedData_v4',
-  // ERC-4337 methods
-  PrepareUserOperation = 'eth_prepareUserOperation',
-  PatchUserOperation = 'eth_patchUserOperation',
-  SignUserOperation = 'eth_signUserOperation',
-}
-
-/**
- * Supported Ethereum account types.
- */
-export enum EthAccountType {
-  Eoa = 'eip155:eoa',
-  Erc4337 = 'eip155:erc4337',
-}
-
-export const KeyringAccountStruct = object({
-  /**
-   * Account ID (UUIDv4).
-   */
-  id: UuidStruct,
-
-  /**
-   * Account address or next receive address (UTXO).
-   */
-  address: string(),
-
-  /**
-   * Keyring-dependent account options.
-   */
-  options: record(string(), JsonStruct),
-
-  /**
-   * Account supported methods.
-   */
-  methods: array(
-    enums([
-      `${EthMethod.PersonalSign}`,
-      `${EthMethod.Sign}`,
-      `${EthMethod.SignTransaction}`,
-      `${EthMethod.SignTypedDataV1}`,
-      `${EthMethod.SignTypedDataV3}`,
-      `${EthMethod.SignTypedDataV4}`,
-      `${EthMethod.PrepareUserOperation}`,
-      `${EthMethod.PatchUserOperation}`,
-      `${EthMethod.SignUserOperation}`,
-    ]),
-  ),
-
-  /**
-   * Account type.
-   */
-  type: enums([`${EthAccountType.Eoa}`, `${EthAccountType.Erc4337}`]),
-});
+export const KeyringAccountStruct = union([
+  EthEoaAccountStruct,
+  EthErc4337AccountStruct,
+]);
 
 /**
  * Account object.
