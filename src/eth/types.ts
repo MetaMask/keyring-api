@@ -1,3 +1,4 @@
+import type { Infer } from 'superstruct';
 import { object, array, enums, literal } from 'superstruct';
 
 import { BaseAccount } from '../base-types';
@@ -69,6 +70,8 @@ export const EthEoaAccountStruct = object({
   ),
 });
 
+export type EthEoaAccount = Infer<typeof EthEoaAccountStruct>;
+
 export const EthErc4337AccountStruct = object({
   ...BaseAccount,
 
@@ -94,3 +97,5 @@ export const EthErc4337AccountStruct = object({
     ]),
   ),
 });
+
+export type EthErc4337Account = Infer<typeof EthErc4337AccountStruct>;

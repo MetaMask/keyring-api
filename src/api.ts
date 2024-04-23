@@ -13,6 +13,7 @@ import {
   mask,
 } from 'superstruct';
 
+import type { EthEoaAccount, EthErc4337Account } from './eth';
 import {
   EthEoaAccountStruct,
   EthErc4337AccountStruct,
@@ -39,9 +40,7 @@ export const KeyringAccountTypedStruct = object({
 /**
  * Type for any supported accounts.
  */
-export type AnyKeyringAccount =
-  | Infer<typeof EthEoaAccountStruct>
-  | Infer<typeof EthErc4337AccountStruct>;
+export type AnyKeyringAccount = EthEoaAccount | EthErc4337Account;
 
 /**
  * Account as a `superstruct.object`.
