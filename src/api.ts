@@ -13,6 +13,7 @@ import {
   mask,
 } from 'superstruct';
 
+import type { StaticAssertAbstractAccount } from './base-types';
 import type { EthEoaAccount, EthErc4337Account } from './eth';
 import {
   EthEoaAccountStruct,
@@ -21,12 +22,13 @@ import {
 } from './eth';
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
-import { AbstractAccountStruct } from './base-types';
 
 /**
  * Type of supported accounts.
  */
-export type KeyringAccounts = EthEoaAccount | EthErc4337Account;
+export type KeyringAccounts = StaticAssertAbstractAccount<
+  EthEoaAccount | EthErc4337Account
+>;
 
 /**
  * Mapping between account types and their matching `superstruct` schema.
