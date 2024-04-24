@@ -5,7 +5,7 @@ import { object, record, string } from 'superstruct';
 import { UuidStruct } from './utils';
 
 /**
- * Base type for any account. This type muse be composed and extended to add a `methods`
+ * Base type for any account. This type must be composed and extended to add a `methods`
  * and `type` fields.
  *
  * NOTE: This type isn't a `superstruct.object` as it is used to compose other objects. See
