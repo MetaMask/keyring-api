@@ -1,11 +1,15 @@
-import type { Infer } from 'superstruct';
-import { boolean, string, number } from 'superstruct';
+import type { Infer, Struct } from 'superstruct';
+import { boolean, string, number, define, mask, validate } from 'superstruct';
 
-import { KeyringAccountStruct } from '../api';
+import { BaseKeyringAccountStruct } from '../api';
+import {
+  EthEoaAccountStruct,
+  EthErc4337AccountStruct,
+  EthAccountType,
+} from '../eth/types';
 import { exactOptional, object } from '../superstruct';
 
-export const InternalAccountStruct = object({
-  ...KeyringAccountStruct.schema,
+export const InternalAccountMetadataStruct = object({
   metadata: object({
     name: string(),
     snap: exactOptional(
@@ -22,6 +26,45 @@ export const InternalAccountStruct = object({
     }),
   }),
 });
+
+export const InternalEthEoaAccountStruct = object({
+  ...EthEoaAccountStruct.schema,
+  ...InternalAccountMetadataStruct.schema,
+});
+
+export type InternalEthEoaAccount = Infer<typeof InternalEthEoaAccountStruct>;
+
+export const InternalEthErc4337AccountStruct = object({
+  ...EthErc4337AccountStruct.schema,
+  ...InternalAccountMetadataStruct.schema,
+});
+
+export type InternalEthErc4337Account = Infer<
+  typeof InternalEthErc4337AccountStruct
+>;
+
+export const InternalAccountStructs: Record<
+  string,
+  Struct<InternalEthEoaAccount> | Struct<InternalEthErc4337Account>
+> = {
+  [`${EthAccountType.Eoa}`]: InternalEthEoaAccountStruct,
+  [`${EthAccountType.Erc4337}`]: InternalEthErc4337AccountStruct,
+};
+
+export const InternalAccountStruct = define(
+  'InternalAccount',
+  (value: unknown) => {
+    const account = mask(value, BaseKeyringAccountStruct);
+
+    // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
+    const [error] = validate(
+      value,
+      InternalAccountStructs[account.type] as Struct,
+    );
+
+    return error ?? true;
+  },
+);
 
 /**
  * Internal account representation.

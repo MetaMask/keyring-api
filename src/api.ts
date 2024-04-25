@@ -1,74 +1,81 @@
 import type { Json } from '@metamask/utils';
 import { JsonStruct } from '@metamask/utils';
-import type { Infer } from 'superstruct';
-import { array, enums, literal, record, string, union } from 'superstruct';
+import type { Infer, Struct } from 'superstruct';
+import {
+  enums,
+  array,
+  define,
+  validate,
+  literal,
+  record,
+  string,
+  union,
+  mask,
+} from 'superstruct';
 
+import type { StaticAssertAbstractAccount } from './base-types';
+import type { EthEoaAccount, EthErc4337Account } from './eth';
+import {
+  EthEoaAccountStruct,
+  EthErc4337AccountStruct,
+  EthAccountType,
+} from './eth';
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
 
 /**
- * Supported Ethereum methods.
+ * Type of supported accounts.
  */
-export enum EthMethod {
-  // General signing methods
-  PersonalSign = 'personal_sign',
-  Sign = 'eth_sign',
-  SignTransaction = 'eth_signTransaction',
-  SignTypedDataV1 = 'eth_signTypedData_v1',
-  SignTypedDataV3 = 'eth_signTypedData_v3',
-  SignTypedDataV4 = 'eth_signTypedData_v4',
-  // ERC-4337 methods
-  PrepareUserOperation = 'eth_prepareUserOperation',
-  PatchUserOperation = 'eth_patchUserOperation',
-  SignUserOperation = 'eth_signUserOperation',
-}
+export type KeyringAccounts = StaticAssertAbstractAccount<
+  EthEoaAccount | EthErc4337Account
+>;
 
 /**
- * Supported Ethereum account types.
+ * Mapping between account types and their matching `superstruct` schema.
  */
-export enum EthAccountType {
-  Eoa = 'eip155:eoa',
-  Erc4337 = 'eip155:erc4337',
-}
+export const KeyringAccountStructs: Record<
+  string,
+  Struct<EthEoaAccount> | Struct<EthErc4337Account>
+> = {
+  [`${EthAccountType.Eoa}`]: EthEoaAccountStruct,
+  [`${EthAccountType.Erc4337}`]: EthErc4337AccountStruct,
+};
 
-export const KeyringAccountStruct = object({
-  /**
-   * Account ID (UUIDv4).
-   */
-  id: UuidStruct,
-
-  /**
-   * Account address or next receive address (UTXO).
-   */
-  address: string(),
-
-  /**
-   * Keyring-dependent account options.
-   */
-  options: record(string(), JsonStruct),
-
-  /**
-   * Account supported methods.
-   */
-  methods: array(
-    enums([
-      `${EthMethod.PersonalSign}`,
-      `${EthMethod.Sign}`,
-      `${EthMethod.SignTransaction}`,
-      `${EthMethod.SignTypedDataV1}`,
-      `${EthMethod.SignTypedDataV3}`,
-      `${EthMethod.SignTypedDataV4}`,
-      `${EthMethod.PrepareUserOperation}`,
-      `${EthMethod.PatchUserOperation}`,
-      `${EthMethod.SignUserOperation}`,
-    ]),
-  ),
-
+/**
+ * Base type for `KeyringAccount` as a `superstruct.object`.
+ */
+export const BaseKeyringAccountStruct = object({
   /**
    * Account type.
    */
   type: enums([`${EthAccountType.Eoa}`, `${EthAccountType.Erc4337}`]),
 });
+
+/**
+ * Account as a `superstruct.object`.
+ *
+ * See {@link KeyringAccount}.
+ */
+export const KeyringAccountStruct = define<KeyringAccounts>(
+  // We do use a custom `define` for this type to avoid having to use a `union` since error
+  // messages are a bit confusing.
+  //
+  // Doing manual validation allows us to use the "concrete" type of each supported acounts giving
+  // use a much nicer message from `superstruct`.
+  'KeyringAccount',
+  (value: unknown) => {
+    // This will also raise if `value` does not match any of the supported account types!
+    const account = mask(value, BaseKeyringAccountStruct);
+
+    // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
+    const [error] = validate(
+      value,
+      KeyringAccountStructs[account.type] as Struct,
+    );
+
+    return error ?? true;
+  },
+);
 
 /**
  * Account object.
