@@ -45,7 +45,7 @@ export const KeyringAccountStructs: Record<
  * Base type with account's type for any account as a `superstruct.object`.
  */
 export const KeyringAccountTypedStruct = object({
-  type: enums(Object.keys(KeyringAccountStructs)),
+  type: enums([`${EthAccountType.Eoa}`, `${EthAccountType.Erc4337}`]),
 });
 
 /**
