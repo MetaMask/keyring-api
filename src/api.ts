@@ -1,6 +1,6 @@
 import type { Json } from '@metamask/utils';
 import { JsonStruct } from '@metamask/utils';
-import type { Infer } from 'superstruct';
+import type { Infer, Struct } from 'superstruct';
 import {
   enums,
   array,
@@ -33,7 +33,10 @@ export type KeyringAccounts = StaticAssertAbstractAccount<
 /**
  * Mapping between account types and their matching `superstruct` schema.
  */
-export const KeyringAccountStructs: Record<string, any> = {
+export const KeyringAccountStructs: Record<
+  string,
+  Struct<EthEoaAccount> | Struct<EthErc4337Account>
+> = {
   [`${EthAccountType.Eoa}`]: EthEoaAccountStruct,
   [`${EthAccountType.Erc4337}`]: EthErc4337AccountStruct,
 };
@@ -62,7 +65,10 @@ export const KeyringAccountStruct = define<KeyringAccounts>(
     const account = mask(value, KeyringAccountTypedStruct);
 
     // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
-    const [error] = validate(value, KeyringAccountStructs[account.type]);
+    const [error] = validate(
+      value,
+      KeyringAccountStructs[account.type] as Struct,
+    );
 
     return error ?? true;
   },
