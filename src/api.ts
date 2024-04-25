@@ -53,6 +53,7 @@ export const KeyringAccountTypedStruct = object({
 export const KeyringAccountStruct = define<KeyringAccounts>(
   // We do use a custom `define` for this type to avoid having to use a `union` since error
   // messages are a bit confusing.
+  //
   // Doing manual validation allows us to use the "concrete" type of each supported acounts giving
   // use a much nicer message from `superstruct`.
   'KeyringAccount',
