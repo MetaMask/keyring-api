@@ -1,7 +1,7 @@
 import type { Infer, Struct } from 'superstruct';
 import { boolean, string, number, define, mask, validate } from 'superstruct';
 
-import { KeyringAccountTypedStruct } from '../api';
+import { BaseKeyringAccountStruct } from '../api';
 import {
   EthEoaAccountStruct,
   EthErc4337AccountStruct,
@@ -54,7 +54,7 @@ export const InternalAccountStructs: Record<
 export const InternalAccountStruct = define(
   'InternalAccount',
   (value: unknown) => {
-    const account = mask(value, KeyringAccountTypedStruct);
+    const account = mask(value, BaseKeyringAccountStruct);
 
     // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
     const [error] = validate(

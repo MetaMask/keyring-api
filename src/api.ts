@@ -42,9 +42,12 @@ export const KeyringAccountStructs: Record<
 };
 
 /**
- * Base type with account's type for any account as a `superstruct.object`.
+ * Base type for `KeyringAccount` as a `superstruct.object`.
  */
-export const KeyringAccountTypedStruct = object({
+export const BaseKeyringAccountStruct = object({
+  /**
+   * Account type.
+   */
   type: enums([`${EthAccountType.Eoa}`, `${EthAccountType.Erc4337}`]),
 });
 
@@ -62,7 +65,7 @@ export const KeyringAccountStruct = define<KeyringAccounts>(
   'KeyringAccount',
   (value: unknown) => {
     // This will also raise if `value` does not match any of the supported account types!
-    const account = mask(value, KeyringAccountTypedStruct);
+    const account = mask(value, BaseKeyringAccountStruct);
 
     // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
     const [error] = validate(
