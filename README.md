@@ -37,16 +37,18 @@ npm install @metamask/keyring-api
 
 ## Account Snaps
 
-> :point_up: **Important**: Before implementing your Snap, please make sure to
-> read the [security recommendations](./docs/security.md) and the [architecture
+> [!IMPORTANT]
+> Before implementing your Snap, please make sure to read the [security
+> recommendations](./docs/security.md) and the [architecture
 > document](./docs/architecture.md).
 
 Starting with MetaMask 11.4, Snaps can implement the Keyring API. This allows
 users to manage their accounts in a more flexible way, and enables developers
 to build new types of accounts.
 
-> :pencil2: **Note:** You can also build MetaMask from [source][extension-repo]
-> from the `develop` branch.
+> [!NOTE]
+> You can also build MetaMask from [source][extension-repo] from the `develop`
+> branch.
 
 Follow these steps to implement the Keyring API in your Snap. Please note that
 these instruction assume that you are already familiar with the process of
@@ -62,9 +64,9 @@ these instruction assume that you are already familiar with the process of
    }
    ```
 
-   > :point_up: **Important**: Ensure that your keyring implements the [methods
-   > called by MetaMask][exposed-methods], otherwise some features may not
-   > work.
+   > [!IMPORTANT]
+   > Ensure that your keyring implements the [methods called by
+   > MetaMask][exposed-methods], otherwise some features may not work.
 
 2. **Handle requests submitted by MetaMask:**
 
@@ -178,8 +180,9 @@ these instruction assume that you are already familiar with the process of
 
       MetaMask will return an error if the request does not exist.
 
-      > :pencil2: **Note:** This only applies to Snaps that implement the
-      > [asynchronous transaction flow][async-flow].
+      > [!NOTE]
+      > This only applies to Snaps that implement the [asynchronous transaction
+      > flow][async-flow].
 
    5. When a request is rejected:
 
@@ -196,8 +199,9 @@ these instruction assume that you are already familiar with the process of
 
       MetaMask will return an error if the request does not exist.
 
-      > :pencil2: **Note:** This only applies to Snaps that implement the
-      > [asynchronous transaction flow][async-flow].
+      > [!NOTE]
+      > This only applies to Snaps that implement the [asynchronous transaction
+      > flow][async-flow].
 
 4. **Expose the Keyring API:**
 
@@ -283,9 +287,9 @@ implementation:
   emitSnapKeyringEvent(snap, KeyringEvent.RequestRejected, { id: request.id });
   ```
 
-  > :point_up: **Important**: For all events above, MetaMask may return an error
-  > indicating that the event was not handled, possibly because it contains
-  > invalid arguments.
+  > [!IMPORTANT]
+  > For all events above, MetaMask may return an error indicating that the
+  > event was not handled, possibly because it contains invalid arguments.
 
 - Keyrings that implement the [asynchronous transaction flow][async-flow] can
   now return an optional `redirect` property that contains an URL and a message

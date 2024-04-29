@@ -3,9 +3,10 @@
 Here we document the methods that an account Snap may implement to support
 requests originated from dapps.
 
-> :pencil2: **Note:** The methods described here may differ from the ones
-> defined in the [Ethereum JSON-RPC Specification][execution-api] or in
-> [MetaMask's API Reference][metamask-api-reference].
+> [!NOTE]
+> The methods described here may differ from the ones defined in the [Ethereum
+> JSON-RPC Specification][execution-api] or in [MetaMask's API
+> Reference][metamask-api-reference].
 
 ## personal_sign
 
@@ -50,8 +51,9 @@ Adds support to [`personal_sign`][personal-sign].
 
 Adds support to [`eth_sign`][eth-sign].
 
-> :warning: **Warning:** Please read the following articles to understand the
-> risks of using this method and its differences with `personal_sign`:
+> [!WARNING]
+> Please read the following articles to understand the risks of using this
+> method and its differences with `personal_sign`:
 >
 > - [What is 'eth_sign' and why is it a risk?][eth-sign-risk]
 > - [Sign data (MetaMask Docs)][sign-data]
@@ -227,8 +229,9 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
 
 Adds support to [`eth_signtypeddata_v4`][eth-sign-typed-data].
 
-> :pencil2: **Note:** You can also implement support for `eth_signTypedData_v1`
-> and `eth_signTypedData_v3`, but they are [deprecated](#deprecated-methods).
+> [!NOTE]
+> You can also implement support for `eth_signTypedData_v1` and
+> `eth_signTypedData_v3`, but they are [deprecated](#deprecated-methods).
 >
 > In summary, the differences between the versions are:
 >

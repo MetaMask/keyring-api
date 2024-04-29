@@ -139,10 +139,10 @@ async submitRequest(request: KeyringRequest): Promise<SubmitRequestResponse> {
 }
 ```
 
-> :point_up: **Important:** Only HTTPS URLs are allowed in the `url` field, and
-> the provided URL will be checked against a [list of blocked
-> domains][eth-phishing-detect]. However, for development purposes, HTTP URLs
-> are allowed on Flask.
+> [!IMPORTANT]
+> Only HTTPS URLs are allowed in the `url` field, and the provided URL will be
+> checked against a [list of blocked domains][eth-phishing-detect]. However,
+> for development purposes, HTTP URLs are allowed on Flask.
 >
 > We also enforce that the redirect URL links to a page within one of the
 > allowed origins present in the Snap's manifest.
