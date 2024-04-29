@@ -137,7 +137,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
      - `accessList`:
        - Description: EIP-2930 access list
        - Type: `array`
-       - Properties:
+       - Items:
          - Type: `object`
          - Properties:
            - `address`
@@ -145,7 +145,7 @@ Adds support to [`eth_sendTransaction`][eth-send-transaction].
              - Pattern: `^0x[0-9a-fA-F]{40}$`
            - `storageKeys`
              - Type: `array`
-             - Properties:
+             - Items:
                - Type: `string`
                - Pattern: `^0x[0-9a-f]{64}$`
      - `chainId`

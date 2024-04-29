@@ -29,7 +29,7 @@ camelCase. Also, dummy values aren't allowed.
         enter in their corresponding amount field. If no addresses are specified
         here, the sender pays the fee.
       - Type: `array`
-      - Properties:
+      - Items:
         - Type: `string`
     - `replaceable` (optional)
       - Description: Allow this transaction to be replaced by a transaction
