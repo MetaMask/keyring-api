@@ -11,7 +11,7 @@ camelCase. Also, dummy values aren't allowed.
 
 ### Parameters
 
-- **Request object (required):**
+- **Transaction intent (required)**
   - Type: `object`
   - Properties:
     - `amounts`
