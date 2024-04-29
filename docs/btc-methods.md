@@ -38,7 +38,7 @@ camelCase. Also, dummy values aren't allowed.
 
 ### Returns
 
-- **Response object:**
+- **Transaction ID**
   - Type: `object`
   - Properties:
     - `txid`
