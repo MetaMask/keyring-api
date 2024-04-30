@@ -1,6 +1,6 @@
 import { BtcAccountType, BtcMethod } from './btc';
 import { EthAccountType, EthErc4337Method, EthMethod } from './eth';
-import { isEVMAccount } from './helpers';
+import { isEvmAccount } from './helpers';
 import type { InternalAccountType } from './internal';
 
 const createMockAccount = (type: InternalAccountType) => {
@@ -35,6 +35,6 @@ describe('isEVMAccount', () => {
     [{ type: EthAccountType.Eoa }, false],
   ])('returns true for evm account', (account, result) => {
     // @ts-expect-error for error cases
-    expect(isEVMAccount(account)).toBe(result);
+    expect(isEvmAccount(account)).toBe(result);
   });
 });

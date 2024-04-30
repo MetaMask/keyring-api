@@ -9,7 +9,7 @@ import { InternalAccountStruct } from './internal';
  * @param account - The internal account to check.
  * @returns Returns true if the internal account has an EVM account type, false otherwise.
  */
-export function isEVMAccount(account: InternalAccount): boolean {
+export function isEvmAccount(account: InternalAccount): boolean {
   // using try catch here to avoid throwing an error because the internal account's define would throw the error.
   try {
     assert(account, InternalAccountStruct);
