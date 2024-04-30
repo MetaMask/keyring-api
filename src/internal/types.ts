@@ -77,19 +77,25 @@ export const InternalAccountStructs: Record<
   [`${BtcAccountType.P2wpkh}`]: InternalBtcP2wpkhAccountStruct,
 };
 
-export const InternalAccountStruct = define<
-  InternalEthEoaAccount | InternalEthErc4337Account | InternalBtcP2wpkhAccount
->('InternalAccount', (value: unknown) => {
-  const account = mask(value, BaseKeyringAccountStruct);
+export type InternalAccountTypes =
+  | InternalEthEoaAccount
+  | InternalEthErc4337Account
+  | InternalBtcP2wpkhAccount;
 
-  // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
-  const [error] = validate(
-    value,
-    InternalAccountStructs[account.type] as Struct,
-  );
+export const InternalAccountStruct = define<InternalAccountTypes>(
+  'InternalAccount',
+  (value: unknown) => {
+    const account = mask(value, BaseKeyringAccountStruct);
 
-  return error ?? true;
-});
+    // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
+    const [error] = validate(
+      value,
+      InternalAccountStructs[account.type] as Struct,
+    );
+
+    return error ?? true;
+  },
+);
 
 /**
  * Internal account representation.
