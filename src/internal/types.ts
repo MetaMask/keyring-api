@@ -10,6 +10,8 @@ import {
 } from '../eth/types';
 import { exactOptional, object } from '../superstruct';
 
+export type InternalAccountType = EthAccountType | BtcAccountType;
+
 export const InternalAccountMetadataStruct = object({
   metadata: object({
     name: string(),
@@ -75,20 +77,19 @@ export const InternalAccountStructs: Record<
   [`${BtcAccountType.P2wpkh}`]: InternalBtcP2wpkhAccountStruct,
 };
 
-export const InternalAccountStruct = define(
-  'InternalAccount',
-  (value: unknown) => {
-    const account = mask(value, BaseKeyringAccountStruct);
+export const InternalAccountStruct = define<
+  InternalEthEoaAccount | InternalEthErc4337Account | InternalBtcP2wpkhAccount
+>('InternalAccount', (value: unknown) => {
+  const account = mask(value, BaseKeyringAccountStruct);
 
-    // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
-    const [error] = validate(
-      value,
-      InternalAccountStructs[account.type] as Struct,
-    );
+  // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
+  const [error] = validate(
+    value,
+    InternalAccountStructs[account.type] as Struct,
+  );
 
-    return error ?? true;
-  },
-);
+  return error ?? true;
+});
 
 /**
  * Internal account representation.
