@@ -73,6 +73,11 @@ expectAssignable<EthErc4337Account>({
   address,
   options: {},
   methods: [
+    `${EthMethod.PersonalSign}`,
+    `${EthMethod.Sign}`,
+    `${EthMethod.SignTypedDataV1}`,
+    `${EthMethod.SignTypedDataV3}`,
+    `${EthMethod.SignTypedDataV4}`,
     `${EthErc4337Method.PrepareUserOperation}`,
     `${EthErc4337Method.PatchUserOperation}`,
     `${EthErc4337Method.SignUserOperation}`,
