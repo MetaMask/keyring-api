@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `isEVMAccount` helper ([#297](https://github.com/MetaMask/keyring-api/pull/297))
+- Add `isEvmAccountType` helper ([#297](https://github.com/MetaMask/keyring-api/pull/297))
 - Add `bip121:p2wpkh` account support ([#294](https://github.com/MetaMask/keyring-api/pull/294))
 
 ### Changed
