@@ -10,6 +10,8 @@ import {
 } from '../eth/types';
 import { exactOptional, object } from '../superstruct';
 
+export type InternalAccountType = EthAccountType | BtcAccountType;
+
 export const InternalAccountMetadataStruct = object({
   metadata: object({
     name: string(),
@@ -75,7 +77,12 @@ export const InternalAccountStructs: Record<
   [`${BtcAccountType.P2wpkh}`]: InternalBtcP2wpkhAccountStruct,
 };
 
-export const InternalAccountStruct = define(
+export type InternalAccountTypes =
+  | InternalEthEoaAccount
+  | InternalEthErc4337Account
+  | InternalBtcP2wpkhAccount;
+
+export const InternalAccountStruct = define<InternalAccountTypes>(
   'InternalAccount',
   (value: unknown) => {
     const account = mask(value, BaseKeyringAccountStruct);
