@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove incorrect `signTransaction` from EthErc4337Account ([#300](https://github.com/MetaMask/keyring-api/pull/300))
 - Bump @metamask/providers from 16.0.0 to 16.1.0 ([#298](https://github.com/MetaMask/keyring-api/pull/298))
 - Bump @metamask/snaps-sdk from 4.0.0 to 4.0.1 ([#292](https://github.com/MetaMask/keyring-api/pull/292))
-- Split account types to Eth and BTC ([#293](https://github.com/MetaMask/keyring-api/pull/293))
+- Split account types (EOA + Erc4337) ([#293](https://github.com/MetaMask/keyring-api/pull/293))
 
 ## [6.0.0]
 
