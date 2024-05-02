@@ -1,6 +1,8 @@
 import { assert } from 'superstruct';
 import type { Struct } from 'superstruct';
 
+import { EthAccountType } from './eth';
+import type { InternalAccountType } from './internal';
 import { definePattern } from './superstruct';
 
 /**

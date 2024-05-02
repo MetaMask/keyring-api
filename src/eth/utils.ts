@@ -1,5 +1,5 @@
-import { EthAccountType } from './eth';
-import type { InternalAccountType } from './internal';
+import type { InternalAccountType } from '../internal';
+import { EthAccountType } from './types';
 
 /**
  * Checks if the given internal account is of the EVM account type.

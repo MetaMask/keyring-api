@@ -1,8 +1,8 @@
-import { BtcAccountType } from './btc';
-import { EthAccountType } from './eth';
-import { isEvmAccountType } from './helpers';
+import { EthAccountType } from '.';
+import { BtcAccountType } from '../btc';
+import { isEvmAccountType } from './utils';
 
-describe('isEVMAccountType', () => {
+describe('isEvmAccountType', () => {
   it.each([
     [EthAccountType.Eoa, true],
     [EthAccountType.Erc4337, true],
