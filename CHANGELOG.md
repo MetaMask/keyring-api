@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.1.0]
+
+### Added
+
+- Add `isEvmAccountType` helper ([#297](https://github.com/MetaMask/keyring-api/pull/297))
+- Add `bip121:p2wpkh` account support ([#294](https://github.com/MetaMask/keyring-api/pull/294))
+
+### Changed
+
+- Remove incorrect `SignTransaction` from `EthErc4337Account` ([#300](https://github.com/MetaMask/keyring-api/pull/300))
+- Bump @metamask/providers from 16.0.0 to 16.1.0 ([#298](https://github.com/MetaMask/keyring-api/pull/298))
+- Bump @metamask/snaps-sdk from 4.0.0 to 4.0.1 ([#292](https://github.com/MetaMask/keyring-api/pull/292))
+- Split account types (EOA + Erc4337) ([#293](https://github.com/MetaMask/keyring-api/pull/293))
+
 ## [6.0.0]
 
 ### Changed
@@ -262,7 +276,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.1.0...HEAD
+[6.1.0]: https://github.com/MetaMask/keyring-api/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/MetaMask/keyring-api/compare/v5.1.0...v6.0.0
 [5.1.0]: https://github.com/MetaMask/keyring-api/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/MetaMask/keyring-api/compare/v4.0.2...v5.0.0
