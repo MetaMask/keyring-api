@@ -87,6 +87,7 @@ export const EthErc4337AccountStruct = object({
     enums([
       `${EthMethod.PersonalSign}`,
       `${EthMethod.Sign}`,
+      `${EthMethod.SignTransaction}`,
       `${EthMethod.SignTypedDataV1}`,
       `${EthMethod.SignTypedDataV3}`,
       `${EthMethod.SignTypedDataV4}`,
