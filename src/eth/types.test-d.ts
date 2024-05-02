@@ -75,7 +75,6 @@ expectAssignable<EthErc4337Account>({
   methods: [
     `${EthMethod.PersonalSign}`,
     `${EthMethod.Sign}`,
-    `${EthMethod.SignTransaction}`,
     `${EthMethod.SignTypedDataV1}`,
     `${EthMethod.SignTypedDataV3}`,
     `${EthMethod.SignTypedDataV4}`,
