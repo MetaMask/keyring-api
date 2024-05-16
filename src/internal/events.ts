@@ -1,5 +1,5 @@
 import { JsonStruct } from '@metamask/utils';
-import { literal, object } from 'superstruct';
+import { boolean, literal, object, optional } from 'superstruct';
 
 import { KeyringAccountStruct } from '../api';
 import { KeyringEvent } from '../events';
@@ -12,6 +12,10 @@ export const AccountCreatedEventStruct = object({
      * New account object.
      */
     account: KeyringAccountStruct,
+    /**
+     * Display the add account confirmation in UI.
+     */
+    displayConfirmation: optional(boolean()),
   }),
 });
 
