@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Fix `isEvmAccountType` accountType type to string or InternalAccountType([#304](https://github.com/MetaMask/keyring-api/pull/304))
+- Fix `isEvmAccountType` accountType type to `string` or `InternalAccountType` ([#304](https://github.com/MetaMask/keyring-api/pull/304))
 - Bump @metamask/snaps-sdk from ^4.0.0 to ^4.2.0 ([#305](https://github.com/MetaMask/keyring-api/pull/305))
 
 ## [6.1.0]
