@@ -1,3 +1,4 @@
+import type { InternalAccountType } from '../internal';
 import { EthAccountType } from './types';
 
 /**
@@ -5,6 +6,6 @@ import { EthAccountType } from './types';
  * @param type - The type to check.
  * @returns Returns true if the type is an EVM account type, false otherwise.
  */
-export function isEvmAccountType(type: string): boolean {
+export function isEvmAccountType(type: InternalAccountType | string): boolean {
   return type === EthAccountType.Eoa || type === EthAccountType.Erc4337;
 }
