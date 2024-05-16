@@ -1,8 +1,9 @@
 import { JsonStruct } from '@metamask/utils';
-import { boolean, literal, object, optional } from 'superstruct';
+import { boolean, literal, object } from 'superstruct';
 
 import { KeyringAccountStruct } from '../api';
 import { KeyringEvent } from '../events';
+import { exactOptional } from '../superstruct';
 import { UuidStruct } from '../utils';
 
 export const AccountCreatedEventStruct = object({
@@ -13,9 +14,10 @@ export const AccountCreatedEventStruct = object({
      */
     account: KeyringAccountStruct,
     /**
-     * Display the add account confirmation in UI.
+     * Instructs MetaMask to display the add account confirmation dialog in the UI.
+     * Not guaranteed to be honored by MetaMask client.
      */
-    displayConfirmation: optional(boolean()),
+    displayConfirmation: exactOptional(boolean()),
   }),
 });
 
