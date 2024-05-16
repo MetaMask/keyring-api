@@ -13,6 +13,7 @@ export const AccountCreatedEventStruct = object({
      * New account object.
      */
     account: KeyringAccountStruct,
+
     /**
      * Instructs MetaMask to display the add account confirmation dialog in the UI.
      * Not guaranteed to be honored by MetaMask client.
