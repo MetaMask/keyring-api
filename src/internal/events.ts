@@ -16,7 +16,7 @@ export const AccountCreatedEventStruct = object({
 
     /**
      * Instructs MetaMask to display the add account confirmation dialog in the UI.
-     * Not guaranteed to be honored by MetaMask client.
+     * **Note:** This is not guaranteed to be honored by the MetaMask client.
      */
     displayConfirmation: exactOptional(boolean()),
   }),
