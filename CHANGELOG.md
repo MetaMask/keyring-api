@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [6.2.0]
-### Uncategorized
-- feat: add `accountNameSuggestion` field to the `AccountCreatedEvent` ([#291](https://github.com/MetaMask/keyring-api/pull/291))
-- feat: add display confirmation option to AccountCreatedEvent ([#307](https://github.com/MetaMask/keyring-api/pull/307))
+### Added
+- Add `accountNameSuggestion` field to the `AccountCreatedEvent` ([#291](https://github.com/MetaMask/keyring-api/pull/291))
+- Add `displayConfirmation` field to the `AccountCreatedEvent` ([#307](https://github.com/MetaMask/keyring-api/pull/307))
 
 ## [6.1.1]
 ### Changed
