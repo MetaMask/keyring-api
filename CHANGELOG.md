@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.2.0]
+
+### Added
+
+- Add `accountNameSuggestion` field to the `AccountCreatedEvent` ([#291](https://github.com/MetaMask/keyring-api/pull/291))
+- Add `displayConfirmation` field to the `AccountCreatedEvent` ([#307](https://github.com/MetaMask/keyring-api/pull/307))
+
 ## [6.1.1]
 
 ### Changed
@@ -283,7 +290,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.1.1...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.2.0...HEAD
+[6.2.0]: https://github.com/MetaMask/keyring-api/compare/v6.1.1...v6.2.0
 [6.1.1]: https://github.com/MetaMask/keyring-api/compare/v6.1.0...v6.1.1
 [6.1.0]: https://github.com/MetaMask/keyring-api/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/MetaMask/keyring-api/compare/v5.1.0...v6.0.0
