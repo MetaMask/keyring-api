@@ -27,6 +27,12 @@ export enum EthMethod {
   SignTypedDataV1 = 'eth_signTypedData_v1',
   SignTypedDataV3 = 'eth_signTypedData_v3',
   SignTypedDataV4 = 'eth_signTypedData_v4',
+}
+
+/**
+ * Supported Ethereum methods for ERC-4337 (Account Abstraction) accounts.
+ */
+export enum EthErc4337Method {
   // ERC-4337 methods
   PrepareUserOperation = 'eth_prepareUserOperation',
   PatchUserOperation = 'eth_patchUserOperation',
@@ -87,9 +93,9 @@ export const EthErc4337AccountStruct = assign(
         `${EthMethod.SignTypedDataV1}`,
         `${EthMethod.SignTypedDataV3}`,
         `${EthMethod.SignTypedDataV4}`,
-        `${EthMethod.PrepareUserOperation}`,
-        `${EthMethod.PatchUserOperation}`,
-        `${EthMethod.SignUserOperation}`,
+        `${EthErc4337Method.PrepareUserOperation}`,
+        `${EthErc4337Method.PatchUserOperation}`,
+        `${EthErc4337Method.SignUserOperation}`,
       ]),
     ),
   }),
