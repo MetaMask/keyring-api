@@ -25,6 +25,14 @@ export enum BtcAccountType {
 }
 
 /**
+ * Supported account types.
+ */
+export type KeyringAccountType =
+  | `${EthAccountType.Eoa}`
+  | `${EthAccountType.Erc4337}`
+  | `${BtcAccountType.P2wpkh}`;
+
+/**
  * A struct which represents a Keyring account object. It is abstract enough to
  * be used with any blockchain. Specific blockchain account types should extend
  * this struct.
