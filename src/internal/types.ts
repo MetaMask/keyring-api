@@ -1,13 +1,9 @@
 import type { Infer, Struct } from 'superstruct';
 import { boolean, string, number, assign } from 'superstruct';
 
-import { KeyringAccountStruct } from '../api';
-import { BtcP2wpkhAccountStruct, BtcAccountType } from '../btc/types';
-import {
-  EthEoaAccountStruct,
-  EthErc4337AccountStruct,
-  EthAccountType,
-} from '../eth/types';
+import { BtcAccountType, EthAccountType, KeyringAccountStruct } from '../api';
+import { BtcP2wpkhAccountStruct } from '../btc/types';
+import { EthEoaAccountStruct, EthErc4337AccountStruct } from '../eth/types';
 import { exactOptional, object } from '../superstruct';
 
 export type InternalAccountType = EthAccountType | BtcAccountType;

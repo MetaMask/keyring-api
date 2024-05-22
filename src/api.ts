@@ -3,10 +3,23 @@ import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
 import { enums, array, literal, record, string, union } from 'superstruct';
 
-import { BtcAccountType } from './btc';
-import { EthAccountType } from './eth';
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
+
+/**
+ * Supported Ethereum account types.
+ */
+export enum EthAccountType {
+  Eoa = 'eip155:eoa',
+  Erc4337 = 'eip155:erc4337',
+}
+
+/**
+ * Supported Bitcoin account types.
+ */
+export enum BtcAccountType {
+  P2wpkh = 'bip122:p2wpkh',
+}
 
 /**
  * Generic account struct.
