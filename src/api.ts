@@ -6,6 +6,9 @@ import { enums, array, literal, record, string, union } from 'superstruct';
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
 
+// ! The `*AccountType` enums defined below should be kept in this file to
+// ! avoid circular dependencies when the API is used by other files.
+
 /**
  * Supported Ethereum account types.
  */
@@ -22,7 +25,9 @@ export enum BtcAccountType {
 }
 
 /**
- * Generic account struct.
+ * A struct which represents a Keyring account object. It is abstract enough to
+ * be used with any blockchain. Specific blockchain account types should extend
+ * this struct.
  *
  * See {@link KeyringAccount}.
  */
