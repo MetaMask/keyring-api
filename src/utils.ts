@@ -42,3 +42,31 @@ export function strictMask<Type, Schema>(
   assert(value, struct, message);
   return value;
 }
+
+/**
+ * Type that resolves to `true` if `Child` extends `Base`, otherwise `false`.
+ *
+ * @example
+ * ```ts
+ * type A = Extends<{a: string, b: string}, {a: string}>; // true
+ * type B = Extends<{a: string}, {a: string, b: string}>; // false
+ * ```
+ */
+export type Extends<Child, Base> = Child extends Base ? true : false;
+
+/**
+ * Assert that a type extends `true`. It can be used, for example, to assert
+ * that a given type extends another type.
+ *
+ * @example
+ * ```ts
+ * expectTrue<Extends<{a: string, b: string}, {a: string}>>(); // Ok
+ * expectTrue<Extends<{a: string}, {a: string, b: string}>>(); // Error
+ * ```
+ *
+ * This function follows the naming pattern used on `tsd`.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function expectTrue<Type extends true>(): void {
+  // Intentionally empty
+}

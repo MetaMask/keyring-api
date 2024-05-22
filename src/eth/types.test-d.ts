@@ -1,6 +1,9 @@
 import { expectAssignable, expectNotAssignable } from 'tsd';
 
+import type { KeyringAccount } from '../api';
 import { EthAccountType } from '../api';
+import type { Extends } from '../utils';
+import { expectTrue } from '../utils';
 import type { EthEoaAccount, EthErc4337Account } from './types';
 import { EthMethod } from './types';
 
@@ -110,3 +113,9 @@ expectNotAssignable<EthErc4337Account>({
     `${EthMethod.SignUserOperation}`,
   ],
 });
+
+// `EthEoaAccount` extends `KeyringAccount`
+expectTrue<Extends<EthEoaAccount, KeyringAccount>>();
+
+// `EthErc4337Account` extends `KeyringAccount`
+expectTrue<Extends<EthErc4337Account, KeyringAccount>>();
