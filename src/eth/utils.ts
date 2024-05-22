@@ -1,5 +1,5 @@
+import { EthAccountType } from '../api';
 import type { InternalAccountType } from '../internal';
-import { EthAccountType } from './types';
 
 /**
  * Checks if the given type is an EVM account type.

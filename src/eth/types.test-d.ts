@@ -1,7 +1,8 @@
 import { expectAssignable, expectNotAssignable } from 'tsd';
 
+import { EthAccountType } from '../api';
 import type { EthEoaAccount, EthErc4337Account } from './types';
-import { EthAccountType, EthErc4337Method, EthMethod } from './types';
+import { EthErc4337Method, EthMethod } from './types';
 
 const id = '606a7759-b0fb-48e4-9874-bab62ff8e7eb';
 const address = '0x000';

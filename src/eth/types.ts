@@ -1,6 +1,7 @@
 import type { Infer } from 'superstruct';
 import { object, array, enums, literal } from 'superstruct';
 
+import { EthAccountType } from '../api';
 import { BaseAccount } from '../base-types';
 import { definePattern } from '../superstruct';
 
@@ -37,14 +38,6 @@ export enum EthErc4337Method {
   PrepareUserOperation = 'eth_prepareUserOperation',
   PatchUserOperation = 'eth_patchUserOperation',
   SignUserOperation = 'eth_signUserOperation',
-}
-
-/**
- * Supported Ethereum account types.
- */
-export enum EthAccountType {
-  Eoa = 'eip155:eoa',
-  Erc4337 = 'eip155:erc4337',
 }
 
 export const EthEoaAccountStruct = object({
