@@ -1,8 +1,11 @@
 import { bech32 } from 'bech32';
 import type { Infer } from 'superstruct';
-import { object, string, array, enums, literal, refine } from 'superstruct';
+import { object, string, array, enums, refine, record } from 'superstruct';
 
-import { BaseAccount } from '../base-types';
+import { KeyringAccountStruct } from '../api';
+import { UuidStruct } from '../utils';
+import { address } from '@metamask/snaps-sdk';
+import { JsonStruct } from '@metamask/utils';
 
 export const BtcP2wpkhAddressStruct = refine(
   string(),
@@ -35,12 +38,15 @@ export enum BtcAccountType {
 }
 
 export const BtcP2wpkhAccountStruct = object({
-  ...BaseAccount,
+  // id: UuidStruct,
+  // address: BtcP2wpkhAddressStruct,
+  // options: record(string(), JsonStruct),
+  ...KeyringAccountStruct.schema,
 
   /**
    * Account type.
    */
-  type: literal(`${BtcAccountType.P2wpkh}`),
+  type: enums([`${BtcAccountType.P2wpkh}`]),
 
   /**
    * Account supported methods.

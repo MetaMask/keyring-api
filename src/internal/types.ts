@@ -1,7 +1,7 @@
 import type { Infer, Struct } from 'superstruct';
-import { boolean, string, number, define, mask, validate } from 'superstruct';
+import { boolean, string, number, assign } from 'superstruct';
 
-import { BaseKeyringAccountStruct } from '../api';
+import { KeyringAccountStruct } from '../api';
 import { BtcP2wpkhAccountStruct, BtcAccountType } from '../btc/types';
 import {
   EthEoaAccountStruct,
@@ -82,19 +82,9 @@ export type InternalAccountTypes =
   | InternalEthErc4337Account
   | InternalBtcP2wpkhAccount;
 
-export const InternalAccountStruct = define<InternalAccountTypes>(
-  'InternalAccount',
-  (value: unknown) => {
-    const account = mask(value, BaseKeyringAccountStruct);
-
-    // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
-    const [error] = validate(
-      value,
-      InternalAccountStructs[account.type] as Struct,
-    );
-
-    return error ?? true;
-  },
+export const InternalAccountStruct = assign(
+  KeyringAccountStruct,
+  InternalAccountMetadataStruct,
 );
 
 /**
