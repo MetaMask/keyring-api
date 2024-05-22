@@ -1,53 +1,24 @@
 import type { Json } from '@metamask/utils';
 import { JsonStruct } from '@metamask/utils';
-import type { Infer, Struct } from 'superstruct';
-import {
-  enums,
-  array,
-  define,
-  validate,
-  literal,
-  record,
-  string,
-  union,
-  mask,
-} from 'superstruct';
+import type { Infer } from 'superstruct';
+import { enums, array, literal, record, string, union } from 'superstruct';
 
-import type { StaticAssertAbstractAccount } from './base-types';
-import type { BtcP2wpkhAccount } from './btc';
-import { BtcP2wpkhAccountStruct, BtcAccountType } from './btc';
-import type { EthEoaAccount, EthErc4337Account } from './eth';
-import {
-  EthEoaAccountStruct,
-  EthErc4337AccountStruct,
-  EthAccountType,
-} from './eth';
+import { BtcAccountType } from './btc';
+import { EthAccountType } from './eth';
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
 
 /**
- * Type of supported accounts.
+ * Generic account struct.
+ *
+ * See {@link KeyringAccount}.
  */
-export type KeyringAccounts = StaticAssertAbstractAccount<
-  EthEoaAccount | EthErc4337Account | BtcP2wpkhAccount
->;
+export const KeyringAccountStruct = object({
+  /**
+   * Account ID (UUIDv4).
+   */
+  id: UuidStruct,
 
-/**
- * Mapping between account types and their matching `superstruct` schema.
- */
-export const KeyringAccountStructs: Record<
-  string,
-  Struct<EthEoaAccount> | Struct<EthErc4337Account> | Struct<BtcP2wpkhAccount>
-> = {
-  [`${EthAccountType.Eoa}`]: EthEoaAccountStruct,
-  [`${EthAccountType.Erc4337}`]: EthErc4337AccountStruct,
-  [`${BtcAccountType.P2wpkh}`]: BtcP2wpkhAccountStruct,
-};
-
-/**
- * Base type for `KeyringAccount` as a `superstruct.object`.
- */
-export const BaseKeyringAccountStruct = object({
   /**
    * Account type.
    */
@@ -56,36 +27,25 @@ export const BaseKeyringAccountStruct = object({
     `${EthAccountType.Erc4337}`,
     `${BtcAccountType.P2wpkh}`,
   ]),
+
+  /**
+   * Account main address.
+   */
+  address: string(),
+
+  /**
+   * Account options.
+   */
+  options: record(string(), JsonStruct),
+
+  /**
+   * Account supported methods.
+   */
+  methods: array(string()),
 });
 
 /**
- * Account as a `superstruct.object`.
- *
- * See {@link KeyringAccount}.
- */
-export const KeyringAccountStruct = define<KeyringAccounts>(
-  // We do use a custom `define` for this type to avoid having to use a `union` since error
-  // messages are a bit confusing.
-  //
-  // Doing manual validation allows us to use the "concrete" type of each supported acounts giving
-  // use a much nicer message from `superstruct`.
-  'KeyringAccount',
-  (value: unknown) => {
-    // This will also raise if `value` does not match any of the supported account types!
-    const account = mask(value, BaseKeyringAccountStruct);
-
-    // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
-    const [error] = validate(
-      value,
-      KeyringAccountStructs[account.type] as Struct,
-    );
-
-    return error ?? true;
-  },
-);
-
-/**
- * Account object.
+ * Generic account type.
  *
  * Represents an account with its properties and capabilities.
  */
