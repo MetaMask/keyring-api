@@ -1,7 +1,16 @@
 import type { Json } from '@metamask/utils';
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import { enums, array, literal, record, string, union } from 'superstruct';
+import {
+  enums,
+  array,
+  literal,
+  record,
+  string,
+  union,
+  boolean,
+  number,
+} from 'superstruct';
 
 import { exactOptional, object } from './superstruct';
 import { UuidStruct } from './utils';
@@ -60,6 +69,27 @@ export const KeyringAccountStruct = object({
    * Account supported methods.
    */
   methods: array(string()),
+
+  /**
+   * Account metadata. This field is reserved to be used by MetaMask.
+   */
+  metadata: exactOptional(
+    object({
+      name: string(),
+      snap: exactOptional(
+        object({
+          id: string(),
+          name: string(),
+          enabled: boolean(),
+        }),
+      ),
+      lastSelectedAt: exactOptional(number()),
+      importedAt: number(),
+      keyring: object({
+        type: string(),
+      }),
+    }),
+  ),
 });
 
 /**
