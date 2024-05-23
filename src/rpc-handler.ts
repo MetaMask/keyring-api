@@ -136,9 +136,11 @@ async function dispatchRequest(
  * This function is meant to be used as a handler for Keyring JSON-RPC requests
  * in an Accounts Snap.
  *
- * Example:
- *
- * ```typescript
+ * @param keyring - Keyring instance.
+ * @param request - Keyring JSON-RPC request.
+ * @returns A promise that resolves to the keyring response.
+ * @example
+ * ```ts
  * export const onKeyringRequest: OnKeyringRequestHandler = async ({
  *   origin,
  *   request,
@@ -146,10 +148,6 @@ async function dispatchRequest(
  *   return await handleKeyringRequest(keyring, request);
  * };
  * ```
- *
- * @param keyring - Keyring instance.
- * @param request - Keyring JSON-RPC request.
- * @returns A promise that resolves to the keyring response.
  */
 export async function handleKeyringRequest(
   keyring: Keyring,
