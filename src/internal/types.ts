@@ -1,5 +1,5 @@
 import type { Infer, Struct } from 'superstruct';
-import { boolean, string, number, assign } from 'superstruct';
+import { boolean, string, number } from 'superstruct';
 
 import { BtcAccountType, EthAccountType, KeyringAccountStruct } from '../api';
 import { BtcP2wpkhAccountStruct } from '../btc/types';
@@ -30,7 +30,7 @@ export const InternalAccountMetadataStruct = object({
  * Creates an `InternalAccount` from an existing account `superstruct` object.
  *
  * @param accountStruct - An account `superstruct` object.
- * @returns The `InternalAccount` assocaited to `accountStruct`.
+ * @returns The `InternalAccount` associated to `accountStruct`.
  */
 function asInternalAccountStruct<Account, AccountSchema>(
   accountStruct: Struct<Account, AccountSchema>,
@@ -78,10 +78,10 @@ export type InternalAccountTypes =
   | InternalEthErc4337Account
   | InternalBtcP2wpkhAccount;
 
-export const InternalAccountStruct = assign(
-  KeyringAccountStruct,
-  InternalAccountMetadataStruct,
-);
+export const InternalAccountStruct = object({
+  ...KeyringAccountStruct.schema,
+  ...InternalAccountMetadataStruct.schema,
+});
 
 /**
  * Internal account representation.

@@ -1,8 +1,8 @@
 import type { Infer } from 'superstruct';
-import { object, array, enums, literal, assign } from 'superstruct';
+import { array, enums, literal } from 'superstruct';
 
 import { EthAccountType, KeyringAccountStruct } from '../api';
-import { definePattern } from '../superstruct';
+import { object, definePattern } from '../superstruct';
 
 export const EthBytesStruct = definePattern('EthBytes', /^0x[0-9a-f]*$/iu);
 
@@ -39,66 +39,64 @@ export enum EthErc4337Method {
   SignUserOperation = 'eth_signUserOperation',
 }
 
-export const EthEoaAccountStruct = assign(
-  KeyringAccountStruct,
-  object({
-    /**
-     * Account address.
-     */
-    address: EthAddressStruct,
+export const EthEoaAccountStruct = object({
+  ...KeyringAccountStruct.schema,
 
-    /**
-     * Account type.
-     */
-    type: literal(`${EthAccountType.Eoa}`),
+  /**
+   * Account address.
+   */
+  address: EthAddressStruct,
 
-    /**
-     * Account supported methods.
-     */
-    methods: array(
-      enums([
-        `${EthMethod.PersonalSign}`,
-        `${EthMethod.Sign}`,
-        `${EthMethod.SignTransaction}`,
-        `${EthMethod.SignTypedDataV1}`,
-        `${EthMethod.SignTypedDataV3}`,
-        `${EthMethod.SignTypedDataV4}`,
-      ]),
-    ),
-  }),
-);
+  /**
+   * Account type.
+   */
+  type: literal(`${EthAccountType.Eoa}`),
+
+  /**
+   * Account supported methods.
+   */
+  methods: array(
+    enums([
+      `${EthMethod.PersonalSign}`,
+      `${EthMethod.Sign}`,
+      `${EthMethod.SignTransaction}`,
+      `${EthMethod.SignTypedDataV1}`,
+      `${EthMethod.SignTypedDataV3}`,
+      `${EthMethod.SignTypedDataV4}`,
+    ]),
+  ),
+});
 
 export type EthEoaAccount = Infer<typeof EthEoaAccountStruct>;
 
-export const EthErc4337AccountStruct = assign(
-  KeyringAccountStruct,
-  object({
-    /**
-     * Account address.
-     */
-    address: EthAddressStruct,
+export const EthErc4337AccountStruct = object({
+  ...KeyringAccountStruct.schema,
 
-    /**
-     * Account type.
-     */
-    type: literal(`${EthAccountType.Erc4337}`),
+  /**
+   * Account address.
+   */
+  address: EthAddressStruct,
 
-    /**
-     * Account supported methods.
-     */
-    methods: array(
-      enums([
-        `${EthMethod.PersonalSign}`,
-        `${EthMethod.Sign}`,
-        `${EthMethod.SignTypedDataV1}`,
-        `${EthMethod.SignTypedDataV3}`,
-        `${EthMethod.SignTypedDataV4}`,
-        `${EthErc4337Method.PrepareUserOperation}`,
-        `${EthErc4337Method.PatchUserOperation}`,
-        `${EthErc4337Method.SignUserOperation}`,
-      ]),
-    ),
-  }),
-);
+  /**
+   * Account type.
+   */
+  type: literal(`${EthAccountType.Erc4337}`),
+
+  /**
+   * Account supported methods.
+   */
+  methods: array(
+    enums([
+      `${EthMethod.PersonalSign}`,
+      `${EthMethod.Sign}`,
+      `${EthMethod.SignTypedDataV1}`,
+      `${EthMethod.SignTypedDataV3}`,
+      `${EthMethod.SignTypedDataV4}`,
+      `${EthErc4337Method.PrepareUserOperation}`,
+      `${EthErc4337Method.PatchUserOperation}`,
+      `${EthErc4337Method.SignUserOperation}`,
+    ]),
+  ),
+});
 
 export type EthErc4337Account = Infer<typeof EthErc4337AccountStruct>;
