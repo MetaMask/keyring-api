@@ -63,9 +63,8 @@ export const KeyringAccountStruct = object({
 });
 
 /**
- * Generic account type.
- *
- * Represents an account with its properties and capabilities.
+ * Keyring Account type represents an accounts and its properties from the
+ * point of view of the keyring.
  */
 export type KeyringAccount = Infer<typeof KeyringAccountStruct>;
 
