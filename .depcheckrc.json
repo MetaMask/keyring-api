@@ -1,11 +1,12 @@
 {
+  "ignore-patterns": [".yarn"],
   "ignores": [
     "@lavamoat/allow-scripts",
     "@lavamoat/preinstall-always-fail",
-    "@metamask/auto-changelog",
-    "@types/*",
+    "@types/jest",
+    "@types/node",
     "prettier-plugin-packagejson",
-    "ts-node",
-    "typedoc"
+    "rimraf",
+    "ts-node"
   ]
 }
