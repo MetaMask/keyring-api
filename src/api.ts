@@ -83,8 +83,8 @@ export const KeyringAccountStruct = object({
           enabled: boolean(),
         }),
       ),
-      lastSelectedAt: exactOptional(number()),
-      importedAt: number(),
+      lastSelected: exactOptional(number()),
+      importTime: number(),
       keyring: object({
         type: string(),
       }),

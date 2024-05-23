@@ -1,6 +1,6 @@
 import { bech32 } from 'bech32';
 import type { Infer } from 'superstruct';
-import { object, string, array, enums, refine, assign } from 'superstruct';
+import { object, string, array, enums, refine } from 'superstruct';
 
 import { KeyringAccountStruct, BtcAccountType } from '../api';
 
@@ -27,24 +27,23 @@ export enum BtcMethod {
   SendMany = 'btc_sendmany',
 }
 
-export const BtcP2wpkhAccountStruct = assign(
-  KeyringAccountStruct,
-  object({
-    /**
-     * Account address.
-     */
-    address: BtcP2wpkhAddressStruct,
+export const BtcP2wpkhAccountStruct = object({
+  ...KeyringAccountStruct.schema,
 
-    /**
-     * Account type.
-     */
-    type: enums([`${BtcAccountType.P2wpkh}`]),
+  /**
+   * Account address.
+   */
+  address: BtcP2wpkhAddressStruct,
 
-    /**
-     * Account supported methods.
-     */
-    methods: array(enums([`${BtcMethod.SendMany}`])),
-  }),
-);
+  /**
+   * Account type.
+   */
+  type: enums([`${BtcAccountType.P2wpkh}`]),
+
+  /**
+   * Account supported methods.
+   */
+  methods: array(enums([`${BtcMethod.SendMany}`])),
+});
 
 export type BtcP2wpkhAccount = Infer<typeof BtcP2wpkhAccountStruct>;
