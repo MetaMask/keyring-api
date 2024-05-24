@@ -133,7 +133,25 @@ describe('handleKeyringRequest', () => {
     expect(result).toBe('FilterSupportedChains result');
   });
 
-  it('calls `keyring_updateAccount`', async () => {
+  it('fails because `keyring_filterAccountChains` is not implemented', async () => {
+    const request: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
+      method: 'keyring_filterAccountChains',
+      params: {
+        id: '4f983fa2-4f53-4c63-a7c2-f9a5ed750041',
+        chains: ['chain1', 'chain2'],
+      },
+    };
+
+    const { filterAccountChains, ...partialKeyring } = keyring;
+
+    await expect(handleKeyringRequest(partialKeyring, request)).rejects.toThrow(
+      'Method not supported: keyring_filterAccountChains',
+    );
+  });
+
+  it('calls keyring_updateAccount', async () => {
     const request: JsonRpcRequest = {
       jsonrpc: '2.0',
       id: '7c507ff0-365f-4de0-8cd5-eb83c30ebda4',
