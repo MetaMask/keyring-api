@@ -63,7 +63,7 @@ export const KeyringAccountStruct = object({
 });
 
 /**
- * Keyring Account type represents an accounts and its properties from the
+ * Keyring Account type represents an account and its properties from the
  * point of view of the keyring.
  */
 export type KeyringAccount = Infer<typeof KeyringAccountStruct>;
