@@ -1,9 +1,9 @@
 import { JsonStruct } from '@metamask/utils';
-import { boolean, literal, object, string } from 'superstruct';
+import { boolean, literal, string } from 'superstruct';
 
 import { KeyringAccountStruct } from '../api';
 import { KeyringEvent } from '../events';
-import { exactOptional } from '../superstruct';
+import { exactOptional, object } from '../superstruct';
 import { UuidStruct } from '../utils';
 
 export const AccountCreatedEventStruct = object({
