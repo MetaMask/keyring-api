@@ -1,6 +1,6 @@
 import { bech32 } from 'bech32';
 import type { Infer } from 'superstruct';
-import { string, array, enums, refine } from 'superstruct';
+import { string, array, enums, refine, literal } from 'superstruct';
 
 import { KeyringAccountStruct, BtcAccountType } from '../api';
 import { object } from '../superstruct';
@@ -39,7 +39,7 @@ export const BtcP2wpkhAccountStruct = object({
   /**
    * Account type.
    */
-  type: enums([`${BtcAccountType.P2wpkh}`]),
+  type: literal(`${BtcAccountType.P2wpkh}`),
 
   /**
    * Account supported methods.
