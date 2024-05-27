@@ -1,6 +1,8 @@
 import type { Json } from '@metamask/utils';
 
+import type { CaipAssetType } from '../utils';
 import type { KeyringAccount } from './account';
+import type { Balance } from './balance';
 import type { KeyringAccountData } from './export';
 import type { KeyringRequest } from './request';
 import type { KeyringResponse } from './response';
@@ -43,6 +45,38 @@ export type Keyring = {
    * object without any private information.
    */
   createAccount(options?: Record<string, Json>): Promise<KeyringAccount>;
+
+  /**
+   * Retrieve the balances of a given account.
+   *
+   * This method fetches the balances of specified assets for a given account
+   * ID. It returns a promise that resolves to an object where the keys are
+   * asset types and the values are balance objects containing the amount and
+   * unit.
+   *
+   * @example
+   * ```ts
+   * await keyring.getAccountBalances(
+   *   '43550276-c7d6-4fac-87c7-00390ad0ce90',
+   *   ['bip122:000000000019d6689c085ae165831e93/slip44:0']
+   * );
+   * // Returns something similar to:
+   * // {
+   * //   'bip122:000000000019d6689c085ae165831e93/slip44:0': {
+   * //     amount: '0.0001',
+   * //     unit: 'BTC',
+   * //   }
+   * // }
+   * ```
+   * @param id - ID of the account to retrieve the balances for.
+   * @param assets - Array of asset types (CAIP-19) to retrieve balances for.
+   * @returns A promise that resolves to an object mapping asset types to their
+   * respective balances.
+   */
+  getAccountBalances?(
+    id: string,
+    assets: CaipAssetType[],
+  ): Promise<Record<string, Balance>>;
 
   /**
    * Filter supported chains for a given account.

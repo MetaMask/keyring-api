@@ -1,22 +1,17 @@
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import {
-  array,
-  literal,
-  number,
-  object,
-  record,
-  string,
-  union,
-} from 'superstruct';
+import { array, literal, number, record, string, union } from 'superstruct';
 
 import {
+  BalanceStruct,
   KeyringAccountDataStruct,
   KeyringAccountStruct,
   KeyringRequestStruct,
   KeyringResponseStruct,
 } from '../api';
+import { object } from '../superstruct';
 import { UuidStruct } from '../utils';
+import { KeyringRpcMethod } from './rpc';
 
 const CommonHeader = {
   jsonrpc: literal('2.0'),
@@ -70,6 +65,31 @@ export type CreateAccountRequest = Infer<typeof CreateAccountRequestStruct>;
 export const CreateAccountResponseStruct = KeyringAccountStruct;
 
 export type CreateAccountResponse = Infer<typeof CreateAccountResponseStruct>;
+
+// ----------------------------------------------------------------------------
+// Get account balances
+
+export const GetAccountBalancesRequestStruct = object({
+  ...CommonHeader,
+  method: literal(`${KeyringRpcMethod.GetAccountBalances}`),
+  params: object({
+    id: UuidStruct,
+    assets: array(string()),
+  }),
+});
+
+export type GetAccountBalancesRequest = Infer<
+  typeof GetAccountBalancesRequestStruct
+>;
+
+export const GetAccountBalancesResponseStruct = record(
+  string(),
+  record(string(), BalanceStruct),
+);
+
+export type GetAccountBalancesResponse = Infer<
+  typeof GetAccountBalancesResponseStruct
+>;
 
 // ----------------------------------------------------------------------------
 // Filter account chains

@@ -1,4 +1,5 @@
 import type { Keyring } from './api';
+import type { GetAccountBalancesRequest } from './internal';
 import { KeyringRpcMethod, isKeyringRpcMethod } from './internal/rpc';
 import type { JsonRpcRequest } from './JsonRpcRequest';
 import { handleKeyringRequest } from './rpc-handler';
@@ -8,6 +9,7 @@ describe('handleKeyringRequest', () => {
     listAccounts: jest.fn(),
     getAccount: jest.fn(),
     createAccount: jest.fn(),
+    getAccountBalances: jest.fn(),
     filterAccountChains: jest.fn(),
     updateAccount: jest.fn(),
     deleteAccount: jest.fn(),
@@ -452,6 +454,90 @@ describe('handleKeyringRequest', () => {
     await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
       'An unknown error occurred while handling the keyring request',
     );
+  });
+
+  describe('getAccountBalances', () => {
+    it('successfully calls `keyring_getAccountBalances`', async () => {
+      const request: GetAccountBalancesRequest = {
+        jsonrpc: '2.0',
+        id: '2ac49e1a-4f5b-4dad-889c-73f3ca34fd3b',
+        method: 'keyring_getAccountBalances',
+        params: {
+          id: '987910cc-2d23-48c2-a362-c37f0715793e',
+          assets: ['bip122:000000000019d6689c085ae165831e93/slip44:0'],
+        },
+      };
+
+      await handleKeyringRequest(keyring, request);
+      expect(keyring.getAccountBalances).toHaveBeenCalledWith(
+        request.params.id,
+        request.params.assets,
+      );
+    });
+
+    it('fails because the account ID is not provided', async () => {
+      const request: JsonRpcRequest = {
+        jsonrpc: '2.0',
+        id: '2ac49e1a-4f5b-4dad-889c-73f3ca34fd3b',
+        method: 'keyring_getAccountBalances',
+        params: {
+          assets: ['bip122:000000000019d6689c085ae165831e93/slip44:0'],
+        },
+      };
+
+      await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
+        'At path: params.id -- Expected a value of type `UuidV4`, but received: `undefined`',
+      );
+    });
+
+    it('fails because the assets are not provided', async () => {
+      const request: JsonRpcRequest = {
+        jsonrpc: '2.0',
+        id: '2ac49e1a-4f5b-4dad-889c-73f3ca34fd3b',
+        method: 'keyring_getAccountBalances',
+        params: {
+          id: '987910cc-2d23-48c2-a362-c37f0715793e',
+        },
+      };
+
+      await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
+        'At path: params.assets -- Expected an array value, but received: undefined',
+      );
+    });
+
+    it('fails because the assets are not strings', async () => {
+      const request: JsonRpcRequest = {
+        jsonrpc: '2.0',
+        id: '2ac49e1a-4f5b-4dad-889c-73f3ca34fd3b',
+        method: 'keyring_getAccountBalances',
+        params: {
+          id: '987910cc-2d23-48c2-a362-c37f0715793e',
+          assets: [1, 2, 3],
+        },
+      };
+
+      await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
+        'At path: params.assets.0 -- Expected a string, but received: 1',
+      );
+    });
+
+    it('fails because `keyring_getAccountBalances` is not implemented', async () => {
+      const request: GetAccountBalancesRequest = {
+        jsonrpc: '2.0',
+        id: '2ac49e1a-4f5b-4dad-889c-73f3ca34fd3b',
+        method: 'keyring_getAccountBalances',
+        params: {
+          id: '987910cc-2d23-48c2-a362-c37f0715793e',
+          assets: ['bip122:000000000019d6689c085ae165831e93/slip44:0'],
+        },
+      };
+
+      const { getAccountBalances, ...partialKeyring } = keyring;
+
+      await expect(
+        handleKeyringRequest(partialKeyring, request),
+      ).rejects.toThrow('Method not supported: keyring_getAccountBalances');
+    });
   });
 });
 
