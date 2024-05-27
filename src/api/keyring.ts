@@ -4,6 +4,7 @@ import type { KeyringAccount } from './account';
 import type { KeyringAccountData } from './export';
 import type { KeyringRequest } from './request';
 import type { KeyringResponse } from './response';
+import type { Transaction } from './transaction';
 
 /**
  * Keyring interface.
@@ -43,6 +44,13 @@ export type Keyring = {
    * object without any private information.
    */
   createAccount(options?: Record<string, Json>): Promise<KeyringAccount>;
+
+  /**
+   * List the transactions of an account.
+   *
+   * @param id - The ID of the account to list the transactions for.
+   */
+  listAccountTransactions?(id: string): Promise<Transaction[]>;
 
   /**
    * Filter supported chains for a given account.
