@@ -5,7 +5,7 @@ import { EthAccountType } from '../api';
 import type { Extends } from '../utils';
 import { expectTrue } from '../utils';
 import type { EthEoaAccount, EthErc4337Account } from './types';
-import { EthMethod, EthErc4337Method } from './types';
+import { EthMethod } from './types';
 
 const id = '606a7759-b0fb-48e4-9874-bab62ff8e7eb';
 const address = '0x000';
@@ -42,9 +42,9 @@ expectNotAssignable<EthEoaAccount>({
   address,
   options: {},
   methods: [
-    `${EthErc4337Method.PrepareUserOperation}`,
-    `${EthErc4337Method.PatchUserOperation}`,
-    `${EthErc4337Method.SignUserOperation}`,
+    `${EthMethod.PrepareUserOperation}`,
+    `${EthMethod.PatchUserOperation}`,
+    `${EthMethod.SignUserOperation}`,
   ],
 });
 
@@ -55,9 +55,9 @@ expectNotAssignable<EthEoaAccount>({
   address,
   options: {},
   methods: [
-    `${EthErc4337Method.PrepareUserOperation}`,
-    `${EthErc4337Method.PatchUserOperation}`,
-    `${EthErc4337Method.SignUserOperation}`,
+    `${EthMethod.PrepareUserOperation}`,
+    `${EthMethod.PatchUserOperation}`,
+    `${EthMethod.SignUserOperation}`,
   ],
 });
 
@@ -82,9 +82,9 @@ expectAssignable<EthErc4337Account>({
     `${EthMethod.SignTypedDataV1}`,
     `${EthMethod.SignTypedDataV3}`,
     `${EthMethod.SignTypedDataV4}`,
-    `${EthErc4337Method.PrepareUserOperation}`,
-    `${EthErc4337Method.PatchUserOperation}`,
-    `${EthErc4337Method.SignUserOperation}`,
+    `${EthMethod.PrepareUserOperation}`,
+    `${EthMethod.PatchUserOperation}`,
+    `${EthMethod.SignUserOperation}`,
   ],
 });
 
@@ -95,9 +95,9 @@ expectNotAssignable<EthErc4337Account>({
   address,
   options: {},
   methods: [
-    `${EthErc4337Method.PrepareUserOperation}`,
-    `${EthErc4337Method.PatchUserOperation}`,
-    `${EthErc4337Method.SignUserOperation}`,
+    `${EthMethod.PrepareUserOperation}`,
+    `${EthMethod.PatchUserOperation}`,
+    `${EthMethod.SignUserOperation}`,
   ],
 });
 
@@ -108,9 +108,9 @@ expectNotAssignable<EthErc4337Account>({
   address,
   options: {},
   methods: [
-    `${EthErc4337Method.PrepareUserOperation}`,
-    `${EthErc4337Method.PatchUserOperation}`,
-    `${EthErc4337Method.SignUserOperation}`,
+    `${EthMethod.PrepareUserOperation}`,
+    `${EthMethod.PatchUserOperation}`,
+    `${EthMethod.SignUserOperation}`,
   ],
 });
 
