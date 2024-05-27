@@ -30,13 +30,14 @@ export class MethodNotSupportedError extends Error {
 }
 
 /**
- * Handles a keyring JSON-RPC request.
+ * Inner function that dispatches JSON-RPC request to the associated Keyring
+ * methods.
  *
  * @param keyring - Keyring instance.
  * @param request - Keyring JSON-RPC request.
  * @returns A promise that resolves to the keyring response.
  */
-export async function handleKeyringRequest(
+async function dispatchRequest(
   keyring: Keyring,
   request: JsonRpcRequest,
 ): Promise<Json | void> {
@@ -126,5 +127,40 @@ export async function handleKeyringRequest(
     default: {
       throw new MethodNotSupportedError(request.method);
     }
+  }
+}
+
+/**
+ * Handles a keyring JSON-RPC request.
+ *
+ * This function is meant to be used as a handler for Keyring JSON-RPC requests
+ * in an Accounts Snap.
+ *
+ * @param keyring - Keyring instance.
+ * @param request - Keyring JSON-RPC request.
+ * @returns A promise that resolves to the keyring response.
+ * @example
+ * ```ts
+ * export const onKeyringRequest: OnKeyringRequestHandler = async ({
+ *   origin,
+ *   request,
+ * }) => {
+ *   return await handleKeyringRequest(keyring, request);
+ * };
+ * ```
+ */
+export async function handleKeyringRequest(
+  keyring: Keyring,
+  request: JsonRpcRequest,
+): Promise<Json | void> {
+  try {
+    return await dispatchRequest(keyring, request);
+  } catch (error) {
+    const message =
+      error instanceof Error && typeof error.message === 'string'
+        ? error.message
+        : 'An unknown error occurred while handling the keyring request';
+
+    throw new Error(message);
   }
 }
