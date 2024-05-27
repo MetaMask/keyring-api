@@ -4,6 +4,7 @@ import type { KeyringAccount } from './account';
 import type { KeyringAccountData } from './export';
 import type { KeyringRequest } from './request';
 import type { KeyringResponse } from './response';
+import type { Transaction } from './transaction';
 
 /**
  * Keyring interface.
@@ -43,6 +44,40 @@ export type Keyring = {
    * object without any private information.
    */
   createAccount(options?: Record<string, Json>): Promise<KeyringAccount>;
+
+  /**
+   * Retrieve the balances of given account.
+   *
+   * @example
+   * ```ts
+   * // Request:
+   * keyring.getAccountBalances(
+   *   '43550276-c7d6-4fac-87c7-00390ad0ce90',
+   *   ['bip122:000000000019d6689c085ae165831e93/slip44:0']
+   * );
+   *
+   * // Returns:
+   * // {
+   * //   'bip122:000000000019d6689c085ae165831e93/slip44:0': {
+   * //     amount: '0.0001',
+   * //     unit: 'BTC',
+   * //   }
+   * // }
+   * ```
+   * @param id - The ID of the account to the balance of.
+   * @param assets - List of asset IDs (CAIP-19) to retrieve the balances of.
+   */
+  getAccountBalances?(
+    id: string,
+    assets: string[],
+  ): Promise<Record<string, string>>;
+
+  /**
+   * List the transactions of an account.
+   *
+   * @param id - The ID of the account to list the transactions for.
+   */
+  listAccountTransactions?(id: string): Promise<Transaction[]>;
 
   /**
    * Filter supported chains for a given account.
