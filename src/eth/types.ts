@@ -1,8 +1,8 @@
 import type { Infer } from 'superstruct';
-import { object, array, enums, literal } from 'superstruct';
+import { array, enums, literal } from 'superstruct';
 
-import { BaseAccount } from '../base-types';
-import { definePattern } from '../superstruct';
+import { EthAccountType, KeyringAccountStruct } from '../api';
+import { object, definePattern } from '../superstruct';
 
 export const EthBytesStruct = definePattern('EthBytes', /^0x[0-9a-f]*$/iu);
 
@@ -39,16 +39,13 @@ export enum EthErc4337Method {
   SignUserOperation = 'eth_signUserOperation',
 }
 
-/**
- * Supported Ethereum account types.
- */
-export enum EthAccountType {
-  Eoa = 'eip155:eoa',
-  Erc4337 = 'eip155:erc4337',
-}
-
 export const EthEoaAccountStruct = object({
-  ...BaseAccount,
+  ...KeyringAccountStruct.schema,
+
+  /**
+   * Account address.
+   */
+  address: EthAddressStruct,
 
   /**
    * Account type.
@@ -73,7 +70,12 @@ export const EthEoaAccountStruct = object({
 export type EthEoaAccount = Infer<typeof EthEoaAccountStruct>;
 
 export const EthErc4337AccountStruct = object({
-  ...BaseAccount,
+  ...KeyringAccountStruct.schema,
+
+  /**
+   * Account address.
+   */
+  address: EthAddressStruct,
 
   /**
    * Account type.

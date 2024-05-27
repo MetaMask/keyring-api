@@ -1,5 +1,4 @@
-import { EthAccountType } from '.';
-import { BtcAccountType } from '../btc';
+import { BtcAccountType, EthAccountType } from '../api';
 import { isEvmAccountType } from './utils';
 
 describe('isEvmAccountType', () => {

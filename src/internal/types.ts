@@ -1,13 +1,9 @@
 import type { Infer, Struct } from 'superstruct';
-import { boolean, string, number, define, mask, validate } from 'superstruct';
+import { boolean, string, number } from 'superstruct';
 
-import { BaseKeyringAccountStruct } from '../api';
-import { BtcP2wpkhAccountStruct, BtcAccountType } from '../btc/types';
-import {
-  EthEoaAccountStruct,
-  EthErc4337AccountStruct,
-  EthAccountType,
-} from '../eth/types';
+import { BtcAccountType, EthAccountType, KeyringAccountStruct } from '../api';
+import { BtcP2wpkhAccountStruct } from '../btc/types';
+import { EthEoaAccountStruct, EthErc4337AccountStruct } from '../eth/types';
 import { exactOptional, object } from '../superstruct';
 
 export type InternalAccountType = EthAccountType | BtcAccountType;
@@ -34,7 +30,7 @@ export const InternalAccountMetadataStruct = object({
  * Creates an `InternalAccount` from an existing account `superstruct` object.
  *
  * @param accountStruct - An account `superstruct` object.
- * @returns The `InternalAccount` assocaited to `accountStruct`.
+ * @returns The `InternalAccount` associated to `accountStruct`.
  */
 function asInternalAccountStruct<Account, AccountSchema>(
   accountStruct: Struct<Account, AccountSchema>,
@@ -82,20 +78,10 @@ export type InternalAccountTypes =
   | InternalEthErc4337Account
   | InternalBtcP2wpkhAccount;
 
-export const InternalAccountStruct = define<InternalAccountTypes>(
-  'InternalAccount',
-  (value: unknown) => {
-    const account = mask(value, BaseKeyringAccountStruct);
-
-    // At this point, we know that `value.type` can be used as an index for `KeyringAccountStructs`
-    const [error] = validate(
-      value,
-      InternalAccountStructs[account.type] as Struct,
-    );
-
-    return error ?? true;
-  },
-);
+export const InternalAccountStruct = object({
+  ...KeyringAccountStruct.schema,
+  ...InternalAccountMetadataStruct.schema,
+});
 
 /**
  * Internal account representation.

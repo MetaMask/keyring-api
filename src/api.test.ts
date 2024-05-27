@@ -1,8 +1,10 @@
 import { assert } from 'superstruct';
 
-import { KeyringAccountStruct, KeyringAccountStructs } from './api'; // Import from `index.ts` to test the public API
+import { KeyringAccountStruct } from './api';
 
-const supportedKeyringAccountTypes = Object.keys(KeyringAccountStructs)
+const supportedKeyringAccountTypes = Object.keys(
+  KeyringAccountStruct.schema.type.schema,
+)
   .map((type: string) => `"${type}"`)
   .join(',');
 

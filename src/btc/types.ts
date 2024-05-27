@@ -1,8 +1,9 @@
 import { bech32 } from 'bech32';
 import type { Infer } from 'superstruct';
-import { object, string, array, enums, literal, refine } from 'superstruct';
+import { string, array, enums, refine, literal } from 'superstruct';
 
-import { BaseAccount } from '../base-types';
+import { KeyringAccountStruct, BtcAccountType } from '../api';
+import { object } from '../superstruct';
 
 export const BtcP2wpkhAddressStruct = refine(
   string(),
@@ -27,15 +28,13 @@ export enum BtcMethod {
   SendMany = 'btc_sendmany',
 }
 
-/**
- * Supported Bitcoin account types.
- */
-export enum BtcAccountType {
-  P2wpkh = 'bip122:p2wpkh',
-}
-
 export const BtcP2wpkhAccountStruct = object({
-  ...BaseAccount,
+  ...KeyringAccountStruct.schema,
+
+  /**
+   * Account address.
+   */
+  address: BtcP2wpkhAddressStruct,
 
   /**
    * Account type.

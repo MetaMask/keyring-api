@@ -1,6 +1,6 @@
 import { is } from 'superstruct';
 
-import { EthAccountType } from '../eth/types';
+import { EthAccountType } from '../api';
 import { KeyringEvent } from '../events';
 import {
   AccountCreatedEventStruct,
