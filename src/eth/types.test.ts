@@ -1,4 +1,4 @@
-import { UrlStruct } from '../superstruct';
+import { UrlStruct } from '../utils';
 
 describe('types', () => {
   it('is a valid BundlerUrl', () => {

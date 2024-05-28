@@ -1,4 +1,4 @@
-import { expectTrue } from './utils';
+import { expectTrue } from './typing';
 
 describe('expectTrue', () => {
   it('does nothing since expectTrue is an empty function', () => {

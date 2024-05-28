@@ -1,5 +1,5 @@
-import type { Extends } from './utils';
-import { expectTrue } from './utils';
+import type { Extends } from './typing';
+import { expectTrue } from './typing';
 
 expectTrue<true>();
 

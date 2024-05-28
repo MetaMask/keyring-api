@@ -1,6 +1,7 @@
 import { type Infer } from 'superstruct';
 
-import { UrlStruct, exactOptional, object } from '../../superstruct';
+import { exactOptional, object } from '../../superstruct';
+import { UrlStruct } from '../../utils';
 import { EthAddressStruct, EthBytesStruct, EthUint256Struct } from '../types';
 
 /**
