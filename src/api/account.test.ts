@@ -1,6 +1,6 @@
 import { assert } from 'superstruct';
 
-import { KeyringAccountStruct } from './api';
+import { KeyringAccountStruct } from './account';
 
 const supportedKeyringAccountTypes = Object.keys(
   KeyringAccountStruct.schema.type.schema,
