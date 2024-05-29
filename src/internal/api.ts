@@ -74,7 +74,7 @@ export const GetAccountBalancesRequestStruct = object({
   method: literal(`${KeyringRpcMethod.GetAccountBalances}`),
   params: object({
     id: UuidStruct,
-    assets: array(string()),
+    assets: array(CaipAssetTypeStruct),
   }),
 });
 
