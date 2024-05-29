@@ -4,13 +4,14 @@ import { array, literal, number, record, string, union } from 'superstruct';
 
 import {
   BalanceStruct,
+  CaipAssetTypeStruct,
   KeyringAccountDataStruct,
   KeyringAccountStruct,
   KeyringRequestStruct,
   KeyringResponseStruct,
 } from '../api';
 import { object } from '../superstruct';
-import { CaipAssetTypeStruct, UuidStruct } from '../utils';
+import { UuidStruct } from '../utils';
 import { KeyringRpcMethod } from './rpc';
 
 const CommonHeader = {
