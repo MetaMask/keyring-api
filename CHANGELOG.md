@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.3.1]
+
+### Fixed
+
+- Export `Caip*` types used in the API ([#325](https://github.com/MetaMask/keyring-api/pull/325)).
+
 ## [6.3.0]
 
 ### Added
@@ -319,7 +325,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.3.0...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.3.1...HEAD
+[6.3.1]: https://github.com/MetaMask/keyring-api/compare/v6.3.0...v6.3.1
 [6.3.0]: https://github.com/MetaMask/keyring-api/compare/v6.2.1...v6.3.0
 [6.2.1]: https://github.com/MetaMask/keyring-api/compare/v6.2.0...v6.2.1
 [6.2.0]: https://github.com/MetaMask/keyring-api/compare/v6.1.1...v6.2.0
