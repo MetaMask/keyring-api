@@ -10,7 +10,7 @@ import {
   KeyringResponseStruct,
 } from '../api';
 import { object } from '../superstruct';
-import { UuidStruct } from '../utils';
+import { CaipAssetTypeStruct, UuidStruct } from '../utils';
 import { KeyringRpcMethod } from './rpc';
 
 const CommonHeader = {
