@@ -83,8 +83,8 @@ export type GetAccountBalancesRequest = Infer<
 >;
 
 export const GetAccountBalancesResponseStruct = record(
-  string(),
-  record(string(), BalanceStruct),
+  CaipAssetTypeStruct,
+  BalanceStruct,
 );
 
 export type GetAccountBalancesResponse = Infer<
