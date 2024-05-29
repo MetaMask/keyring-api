@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.3.0]
+
+### Added
+
+- Add `getAccountBalances` method to `Keyring` interface ([#320](https://github.com/MetaMask/keyring-api/pull/320)).
+- Add CAIP-19 types to `utils` ([#321](https://github.com/MetaMask/keyring-api/pull/321)).
+
+### Changed
+
+- Bump @metamask/snaps-sdk from 4.2.0 to 4.3.0 ([#323](https://github.com/MetaMask/keyring-api/pull/323)).
+- Split `api.ts` into different files ([#319](https://github.com/MetaMask/keyring-api/pull/319)).
+- Make the `KeyringAccount` type less rigid ([#311](https://github.com/MetaMask/keyring-api/pull/311)).
+
+### Fixed
+
+- Ensure that errors are JSON-serializable ([#162](https://github.com/MetaMask/keyring-api/pull/162)).
+- Don't use internal types in the public API ([#312](https://github.com/MetaMask/keyring-api/pull/312)).
+- Keep all ETH methods in the same `enum` ([#313](https://github.com/MetaMask/keyring-api/pull/313)).
+
 ## [6.2.1]
 
 ### Changed
@@ -300,7 +319,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.2.1...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.3.0...HEAD
+[6.3.0]: https://github.com/MetaMask/keyring-api/compare/v6.2.1...v6.3.0
 [6.2.1]: https://github.com/MetaMask/keyring-api/compare/v6.2.0...v6.2.1
 [6.2.0]: https://github.com/MetaMask/keyring-api/compare/v6.1.1...v6.2.0
 [6.1.1]: https://github.com/MetaMask/keyring-api/compare/v6.1.0...v6.1.1
