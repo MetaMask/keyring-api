@@ -517,7 +517,7 @@ describe('handleKeyringRequest', () => {
       };
 
       await expect(handleKeyringRequest(keyring, request)).rejects.toThrow(
-        'At path: params.assets.0 -- Expected a string, but received: 1',
+        'At path: params.assets.0 -- Expected a value of type `CaipAssetType`, but received: `1`',
       );
     });
 
