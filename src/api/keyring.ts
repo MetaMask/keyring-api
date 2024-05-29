@@ -76,7 +76,7 @@ export type Keyring = {
   getAccountBalances?(
     id: string,
     assets: CaipAssetType[],
-  ): Promise<Record<string, Balance>>;
+  ): Promise<Record<CaipAssetType, Balance>>;
 
   /**
    * Filter supported chains for a given account.
