@@ -30,6 +30,6 @@ export const UrlStruct = define<string>('Url', (value: unknown) => {
  */
 export const StringNumberStruct = definePattern(
   'StringNumber',
-  /^[0-9]+(\.[0-9]+)?$/u,
+  /^\d+(\.\d+)?$/u,
 );
 export type StringNumber = Infer<typeof StringNumberStruct>;
