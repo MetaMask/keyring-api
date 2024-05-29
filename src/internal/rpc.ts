@@ -5,6 +5,7 @@ export enum KeyringRpcMethod {
   ListAccounts = 'keyring_listAccounts',
   GetAccount = 'keyring_getAccount',
   CreateAccount = 'keyring_createAccount',
+  GetAccountBalances = 'keyring_getAccountBalances',
   FilterAccountChains = 'keyring_filterAccountChains',
   UpdateAccount = 'keyring_updateAccount',
   DeleteAccount = 'keyring_deleteAccount',

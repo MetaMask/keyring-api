@@ -15,6 +15,7 @@ import {
   FilterAccountChainsStruct,
   ListAccountsRequestStruct,
   ListRequestsRequestStruct,
+  GetAccountBalancesRequestStruct,
 } from './internal/api';
 import { KeyringRpcMethod } from './internal/rpc';
 import type { JsonRpcRequest } from './JsonRpcRequest';
@@ -59,6 +60,17 @@ async function dispatchRequest(
     case KeyringRpcMethod.CreateAccount: {
       assert(request, CreateAccountRequestStruct);
       return keyring.createAccount(request.params.options);
+    }
+
+    case KeyringRpcMethod.GetAccountBalances: {
+      if (keyring.getAccountBalances === undefined) {
+        throw new MethodNotSupportedError(request.method);
+      }
+      assert(request, GetAccountBalancesRequestStruct);
+      return keyring.getAccountBalances(
+        request.params.id,
+        request.params.assets,
+      );
     }
 
     case KeyringRpcMethod.FilterAccountChains: {
