@@ -1,5 +1,5 @@
-import type { Infer, Context } from 'superstruct';
-import { Struct, assert, define, object as stObject } from 'superstruct';
+import type { Infer, Context } from '@metamask/superstruct';
+import { Struct, assert, define, object as stObject } from '@metamask/superstruct';
 import type {
   ObjectSchema,
   OmitBy,

@@ -1,4 +1,4 @@
-import { is, literal, max, number, string, union } from 'superstruct';
+import { is, literal, max, number, string, union } from '@metamask/superstruct';
 
 import { exactOptional, object } from '.';
 

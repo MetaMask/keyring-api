@@ -1,5 +1,5 @@
 import type { Json } from '@metamask/utils';
-import { assert } from 'superstruct';
+import { assert } from '@metamask/superstruct';
 import { v4 as uuid } from 'uuid';
 
 import type {

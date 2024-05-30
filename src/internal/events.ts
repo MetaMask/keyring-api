@@ -1,5 +1,5 @@
 import { JsonStruct } from '@metamask/utils';
-import { boolean, literal, string } from 'superstruct';
+import { boolean, literal, string } from '@metamask/superstruct';
 
 import { KeyringAccountStruct } from '../api';
 import { KeyringEvent } from '../events';

@@ -1,6 +1,6 @@
 import { JsonStruct } from '@metamask/utils';
-import type { Infer } from 'superstruct';
-import { record, string } from 'superstruct';
+import type { Infer } from '@metamask/superstruct';
+import { record, string } from '@metamask/superstruct';
 
 export const KeyringAccountDataStruct = record(string(), JsonStruct);
 
