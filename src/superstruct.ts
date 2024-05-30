@@ -1,12 +1,13 @@
-import type { Infer, Context } from '@metamask/superstruct';
-import { Struct, assert, define, object as stObject } from '@metamask/superstruct';
 import type {
+  Context,
+  Infer,
   ObjectSchema,
   OmitBy,
   Optionalize,
   PickBy,
-  Simplify,
-} from 'superstruct/dist/utils';
+  Simplify
+} from '@metamask/superstruct';
+import { Struct, assert, define, object as stObject } from '@metamask/superstruct';
 
 declare const ExactOptionalSymbol: unique symbol;
 
