@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [6.4.0]
+### Changed
+- Add support for `@metamask/providers` v17 ([#329](https://github.com/MetaMask/keyring-api/pull/329)).
 
 ## [6.3.1]
 ### Fixed
