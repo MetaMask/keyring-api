@@ -5,9 +5,14 @@ import type {
   OmitBy,
   Optionalize,
   PickBy,
-  Simplify
+  Simplify,
 } from '@metamask/superstruct';
-import { Struct, assert, define, object as stObject } from '@metamask/superstruct';
+import {
+  Struct,
+  assert,
+  define,
+  object as stObject,
+} from '@metamask/superstruct';
 
 declare const ExactOptionalSymbol: unique symbol;
 
