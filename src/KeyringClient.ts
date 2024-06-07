@@ -8,6 +8,8 @@ import type {
   KeyringRequest,
   KeyringAccountData,
   KeyringResponse,
+  CaipAssetType,
+  Balance,
 } from './api';
 import {
   ApproveRequestResponseStruct,
@@ -15,6 +17,7 @@ import {
   DeleteAccountResponseStruct,
   ExportAccountResponseStruct,
   FilterAccountChainsResponseStruct,
+  GetAccountBalancesResponseStruct,
   GetAccountResponseStruct,
   GetRequestResponseStruct,
   ListAccountsResponseStruct,
@@ -73,6 +76,19 @@ export class KeyringClient implements Keyring {
         params: { id },
       }),
       GetAccountResponseStruct,
+    );
+  }
+
+  async getAccountBalances(
+    id: string,
+    assets: CaipAssetType[],
+  ): Promise<Record<CaipAssetType, Balance>> {
+    return strictMask(
+      await this.#send({
+        method: KeyringRpcMethod.GetAccountBalances,
+        params: { id, assets },
+      }),
+      GetAccountBalancesResponseStruct,
     );
   }
 

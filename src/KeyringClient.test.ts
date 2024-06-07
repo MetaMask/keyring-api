@@ -3,6 +3,7 @@ import {
   type KeyringRequest,
   type KeyringResponse,
   KeyringClient,
+  KeyringRpcMethod,
 } from '.'; // Import from `index.ts` to test the public API
 
 describe('KeyringClient', () => {
@@ -81,6 +82,63 @@ describe('KeyringClient', () => {
         params: { options: {} },
       });
       expect(account).toStrictEqual(expectedResponse);
+    });
+  });
+
+  describe('getAccountBalances', () => {
+    it('returns a valid response', async () => {
+      const assets = ['bip122:000000000019d6689c085ae165831e93/slip44:0'];
+      const id = '1617ea08-d4b6-48bf-ba83-901ef1e45ed7';
+      const expectedResponse = {
+        [assets[0] as string]: {
+          amount: '1234',
+          unit: 'sat',
+        },
+      };
+
+      mockSender.send.mockResolvedValue(expectedResponse);
+      const balances = await keyring.getAccountBalances(id, assets);
+
+      expect(mockSender.send).toHaveBeenCalledWith({
+        jsonrpc: '2.0',
+        id: expect.any(String),
+        method: `${KeyringRpcMethod.GetAccountBalances}`,
+        params: { id, assets },
+      });
+
+      expect(balances).toStrictEqual(expectedResponse);
+    });
+
+    it('throws an error because the amount has the wrong type', async () => {
+      const assets = ['bip122:000000000019d6689c085ae165831e93/slip44:0'];
+      const id = '1617ea08-d4b6-48bf-ba83-901ef1e45ed7';
+      const expectedResponse = {
+        [assets[0] as string]: {
+          amount: 1234, // Should be a `StringNumber`
+          unit: 'sat',
+        },
+      };
+
+      mockSender.send.mockResolvedValue(expectedResponse);
+      await expect(keyring.getAccountBalances(id, assets)).rejects.toThrow(
+        'At path: bip122:000000000019d6689c085ae165831e93/slip44:0.amount -- Expected a value of type `StringNumber`, but received: `1234`',
+      );
+    });
+
+    it("throws an error because the amount isn't a StringNumber", async () => {
+      const assets = ['bip122:000000000019d6689c085ae165831e93/slip44:0'];
+      const id = '1617ea08-d4b6-48bf-ba83-901ef1e45ed7';
+      const expectedResponse = {
+        [assets[0] as string]: {
+          amount: 'not-a-string-number', // Should be a `StringNumber`
+          unit: 'sat',
+        },
+      };
+
+      mockSender.send.mockResolvedValue(expectedResponse);
+      await expect(keyring.getAccountBalances(id, assets)).rejects.toThrow(
+        'At path: bip122:000000000019d6689c085ae165831e93/slip44:0.amount -- Expected a value of type `StringNumber`, but received: `"not-a-string-number"`',
+      );
     });
   });
 
