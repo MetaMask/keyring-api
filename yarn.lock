@@ -1062,7 +1062,7 @@ __metadata:
     "@metamask/eslint-config-nodejs": ^12.1.0
     "@metamask/eslint-config-typescript": ^12.1.0
     "@metamask/providers": ^17.0.0
-    "@metamask/snaps-sdk": ^4.4.1
+    "@metamask/snaps-sdk": ^4.4.2
     "@metamask/superstruct": ^3.0.0
     "@metamask/utils": ^8.5.0
     "@types/jest": ^29.5.12
@@ -1154,7 +1154,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-sdk@npm:^4.4.1":
+"@metamask/snaps-sdk@npm:^4.4.2":
   version: 4.4.2
   resolution: "@metamask/snaps-sdk@npm:4.4.2"
   dependencies:
