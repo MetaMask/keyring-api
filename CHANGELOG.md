@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [7.0.0]
 
+### Added
+
+- Add `getAccountBalances` to `KeyringClient` ([#340](https://github.com/MetaMask/keyring-api/pull/340)).
+- Allow multiple address per account ([#315](https://github.com/MetaMask/keyring-api/pull/315)).
+
 ### Changed
 
 - **BREAKING:** Keep all ETH methods in the same `enum` ([#313](https://github.com/MetaMask/keyring-api/pull/313)).
@@ -16,11 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump @metamask/rpc-errors from 6.2.1 to 6.3.0 ([#337](https://github.com/MetaMask/keyring-api/pull/337)).
 - Bump @metamask/json-rpc-middleware-stream from 7.0.1 to 7.0.2 ([#333](https://github.com/MetaMask/keyring-api/pull/333)).
 - Bump @metamask/snaps-sdk from 4.4.0 to 4.4.1 ([#334](https://github.com/MetaMask/keyring-api/pull/334)).
-
-### Added
-
-- Add `getAccountBalances` to `KeyringClient` ([#340](https://github.com/MetaMask/keyring-api/pull/340)).
-- Allow multiple address per account ([#315](https://github.com/MetaMask/keyring-api/pull/315)).
 
 ### Fixed
 
