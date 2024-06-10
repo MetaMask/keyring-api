@@ -7,13 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.0.0]
+
+### Added
+
+- Add `getAccountBalances` to `KeyringClient` ([#340](https://github.com/MetaMask/keyring-api/pull/340)).
+- Allow multiple address per account ([#315](https://github.com/MetaMask/keyring-api/pull/315)).
+
+### Changed
+
+- **BREAKING:** Keep all ETH methods in the same `enum` ([#313](https://github.com/MetaMask/keyring-api/pull/313)).
+- Bump @metamask/snaps-sdk from 4.4.1 to 4.4.2 ([#339](https://github.com/MetaMask/keyring-api/pull/339)).
+- Bump @metamask/rpc-errors from 6.2.1 to 6.3.0 ([#337](https://github.com/MetaMask/keyring-api/pull/337)).
+- Bump @metamask/json-rpc-middleware-stream from 7.0.1 to 7.0.2 ([#333](https://github.com/MetaMask/keyring-api/pull/333)).
+- Bump @metamask/snaps-sdk from 4.4.0 to 4.4.1 ([#334](https://github.com/MetaMask/keyring-api/pull/334)).
+
+### Fixed
+
+- Allow stale action to be run manually and fix permissions ([#336](https://github.com/MetaMask/keyring-api/pull/336)).
+
 ## [6.4.0]
 
 ### Changed
 
+- **BREAKING:** Keep all ETH methods in the same `enum` ([#313](https://github.com/MetaMask/keyring-api/pull/313)).
 - Add support for `@metamask/providers` v17 ([#329](https://github.com/MetaMask/keyring-api/pull/329)).
 
 ## [6.3.1]
+
+### Changed
+
+- **BREAKING:** Keep all ETH methods in the same `enum` ([#313](https://github.com/MetaMask/keyring-api/pull/313)).
 
 ### Fixed
 
@@ -28,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **BREAKING:** Keep all ETH methods in the same `enum` ([#313](https://github.com/MetaMask/keyring-api/pull/313)).
 - Bump @metamask/snaps-sdk from 4.2.0 to 4.3.0 ([#323](https://github.com/MetaMask/keyring-api/pull/323)).
 - Split `api.ts` into different files ([#319](https://github.com/MetaMask/keyring-api/pull/319)).
 - Make the `KeyringAccount` type less rigid ([#311](https://github.com/MetaMask/keyring-api/pull/311)).
@@ -36,7 +61,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Ensure that errors are JSON-serializable ([#162](https://github.com/MetaMask/keyring-api/pull/162)).
 - Don't use internal types in the public API ([#312](https://github.com/MetaMask/keyring-api/pull/312)).
-- Keep all ETH methods in the same `enum` ([#313](https://github.com/MetaMask/keyring-api/pull/313)).
 
 ## [6.2.1]
 
@@ -331,7 +355,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v6.4.0...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v7.0.0...HEAD
+[7.0.0]: https://github.com/MetaMask/keyring-api/compare/v6.4.0...v7.0.0
 [6.4.0]: https://github.com/MetaMask/keyring-api/compare/v6.3.1...v6.4.0
 [6.3.1]: https://github.com/MetaMask/keyring-api/compare/v6.3.0...v6.3.1
 [6.3.0]: https://github.com/MetaMask/keyring-api/compare/v6.2.1...v6.3.0
