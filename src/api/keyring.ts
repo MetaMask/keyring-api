@@ -81,17 +81,12 @@ export type Keyring = {
   /**
    * Filter supported chains for a given account.
    *
-   * See {@link KeyringAccount}.
-   *
-   * @deprecated Use the keys of the `address` map of the account object to
-   * indicate the supported chains. This method will be removed in a future
-   * version of the Keyring API.
    * @param id - ID of the account to be checked.
    * @param chains - List of chains (CAIP-2) to be checked.
    * @returns A Promise that resolves to a filtered list of CAIP-2 IDs
    * representing the supported chains.
    */
-  filterAccountChains?(id: string, chains: string[]): Promise<string[]>;
+  filterAccountChains(id: string, chains: string[]): Promise<string[]>;
 
   /**
    * Update an account.
