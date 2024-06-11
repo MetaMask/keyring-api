@@ -7,12 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.0.0]
+
+### Changed
+
+- **BREAKING:** Revert "feat: allow multiple address per account (#315)" ([#342](https://github.com/MetaMask/keyring-api/pull/342)).
+
 ## [7.0.0]
 
 ### Added
 
 - Add `getAccountBalances` to `KeyringClient` ([#340](https://github.com/MetaMask/keyring-api/pull/340)).
-- Allow multiple address per account ([#315](https://github.com/MetaMask/keyring-api/pull/315)).
+- **BREAKING:** Allow multiple address per account ([#315](https://github.com/MetaMask/keyring-api/pull/315)).
 
 ### Changed
 
@@ -355,7 +361,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v7.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v8.0.0...HEAD
+[8.0.0]: https://github.com/MetaMask/keyring-api/compare/v7.0.0...v8.0.0
 [7.0.0]: https://github.com/MetaMask/keyring-api/compare/v6.4.0...v7.0.0
 [6.4.0]: https://github.com/MetaMask/keyring-api/compare/v6.3.1...v6.4.0
 [6.3.1]: https://github.com/MetaMask/keyring-api/compare/v6.3.0...v6.3.1
