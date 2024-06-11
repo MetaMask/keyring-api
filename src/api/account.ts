@@ -1,6 +1,6 @@
 import { JsonStruct } from '@metamask/utils';
 import type { Infer } from 'superstruct';
-import { array, enums, record, string, union } from 'superstruct';
+import { array, enums, record, string } from 'superstruct';
 
 import { object } from '../superstruct';
 import { UuidStruct } from '../utils';
@@ -51,35 +51,9 @@ export const KeyringAccountStruct = object({
   ]),
 
   /**
-   * Account addresses. It can be a single address or a map of addresses per
-   * chain.
-   *
-   * If the address is a string, it's assumed to be under the 'eip155'
-   * namespace. Otherwise, it must be a map of addresses per chain, where the
-   * key is the chain ID (CAIP-2) and the value is an array of addresses.
-   *
-   * @example
-   * ```ts
-   * address: {
-   *   // Different addresses per chain.
-   *   'eip155:1': ['0x1234...'],
-   *   'eip155:137': ['0x5678...'],
-   * }
-   * ```
-   * @example
-   * ```ts
-   * address: {
-   *   // The address is the same across all 'eip155' chains.
-   *   'eip155': ['0x1234...'],
-   * }
-   * ```
-   * @example
-   * ```ts
-   * // Assumed to be under the 'eip155' namespace.
-   * address: '0x1234...',
-   * ```
+   * Account main address.
    */
-  address: union([string(), record(string(), array(string()))]),
+  address: string(),
 
   /**
    * Account options.
