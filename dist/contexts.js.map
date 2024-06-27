@@ -1,0 +1,1 @@
+{"version":3,"file":"contexts.js","sourceRoot":"","sources":["../src/contexts.ts"],"names":[],"mappings":"","sourcesContent":["/**\n * Context used by a Keyring implementation.\n */\nexport type KeyringExecutionContext = {\n  /** The chain ID. */\n  chainId: string;\n};\n"]}
