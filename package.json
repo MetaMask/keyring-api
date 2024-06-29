@@ -37,14 +37,11 @@
     "test:types": "tsd",
     "test:watch": "jest --watch"
   },
-  "resolutions": {
-    "@metamask/superstruct": "^3.1.0"
-  },
   "dependencies": {
     "@metamask/providers": "^17.1.0",
     "@metamask/snaps-sdk": "^6.0.0",
     "@metamask/superstruct": "^3.1.0",
-    "@metamask/utils": "^8.5.0",
+    "@metamask/utils": "^9.0.0",
     "@types/uuid": "^9.0.8",
     "bech32": "^2.0.0",
     "uuid": "^9.0.1"
