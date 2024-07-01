@@ -1,5 +1,5 @@
-import type { Infer } from 'superstruct';
-import { boolean, number, optional, string } from 'superstruct';
+import type { Infer } from '@metamask/superstruct';
+import { boolean, number, optional, string } from '@metamask/superstruct';
 import { expectAssignable, expectNotAssignable } from 'tsd';
 
 import { exactOptional, object } from '.';

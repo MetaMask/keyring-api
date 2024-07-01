@@ -1,5 +1,5 @@
+import { assert } from '@metamask/superstruct';
 import type { Json } from '@metamask/utils';
-import { assert } from 'superstruct';
 
 import type { Keyring } from './api';
 import {

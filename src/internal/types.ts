@@ -1,5 +1,5 @@
-import type { Infer, Struct } from 'superstruct';
-import { boolean, string, number } from 'superstruct';
+import type { Infer, Struct } from '@metamask/superstruct';
+import { boolean, string, number } from '@metamask/superstruct';
 
 import { BtcAccountType, EthAccountType, KeyringAccountStruct } from '../api';
 import { BtcP2wpkhAccountStruct } from '../btc/types';

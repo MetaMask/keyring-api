@@ -1,4 +1,4 @@
-import { is } from 'superstruct';
+import { is } from '@metamask/superstruct';
 
 import { EthAccountType } from '../api';
 import { KeyringEvent } from '../events';

@@ -1,5 +1,5 @@
-import type { Infer } from 'superstruct';
-import { string } from 'superstruct';
+import type { Infer } from '@metamask/superstruct';
+import { string } from '@metamask/superstruct';
 
 import { object } from '../superstruct';
 import { StringNumberStruct } from '../utils';
