@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@metamask/snaps-sdk": "^4.2.0",
-    "@metamask/utils": "^8.4.0",
+    "@metamask/utils": "^9.0.0",
     "@types/uuid": "^9.0.8",
     "bech32": "^2.0.0",
     "superstruct": "^1.0.3",
