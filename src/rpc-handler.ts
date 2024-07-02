@@ -74,6 +74,9 @@ async function dispatchRequest(
     }
 
     case KeyringRpcMethod.FilterAccountChains: {
+      if (keyring.filterAccountChains === undefined) {
+        throw new MethodNotSupportedError(request.method);
+      }
       assert(request, FilterAccountChainsStruct);
       return keyring.filterAccountChains(
         request.params.id,
