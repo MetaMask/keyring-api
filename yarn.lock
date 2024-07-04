@@ -1181,7 +1181,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/utils@npm:^8.3.0":
+"@metamask/utils@npm:^8.3.0, @metamask/utils@npm:^8.4.0":
   version: 8.4.0
   resolution: "@metamask/utils@npm:8.4.0"
   dependencies:
