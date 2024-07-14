@@ -988,17 +988,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/json-rpc-engine@npm:^9.0.1":
-  version: 9.0.1
-  resolution: "@metamask/json-rpc-engine@npm:9.0.1"
-  dependencies:
-    "@metamask/rpc-errors": ^6.3.1
-    "@metamask/safe-event-emitter": ^3.0.0
-    "@metamask/utils": ^9.0.0
-  checksum: 60889825a633f2ae8f5998c3c426c52e580d761871983eb4e25bedc868fad1c367b496b3bd6913274b118444987eda64669a1eb49acda1a7fc2e2a0d75dd1e9a
-  languageName: node
-  linkType: hard
-
 "@metamask/json-rpc-middleware-stream@npm:^7.0.1":
   version: 7.0.2
   resolution: "@metamask/json-rpc-middleware-stream@npm:7.0.2"
@@ -1011,19 +1000,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/json-rpc-middleware-stream@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "@metamask/json-rpc-middleware-stream@npm:8.0.1"
-  dependencies:
-    "@metamask/json-rpc-engine": ^9.0.1
-    "@metamask/safe-event-emitter": ^3.0.0
-    "@metamask/utils": ^9.0.0
-    readable-stream: ^3.6.2
-  checksum: 7f9b43bb171aed6ba1b3fbad1420224cf505fc1cc8f79bff8e3da404f9b835fe660efee0a538565f035f00c8de811979d2921afd9c756dbba91366d558f2fdef
-  languageName: node
-  linkType: hard
-
-"@metamask/key-tree@npm:^9.1.1":
+"@metamask/key-tree@npm:^9.1.2":
   version: 9.1.2
   resolution: "@metamask/key-tree@npm:9.1.2"
   dependencies:
@@ -1113,27 +1090,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/providers@npm:^17.0.0":
-  version: 17.1.1
-  resolution: "@metamask/providers@npm:17.1.1"
-  dependencies:
-    "@metamask/json-rpc-engine": ^9.0.1
-    "@metamask/json-rpc-middleware-stream": ^8.0.1
-    "@metamask/object-multiplex": ^2.0.0
-    "@metamask/rpc-errors": ^6.3.1
-    "@metamask/safe-event-emitter": ^3.1.1
-    "@metamask/utils": ^9.0.0
-    detect-browser: ^5.2.0
-    extension-port-stream: ^4.1.0
-    fast-deep-equal: ^3.1.3
-    is-stream: ^2.0.0
-    readable-stream: ^3.6.2
-  peerDependencies:
-    webextension-polyfill: ^0.10.0 || ^0.11.0 || ^0.12.0
-  checksum: d5e3f8acff2bb172c836ecbaaac1f3f41ebc74dfd3ef5b71c59891ac724c5c68d48f8fd576aaf96d5a663d4019ea069fee7d07e79f75cb359abbc06001a4bb06
-  languageName: node
-  linkType: hard
-
 "@metamask/rpc-errors@npm:^6.2.1, @metamask/rpc-errors@npm:^6.3.1":
   version: 6.3.1
   resolution: "@metamask/rpc-errors@npm:6.3.1"
@@ -1161,16 +1117,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-sdk@npm:^6.0.0":
+"@metamask/snaps-sdk@github:MetaMask/snaps#workspace=@metamask/snaps-sdk&commit=485c9699ddb0109068d7a07ecdd3539e510c8df6":
   version: 6.0.0
-  resolution: "@metamask/snaps-sdk@npm:6.0.0"
+  resolution: "@metamask/snaps-sdk@https://github.com/MetaMask/snaps.git#workspace=%40metamask%2Fsnaps-sdk&commit=485c9699ddb0109068d7a07ecdd3539e510c8df6"
   dependencies:
-    "@metamask/key-tree": ^9.1.1
-    "@metamask/providers": ^17.0.0
-    "@metamask/rpc-errors": ^6.2.1
-    "@metamask/utils": ^8.3.0
-    superstruct: ^1.0.3
-  checksum: 0a3b7a034028a7583b4e1a5414a67470b2ed70cc411fc4877a79f95803c64d99eafb785cbffaf827c3f3138a065e439480b9628456a8a5fa8d39c9c8dd9bd5db
+    "@metamask/key-tree": ^9.1.2
+    "@metamask/providers": 17.0.0
+    "@metamask/rpc-errors": ^6.3.1
+    "@metamask/superstruct": ^3.1.0
+    "@metamask/utils": ^9.0.0
+  checksum: f4d0a49c9bff29be2cd34a6ff7b4439a7972afdfd78c941e107859690f68044a6c2e93b8bfc28f852cb6f5f8eb4c77b52084363195a9fd37553d41c3fe1e1bac
   languageName: node
   linkType: hard
 
@@ -3509,17 +3465,6 @@ __metadata:
     readable-stream: ^3.6.2 || ^4.4.2
     webextension-polyfill: ">=0.10.0 <1.0"
   checksum: 4f51d2258a96154c2d916a8a5425636a2b0817763e9277f7dc378d08b6f050c90d185dbde4313d27cf66ad99d4b3116479f9f699c40358c64cccfa524d2b55bf
-  languageName: node
-  linkType: hard
-
-"extension-port-stream@npm:^4.1.0":
-  version: 4.2.0
-  resolution: "extension-port-stream@npm:4.2.0"
-  dependencies:
-    readable-stream: ^3.6.2 || ^4.4.2
-  peerDependencies:
-    webextension-polyfill: ^0.10.0 || ^0.11.0 || ^0.12.0
-  checksum: 85559c82e3f3aa21462e234b30b7d53872708893664cd03f2f848af556cf0730cf2243b089efc9d40bbe9a4f73bd8fd19684db5a985329b0c4402b4f2fe26358
   languageName: node
   linkType: hard
 
@@ -6844,13 +6789,6 @@ __metadata:
   version: 3.1.1
   resolution: "strip-json-comments@npm:3.1.1"
   checksum: 492f73e27268f9b1c122733f28ecb0e7e8d8a531a6662efbd08e22cccb3f9475e90a1b82cab06a392f6afae6d2de636f977e231296400d0ec5304ba70f166443
-  languageName: node
-  linkType: hard
-
-"superstruct@npm:^1.0.3":
-  version: 1.0.4
-  resolution: "superstruct@npm:1.0.4"
-  checksum: 2e070994cc4998a753c3f0215449d6de01ffb8180e4f46527f559ffbc2ebcc40fcf428f545ccd355921ef2920db7d138a96258ae35c788e6c24b2aa8bb1695cb
   languageName: node
   linkType: hard
 

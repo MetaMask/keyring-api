@@ -37,6 +37,9 @@
     "test:types": "tsd",
     "test:watch": "jest --watch"
   },
+  "resolutions": {
+    "@metamask/snaps-sdk": "github:MetaMask/snaps#workspace=@metamask/snaps-sdk&commit=485c9699ddb0109068d7a07ecdd3539e510c8df6"
+  },
   "dependencies": {
     "@metamask/providers": "17.0.0",
     "@metamask/snaps-sdk": "^6.0.0",
