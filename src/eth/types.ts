@@ -1,5 +1,5 @@
-import type { Infer } from 'superstruct';
-import { array, enums, literal } from 'superstruct';
+import type { Infer } from '@metamask/superstruct';
+import { array, enums, literal } from '@metamask/superstruct';
 
 import { EthAccountType, KeyringAccountStruct } from '../api';
 import { object, definePattern } from '../superstruct';
