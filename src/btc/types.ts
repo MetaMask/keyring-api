@@ -1,6 +1,6 @@
+import type { Infer } from '@metamask/superstruct';
+import { string, array, enums, refine, literal } from '@metamask/superstruct';
 import { bech32 } from 'bech32';
-import type { Infer } from 'superstruct';
-import { string, array, enums, refine, literal } from 'superstruct';
 
 import { KeyringAccountStruct, BtcAccountType } from '../api';
 import { object } from '../superstruct';

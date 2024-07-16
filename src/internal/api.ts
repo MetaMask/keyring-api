@@ -1,6 +1,13 @@
+import type { Infer } from '@metamask/superstruct';
+import {
+  array,
+  literal,
+  number,
+  record,
+  string,
+  union,
+} from '@metamask/superstruct';
 import { JsonStruct } from '@metamask/utils';
-import type { Infer } from 'superstruct';
-import { array, literal, number, record, string, union } from 'superstruct';
 
 import {
   BalanceStruct,
