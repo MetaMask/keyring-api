@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Migrate to `@metamask/superstruct` and update required dependencies ([#355](https://github.com/MetaMask/keyring-api/pull/355)).
+- Migrate to @metamask/superstruct and update required dependencies ([#355](https://github.com/MetaMask/keyring-api/pull/355)).
 - Bump @metamask/providers from 17.1.0 to 17.1.1 ([#354](https://github.com/MetaMask/keyring-api/pull/354)).
 - Bump @metamask/key-tree from 9.1.1 to 9.1.2 ([#351](https://github.com/MetaMask/keyring-api/pull/351)).
 - Bump @metamask/rpc-errors from 6.3.0 to 6.3.1 ([#350](https://github.com/MetaMask/keyring-api/pull/350)).
