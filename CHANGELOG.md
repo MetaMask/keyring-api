@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump @metamask/rpc-errors from 6.3.0 to 6.3.1 ([#350](https://github.com/MetaMask/keyring-api/pull/350)).
 - Bump @metamask/providers from 17.0.0 to 17.1.0 ([#348](https://github.com/MetaMask/keyring-api/pull/348)).
 - Bump @metamask/snaps-sdk from 4.4.2 to 6.0.0 ([#347](https://github.com/MetaMask/keyring-api/pull/347)).
-- Bump braces from 3.0.2 to 3.0.3 in the npm_and_yarn group across 1 directory ([#345](https://github.com/MetaMask/keyring-api/pull/345)).
+- Bump braces from 3.0.2 to 3.0.3 ([#345](https://github.com/MetaMask/keyring-api/pull/345)).
 
 ## [8.0.0]
 
