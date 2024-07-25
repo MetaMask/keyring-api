@@ -1,5 +1,5 @@
 import type { Infer, Struct } from '@metamask/superstruct';
-import { boolean, string, number } from '@metamask/superstruct';
+import { boolean, string, number, array } from '@metamask/superstruct';
 
 import { BtcAccountType, EthAccountType, KeyringAccountStruct } from '../api';
 import { BtcP2wpkhAccountStruct } from '../btc/types';
@@ -11,6 +11,7 @@ export type InternalAccountType = EthAccountType | BtcAccountType;
 export const InternalAccountMetadataStruct = object({
   metadata: object({
     name: string(),
+    conflictingNames: exactOptional(array(string())),
     snap: exactOptional(
       object({
         id: string(),
