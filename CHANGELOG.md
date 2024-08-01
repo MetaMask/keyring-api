@@ -9,11 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [8.1.0]
 
-### Uncategorized
+### Added
 
-- feat: add optional `nameLastUpdatedAt` metadata field ([#366](https://github.com/MetaMask/keyring-api/pull/366))
-- chore(deps): bump @metamask/snaps-sdk from 6.1.0 to 6.2.0 ([#367](https://github.com/MetaMask/keyring-api/pull/367))
-- chore(deps-dev): bump @metamask/providers from 17.1.1 to 17.1.2 ([#362](https://github.com/MetaMask/keyring-api/pull/362))
+- Add optional `nameLastUpdatedAt` metadata field ([#366](https://github.com/MetaMask/keyring-api/pull/366))
+
+### Changed
+
+- Bump @metamask/snaps-sdk from 6.1.0 to 6.2.0 ([#367](https://github.com/MetaMask/keyring-api/pull/367))
+- Bump @metamask/providers from 17.1.1 to 17.1.2 ([#362](https://github.com/MetaMask/keyring-api/pull/362))
 
 ## [8.0.2]
 
