@@ -11,6 +11,7 @@ export type InternalAccountType = EthAccountType | BtcAccountType;
 export const InternalAccountMetadataStruct = object({
   metadata: object({
     name: string(),
+    nameLastUpdatedAt: exactOptional(number()),
     snap: exactOptional(
       object({
         id: string(),
