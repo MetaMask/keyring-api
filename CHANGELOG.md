@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.1.0]
+
+### Added
+
+- Add optional `nameLastUpdatedAt` metadata field ([#366](https://github.com/MetaMask/keyring-api/pull/366))
+
+### Changed
+
+- Bump @metamask/snaps-sdk from 6.1.0 to 6.2.0 ([#367](https://github.com/MetaMask/keyring-api/pull/367))
+- Bump @metamask/providers from 17.1.1 to 17.1.2 ([#362](https://github.com/MetaMask/keyring-api/pull/362))
+
 ## [8.0.2]
 
 ### Changed
@@ -379,7 +390,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SnapController keyring client. It is intended to be used by MetaMask to talk to the snap.
 - Helper functions to create keyring handler in the snap.
 
-[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v8.0.2...HEAD
+[Unreleased]: https://github.com/MetaMask/keyring-api/compare/v8.1.0...HEAD
+[8.1.0]: https://github.com/MetaMask/keyring-api/compare/v8.0.2...v8.1.0
 [8.0.2]: https://github.com/MetaMask/keyring-api/compare/v8.0.1...v8.0.2
 [8.0.1]: https://github.com/MetaMask/keyring-api/compare/v8.0.0...v8.0.1
 [8.0.0]: https://github.com/MetaMask/keyring-api/compare/v7.0.0...v8.0.0
