@@ -3,6 +3,7 @@
   "ignores": [
     "@lavamoat/allow-scripts",
     "@lavamoat/preinstall-always-fail",
+    "@types/eslint",
     "@types/jest",
     "@types/node",
     "prettier-plugin-packagejson",
