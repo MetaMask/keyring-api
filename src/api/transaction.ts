@@ -152,7 +152,7 @@ export const TransactionStruct = object({
   /**
    * Transaction status.
    */
-  status: enums(['pending', 'confirmed', 'failed']),
+  status: enums(['submitted', 'pending', 'confirmed', 'failed']),
 
   /**
    * Timestamp of when the transaction was added to the blockchain.
