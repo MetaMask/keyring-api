@@ -151,6 +151,17 @@ export const TransactionStruct = object({
 
   /**
    * Transaction status.
+   *
+   * The possible values are:
+   *
+   * - submitted: The transaction has been submitted but is not yet in the
+   * blockchain. For example, it can be in the mempool.
+   *
+   * - pending: The transaction is in the blockchain has not been confirmed.
+   *
+   * - confirmed: The transaction has been confirmed.
+   *
+   * - failed: The transaction has failed. For example, it has been reverted.
    */
   status: enums(['submitted', 'pending', 'confirmed', 'failed']),
 
