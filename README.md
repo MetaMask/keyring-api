@@ -1,5 +1,10 @@
 # MetaMask Keyring API
 
+> [!WARNING]
+> This package has been moved into a
+> [new monorepo](https://github.com/MetaMask/accounts/tree/main/packages/keyring-api).
+> This repository is no longer in use, and pull requests will no longer be accepted.
+
 This TypeScript module simplifies the integration of Snaps with MetaMask using
 the Keyring API.
 
